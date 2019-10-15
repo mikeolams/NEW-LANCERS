@@ -4,7 +4,6 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-        <div class="card-header"><a href='/dashboard' >Testing auto deployment</a></div>
                 <div class="card-header"><a href='/dashboard' >Dashboard</a></div>
                     <div class="card-header"><a href='/users/subscriptions' >Subscriptions</a></div>
                     <div class="card-header"><a href='/users/view/subscriptions' >Current Plan</a></div>
