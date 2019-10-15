@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,11 +16,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Auth::routes(['verify' => true]);
+
+
+Route::get('/email/client', function(Request $request){
+    if ($request->query('email')) {
+        return view('auth.passwords.create')->withEmail($request->query('email'));
+    }
+    abort(404);
+});
+
+
+Route::post('password/create', 'AuthController@create_password')->name('password.create');
+
+Route::get('logout', 'AuthController@logout')->name('logout');
+
 Route::post('/contracts/{project_id}/{template_id}', 'ContractControler@store')->name('create.contract');
 Route::put('/contracts/{project_id}/{id}')->name('edit.contract');
 Route::delete('/contracts/{project_id}/{id}')->name('delete.contract');
-
-Auth::routes();
 
 Route::get('/pricing', function () {
     return view('pricing');
@@ -100,7 +114,7 @@ Route::get('/set_estimate', function () {
 
 
 
-    Route::get('/transactions', 'TransactionsController@index');
+Route::get('/transactions', 'TransactionsController@index');
 
 
 Route::get('/invoice/pdf', function() {
