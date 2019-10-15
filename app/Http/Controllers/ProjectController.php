@@ -23,8 +23,6 @@ class ProjectController extends Controller
         }
          return $this->ERROR('no Project Found');
     }
-        
-    }
 
     public function userProjects()
     {
@@ -37,7 +35,6 @@ class ProjectController extends Controller
             return $this->SUCCESS("Projects retrieved", $tasks);
         }
         return $this->ERROR('no project Found');
-    }
     }
 
     /**
@@ -254,6 +251,4 @@ class ProjectController extends Controller
         }
 
     }
-
-
 }
