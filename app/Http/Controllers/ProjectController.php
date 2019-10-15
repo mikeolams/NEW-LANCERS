@@ -11,11 +11,6 @@ use Illuminate\Http\Request;
 class ProjectController extends Controller
 {
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $user = Auth::user();
@@ -23,7 +18,11 @@ class ProjectController extends Controller
         $projects = $user->projects()->select('id','title', 'status', 'created_at')->with(['estimate:project_id,start,end,estimate', 'invoice:project_id,amount,amount_paid'])->get();
 
         // return $projects;
-        return response()->json($projects, 200);
+        if($projects){
+            return $this->SUCCESS("project retrieved", $projects);
+        }
+         return $this->ERROR('no Project Found');
+    }
         
     }
 
@@ -33,8 +32,12 @@ class ProjectController extends Controller
 
         $projects = $user->projects()->select('id','title')->get()->toArray();
 
-                // return $projects;
-        return response()->json($projects, 200);
+        // return $projects;
+        if($projects){
+            return $this->SUCCESS("Projects retrieved", $tasks);
+        }
+        return $this->ERROR('no project Found');
+    }
     }
 
     /**
