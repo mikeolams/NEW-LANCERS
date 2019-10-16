@@ -38,6 +38,26 @@ Route::delete('/contracts/{project_id}/{id}')->name('delete.contract');
 Route::get('/pricing', function () {
     return view('pricing');
 });
+//web route inside web view
+//client
+Route::get('/client', function () {
+    return view('client');
+});
+Route::get('/project/status', function () {
+    return view('project-status');
+});
+
+
+Route::get('/project/collabrators', function () {
+    return view('project-collabrators');
+});
+
+Route::get('/invoice', function () {
+    return view('invoice_view');
+});
+Route::get('/client-info', function () {
+    return view('client-info');
+});
 
 
 
