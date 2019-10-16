@@ -102,7 +102,15 @@ Route::put('user/notifications/read/all', 'NotificationsController@markAllAsRead
 Route::get('/invoice_sent', function () {
     return view('invoice_sent');
 });
-Route::get('/invoice_view', function () {
+
+Route::get('/client-doc-view', function () {
+    return view('client-doc-view');
+});
+
+Route::get('/invoice-view', function () {
+    return view('invoice-view');
+
+    Route::get('/invoice_view', function () {
     return view('invoice_view');
 });
 
@@ -134,7 +142,7 @@ Route::get('/transactions', 'TransactionsController@index');
 Route::get('/invoice/pdf', function() {
     //return view('invoice_view_pdf');
 
-    $pdf = PDF::loadView('invoice_view_pdf');  
+    $pdf = PDF::loadView('invoice_view_pdf');
     return $pdf->download('lancers_invoice.pdf');
 });
 
