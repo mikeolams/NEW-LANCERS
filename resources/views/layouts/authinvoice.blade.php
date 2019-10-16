@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('styles')
 <style>
@@ -350,7 +350,7 @@ table.project-table tbody tr td, table.project-table thead tr th {
 @section('content')
     
 <div class="wrapper">
-    <!-- Side Nav -->
+     <!-- Side Nav -->
     <nav id="sidebar">
         <div class="sidebar-header">
             <img src="https://lancer-app.000webhostapp.com/images/svg/Lancers.svg" height="35" width="auto" class="img img-responsive">
@@ -403,6 +403,7 @@ table.project-table tbody tr td, table.project-table thead tr th {
             </li>
         </ul>
     </nav>
+
 
 
 

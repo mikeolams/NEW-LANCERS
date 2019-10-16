@@ -344,6 +344,8 @@ table.project-table tbody tr td, table.project-table thead tr th {
     margin: 0px;
 }
 </style>
+
+@stack('styles')
 @endsection
 
 

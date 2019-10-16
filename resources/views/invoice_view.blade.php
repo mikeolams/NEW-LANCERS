@@ -459,55 +459,539 @@ tbody, .bold {
     margin-bottom: 2rem;
 }
 }
+
+
+#group4 {
+	position: absolute;
+	left: 10.77%;
+right: 50.73%;
+top: 45.51%;
+bottom: 40.42%;
+}
+
+#invoice{
+	position: absolute;
+left: 30.15%;
+right: 33.85%;
+top: 45.51%;
+bottom: 52.05%;
+color: #FFFFFF;
+}
+
+#group5 {
+	position: absolute;
+	left: 10.77%;
+right: 30.97%;
+top: 54.98%;
+bottom: 34.21%;
+}
+
+#contract{
+	position: absolute;
+	left: 30.15%;
+right: 28.46%;
+top: 54.98%;
+bottom: 42.58%;
+color: #FFFFFF;
+}
+
+#group6 {
+	position: absolute;
+	left: 10.77%;
+right: 50.92%;
+top: 64.45%;
+bottom: 77%;
+}
+
+#proposal{
+	position: absolute;
+	left: 30.15%;
+right: 25%;
+top: 64.45%;
+bottom: 33.11%;
+color: #FFFFFF;
+}
+
+.header-con {
+	position: absolute;
+	left: 0%;
+top: 0%;
+bottom: 91.9%;
+background: #FFFFFF;
+}
+
+.link {
+	font-family: Ubuntu;
+font-style: normal;
+font-weight: bold;
+font-size: 20px;
+line-height: 34px;
+color: #000000;
+opacity: 0.8;
+}
+
+#pro {
+	position: absolute;
+width: 164px;
+height: 34px;
+left: 325px;
+top: 44px;
+}
+
+#cli {
+	position: absolute;
+width: 147px;
+height: 34px;
+left: 539px;
+top: 44px;
+}
+
+#set {
+	position: absolute;
+width: 116px;
+height: 34px;
+left: 741px;
+top: 44px;
+}
+
+#tools {
+	position: absolute;
+width: 252px;
+height: 34px;
+left: 912px;
+top: 44px;
+}
+
+.box1 {
+	position: absolute;
+width: 78px;
+height: 35px;
+left: 970px;
+top: 140px;
+box-sizing: border-box;
+}
+
+#edit {
+	position: absolute;
+width: 60px;
+height: 28px;
+left: 5px;
+top: 3px;
+font-family: Ubuntu;
+font-style: normal;
+font-weight: bold;
+font-size: 18px;
+line-height: 28px;
+color: #546067;
+}
+
+button {
+	border: 3px solid #546067;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.box2 {
+	position: absolute;
+width: 83px;
+height: 45px;
+left: 1060px;
+top: 140px;
+box-sizing: border-box;
+border-radius: 10px;
+}
+
+#delete {
+	position: absolute;
+width: 78px;
+height: 28px;
+left: 3px;
+top: 3px;
+font-family: Ubuntu;
+font-style: normal;
+font-weight: bold;
+font-size: 18px;
+line-height: 28px;
+color: #546067;
+}
+
+.client-info {
+	position: absolute;
+width: 953px;
+height: 781px;
+left: 300px;
+top: 200px;
+}
+
+#contact {
+	position: absolute;
+width: 176px;
+height: 55px;
+left: 25px;
+top: 20px;
+font-family: Ubuntu;
+font-style: normal;
+font-weight: bold;
+font-size: 25px;
+line-height: 50px;
+color: #000000;
+}
+
+.name {
+	position: absolute;
+width: 130px;
+height: 85px;
+left: 20px;
+top: 50px;
+font-family: Ubuntu;
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+}
+
+#nme {
+	position: absolute;
+width: 81px;
+height: 34px;
+left: 8px;
+top: 20px;
+line-height: 34px;
+color: #A6A6A6;
+}
+
+#john {
+	position: absolute;
+width: 130px;
+height: 35px;
+left: 8px;
+top: 55px;
+line-height: 35px;
+color: #000000;
+}
+
+#add {
+	font-family: Ubuntu;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+}
+
+#mail {
+	position: absolute;
+width: 192px;
+height: 34px;
+left: 300px;
+top: 20px;
+line-height: 34px;
+color: #A6A6A6;
+}
+
+#gmail {
+	position: absolute;
+width: 287px;
+height: 35px;
+left: 300px;
+top: 55px;
+line-height: 35px;
+color: #000000;
+}
+
+#numb {
+	font-family: Ubuntu;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+}
+
+#phone {
+	position: absolute;
+width: 205px;
+height: 34px;
+left: 700px;
+top: 20px;
+line-height: 34px;
+color: #A6A6A6;
+}
+
+#number {
+	position: absolute;
+width: 238px;
+height: 35px;
+left: 680px;
+top: 55px;
+line-height: 35px;
+color: #000000;
+}
+
+#billing {
+	position: absolute;
+width: 250px;
+height: 55px;
+left: 25px;
+top: 190px;
+font-family: Ubuntu;
+font-style: normal;
+font-weight: bold;
+font-size: 25px;
+line-height: 55px;
+color: #000000;
+}
+
+.curr {
+	position: absolute;
+width: 122px;
+height: 85px;
+left: 20px;
+top: 220px;
+font-family: Ubuntu;
+font-style: normal;
+font-size: 18px;
+}
+
+#currency {
+	position: absolute;
+width: 122px;
+height: 34px;
+left: 8px;
+top: 20px;
+line-height: 34px;
+color: #A6A6A6;
+font-weight: normal;
+}
+
+#ngn {
+	position: absolute;
+width: 64px;
+height: 35px;
+left: 8px;
+top: 55px;
+line-height: 35px;
+color: #000000;
+font-weight: bold;
+}
+
+#home {
+	font-family: Ubuntu;
+font-style: normal;
+font-size: 18px;
+}
+
+#address {
+	position: absolute;
+width: 192px;
+height: 34px;
+left: 300px;
+top: 20px;
+line-height: 34px;
+color: #A6A6A6;
+font-weight: normal;
+}
+
+#lorem {
+	position: absolute;
+width: 287px;
+height: 35px;
+left: 300px;
+top: 55px;
+line-height: 35px;
+color: #000000;
+font-weight: bold;
+}
+
+#place {
+	font-family: Ubuntu;
+font-style: normal;
+font-size: 18px;
+}
+
+#city {
+	position: absolute;
+width: 205px;
+height: 34px;
+left: 790px;
+top: 20px;
+line-height: 34px;
+color: #A6A6A6;
+font-weight: normal;
+}
+
+#abuja {
+	position: absolute;
+width: 238px;
+height: 35px;
+left: 780px;
+top: 55px;
+line-height: 35px;
+color: #000000;
+font-weight: bold;
+}
+
+.cde {
+	position: absolute;
+width: 120px;
+height: 85px;
+left: 20px;
+top: 310px;
+font-family: Ubuntu;
+font-style: normal;
+font-size: 18px;
+}
+
+#zip {
+	position: absolute;
+width: 120px;
+height: 34px;
+left: 8px;
+top: 20px;
+font-weight: normal;
+line-height: 34px;
+color: #A6A6A6;
+}
+
+#code {
+	position: absolute;
+	width: 51px;
+height: 35px;
+left: 8px;
+top: 55px;
+font-weight: bold;
+line-height: 35px;
+color: #000000;
+}
+
+#count {
+	font-family: Ubuntu;
+font-style: normal;
+font-size: 18px;
+}
+
+#country {
+	position: absolute;
+width: 110px;
+height: 34px;
+left: 300px;
+top: 20px;
+line-height: 34px;
+color: #A6A6A6;
+font-weight: normal;
+}
+
+#nigeria {
+	position: absolute;
+width: 99px;
+height: 35px;
+left: 300px;
+top: 55px;
+font-weight: bold;
+line-height: 35px;
+color: #000000;
+}
+
+#st {
+	font-family: Ubuntu;
+font-style: normal;
+font-size: 18px;
+}
+
+#state {
+	position: absolute;
+width: 73px;
+height: 34px;
+left: 785px;
+top: 20px;
+font-weight: normal;
+line-height: 34px;
+color: #A6A6A6;
+}
+
+#abj {
+	position: absolute;
+width: 79px;
+height: 35px;
+left: 780px;
+top: 55px;
+font-weight: bold;
+line-height: 35px;
+color: #000000;
+}
+
+#more {
+	position: absolute;
+width: 118px;
+height: 55px;
+left: 25px;
+top: 450px;
+font-family: Ubuntu;
+font-style: normal;
+font-weight: bold;
+font-size: 25px;
+line-height: 55px;
+color: #000000;
+}
+
+#na {
+	position: absolute;
+width: 52px;
+height: 34px;
+left: 25px;
+top: 500px;
+font-family: Ubuntu;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 34px;
+color: #A6A6A6;
+}
 </style>
-<div class="container">
-   
 
-      <section class="invoice-body ml-4"> 
-          <div class="container ">
-              <div class="row mt-5 ml-4">
-                <button type="button" class="btn btn-outline-dark ">Print</button>
-                <button type="button" class="btn btn-outline-dark ml-4">Download as PDF   </button>
-                <button type="button" class="btn btn-outline-dark ml-auto">Edit</button>
-                <button type="button" class="btn btn-primary ml-4">Other actions</button>
-              </div>
-          </div>
-      </section>
+<section class="invoice-body m-auto">
+    <div class="container">
+        <div class="row mt-5 px-3">
+            <button type="button" class="btn btn-outline-dark ">Print</button>
+            <a href="{{URL::to('/invoice/pdf')}}" class="btn btn-outline-dark ml-4">Download as PDF </a>
+            <button type="button" class="btn btn-outline-dark ml-auto">Edit</button>
+            <button type="button" class="btn btn-secondary ml-4">Other actions</button>
+        </div>
+    </div>
+</section>
 
-    <section class="invoice-main ">
-        <div class="container invoice-container shadow">
-            <section id="showcase ">
-                <div class="row container pt-3 ">
-                    <div class="col-6 mb-4">
-                        <h1> Invoice </h1>
-                        <address contenteditable="">
-                            <p> <b>Project:</b> branding and marketing</p>
-                            <p> <b>Lancer:</b> Endurance dan-jumbo</p>
-                            <p> <b>Email:</b> Edanjumbo@gmail.com</p>
-                            <p> <b>Address:</b> Accra, Ghana</p>
-                        </address>
-                    </div>
-
-                    <div class="col-6">
-                        <img src="https://res.cloudinary.com/samtech/image/upload/v1570725037/My_Logo_-_Black.png" class="img-fluid logo-img">
-                    </div>
+<section class="invoice-main">
+    <div class="container m-auto invoice-container shadow">
+        <section id="showcase ">
+            <div class="row container pt-3 ">
+                <div class="col-6 mb-4">
+                    <h1> Invoice </h1>
+                    <address contenteditable="">
+                        <p> <b>Project:</b> branding and marketing</p>
+                        <p> <b>Lancer:</b> Endurance dan-jumbo</p>
+                        <p> <b>Email:</b> Edanjumbo@gmail.com</p>
+                        <p> <b>Address:</b> Accra, Ghana</p>
+                    </address>
                 </div>
-                <table class="table-responsive" style="width: 100%">
-                    <thead>
-                        <tr>
-                            <th> Bill to</th>
-                            <th> Issue Date </th>
-                            <th> Hourly Rate</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+
+                <div class="col-6">
+                    <img src="https://res.cloudinary.com/samtech/image/upload/v1570725037/My_Logo_-_Black.png"
+                        class="img-fluid logo-img">
+                </div>
+            </div>
+            <table class="table-responsive" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th> Bill to</th>
+                        <th> Issue Date </th>
+                        <th> Hourly Rate</th>
+                    </tr>
+                </thead>
+                <tbody>
                     <tr>
                         <td><span contenteditable="">John Doe</span> </td>
                         <td><span contenteditable=""> 18th September 2019</span></td>
-                        <td> N/A</td>      
+                        <td> N/A</td>
                     </tr>
                     <tr>
-                      <td><span contenteditable="">Johndoe@gmail.com</span></td>
+                        <td><span contenteditable="">Johndoe@gmail.com</span></td>
                         <td></td>
                         <td></td>
                     </tr>
@@ -517,99 +1001,97 @@ tbody, .bold {
                         <th class="table-date"> Amount Due</th>
                     </tr>
                     <tr>
-                      <td></td>
-                      <td><span contenteditable="">28th September 2019</span> </td>
-                      <td><span contenteditable="" class="tableAmount">NGN 38,500</span> </td>
+                        <td></td>
+                        <td><span contenteditable="">28th September 2019</span> </td>
+                        <td><span contenteditable="" class="tableAmount">NGN 38,500</span> </td>
                     </tr>
-                  </tbody>
+                </tbody>
+            </table>
+
+            <section class="invoice-description mt-4  ">
+
+                <table class="table table-responsive container " style="width: 100%">
+                    <thead class="thead bg-dark" style="color: white;">
+                        <tr>
+                            <th scope="col" class="">Description</th>
+                            <th> </th>
+                            <th></th>
+                            <th></th>
+                            <th scope="col">Quantity </th>
+
+                            <th></th>
+
+                            <th scope="col">Rate </th>
+
+
+                            <th></th>
+                            <th scope="col">Amount</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="4">Sed ut perspiciatis unde omnis iste</td>
+                            <td>1</td>
+                            <td></td>
+                            <td>NGN3500</td>
+                            <td></td>
+                            <td>NGN3500</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">Sed ut perspiciatis unde omnis iste</td>
+                            <td>10</td>
+                            <td></td>
+                            <td>NGN1700</td>
+                            <td></td>
+                            <td>NGN17000</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">Sed ut perspiciatis unde omnis iste</td>
+
+                            <td>15</td>
+                            <td></td>
+                            <td>NGN1200</td>
+                            <td></td>
+                            <td>NGN18000</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"></td>
+                            <td></td>
+                            <td></td>
+                            <td>Total</td>
+                            <td></td>
+                            <td>NGN38500</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+
+                            <td class="removeBorder" colspan="4"></td>
+                            <td class="removeBorder"></td>
+                            <td class="removeBorder table-date" colspan="2" style="text-align: right;">Discount</td>
+                            <td class="removeBorder"></td>
+                            <td class="removeBorder bold">N/A</td>
+                        </tr>
+                        <tr>
+                            <td class="removeBorder" colspan="4"></td>
+                            <td class="removeBorder"></td>
+                            <td class="thickLine bold" colspan="2" style="text-align: right;">Amount Due</td>
+                            <td class="thickLine"></td>
+                            <td class="thickLine bold">NGN38500</td>
+                        </tr>
+                    </tfoot>
                 </table>
-                
-            <section class="invoice-description mt-4    ">
-
-                    <table class="table table-responsive container " style="width: 100%">
-                        <thead class="thead" style="background-color: #009FFF; color: white;">
-                            <tr>
-                                <th scope="col" class="">Description</th>
-                                <th> </th>
-                                <th></th>
-                                <th></th>
-                                <th scope="col">Quantity </th>
-    
-                                <th></th>
-    
-                                <th scope="col">Rate </th>
-    
-    
-                                <th></th>
-                                <th scope="col">Amount</th>
-    
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td colspan="4">Sed ut perspiciatis unde omnis iste</td>
-                                <td>1</td>
-                                <td></td>
-                                <td>NGN3500</td>
-                                <td></td>
-                                <td>NGN3500</td>
-                            </tr>
-                            <tr>
-                                <td colspan="4">Sed ut perspiciatis unde omnis iste</td>
-                                <td>10</td>
-                                <td></td>
-                                <td>NGN1700</td>
-                                <td></td>
-                                <td>NGN17000</td>
-                            </tr>
-                            <tr>
-                                <td colspan="4">Sed ut perspiciatis unde omnis iste</td>
-    
-                                <td>15</td>
-                                <td></td>
-                                <td>NGN1200</td>
-                                <td></td>
-                                <td>NGN18000</td>
-                            </tr>
-                          <tr>
-                           <td colspan="4"></td>
-                              <td></td>
-                              <td></td>
-                              <td>Total</td>
-                              <td></td>
-                              <td>NGN38500</td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                              
-                           <td class="removeBorder" colspan="4"></td>
-                              <td class="removeBorder"></td>
-                              <td class="removeBorder table-date" colspan="2" style="text-align: right;">Discount</td>
-                              <td class="removeBorder"></td>
-                              <td class="removeBorder bold">N/A</td>
-                            </tr>
-                            <tr>
-                           <td class="removeBorder" colspan="4"></td>
-                              <td class="removeBorder"></td>
-                              <td class="thickLine bold" colspan="2" style="text-align: right;">Amount Due</td>
-                              <td class="thickLine"></td>
-                              <td class="thickLine bold">NGN38500</td>
-                            </tr>
-                          </tfoot>
-                    </table>
-                </section>
-
-                <section class="invoice-table" style="position: relative; top: 0rem">
-                <section class="note">
-                    <h5> Note</h5>
-                    <p> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dolor laudantium, totam
-                        rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi.</p>
-                </section>
-                </section>
-                </div>
             </section>
 
-</div> 
-
+            <section class="invoice-table" style="position: relative; top: 0rem">
+                <section class="note">
+                    <h5> Note</h5>
+                    <p> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dolor laudantium,
+                        totam
+                        rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi.</p>
+                </section>
+            </section>
+    </div>
+</section>
 @endsection
