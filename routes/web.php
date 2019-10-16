@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,11 +16,45 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
+Route::get('/create_password', function () {
+    return view('Create_password');
+});
+
+Route::get('/passwordresetconfirmation', function () {
+    return view('passwordresetconfirmation');
+});
+
+Route::get('/passwordresetmessage', function () {
+    return view('passwordresetmessage');
+});
+
+Route::get('/passwordreset', function () {
+    return view('passwordreset');
+});
+
+
+
+Auth::routes(['verify' => true]);
+
+
+Route::get('/email/client', function(Request $request){
+    if ($request->query('email')) {
+        return view('auth.passwords.create')->withEmail($request->query('email'));
+    }
+    abort(404);
+});
+
+
+Route::post('password/create', 'AuthController@create_password')->name('password.create');
+
+Route::get('logout', 'AuthController@logout')->name('logout');
+
+
 Route::post('/contracts/{project_id}/{template_id}', 'ContractControler@store')->name('create.contract');
 Route::put('/contracts/{project_id}/{id}')->name('edit.contract');
 Route::delete('/contracts/{project_id}/{id}')->name('delete.contract');
-
-Auth::routes();
 
 Route::get('/pricing', function () {
     return view('pricing');
@@ -88,32 +123,59 @@ Route::put('user/notifications/read/all', 'NotificationsController@markAllAsRead
 Route::get('/invoice_sent', function () {
     return view('invoice_sent');
 });
-Route::get('/invoice_view', function () {
-    return view('invoice_view');
+
+Route::get('/client-doc-view', function () {
+    return view('client-doc-view');
 });
-Route::get('/create_estimate', function () {
+
+Route::get('/invoice-view', function () {
+    return view('invoice-view');
+});
+
+
+Route::get('guest/create_estimate', function () {
     return view('create_estimate');
 });
+
+Route::get('guest/create_estimate', function () {
+    return view('guests/guest_estimate');
+});
+
+Route::get('guest/create_project/', function () {
+    return view('guests/createproject');
+});
+
+Route::post('guest/project/create', 'GuestController@createproject')->middleware('guest');
+
+
 Route::get('/set_estimate', function () {
     return view('set_estimate');
 });
 
 
 
-    Route::get('/transactions', 'TransactionsController@index');
+Route::get('/transactions', 'TransactionsController@index');
 
 
 Route::get('/invoice/pdf', function() {
     //return view('invoice_view_pdf');
 
-    $pdf = PDF::loadView('invoice_view_pdf');  
+    $pdf = PDF::loadView('invoice_view_pdf');
     return $pdf->download('lancers_invoice.pdf');
 });
 
 
 Route::get('test/pdf', function(){
     return view('invoice_view_pdf');
+});
 
+Route::get('/user_invoice', function(){
+    return view('user_invoice');
+});
+
+Route::get('/guest_invoice', function(){
+    return view('guest_invoice');
+});
 
     Route::get('password/changed',function() {
         return view('passwordchanged');
@@ -122,4 +184,3 @@ Route::get('test/pdf', function(){
     Route::get('invoice/review', function() {
         return view('reviewinvoice');
     });
-});
