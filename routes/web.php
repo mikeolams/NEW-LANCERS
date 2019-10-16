@@ -16,6 +16,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
+Route::get('/create_password', function () {
+    return view('Create_password');
+});
+
+Route::get('/passwordresetconfirmation', function () {
+    return view('passwordresetconfirmation');
+});
+
+Route::get('/passwordresetmessage', function () {
+    return view('passwordresetmessage');
+});
+
+Route::get('/passwordreset', function () {
+    return view('passwordreset');
+});
+
+
+
 Auth::routes(['verify' => true]);
 
 
@@ -30,6 +50,7 @@ Route::get('/email/client', function(Request $request){
 Route::post('password/create', 'AuthController@create_password')->name('password.create');
 
 Route::get('logout', 'AuthController@logout')->name('logout');
+
 
 Route::post('/contracts/{project_id}/{template_id}', 'ContractControler@store')->name('create.contract');
 Route::put('/contracts/{project_id}/{id}')->name('edit.contract');
@@ -102,20 +123,29 @@ Route::put('user/notifications/read/all', 'NotificationsController@markAllAsRead
 Route::get('/invoice_sent', function () {
     return view('invoice_sent');
 });
-Route::get('/invoice_view', function () {
-    return view('invoice_view');
+
+Route::get('/client-doc-view', function () {
+    return view('client-doc-view');
 });
+
+Route::get('/invoice-view', function () {
+    return view('invoice-view');
+});
+
+
 Route::get('guest/create_estimate', function () {
     return view('create_estimate');
 });
 
 Route::get('guest/create_estimate', function () {
-    return view('guest_estimate');
+    return view('guests/guest_estimate');
 });
 
 Route::get('guest/create_project/', function () {
-    return view('createproject');
+    return view('guests/createproject');
 });
+
+Route::post('guest/project/create', 'GuestController@createproject')->middleware('guest');
 
 
 Route::get('/set_estimate', function () {
@@ -130,7 +160,7 @@ Route::get('/transactions', 'TransactionsController@index');
 Route::get('/invoice/pdf', function() {
     //return view('invoice_view_pdf');
 
-    $pdf = PDF::loadView('invoice_view_pdf');  
+    $pdf = PDF::loadView('invoice_view_pdf');
     return $pdf->download('lancers_invoice.pdf');
 });
 
@@ -138,6 +168,7 @@ Route::get('/invoice/pdf', function() {
 Route::get('test/pdf', function(){
     return view('invoice_view_pdf');
 });
+
 
 Route::get('password/changed', function() {
     return view('passwordchanged');
@@ -147,7 +178,13 @@ Route::get('add/client', function() {
     return view('addclients');
 });
 
+Route::get('invoice/review', function() {
+    return view('reviewinvoice');
+});
+
 
 //Invoice routes
 Route::get('invoices/{invoice}/getpdf', 'InvoiceController@getPdf');
 Route::resource('invoices', 'InvoiceController');
+
+
