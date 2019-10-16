@@ -105,17 +105,21 @@ Route::get('/invoice_sent', function () {
 Route::get('/invoice_view', function () {
     return view('invoice_view');
 });
+
+
 Route::get('guest/create_estimate', function () {
     return view('create_estimate');
 });
 
 Route::get('guest/create_estimate', function () {
-    return view('guest_estimate');
+    return view('guest/guest_estimate');
 });
 
 Route::get('guest/create_project/', function () {
-    return view('createproject');
+    return view('guest/createproject');
 });
+
+Route::post('guest/project/create', 'GuestController@createproject')->middleware('guest');
 
 
 Route::get('/set_estimate', function () {
