@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +15,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
 
 
 Route::get('/create_password', function () {
@@ -34,11 +36,25 @@ Route::get('/passwordreset', function () {
 
 
 
+Auth::routes(['verify' => true]);
+
+
+Route::get('/email/client', function(Request $request){
+    if ($request->query('email')) {
+        return view('auth.passwords.create')->withEmail($request->query('email'));
+    }
+    abort(404);
+});
+
+
+Route::post('password/create', 'AuthController@create_password')->name('password.create');
+
+Route::get('logout', 'AuthController@logout')->name('logout');
+
+
 Route::post('/contracts/{project_id}/{template_id}', 'ContractControler@store')->name('create.contract');
 Route::put('/contracts/{project_id}/{id}')->name('edit.contract');
 Route::delete('/contracts/{project_id}/{id}')->name('delete.contract');
-
-Auth::routes();
 
 Route::get('/pricing', function () {
     return view('pricing');
@@ -107,25 +123,43 @@ Route::put('user/notifications/read/all', 'NotificationsController@markAllAsRead
 Route::get('/invoice_sent', function () {
     return view('invoice_sent');
 });
-Route::get('/invoice_view', function () {
+
+Route::get('/client-doc-view', function () {
+    return view('client-doc-view');
+});
+
+Route::get('/invoice-view', function () {
+    return view('invoice-view');
+
+    Route::get('/invoice_view', function () {
     return view('invoice_view');
 });
-Route::get('/create_estimate', function () {
+Route::get('guest/create_estimate', function () {
     return view('create_estimate');
 });
+
+Route::get('guest/create_estimate', function () {
+    return view('guest_estimate');
+});
+
+Route::get('guest/create_project/', function () {
+    return view('createproject');
+});
+
+
 Route::get('/set_estimate', function () {
     return view('set_estimate');
 });
 
 
 
-    Route::get('/transactions', 'TransactionsController@index');
+Route::get('/transactions', 'TransactionsController@index');
 
 
 Route::get('/invoice/pdf', function() {
     //return view('invoice_view_pdf');
 
-    $pdf = PDF::loadView('invoice_view_pdf');  
+    $pdf = PDF::loadView('invoice_view_pdf');
     return $pdf->download('lancers_invoice.pdf');
 });
 
