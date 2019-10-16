@@ -169,6 +169,13 @@ Route::get('test/pdf', function(){
     return view('invoice_view_pdf');
 });
 
+Route::get('/user_invoice', function(){
+    return view('user_invoice');
+});
+
+Route::get('/guest_invoice', function(){
+    return view('guest_invoice');
+});
 
 Route::get('password/changed', function() {
     return view('passwordchanged');
