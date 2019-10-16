@@ -15,6 +15,25 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::get('/create_password', function () {
+    return view('Create_password');
+});
+
+Route::get('/passwordresetconfirmation', function () {
+    return view('passwordresetconfirmation');
+});
+
+Route::get('/passwordresetmessage', function () {
+    return view('passwordresetmessage');
+});
+
+Route::get('/passwordreset', function () {
+    return view('passwordreset');
+});
+
+
+
 Route::post('/contracts/{project_id}/{template_id}', 'ContractControler@store')->name('create.contract');
 Route::put('/contracts/{project_id}/{id}')->name('edit.contract');
 Route::delete('/contracts/{project_id}/{id}')->name('delete.contract');
