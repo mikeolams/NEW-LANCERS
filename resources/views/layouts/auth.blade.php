@@ -344,6 +344,8 @@ table.project-table tbody tr td, table.project-table thead tr th {
     margin: 0px;
 }
 </style>
+
+@stack('styles')
 @endsection
 
 
@@ -387,7 +389,7 @@ table.project-table tbody tr td, table.project-table thead tr th {
                 </ul>
             </li>
             <li>
-                <a href="#">
+                <a href="/invoices">
                     <img src="https://lancer-app.000webhostapp.com/images/svg/approve-invoice.svg" height="20" width="auto"> <span> Invoice</span>
                 </a>
             </li>

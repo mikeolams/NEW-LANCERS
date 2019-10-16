@@ -138,3 +138,16 @@ Route::get('/invoice/pdf', function() {
 Route::get('test/pdf', function(){
     return view('invoice_view_pdf');
 });
+
+Route::get('password/changed', function() {
+    return view('passwordchanged');
+});
+
+Route::get('add/client', function() {
+    return view('addclients');
+});
+
+
+//Invoice routes
+Route::get('invoices/{invoice}/getpdf', 'InvoiceController@getPdf');
+Route::resource('invoices', 'InvoiceController');

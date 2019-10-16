@@ -430,11 +430,13 @@
 </nav>
 <section class="invoice-body m-auto">
     <div class="container">
-        <div class="row mt-5 px-3">
-            <button type="button" class="btn btn-outline-dark ">Print</button>
+        <div class="mt-5 px-3">
+{{--             <button type="button" class="btn btn-outline-dark ">Print</button>
             <a href="{{URL::to('/invoice/pdf')}}" class="btn btn-outline-dark ml-4">Download as PDF </a>
             <button type="button" class="btn btn-outline-dark ml-auto">Edit</button>
-            <button type="button" class="btn btn-secondary ml-4">Other actions</button>
+            <button type="button" class="btn btn-secondary ml-4">Other actions</button> --}}
+            <a href="{{URL::to('/invoices/'.$invoice->invoice->id.'/getpdf')}}" class="btn btn-secondary ml-4 float-right">Download as PDF </a>
+            <div class="clearfix"></div>
         </div>
     </div>
 </section>
@@ -445,11 +447,11 @@
             <div class="row container pt-3 ">
                 <div class="col-6 mb-4">
                     <h1> Invoice </h1>
-                    <address contenteditable="">
-                        <p> <b>Project:</b> branding and marketing</p>
-                        <p> <b>Lancer:</b> Endurance dan-jumbo</p>
-                        <p> <b>Email:</b> Edanjumbo@gmail.com</p>
-                        <p> <b>Address:</b> Accra, Ghana</p>
+                    <address >
+                        <p> <b>Project:</b> {{$invoice->title}}</p>
+                        <p> <b>Lancer:</b> {{auth()->user()->name}}</p>
+                        <p> <b>Email:</b> {{auth()->user()->email}}</p>
+                        {{-- <p> <b>Address:</b> Accra, Ghana</p> --}}
                     </address>
                 </div>
 
@@ -468,24 +470,24 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><span contenteditable="">John Doe</span> </td>
-                        <td><span contenteditable=""> 18th September 2019</span></td>
+                        <td><span >{{$invoice->client->name}}</span> </td>
+                        <td><span >{{dateSlash($invoice->invoice->issue_date ?? $invoice->invoice->created_at)}}</span></td>
                         <td> N/A</td>
                     </tr>
                     <tr>
-                        <td><span contenteditable="">Johndoe@gmail.com</span></td>
+                        <td><span >{{$invoice->client->email}}</span></td>
                         <td></td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td><span contenteditable="">Accra, Ghana</span> </td>
+                        <td><span >{{getState($invoice->client->state_id)}}, {{getCountry($invoice->client->country_id)}}</span> </td>
                         <th class="table-date"> Due Date</th>
                         <th class="table-date"> Amount Due</th>
                     </tr>
                     <tr>
                         <td></td>
-                        <td><span contenteditable="">28th September 2019</span> </td>
-                        <td><span contenteditable="" class="tableAmount">NGN 38,500</span> </td>
+                        <td><span >Upon completion</span> </td>
+                        <td><span  class="tableAmount">NGN {{number_format((float)$invoice->invoice->amount, 2)}}</span> </td>
                     </tr>
                 </tbody>
             </table>
@@ -513,29 +515,29 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td colspan="4">Sed ut perspiciatis unde omnis iste</td>
+                            <td colspan="4">Man Hours</td>
+                            <td>{{$invoice->invoice->time}}</td>
+                            <td></td>
+                            <td>NGN{{number_format((float)$invoice->estimate->price_per_hour, 2)}}</td>
+                            <td></td>
+                            <td>NGN{{number_format((float)($invoice->estimate->price_per_hour * $invoice->estimate->time), 2)}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">Equipment Cost</td>
                             <td>1</td>
                             <td></td>
-                            <td>NGN3500</td>
+                            <td>NGN{{number_format((float)$invoice->estimate->equipment_cost, 2)}}</td>
                             <td></td>
-                            <td>NGN3500</td>
+                            <td>NGN{{number_format((float)$invoice->estimate->equipment_cost, 2)}}</td>
                         </tr>
                         <tr>
-                            <td colspan="4">Sed ut perspiciatis unde omnis iste</td>
-                            <td>10</td>
-                            <td></td>
-                            <td>NGN1700</td>
-                            <td></td>
-                            <td>NGN17000</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">Sed ut perspiciatis unde omnis iste</td>
+                            <td colspan="4" style="text-transform: capitalize;">{{$invoice->estimate->sub_contractors}}</td>
 
                             <td>15</td>
                             <td></td>
-                            <td>NGN1200</td>
+                            <td>NGN{{number_format((float)$invoice->estimate->sub_contractors_cost, 2)}}</td>
                             <td></td>
-                            <td>NGN18000</td>
+                            <td>NGN{{number_format((float)$invoice->estimate->sub_contractors_cost, 2)}}</td>
                         </tr>
                         <tr>
                             <td colspan="4"></td>
@@ -543,7 +545,7 @@
                             <td></td>
                             <td>Total</td>
                             <td></td>
-                            <td>NGN38500</td>
+                            <td>NGN{{number_format((float)$invoice->invoice->amount, 2)}}</td>
                         </tr>
                     </tbody>
                     <tfoot>
@@ -560,20 +562,14 @@
                             <td class="removeBorder"></td>
                             <td class="thickLine bold" colspan="2" style="text-align: right;">Amount Due</td>
                             <td class="thickLine"></td>
-                            <td class="thickLine bold">NGN38500</td>
+                            <td class="thickLine bold">NGN{{number_format((float)$invoice->invoice->amount, 2)}}</td>
                         </tr>
                     </tfoot>
                 </table>
             </section>
+            <p style="margin-bottom: 25px;"></p>
 
-            <section class="invoice-table" style="position: relative; top: 0rem">
-                <section class="note">
-                    <h5> Note</h5>
-                    <p> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dolor laudantium,
-                        totam
-                        rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi.</p>
-                </section>
-            </section>
     </div>
 </section>
+    <p style="margin-bottom: 100px;"></p>
 @endsection
