@@ -141,7 +141,7 @@ Route::get('guest/create_estimate', function () {
     return view('guests/guest_estimate');
 });
 
-Route::get('guest/create_project/', function () {
+Route::get('guest/create/project/', function () {
     return view('guests/createproject');
 });
 

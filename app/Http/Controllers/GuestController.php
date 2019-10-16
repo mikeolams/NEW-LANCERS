@@ -17,7 +17,7 @@ use Redirect;
 
 class GuestController extends Controller
 {
-    public function createproject()
+    public function createproject(Request $request)
     {
        
         $validator = Validator::make($request->all(), [
@@ -30,13 +30,13 @@ class GuestController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         } else {
-          $data = $request->session()->put('session_project',
+           $request->session()->put('project',
              ["title"=> $request->title,
             "description"=> $request->description,
             'tracking_code' => Project::generateTrackingCode()
             ]);
             // return view('view_name');
-
+                $data = $request->session()->get('project');
             dd($data);
         }
 
