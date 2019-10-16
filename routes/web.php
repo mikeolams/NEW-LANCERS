@@ -170,10 +170,21 @@ Route::get('test/pdf', function(){
 });
 
 
-    Route::get('password/changed',function() {
-        return view('passwordchanged');
-    });
+Route::get('password/changed', function() {
+    return view('passwordchanged');
+});
 
-    Route::get('invoice/review', function() {
-        return view('reviewinvoice');
-    });
+Route::get('add/client', function() {
+    return view('addclients');
+});
+
+Route::get('invoice/review', function() {
+    return view('reviewinvoice');
+});
+
+
+//Invoice routes
+Route::get('invoices/{invoice}/getpdf', 'InvoiceController@getPdf');
+Route::resource('invoices', 'InvoiceController');
+
+
