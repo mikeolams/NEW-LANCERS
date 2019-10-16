@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">Create project</div>
                 <div class="card-body">       
-                    <form method="POST" action="guest/project/create">
+                    <form method="POST" action="{{ url('/guest/project/create') }}">
                         @csrf
                         <div class="row form-group">                            
                             <label for="" class="col-md-4 col-form-label text-md-right">Enter project name</label>
