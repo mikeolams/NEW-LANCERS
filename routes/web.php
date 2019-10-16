@@ -138,11 +138,11 @@ Route::get('guest/create_estimate', function () {
 });
 
 Route::get('guest/create_estimate', function () {
-    return view('guest/guest_estimate');
+    return view('guests/guest_estimate');
 });
 
 Route::get('guest/create_project/', function () {
-    return view('guest/createproject');
+    return view('guests/createproject');
 });
 
 Route::post('guest/project/create', 'GuestController@createproject')->middleware('guest');
