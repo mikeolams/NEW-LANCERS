@@ -105,9 +105,19 @@ Route::get('/invoice_sent', function () {
 Route::get('/invoice_view', function () {
     return view('invoice_view');
 });
-Route::get('/create_estimate', function () {
+Route::get('guest/create_estimate', function () {
     return view('create_estimate');
 });
+
+Route::get('guest/create_estimate', function () {
+    return view('guest_estimate');
+});
+
+Route::get('guest/create_project/', function () {
+    return view('createproject');
+});
+
+
 Route::get('/set_estimate', function () {
     return view('set_estimate');
 });
