@@ -109,9 +109,6 @@ Route::get('/client-doc-view', function () {
 
 Route::get('/invoice-view', function () {
     return view('invoice-view');
-
-    Route::get('/invoice_view', function () {
-    return view('invoice_view');
 });
 
 
@@ -150,3 +147,12 @@ Route::get('/invoice/pdf', function() {
 Route::get('test/pdf', function(){
     return view('invoice_view_pdf');
 });
+
+
+    Route::get('password/changed',function() {
+        return view('passwordchanged');
+    });
+
+    Route::get('invoice/review', function() {
+        return view('reviewinvoice');
+    });
