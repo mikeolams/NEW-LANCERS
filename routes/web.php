@@ -113,4 +113,13 @@ Route::get('/invoice/pdf', function() {
 
 Route::get('test/pdf', function(){
     return view('invoice_view_pdf');
+
+
+    Route::get('password/changed',function() {
+        return view('passwordchanged');
+    });
+
+    Route::get('invoice/review', function() {
+        return view('reviewinvoice');
+    });
 });
