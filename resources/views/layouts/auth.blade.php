@@ -294,7 +294,7 @@ a.article:hover {
     Table
 ----------------------------------------------------- */
 table.project-table{
-  border-collapse:separate; 
+  border-collapse:separate;
   border-spacing: 0 1em;
 }
 
@@ -304,7 +304,7 @@ table.project-table tbody tr{
 
 table.project-table tbody tr td span.text-small{
   font-size: 8px;
-} 
+}
 
 table.project-table tbody tr td, table.project-table thead tr th {
     max-width: 200px;
@@ -350,7 +350,7 @@ table.project-table tbody tr td, table.project-table thead tr th {
 
 
 @section('content')
-    
+
 <div class="wrapper">
     <!-- Side Nav -->
     <nav id="sidebar">
@@ -375,6 +375,11 @@ table.project-table tbody tr td, table.project-table thead tr th {
                     <li>
                         <a href="{{url('project/status')}}" class="pl-4"><i class="fas fa-dot-circle"></i> Status</a>
                     </li>
+                     <li>
+                <a href="/dashboard/profile/settings">
+                    <img src="https://lancer-app.000webhostapp.com/images/svg/approval.svg" height="20" width="auto"> <span> Settings</span>
+                </a>
+            </li>
                     <li>
                         <a href="{{url('project/overview')}}" class="pl-4"><i class="fas fa-dot-circle"></i> Overview</a>
                     </li>
@@ -387,7 +392,7 @@ table.project-table tbody tr td, table.project-table thead tr th {
                     <li>
                         <a href="{{url('project/documents')}}" class="pl-4"><i class="fas fa-dot-circle"></i> Documents</a>
                     </li>
-                    
+
                 </ul>
             </li>
             <li class="@if(request()->path() == 'invoices') active @endif">
@@ -420,7 +425,7 @@ table.project-table tbody tr td, table.project-table thead tr th {
                     <span></span>
                     <span></span>
                 </button>
-                
+
                 <form class="form-inline my-2 ml-4">
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -432,7 +437,7 @@ table.project-table tbody tr td, table.project-table thead tr th {
                 <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fas fa-align-justify"></i>
                 </button>
-                
+
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item active">
@@ -458,7 +463,7 @@ table.project-table tbody tr td, table.project-table thead tr th {
         @yield('main-content')
     </div>
 
-</div> 
+</div>
 
 <!-- Inject other content after wrapper div -->
 @yield('others')

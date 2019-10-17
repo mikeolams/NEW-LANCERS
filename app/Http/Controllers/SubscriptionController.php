@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Mofehintolu MUMUNI
- * 
+ *
  * @description Subscription controller that handles user subscriptions
  * @slack @Bits_and_Bytes
  * @copyright 2019
@@ -35,11 +35,11 @@ class SubscriptionController extends Controller
 
         if(!$data['success']){
             return $this->error($data['reason']);
-        }else{          
+        }else{
             $planId = $data['plan_id'];
             $months = $data['months'];
 
-           
+
             $planDetails = $plan->checkPlan($planId);
             //dd($planDetails['status']);
             if($planDetails['status']){
@@ -49,13 +49,25 @@ class SubscriptionController extends Controller
                 //main logic present in Subscription model
                 $subscribeUserToPlan = $Subscriber->subscribeToPlan($planDetails['data']['id'], Auth::id(), $months);
 
-                if($subscribeUserToPlan === true){
-                    return $this->success("Subscribed sucessfully", str_replace("_"," " ,ucfirst($planDetails['data']['name'])) );
-                }else {
-                    return $this->error("Subscription failed");
-                }      
+                if(($subscribeUserToPlan['status'] == false) && ($subscribeUserToPlan['payload'] != null))
+                {
+                    return redirect('/users/subscriptions')->with(['editErrors'=>$subscribeUserToPlan['payload']]);
+
+                }
+
+                if($subscribeUserToPlan['status'] == true)
+                {
+                    return redirect('/users/subscriptions')->with(['editStatus'=>'User subscribed to ', 'plan'=> str_replace("_"," " ,ucfirst($planDetails['data']['name']))]);
+
+                }
+
+                if(($subscribeUserToPlan['status'] == false) && ($subscribeUserToPlan['payload'] == null)) {
+                    return redirect('/users/subscriptions')->with(['editErrors'=>'Plan subscription not successful']);
+
+                }
+
             } else {
-               return $this->error("Subscription failed");
+                return redirect('/users/subscriptions')->with(['editErrors'=>'Plan subscription not successful']);
             }
         }
 
@@ -69,6 +81,39 @@ class SubscriptionController extends Controller
         return $this->success("plans retrieved", $plans);
     }
 
+
+
+    function showPlan()
+    {
+        $userDetails = auth()->user();
+        $user_id = auth()->user()->toArray()['id'];
+        $plan = Subscription::where('user_id',$user_id)->first();
+        if($plan != null)
+        {
+            $planStartDate = $plan->toArray()['startdate'];
+            $planEndDate = $plan->toArray()['enddate'];
+            $userPlan = SubscriptionPlan::where('id',$plan->toArray()['plan_id'])->first();
+
+            return view('userSubscription')->with(['plans'=> $userPlan->toArray(),'dates' => [$planStartDate,$planEndDate]]);
+        }
+        else {
+            //no plan to show
+            return view('userSubscription')->with(['plans'=> null,'dates' =>null]);
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     public function userSubscription()
     {
         $user = Auth::user();
@@ -77,5 +122,20 @@ class SubscriptionController extends Controller
         return $this->success("successful", $subscription);
 
     }
-    
+
+    function showSubscriptions()
+    {
+        $plans = SubscriptionPlan::all()->toArray();
+
+
+        return view('pricing')->with(['plans'=> $plans]);
+
+    }
+
+
+    function subs()
+    {
+        return view('pricing');
+    }
 }
+
