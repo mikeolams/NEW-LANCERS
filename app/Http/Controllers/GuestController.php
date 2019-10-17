@@ -13,7 +13,7 @@ use Hash;
 Use Validator;
 use Session;
 use Redirect;
-
+use App\ContactMessage;
 
 class GuestController extends Controller
 {
@@ -47,14 +47,14 @@ class GuestController extends Controller
 
        $message = new ContactMessage;
 
-      $message->validate(["contents"=>"required","subject"=>"required"],["contents.required" => "Content Field is Required","subject.required"=> "Subject Field is required"]);
+      $request->validate(["contents"=>"required","subject"=>"required"],["contents.required" => "Content Field is Required","subject.required"=> "Subject Field is required"]);
 
 
        $message->user_id = Auth::User()->id;
        $message->message =  $request->contents;
        $message->subject = $request->subject;
        $message->save();
-       return redirect('/guest/contact')->with($data);
+       return redirect('/guest/contact')->with("success", "Message Set Successfully");
 
     }
 }
