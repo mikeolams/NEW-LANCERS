@@ -90,8 +90,8 @@
         selectStatus.addEventListener('change', function(){
             // this.form.action = "/projects?status="+selectStatus.value;
             // this.form.submit();
-            if(selectStatus.value == 'all') window.location.href="./projects";
-            else window.location.href="./projects?filter="+selectStatus.value;
+            if(selectStatus.value == 'all') window.location.href="/projects";
+            else window.location.href="/projects?filter="+selectStatus.value;
         }, false)
     </script>
 @endsection

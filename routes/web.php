@@ -81,11 +81,12 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::delete('/tasks/{id}', 'TaskController@deleteTask');
     Route::put('/tasks/{task}/team', 'TaskController@addTeam');
 
-    Route::get('estimates', 'EstimateController@index')->middleware('auth');
-    Route::get('estimates/{estimate}', 'EstimateController@show')->middleware('auth');
+    Route::get('/estimates', 'EstimateController@index')->middleware('auth');
     Route::post('estimates', 'EstimateController@store')->middleware('auth');
-    Route::put('estimates/{estimate}', 'EstimateController@update')->middleware('auth');
-    Route::delete('estimates/{estimate}', 'EstimateController@destroy')->middleware('auth');
+    Route::get('/estimate/create', function () { return view('set_estimate'); });
+    Route::get('/estimates/{estimate}', 'EstimateController@show')->middleware('auth');
+    Route::put('/estimates/{estimate}', 'EstimateController@update')->middleware('auth');
+    Route::delete('/estimates/{estimate}', 'EstimateController@destroy')->middleware('auth');
 
     Route::post('/pay', 'RaveController@initialize')->name('pay');
     Route::get('payment/{type}/{ref?}', 'PaymentContoller@create');
@@ -93,15 +94,10 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::resource('transactions', 'TransactionsController');
     Route::get('/transactions', 'TransactionsController@index');
     
-    Route::get('/invoice_sent', function () { return view('invoice_sent'); });
-    Route::get('/client-doc-view', function () { return view('client-doc-view'); });
-    Route::get('/invoice-view', function () { return view('invoice-view'); });
-    
-    Route::get('/estimate/create', function () { return view('set_estimate'); });
     
     Route::get('/projects', 'ProjectController@list');
+    Route::get('/project/status', 'ProjectController@list');
     Route::get('/project/track', function(){ return view('trackproject'); });
-    Route::get('/project/status', function () { return view('project-status'); });
     Route::get('/project/collabrators', function () { return view('project-collabrators'); });
 
     Route::get('/clients', 'ClientController@list');
@@ -114,6 +110,10 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/invoices/{invoice}/getpdf', 'InvoiceController@getPdf');
     Route::get('/invoice/review', function() { return view('reviewinvoice'); });
     Route::get('/invoice', function () { return view('invoice_view'); });
+    Route::get('/invoice_sent', function () { return view('invoice_sent'); });
+    Route::get('/invoice-view', function () { return view('invoice-view'); });
+    Route::get('/client-doc-view', function () { return view('client-doc-view'); });
+    
     
     Route::get('/notifications', 'NotificationsController@notifications');
     

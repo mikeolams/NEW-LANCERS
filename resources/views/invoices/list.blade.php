@@ -88,8 +88,8 @@
     <script>
         let selectStatus = document.querySelector('#select-filter');
         selectStatus.addEventListener('change', function(){
-            if(selectStatus.value == 'all') window.location.href="./invoices";
-            else window.location.href="./invoices?filter="+selectStatus.value;
+            if(selectStatus.value == 'all') window.location.href="/invoices";
+            else window.location.href="/invoices?filter="+selectStatus.value;
         }, false)
     </script>
 @endsection
