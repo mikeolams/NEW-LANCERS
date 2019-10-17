@@ -13,15 +13,18 @@ use Hash;
 Use Validator;
 use Session;
 use Redirect;
-
+use App\ContactMessage;
 
 class GuestController extends Controller
 {
+        // public $project;
 
-    // public $project;
+    public function __construct($value='')
+    {
+        $this->middleware('auth');  
 
-    
-
+    }
+ 
     public function step1(Request $request)
     {
         $project = $request->session()->get('project');
@@ -161,6 +164,18 @@ class GuestController extends Controller
     public function process_contact_form(Request $request)
     {
 
+       $message = new ContactMessage;
+
+      $request->validate(["contents"=>"required","subject"=>"required"],["contents.required" => "Content Field is Required","subject.required"=> "Subject Field is required"]);
+
+
+       $message->user_id = Auth::User()->id;
+       $message->message =  $request->contents;
+       $message->subject = $request->subject;
+       $message->save();
+
+       //$data["success"] =;
+       return redirect('/guest/contact')->with(["success" => "<span style='color:green;'>Message Set Successfully</span>"]);
 
     }
 }
