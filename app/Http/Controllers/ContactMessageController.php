@@ -51,7 +51,7 @@ public function process_contact_form(Request $request)
        $message->save();
 
        //$data["success"] =;
-       return redirect('/guest/contact')->with(["success" => "<span style='color:green;'>Message Set Successfully</span>"]);
+       return redirect('/contact')->with(["success" => "<span style='color:green;'>Message Set Successfully</span>"]);
 
     }
     public function store(Request $request)
