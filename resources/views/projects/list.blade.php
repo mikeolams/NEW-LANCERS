@@ -10,12 +10,12 @@
             <h4 class="mt-0 text-primary">PROJECTS</h4>
             <div class="">
                 <div class="">
-                    <form class="form-inline">
-                        <select class="form-control">
-                            <option selected>All</option>
-                            <option>Pending</option>
-                            <option>Active</option>
-                            <option>Completed</option>
+                    <form class="form-inline" method="GET">
+                        <select class="form-control" id="select-filter">
+                            <option value="all" @if (Request()->filter) {{ 'selected' }} @endif >All</option>
+                            <option value="pending" @if (Request()->filter && Request()->filter == 'pending') {{ 'selected' }} @endif>Pending</option>
+                            <option value="active" @if (Request()->filter && Request()->filter == 'active') {{ 'selected' }} @endif>Active</option>
+                            <option value="completed" @if (Request()->filter && Request()->filter == 'completed') {{ 'selected' }} @endif>Completed</option>
                         </select>
                     </form>
                 </div>
@@ -82,4 +82,16 @@
     <button class="btn btn-secondary text-white rounded-circle" id="add-something">
         <i class="fas fa-plus"></i>
     </button>
+@endsection
+
+@section('script')
+    <script>
+        let selectStatus = document.querySelector('#select-filter');
+        selectStatus.addEventListener('change', function(){
+            // this.form.action = "/projects?status="+selectStatus.value;
+            // this.form.submit();
+            if(selectStatus.value == 'all') window.location.href="./projects";
+            else window.location.href="./projects?filter="+selectStatus.value;
+        }, false)
+    </script>
 @endsection

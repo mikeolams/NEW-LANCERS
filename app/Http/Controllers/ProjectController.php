@@ -15,13 +15,21 @@ class ProjectController extends Controller
      */
 
     public function list(){
+        $filter = Request()->filter ?? false;
+        if($filter && !in_array($filter, ['all', 'pending', 'completed', 'active'])) $filter = false;
+        $filter == 'active' ? $filter = 'in-progress' : $filter = $filter;
+
         $projects = Project::join('estimates AS e', 'e.id', 'projects.estimate_id')
                     ->leftjoin('invoices AS i', 'i.project_id', 'projects.id')
                     ->leftjoin('currencies AS ic', 'i.currency_id', 'ic.id')
                     ->leftjoin('currencies AS ec', 'e.currency_id', 'ec.id')
-                    ->where('projects.user_id', Auth::user()->id)
-                    ->select('projects.*', 'e.start', 'e.end', 'ec.symbol AS estimate_currency', 'ic.symbol AS invoice_currency', 'i.amount', 'i.amount_paid')
+                    ->where('projects.user_id', Auth::user()->id);
+        
+        if($filter && $filter !== 'all') $projects = $projects->where('projects.status', $filter);
+        
+        $projects = $projects->select('projects.*', 'e.start', 'e.end', 'ec.symbol AS estimate_currency', 'ic.symbol AS invoice_currency', 'i.amount', 'i.amount_paid')
                     ->get();
+        
         return view('projects.list')->withProjects($projects);
     }
 

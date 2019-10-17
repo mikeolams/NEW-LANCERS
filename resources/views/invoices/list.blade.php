@@ -14,11 +14,10 @@
             <div class="">
                 <div class="">
                     <form class="form-inline">
-                        <select class="form-control">
-                            <option selected>All</option>
-                            <option>Pending</option>
-                            <option>Active</option>
-                            <option>Completed</option>
+                        <select class="form-control" id="select-filter">
+                            <option value="all" @if (Request()->filter) {{ 'selected' }} @endif >All</option>
+                            <option value="paid" @if (Request()->filter && Request()->filter == 'paid') {{ 'selected' }} @endif>Paid</option>
+                            <option value="unpaid" @if (Request()->filter && Request()->filter == 'unpaid') {{ 'selected' }} @endif>Unpaid</option>
                         </select>
                     </form>
                 </div>
@@ -29,8 +28,8 @@
                                 <th scope="col">Invoice</th>
                                 <th scope="col">Client</th>
                                 <th scope="col">Project</th>
-                                <th class="text-right" scope="col">Issued</th>
-                                <th class="text-right" scope="col">Status</th>
+                                <th scope="col">Issued</th>
+                                <th scope="col">Status</th>
                                 <th scope="col">Amount Paid</th>
                                 <th scope="col"> </th>
                             </tr>
@@ -41,21 +40,18 @@
                                 <td scope="row" class="rounded-left border border-right-0" colspan="7">No Invoice found</td>
                             </tr>
                             @else
+                                @php $count = 1; @endphp
                                 @foreach($invoices as $invoice)
                                 <tr class="py-2">
-                                    <td scope="row" class="rounded-left border border-right-0">
-                                        <span class="text-small text-muted mr-2">
-                                            <i class="fas fa-circle"></i>
-                                        </span> 
-                                        <span class="">{{$invoice->created_at}}</span>
-                                    </td>
-                                    <td class="border-top border-bottom titles">{{$invoice->title}}</td>
-                                    <td class="border-top border-bottom">{{$invoice->start}}</td>
-                                    <td class="border-top border-bottom text-right">{{$invoice->invoice_currency == null ? $invoice->estimate_currency : $invoice->invoice_currency}}{{$invoice->amount == null ? 0 : $invoice->amount}}</td>
-                                    <td class="border-top border-bottom text-right">{{$invoice->invoice_currency == null ? $invoice->estimate_currency : $invoice->invoice_currency}}{{$invoice->amount_paid == null ? 0 : $invoice->amount_paid}}</td>
+                                    <td class="border-top border-bottom titles">{{$count}}</td>
+                                    <td class="border-top border-bottom titles">{{$invoice->client}}</td>
+                                    <td class="border-top border-bottom titles">{{$invoice->project_title}}</td>
+                                    <td class="border-top border-bottom titles">{{$invoice->created_at}}</td>
                                     <td class="border-top border-bottom">
                                         <span class="alert alert-primary py-0 px-2 small m-0 pending">{{$invoice->status}}</span>
                                     </td>
+                                    <td class="border-top border-bottom titles">{{$invoice->invoice_currency}}{{$invoice->amount_paid}}</td>
+
                                     <td class="rounded-right border border-left-0">
                                         <div class="dropdown dropleft">
                                             <a class="btn btn-white btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -69,6 +65,7 @@
                                         </div>
                                     </td>
                                 </tr>
+                                @php $count+=1; @endphp
                                 @endforeach
                             @endif
                         </tbody>
@@ -84,4 +81,15 @@
     <button class="btn btn-secondary text-white rounded-circle" id="add-something">
         <i class="fas fa-plus"></i>
     </button>
+@endsection
+
+
+@section('script')
+    <script>
+        let selectStatus = document.querySelector('#select-filter');
+        selectStatus.addEventListener('change', function(){
+            if(selectStatus.value == 'all') window.location.href="./invoices";
+            else window.location.href="./invoices?filter="+selectStatus.value;
+        }, false)
+    </script>
 @endsection
