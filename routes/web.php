@@ -215,3 +215,6 @@ Route::resource('invoices', 'InvoiceController');
 Route::get('guest/contact', function () {
     return view('guests/contact_support');
 });
+
+
+Route::post('guest/process_contact_form',"GuestController@process_contact_form");

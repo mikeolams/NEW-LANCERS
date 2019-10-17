@@ -45,10 +45,16 @@ class GuestController extends Controller
     public function process_contact_form(Request $request)
     {
 
-     $data=[];
+       $message = new ContactMessage;
+
+      $message->validate(["contents"=>"required","subject"=>"required"],["contents.required" => "Content Field is Required","subject.required"=> "Subject Field is required"]);
 
 
-     return redirect('/guest/contact')->with($data);
+       $message->user_id = Auth::User()->id;
+       $message->message =  $request->contents;
+       $message->subject = $request->subject;
+       $message->save();
+       return redirect('/guest/contact')->with($data);
 
     }
 }
