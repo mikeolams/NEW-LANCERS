@@ -395,35 +395,37 @@ text-decoration: none;
 		</header>
 
 <header>
-<nav class="navbar navbar-expand-lg navbar-main">
-<div class="container">
-<a class="navbar-brand" href="#">
-<img src="{{ asset('images/svg/logo-white.svg') }}" class="img img-responsive" height="30" width="auto">
-</a>
-<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-<span class="icon-bar top-bar"></span>
-<span class="icon-bar middle-bar"></span>
-<span class="icon-bar bottom-bar"></span>
-<!-- <span class="navbar-toggler-icon"><i class="fa fa-bars fa-lg py-1 text-white"></i></span> -->
-</button>
-<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-<li class="nav-item ">
-<a class="nav-link" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
-</li>
-<li class="nav-item active">
-<a class="nav-link " href="{{ url('/pricing') }}">Pricing</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="{{ route('login') }}">Sign in</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="{{ route('register') }}">Sign up</a>
-</li>                             
-</ul>
-</div>
-</div>
-</nav>
+	<nav class="navbar navbar-expand-lg navbar-main">
+		<div class="container">
+			<a class="navbar-brand" href="#">
+				<img src="{{ asset('images/svg/logo-white.svg') }}" class="img img-responsive" height="30" width="auto">
+			</a>
+			<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="icon-bar top-bar"></span>
+				<span class="icon-bar middle-bar"></span>
+				<span class="icon-bar bottom-bar"></span>
+				<!-- <span class="navbar-toggler-icon"><i class="fa fa-bars fa-lg py-1 text-white"></i></span> -->
+			</button>
+			<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+				<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+				<li class="nav-item ">
+				<a class="nav-link" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item active">
+				<a class="nav-link " href="{{ url('/pricing') }}">Pricing</a>
+				</li>
+				@guest
+				<li class="nav-item">
+				<a class="nav-link" href="{{ route('login') }}">Sign in</a>
+				</li>
+				<li class="nav-item">
+				<a class="nav-link" href="{{ route('register') }}">Sign up</a>
+				</li>
+				@endauth                             
+				</ul>
+			</div>
+		</div>
+	</nav>
 </header>
 
 @stop
