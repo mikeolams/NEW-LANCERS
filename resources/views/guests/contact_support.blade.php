@@ -247,6 +247,19 @@
       <div class="content">
         <img src="https://res.cloudinary.com/slarin/image/upload/v1570685956/contact-support/Contact_us_1_rm3q98.png" alt="contact help" class="hero-img" width="150" height="100">
         <h4>Read the frequently asked questions<br>or send us a message</h4>
+        <br>
+
+        
+         @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+        {{empty(Session::get('success')) ? "":Session::get('success')}}
 
         <form class="contact-form" action="/guest/process_contact_form" method="post">
             @csrf <!-- {{ csrf_field() }} -->
