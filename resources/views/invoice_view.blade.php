@@ -1,7 +1,6 @@
+@extends('layouts.authinvoice')
 
-@extends('layouts.master')  
-
-@section('styles')
+@section('main-content')
 <style>
 
     *{
@@ -379,8 +378,16 @@ tbody, .bold {
     }
 }
 @media (max-width: 576px) {
-    .invoice-body.ml-4 {
-        display: none;
+    .invoice-body.ml-4 div {
+        /* display: none; */
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .invoice-body.ml-4 button {
+      display: block !important;
+      margin: 0.3rem auto;
+      width: 100%;
     }
     #sidebar-wrapper {
     width: 15vh;
@@ -452,106 +459,506 @@ tbody, .bold {
     margin-bottom: 2rem;
 }
 }
+
+
+#group4 {
+	position: absolute;
+	left: 10.77%;
+right: 50.73%;
+top: 45.51%;
+bottom: 40.42%;
+}
+
+#invoice{
+	position: absolute;
+left: 30.15%;
+right: 33.85%;
+top: 45.51%;
+bottom: 52.05%;
+color: #FFFFFF;
+}
+
+#group5 {
+	position: absolute;
+	left: 10.77%;
+right: 30.97%;
+top: 54.98%;
+bottom: 34.21%;
+}
+
+#contract{
+	position: absolute;
+	left: 30.15%;
+right: 28.46%;
+top: 54.98%;
+bottom: 42.58%;
+color: #FFFFFF;
+}
+
+#group6 {
+	position: absolute;
+	left: 10.77%;
+right: 50.92%;
+top: 64.45%;
+bottom: 77%;
+}
+
+#proposal{
+	position: absolute;
+	left: 30.15%;
+right: 25%;
+top: 64.45%;
+bottom: 33.11%;
+color: #FFFFFF;
+}
+
+.header-con {
+	position: absolute;
+	left: 0%;
+top: 0%;
+bottom: 91.9%;
+background: #FFFFFF;
+}
+
+.link {
+	font-family: Ubuntu;
+font-style: normal;
+font-weight: bold;
+font-size: 20px;
+line-height: 34px;
+color: #000000;
+opacity: 0.8;
+}
+
+#pro {
+	position: absolute;
+width: 164px;
+height: 34px;
+left: 325px;
+top: 44px;
+}
+
+#cli {
+	position: absolute;
+width: 147px;
+height: 34px;
+left: 539px;
+top: 44px;
+}
+
+#set {
+	position: absolute;
+width: 116px;
+height: 34px;
+left: 741px;
+top: 44px;
+}
+
+#tools {
+	position: absolute;
+width: 252px;
+height: 34px;
+left: 912px;
+top: 44px;
+}
+
+.box1 {
+	position: absolute;
+width: 78px;
+height: 35px;
+left: 970px;
+top: 140px;
+box-sizing: border-box;
+}
+
+#edit {
+	position: absolute;
+width: 60px;
+height: 28px;
+left: 5px;
+top: 3px;
+font-family: Ubuntu;
+font-style: normal;
+font-weight: bold;
+font-size: 18px;
+line-height: 28px;
+color: #546067;
+}
+
+button {
+	border: 3px solid #546067;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.box2 {
+	position: absolute;
+width: 83px;
+height: 45px;
+left: 1060px;
+top: 140px;
+box-sizing: border-box;
+border-radius: 10px;
+}
+
+#delete {
+	position: absolute;
+width: 78px;
+height: 28px;
+left: 3px;
+top: 3px;
+font-family: Ubuntu;
+font-style: normal;
+font-weight: bold;
+font-size: 18px;
+line-height: 28px;
+color: #546067;
+}
+
+.client-info {
+	position: absolute;
+width: 953px;
+height: 781px;
+left: 300px;
+top: 200px;
+}
+
+#contact {
+	position: absolute;
+width: 176px;
+height: 55px;
+left: 25px;
+top: 20px;
+font-family: Ubuntu;
+font-style: normal;
+font-weight: bold;
+font-size: 25px;
+line-height: 50px;
+color: #000000;
+}
+
+.name {
+	position: absolute;
+width: 130px;
+height: 85px;
+left: 20px;
+top: 50px;
+font-family: Ubuntu;
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+}
+
+#nme {
+	position: absolute;
+width: 81px;
+height: 34px;
+left: 8px;
+top: 20px;
+line-height: 34px;
+color: #A6A6A6;
+}
+
+#john {
+	position: absolute;
+width: 130px;
+height: 35px;
+left: 8px;
+top: 55px;
+line-height: 35px;
+color: #000000;
+}
+
+#add {
+	font-family: Ubuntu;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+}
+
+#mail {
+	position: absolute;
+width: 192px;
+height: 34px;
+left: 300px;
+top: 20px;
+line-height: 34px;
+color: #A6A6A6;
+}
+
+#gmail {
+	position: absolute;
+width: 287px;
+height: 35px;
+left: 300px;
+top: 55px;
+line-height: 35px;
+color: #000000;
+}
+
+#numb {
+	font-family: Ubuntu;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+}
+
+#phone {
+	position: absolute;
+width: 205px;
+height: 34px;
+left: 700px;
+top: 20px;
+line-height: 34px;
+color: #A6A6A6;
+}
+
+#number {
+	position: absolute;
+width: 238px;
+height: 35px;
+left: 680px;
+top: 55px;
+line-height: 35px;
+color: #000000;
+}
+
+#billing {
+	position: absolute;
+width: 250px;
+height: 55px;
+left: 25px;
+top: 190px;
+font-family: Ubuntu;
+font-style: normal;
+font-weight: bold;
+font-size: 25px;
+line-height: 55px;
+color: #000000;
+}
+
+.curr {
+	position: absolute;
+width: 122px;
+height: 85px;
+left: 20px;
+top: 220px;
+font-family: Ubuntu;
+font-style: normal;
+font-size: 18px;
+}
+
+#currency {
+	position: absolute;
+width: 122px;
+height: 34px;
+left: 8px;
+top: 20px;
+line-height: 34px;
+color: #A6A6A6;
+font-weight: normal;
+}
+
+#ngn {
+	position: absolute;
+width: 64px;
+height: 35px;
+left: 8px;
+top: 55px;
+line-height: 35px;
+color: #000000;
+font-weight: bold;
+}
+
+#home {
+	font-family: Ubuntu;
+font-style: normal;
+font-size: 18px;
+}
+
+#address {
+	position: absolute;
+width: 192px;
+height: 34px;
+left: 300px;
+top: 20px;
+line-height: 34px;
+color: #A6A6A6;
+font-weight: normal;
+}
+
+#lorem {
+	position: absolute;
+width: 287px;
+height: 35px;
+left: 300px;
+top: 55px;
+line-height: 35px;
+color: #000000;
+font-weight: bold;
+}
+
+#place {
+	font-family: Ubuntu;
+font-style: normal;
+font-size: 18px;
+}
+
+#city {
+	position: absolute;
+width: 205px;
+height: 34px;
+left: 790px;
+top: 20px;
+line-height: 34px;
+color: #A6A6A6;
+font-weight: normal;
+}
+
+#abuja {
+	position: absolute;
+width: 238px;
+height: 35px;
+left: 780px;
+top: 55px;
+line-height: 35px;
+color: #000000;
+font-weight: bold;
+}
+
+.cde {
+	position: absolute;
+width: 120px;
+height: 85px;
+left: 20px;
+top: 310px;
+font-family: Ubuntu;
+font-style: normal;
+font-size: 18px;
+}
+
+#zip {
+	position: absolute;
+width: 120px;
+height: 34px;
+left: 8px;
+top: 20px;
+font-weight: normal;
+line-height: 34px;
+color: #A6A6A6;
+}
+
+#code {
+	position: absolute;
+	width: 51px;
+height: 35px;
+left: 8px;
+top: 55px;
+font-weight: bold;
+line-height: 35px;
+color: #000000;
+}
+
+#count {
+	font-family: Ubuntu;
+font-style: normal;
+font-size: 18px;
+}
+
+#country {
+	position: absolute;
+width: 110px;
+height: 34px;
+left: 300px;
+top: 20px;
+line-height: 34px;
+color: #A6A6A6;
+font-weight: normal;
+}
+
+#nigeria {
+	position: absolute;
+width: 99px;
+height: 35px;
+left: 300px;
+top: 55px;
+font-weight: bold;
+line-height: 35px;
+color: #000000;
+}
+
+#st {
+	font-family: Ubuntu;
+font-style: normal;
+font-size: 18px;
+}
+
+#state {
+	position: absolute;
+width: 73px;
+height: 34px;
+left: 785px;
+top: 20px;
+font-weight: normal;
+line-height: 34px;
+color: #A6A6A6;
+}
+
+#abj {
+	position: absolute;
+width: 79px;
+height: 35px;
+left: 780px;
+top: 55px;
+font-weight: bold;
+line-height: 35px;
+color: #000000;
+}
+
+#more {
+	position: absolute;
+width: 118px;
+height: 55px;
+left: 25px;
+top: 450px;
+font-family: Ubuntu;
+font-style: normal;
+font-weight: bold;
+font-size: 25px;
+line-height: 55px;
+color: #000000;
+}
+
+#na {
+	position: absolute;
+width: 52px;
+height: 34px;
+left: 25px;
+top: 500px;
+font-family: Ubuntu;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 34px;
+color: #A6A6A6;
+}
 </style>
-@endsection
 
-@section('sidebar')   
-
-<div class="d-flex" id="wrapper">
-
-    <!-- Sidebar -->
-    <div class="bg-dark border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading">Lan<span class="colorC">c</span>ers </div>
-      <div class="list-group list-group-flush">
-        <a href="#" class="list-group-item list-group-item-action bg-dark"><img src="https://res.cloudinary.com/samtech/image/upload/v1570727367/home.svg" alt=""> Dashboard</a>
-        <a href="#" class="list-group-item list-group-item-action bg-dark"><img src="https://res.cloudinary.com/samtech/image/upload/v1570727365/client.svg" alt=""> Client</a>
-        <!-- dropDown Menu -->
-      <div class="nav-item dropdown">
-        <a href="#" class="nav-link list-group-item list-group-item-action bg-dark" data-toggle="dropdown">
-        <img src="https://res.cloudinary.com/samtech/image/upload/v1570727368/lightbulb.svg" alt=""> Project  <svg width="16" height="12" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path opacity="0.54" fill-rule="evenodd" clip-rule="evenodd" d="M10.6 0.600098L6 5.2001L1.4 0.600098L0 2.0001L6 8.0001L12 2.0001L10.6 0.600098Z" fill="white"/>
-        </svg>
-        </a>
-       <div class="dropdown-menu animated fadeInLeft" role="menu">
-          <a class="dropdown-item" href="#">Status</a>  
-          <a class="dropdown-item" href="#">Overview</a>   
-          <a class="dropdown-item" href="#">Collabrators</a>  
-          <a class="dropdown-item" href="#">Task</a>  
-          <a class="dropdown-item" href="#">Documents</a>  
-        </div>
-      </div>
-
-        <a href="#" class="list-group-item list-group-item-action bg-dark colorC2"><svg class="imgSvg" width="20.5" height="20.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g clip-path="url(#clip0)">
-        <path d="M21.3143 0H7.29379C6.49144 0 5.83864 0.652795 5.83864 1.45515V4.71151C3.17894 5.47266 1.22656 7.92604 1.22656 10.8269C1.22656 13.7278 3.17889 16.1812 5.83864 16.9423V22.545C5.83864 23.3473 6.49144 24.0001 7.29379 24.0001H18.7513C18.8872 24.0001 19.0175 23.9461 19.1137 23.85L22.6193 20.3443C22.7154 20.2482 22.7694 20.1178 22.7694 19.9819V1.45515C22.7694 0.652795 22.1167 0 21.3143 0ZM7.29379 1.02503H21.3143C21.5515 1.02503 21.7444 1.21797 21.7444 1.45515V3.00191H6.86367V1.45515C6.86367 1.21797 7.05662 1.02503 7.29379 1.02503ZM2.25159 10.8269C2.25159 7.88538 4.64463 5.49233 7.58611 5.49233C10.5276 5.49233 12.9206 7.88538 12.9206 10.8269C12.9206 13.7683 10.5276 16.1614 7.58611 16.1614C4.64463 16.1614 2.25159 13.7683 2.25159 10.8269ZM6.86367 22.5449V17.1452C7.10089 17.1721 7.34187 17.1865 7.58616 17.1865C9.49637 17.1865 11.2124 16.3397 12.3791 15.0021H15.5194C15.8025 15.0021 16.0319 14.7726 16.0319 14.4896C16.0319 14.2065 15.8025 13.9771 15.5194 13.9771H13.1091C13.5549 13.1985 13.8405 12.3172 13.9215 11.3783H15.5194C15.8024 11.3783 16.0319 11.1488 16.0319 10.8658C16.0319 10.5827 15.8024 10.3532 15.5194 10.3532H13.928C13.8587 9.41637 13.5853 8.53544 13.1526 7.75451H15.5193C15.8024 7.75451 16.0318 7.52506 16.0318 7.242C16.0318 6.95895 15.8024 6.72949 15.5193 6.72949H12.4455C11.2781 5.34702 9.53298 4.46726 7.58602 4.46726C7.34172 4.46726 7.10074 4.48161 6.86352 4.50855V4.02694H21.7443V19.4693H19.6938C18.8914 19.4693 18.2387 20.1221 18.2387 20.9244V22.975H7.29379C7.05662 22.975 6.86367 22.7821 6.86367 22.5449ZM19.2638 22.2501V20.9244C19.2638 20.6873 19.4568 20.4944 19.6939 20.4944H21.0196L19.2638 22.2501Z" fill="#0ABAB5"/>
-        <path d="M17.534 7.75452H19.236C19.5191 7.75452 19.7485 7.52506 19.7485 7.242C19.7485 6.95895 19.5191 6.72949 19.236 6.72949H17.534C17.2509 6.72949 17.0215 6.95895 17.0215 7.242C17.0215 7.52506 17.2509 7.75452 17.534 7.75452Z" fill="#0ABAB5"/>
-        <path d="M17.534 11.379H19.236C19.5191 11.379 19.7485 11.1496 19.7485 10.8665C19.7485 10.5835 19.5191 10.354 19.236 10.354H17.534C17.2509 10.354 17.0215 10.5835 17.0215 10.8665C17.0215 11.1496 17.2509 11.379 17.534 11.379Z" fill="#0ABAB5"/>
-        <path d="M17.534 15.0026H19.236C19.5191 15.0026 19.7485 14.7731 19.7485 14.4901C19.7485 14.207 19.5191 13.9775 19.236 13.9775H17.534C17.2509 13.9775 17.0215 14.207 17.0215 14.4901C17.0215 14.7731 17.2509 15.0026 17.534 15.0026Z" fill="#0ABAB5"/>
-        <path d="M19.2327 18.6261C19.5158 18.6261 19.7452 18.3966 19.7452 18.1136C19.7452 17.8305 19.5158 17.6011 19.2327 17.6011H14.4383C14.1552 17.6011 13.9258 17.8305 13.9258 18.1136C13.9258 18.3966 14.1552 18.6261 14.4383 18.6261H19.2327Z" fill="#0ABAB5"/>
-        <path d="M11.5646 8.24182L10.9394 7.61656C10.771 7.44821 10.5471 7.35547 10.309 7.35547C10.0708 7.35547 9.847 7.44821 9.6786 7.61656L6.399 10.8962L5.49244 9.98959C5.32409 9.82129 5.1002 9.72855 4.8621 9.72855C4.624 9.72855 4.40011 9.82129 4.23176 9.98964L3.60635 10.615C3.25881 10.9626 3.25881 11.5282 3.6064 11.8757L5.76856 14.0379C5.93696 14.2063 6.16086 14.299 6.399 14.299H6.39905C6.63715 14.299 6.86105 14.2063 7.02935 14.038L11.5647 9.5026C11.9122 9.15502 11.9122 8.5894 11.5646 8.24182ZM6.39896 13.2187L4.42559 11.2453L4.86205 10.8089L6.03654 11.9834C6.23671 12.1835 6.5612 12.1835 6.76138 11.9834L10.309 8.43575L10.7455 8.87221L6.39896 13.2187Z" fill="#0ABAB5"/>
-        </g>
-        <defs>
-        <clipPath id="clip0">
-        <rect width="20.5" height="20.5" fill="white"/>
-        </clipPath>
-        </defs>
-        </svg> invoice </a> 
-
-        <a href="#" class="list-group-item list-group-item-action bg-dark"><img src="https://res.cloudinary.com/samtech/image/upload/v1570727368/policy.svg" alt=""> Contract</a>
-        <a href="#" class="list-group-item list-group-item-action bg-dark"><img src="https://res.cloudinary.com/samtech/image/upload/v1570727365/approval.svg" alt=""> Proposals</a>
-      </div>
-    
-    <!-- /#sidebar-wrapper -->
-</div>
-@endsection
-
-@section('header')
-    <!-- Navbar -->
-    <div id="page-content-wrapper">
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-  
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-  
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-left mt-2 mt-lg-0">
-              <li class="nav-item ml-3 active">
-                <a class="nav-link " href="#">Project Info <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Client Info</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Settings</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Tools & Resources</a>
-              </li>
-            </ul>
-          </div>
-        </nav> 
-@endsection
-
-@section('content')
-
-<section class="invoice-body ml-4"> 
-    <div class="container ">
-        <div class="row mt-5 ml-4">
-          <button type="button" class="btn btn-outline-dark ">Print</button>
-          <a href="{{URL::to('/invoice/pdf')}}" class="btn btn-outline-dark ml-4">Download as PDF   </a>
-          <button type="button" class="btn btn-outline-dark ml-auto">Edit</button>
-          <button type="button" class="btn btn-primary ml-4">Other actions</button>
+<section class="invoice-body m-auto">
+    <div class="container">
+        <div class="row mt-5 px-3">
+            <button type="button" class="btn btn-outline-dark ">Print</button>
+            <a href="{{URL::to('/invoice/pdf')}}" class="btn btn-outline-dark ml-4">Download as PDF </a>
+            <button type="button" class="btn btn-outline-dark ml-auto">Edit</button>
+            <button type="button" class="btn btn-secondary ml-4">Other actions</button>
         </div>
     </div>
 </section>
 
-<section class="invoice-main ">
-    <div class="container invoice-container shadow">
+<section class="invoice-main">
+    <div class="container m-auto invoice-container shadow">
         <section id="showcase ">
             <div class="row container pt-3 ">
                 <div class="col-6 mb-4">
@@ -565,7 +972,8 @@ tbody, .bold {
                 </div>
 
                 <div class="col-6">
-                    <img src="https://res.cloudinary.com/samtech/image/upload/v1570725037/My_Logo_-_Black.png" class="img-fluid logo-img">
+                    <img src="https://res.cloudinary.com/samtech/image/upload/v1570725037/My_Logo_-_Black.png"
+                        class="img-fluid logo-img">
                 </div>
             </div>
             <table class="table-responsive" style="width: 100%">
@@ -577,33 +985,33 @@ tbody, .bold {
                     </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td><span contenteditable="">John Doe</span> </td>
-                    <td><span contenteditable=""> 18th September 2019</span></td>
-                    <td> N/A</td>      
-                </tr>
-                <tr>
-                  <td><span contenteditable="">Johndoe@gmail.com</span></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><span contenteditable="">Accra, Ghana</span> </td>
-                    <th class="table-date"> Due Date</th>
-                    <th class="table-date"> Amount Due</th>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td><span contenteditable="">28th September 2019</span> </td>
-                  <td><span contenteditable="" class="tableAmount">NGN 38,500</span> </td>
-                </tr>
-              </tbody>
+                    <tr>
+                        <td><span contenteditable="">John Doe</span> </td>
+                        <td><span contenteditable=""> 18th September 2019</span></td>
+                        <td> N/A</td>
+                    </tr>
+                    <tr>
+                        <td><span contenteditable="">Johndoe@gmail.com</span></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><span contenteditable="">Accra, Ghana</span> </td>
+                        <th class="table-date"> Due Date</th>
+                        <th class="table-date"> Amount Due</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><span contenteditable="">28th September 2019</span> </td>
+                        <td><span contenteditable="" class="tableAmount">NGN 38,500</span> </td>
+                    </tr>
+                </tbody>
             </table>
-            
-        <section class="invoice-description mt-4    ">
+
+            <section class="invoice-description mt-4  ">
 
                 <table class="table table-responsive container " style="width: 100%">
-                    <thead class="thead" style="background-color: #009FFF; color: white;">
+                    <thead class="thead bg-dark" style="color: white;">
                         <tr>
                             <th scope="col" class="">Description</th>
                             <th> </th>
@@ -647,42 +1055,43 @@ tbody, .bold {
                             <td></td>
                             <td>NGN18000</td>
                         </tr>
-                      <tr>
-                       <td colspan="4"></td>
-                          <td></td>
-                          <td></td>
-                          <td>Total</td>
-                          <td></td>
-                          <td>NGN38500</td>
+                        <tr>
+                            <td colspan="4"></td>
+                            <td></td>
+                            <td></td>
+                            <td>Total</td>
+                            <td></td>
+                            <td>NGN38500</td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr>
-                          
-                       <td class="removeBorder" colspan="4"></td>
-                          <td class="removeBorder"></td>
-                          <td class="removeBorder table-date" colspan="2" style="text-align: right;">Discount</td>
-                          <td class="removeBorder"></td>
-                          <td class="removeBorder bold">N/A</td>
+
+                            <td class="removeBorder" colspan="4"></td>
+                            <td class="removeBorder"></td>
+                            <td class="removeBorder table-date" colspan="2" style="text-align: right;">Discount</td>
+                            <td class="removeBorder"></td>
+                            <td class="removeBorder bold">N/A</td>
                         </tr>
                         <tr>
-                       <td class="removeBorder" colspan="4"></td>
-                          <td class="removeBorder"></td>
-                          <td class="thickLine bold" colspan="2" style="text-align: right;">Amount Due</td>
-                          <td class="thickLine"></td>
-                          <td class="thickLine bold">NGN38500</td>
+                            <td class="removeBorder" colspan="4"></td>
+                            <td class="removeBorder"></td>
+                            <td class="thickLine bold" colspan="2" style="text-align: right;">Amount Due</td>
+                            <td class="thickLine"></td>
+                            <td class="thickLine bold">NGN38500</td>
                         </tr>
-                      </tfoot>
+                    </tfoot>
                 </table>
             </section>
 
             <section class="invoice-table" style="position: relative; top: 0rem">
-            <section class="note">
-                <h5> Note</h5>
-                <p> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dolor laudantium, totam
-                    rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi.</p>
+                <section class="note">
+                    <h5> Note</h5>
+                    <p> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dolor laudantium,
+                        totam
+                        rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi.</p>
+                </section>
             </section>
-            </section>
-            </div>
-        </section>
+    </div>
+</section>
 @endsection

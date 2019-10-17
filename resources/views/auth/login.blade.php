@@ -72,7 +72,7 @@
      <div class="container">
         <div class="clearfix mt-3">
             <div class="float-left">
-                <a href="" class="navbar-brand"><img src="https://res.cloudinary.com/sgnolebagabriel/image/upload/v1570531368/Lancers_evgrmc.png" alt="logo"></a>
+                <a href="/" class="navbar-brand"><img src="https://res.cloudinary.com/sgnolebagabriel/image/upload/v1570531368/Lancers_evgrmc.png" alt="logo"></a>
             </div>
             <div class="float-right">
 
@@ -89,7 +89,10 @@
                     <div class="form-group">
                         <label for="my-email">Email Address</label>
                         <input id="email" placeholder="eg. johndoe@example.com" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                        <span  id="emessage"></span>
+                        @if (session('success'))
+                        <span  id="emessage">{{session('success')}}</span>
+                        @endif
+
                         @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
