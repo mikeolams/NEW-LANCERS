@@ -104,7 +104,7 @@
                             </div>
                     <div class="form-group">
                         <label for="my-email">Email Address</label>
-                        <input id="email"  placeholder="eg. johndoe@example.com" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                        <input id="email"  placeholder="eg. johndoe@example.com" class="form-control @error('email') is-invalid @enderror" type="email" name="email" value="{{ old('email') }}" required autocomplete="email">
                         <span  id="emessage"></span>
                         @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -125,7 +125,7 @@
                     </div>
                     <div class="form-group">
                             <label for="my-password">Password Confirmation</label>
-                            <input id="password" class="form-control" name="password_confirmation" required autocomplete="new-password"> 
+                            <input id="password" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password"> 
                             <span id="pmessage" ></span>
                         </div>
                     <div class="clearfix">
