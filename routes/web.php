@@ -132,6 +132,10 @@ Route::get('/client_information_active', function(){
     return view('client_information_active');
 });
 
+Route::get('/trackproject', function(){
+    return view('trackproject');
+});
+
 Route::get('/transactions', 'TransactionsController@index');
 
 
