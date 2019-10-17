@@ -225,6 +225,8 @@ select {
 
   <div class="container-fluid main-section">
 
+<form  method="POST" action="/guest/project/create">
+      @csrf
     <div id="word">
       <h1>Evaluation</h1>
       <h5>Please Input the required fields in the form below</h5><br>
@@ -352,9 +354,9 @@ select {
 
 
 
-    </div class="nex">
+    </div >
 
-    <button type="submit">NEXT</button></div>
+    <button class="btn nex" type="submit">NEXT</button>
   </form>
     </div>
 
