@@ -211,34 +211,7 @@
             <a href="#"><img src="https://res.cloudinary.com/slarin/image/upload/v1570685957/contact-support/help_pvv3ie.svg" class="header-icon"></a>
             <a href="#"><p>Support</p></a>
           </div>
-          <style type="text/css">
-             .tbutton {
-            float: left;
-            width: 80px;
-            background: #ffffff;
-            border: none;
-            height: 100%;
-            border-right: 2px solid rgba(196, 196, 196, 0.4);
-        }
-             ul {
-            display: inline-block;
-            float: right;   
-            width: fit-content;
-            padding-inline-start: 10px;
-            margin-top: 24px;
-            
-        }
-
-        li {
-            
-            display: inline;
-        }
-          </style>
-         <ul>
-                <li class="login tbutton"><a  href="{{ url('/login') }}">Login</a></li>
-                <li class = "signup .tbutton" ><a class = "signup" href="{{ url('/register') }}">Signup</a></li>
-            </ul>
-          
+ 
         </div>
       </div>
 
@@ -272,14 +245,30 @@
       </div>
 
       <div class="content">
-        <img src="https://res.cloudinary.com/slarin/image/upload/v1570685956/contact-support/Contact_us_1_rm3q98.png" alt="contact help" class="hero-img">
+        <img src="https://res.cloudinary.com/slarin/image/upload/v1570685956/contact-support/Contact_us_1_rm3q98.png" alt="contact help" class="hero-img" width="150" height="100">
         <h4>Read the frequently asked questions<br>or send us a message</h4>
+        <br>
 
-        <form class="contact-form">
-          <label for="subject" class="form-label">Subject</label>
-          <input type="text" class="inpt">
+        
+         @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+        {{empty(Session::get('success')) ? "":Session::get('success')}}
+
+        <form class="contact-form" action="/process_contact_form" method="post">
+            @csrf <!-- {{ csrf_field() }} -->
+
+           <label for="subject" class="form-label">Subject</label>
+          <input name="subject" type="text" class="inpt">
+
           <label for="message" class="form-label">Message</label>
-          <textarea rows="15" class="txt-area"></textarea>
+          <textarea name="contents" rows="15" class="txt-area"></textarea>
           <button class="contact-form-btn">Send</button>
         </form>
       </div>
