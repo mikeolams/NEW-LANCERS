@@ -230,8 +230,8 @@
         <header>
             <span class = "c-estimate shift">Estimates</span>
             <ul>
-                <li class="login"><a  href="#">Login</a></li>
-                <li class = "signup" ><a class = "signup" href="">Signup</a></li>
+                <li class="login"><a  href="{{ url('/login') }}">Login</a></li>
+                <li class = "signup" ><a class = "signup" href="{{ url('/register') }}">Signup</a></li>
             </ul>
 
         </header>
@@ -240,7 +240,7 @@
 @section('content')
         <section id="new_user">
             <div>
-                <a class="btn est" id="est_content" href="#">Create Estimate</a> <br>
+                <a class="btn est" id="est_content" href="{{ url('/guest/create_project') }}">Create Estimate</a> <br>
                 <h2><p class = "pad">Estimates helps you place value to your work and time!</p></h2>
                 <p class = "pad"><h5 class = "pad">Create and estimate and easily convert it to your invoice and send to your client</h5></p>
             </div>

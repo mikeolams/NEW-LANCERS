@@ -27,4 +27,9 @@ class Estimate extends Model
         return $this->belongsTo('App\Project');
     }
 
+    public function invoice()
+    {
+        return $this->hasOne('App\Invoice');
+    }
+
 }

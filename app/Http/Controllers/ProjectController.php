@@ -35,7 +35,7 @@ class ProjectController extends Controller
 
         $projects = $user->projects()->select('id','title', 'status', 'created_at')->with(['estimate:project_id,start,end,estimate', 'invoice:project_id,amount,amount_paid'])->get();
 
-        // return $projects;
+        // return $projects, and not json verified by @BlinShine
         if($projects){
             return $this->SUCCESS("project retrieved", $projects);
         }
@@ -48,7 +48,7 @@ class ProjectController extends Controller
 
         $projects = $user->projects()->select('id','title')->get()->toArray();
 
-        // return $projects;
+        // return $projects, instead of json verified by @BlinShine
         if($projects){
             return $this->SUCCESS("Projects retrieved", $tasks);
         }
