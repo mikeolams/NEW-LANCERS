@@ -272,14 +272,18 @@
       </div>
 
       <div class="content">
-        <img src="https://res.cloudinary.com/slarin/image/upload/v1570685956/contact-support/Contact_us_1_rm3q98.png" alt="contact help" class="hero-img">
+        <img src="https://res.cloudinary.com/slarin/image/upload/v1570685956/contact-support/Contact_us_1_rm3q98.png" alt="contact help" class="hero-img" width="150" height="100">
         <h4>Read the frequently asked questions<br>or send us a message</h4>
 
-        <form class="contact-form">
-          <label for="subject" class="form-label">Subject</label>
-          <input type="text" class="inpt">
+        <form class="contact-form" action="/guest/process_contact_form">
+          <label for="email" class="form-label">Email</label>
+          <input name="email" type="text" class="inpt">
+
+           <label for="subject" class="form-label">Subject</label>
+          <input name="subject" type="text" class="inpt">
+
           <label for="message" class="form-label">Message</label>
-          <textarea rows="15" class="txt-area"></textarea>
+          <textarea name="content" rows="15" class="txt-area"></textarea>
           <button class="contact-form-btn">Send</button>
         </form>
       </div>
