@@ -211,3 +211,7 @@ Route::get('invoice/review', function() {
 Route::get('invoices/{invoice}/getpdf', 'InvoiceController@getPdf');
 Route::resource('invoices', 'InvoiceController');
 
+
+Route::get('guest/contact', function () {
+    return view('guests/contact_support');
+});
