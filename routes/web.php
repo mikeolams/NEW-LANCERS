@@ -128,7 +128,9 @@ Route::get('/changepassword', function(){
     return view('changepassword');
 });
 
-
+Route::get('/client_information_active', function(){
+    return view('client_information_active');
+});
 
 Route::get('/transactions', 'TransactionsController@index');
 
