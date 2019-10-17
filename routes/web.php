@@ -147,6 +147,7 @@ Route::get('guest/create/project/', function () {
 
 Route::post('guest/project/create', 'GuestController@createproject')->middleware('guest');
 
+Route::get('guest/create/estimate', 'GuestController@estimatecreate')->middleware('guest');
 
 Route::get('/set_estimate', function () {
     return view('set_estimate');

@@ -8,6 +8,7 @@ use App\Subscription;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
@@ -63,7 +64,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function create( array $data)
     {
         $user = User::create([
             'name' => $data['name'],
@@ -71,7 +72,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        $name = explode(" ",$request->name);
+        $name = explode(" ",$data['name']);
         $user->profile()->create(['first_name' => $name[0], 'last_name' => $name[1]]);
 
         $subscriber = new Subscription;
