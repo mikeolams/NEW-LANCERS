@@ -10,6 +10,24 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
+    /**
+     * NEW PROJECT IMPLEMENTATION STARTS
+     */
+
+    public function list(){
+        $projects = Project::join('estimates AS e', 'e.id', 'projects.estimate_id')
+                    ->leftjoin('invoices AS i', 'i.project_id', 'projects.id')
+                    ->leftjoin('currencies AS ic', 'i.currency_id', 'ic.id')
+                    ->leftjoin('currencies AS ec', 'e.currency_id', 'ec.id')
+                    ->where('projects.user_id', Auth::user()->id)
+                    ->select('projects.*', 'e.start', 'e.end', 'ec.symbol AS estimate_currency', 'ic.symbol AS invoice_currency', 'i.amount', 'i.amount_paid')
+                    ->get();
+        return view('projects.list')->withProjects($projects);
+    }
+
+    /**
+     * NEW PROJECT IMPLEMENTATION ENDS
+     */
 
     public function index()
     {

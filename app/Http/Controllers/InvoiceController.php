@@ -59,7 +59,8 @@ class InvoiceController extends Controller
                 if($project->invoice !== null) array_push($result, $project->invoice);
             }
         }
-        return $result->count() > 0 ? $this->SUCCESS('Invoice retrieved', $invoice) : $this->SUCCESS('No invoice found');
+        return view('invoices.list')->withInvoices($result);
+        // return $result->count() > 0 ? $this->SUCCESS('Invoice retrieved', $invoice) : $this->SUCCESS('No invoice found');
     }
 
     public function view($invoice_id){

@@ -344,6 +344,10 @@ table.project-table tbody tr td, table.project-table thead tr th {
     margin: 0px;
 }
 </style>
+
+<!-- Additonal styles from child blades -->
+@yield('styles')
+
 @endsection
 
 
@@ -357,11 +361,11 @@ table.project-table tbody tr td, table.project-table thead tr th {
         </div>
         <ul class="list-unstyled components">
             <li class="active">
-                <a href="#">
+                <a href="/dashboard">
                     <img src="https://lancer-app.000webhostapp.com/images/svg/home.svg" height="20" width="auto"> <span> Dashboard</span></a>
             </li>
             <li>
-                <a href="#">
+                <a href="/clients">
                     <img src="https://lancer-app.000webhostapp.com/images/svg/customer.svg" height="20" width="auto"> <span> Client</span>
                 </a>
             </li>
@@ -369,35 +373,35 @@ table.project-table tbody tr td, table.project-table thead tr th {
                 <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><img src="https://lancer-app.000webhostapp.com/images/svg/lightbulb.svg" height="20" width="auto"> <span> Projects</span></a>
                 <ul class="collapse list-unstyled" id="homeSubmenu">
                     <li>
-                        <a href="#" class="pl-4"><i class="fas fa-dot-circle"></i> Status</a>
+                        <a href="/projects" class="pl-4"><i class="fas fa-dot-circle"></i> Status</a>
                     </li>
                     <li>
-                        <a href="#" class="pl-4"><i class="fas fa-dot-circle"></i> Overview</a>
+                        <a href="/projects/overview" class="pl-4"><i class="fas fa-dot-circle"></i> Overview</a>
                     </li>
                     <li>
-                        <a href="#" class="pl-4 "><i class="fas fa-dot-circle"></i> Collabrators</a>
+                        <a href="/projects/collaborators" class="pl-4 "><i class="fas fa-dot-circle"></i> Collabrators</a>
                     </li>
                     <li>
-                        <a href="#" class="pl-4"><i class="fas fa-dot-circle"></i> Task</a>
+                        <a href="/projects/tasks" class="pl-4"><i class="fas fa-dot-circle"></i> Task</a>
                     </li>
                     <li>
-                        <a href="#" class="pl-4"><i class="fas fa-dot-circle"></i> Documents</a>
+                        <a href="/projects/documents" class="pl-4"><i class="fas fa-dot-circle"></i> Documents</a>
                     </li>
                     
                 </ul>
             </li>
             <li>
-                <a href="#">
-                    <img src="https://lancer-app.000webhostapp.com/images/svg/approve-invoice.svg" height="20" width="auto"> <span> Invoice</span>
+                <a href="/invoices">
+                    <img src="https://lancer-app.000webhostapp.com/images/svg/approve-invoice.svg" height="20" width="auto"> <span> Invoices</span>
                 </a>
             </li>
             <li>
-                <a href="#">
-                    <img src="https://lancer-app.000webhostapp.com/images/svg/policy.svg" height="20" width="auto"> <span> Contract</span>
+                <a href="/contracts">
+                    <img src="https://lancer-app.000webhostapp.com/images/svg/policy.svg" height="20" width="auto"> <span> Contracts</span>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="/proposals">
                     <img src="https://lancer-app.000webhostapp.com/images/svg/approval.svg" height="20" width="auto"> <span> Proposals</span>
                 </a>
             </li>
@@ -432,13 +436,13 @@ table.project-table tbody tr td, table.project-table thead tr th {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link p-3" href="#"><img src="https://lancer-app.000webhostapp.com/images/svg/help.svg" height="25" width="auto"> <span class="d-lg-none d-xl-none"> You need help?</span></a>
+                            <a class="nav-link p-3" href="/support"><img src="https://lancer-app.000webhostapp.com/images/svg/help.svg" height="25" width="auto"> <span class="d-lg-none d-xl-none"> You need help?</span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link border-left p-3" href="#"><img src="https://lancer-app.000webhostapp.com/images/svg/alarm-clock.svg" height="25" width="auto"> <span class="d-lg-none d-xl-none"> Reminder</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-left p-3" href="#"><img src="https://lancer-app.000webhostapp.com/images/svg/notification.svg" height="25" width="auto"> <span class="d-lg-none d-xl-none"> Notification</span></a>
+                            <a class="nav-link border-left p-3" href="/notifications"><img src="https://lancer-app.000webhostapp.com/images/svg/notification.svg" height="25" width="auto"> <span class="d-lg-none d-xl-none"> Notification</span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link border-left p-3" href="#"><span class="border rounded-circle p-1 font-weight-bold">AU</span> <span class="d-lg-none d-xl-none"> Hello John</span></a>
@@ -451,8 +455,16 @@ table.project-table tbody tr td, table.project-table thead tr th {
             </div>
         </nav>
 
+        <!-- Main Content Injection -->
         @yield('main-content')
     </div>
 
 </div> 
+    <!-- Inject other content after wrapper div -->
+    @yield('others')
+@endsection
+
+<!-- Scripts -->
+@section('script')
+    @yield('scripting')
 @endsection
