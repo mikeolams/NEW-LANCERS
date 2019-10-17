@@ -138,7 +138,7 @@ Route::delete('estimates/{estimate}', 'EstimateController@destroy')->middleware(
 
 Route::get('user/notifications', 'NotificationsController@notifications');
 Route::put('user/notifications/read/{$id}', 'NotificationsController@markAsRead');
-Route::put('user/notifications/read/all', 'NotificationsController@markAllAsRead');
+Route::put('user/notifications/read/all', 'NotificationsController@markAllAsRead'); 
 
 Route::get('/invoice_sent', function () {
     return view('invoice_sent');
