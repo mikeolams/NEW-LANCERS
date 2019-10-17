@@ -20,6 +20,15 @@ class GuestController extends Controller
 
     // public $project;
 
+    
+
+    public function step1(Request $request)
+    {
+        $project = $request->session()->get('project');
+        return view('guests/guest_estimate',compact('project', $project));
+       
+    }
+
     public function createproject(Request $request)
     {
        
@@ -27,6 +36,8 @@ class GuestController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'nullable|string'
         ]);
+
+       
 
         
 
@@ -42,10 +53,15 @@ class GuestController extends Controller
             'tracking_code' => Project::generateTrackingCode()
         ];
 
-        //  $datas = session(['project' =>  $data]);
-        // return redirect('guest/create/estimate/');>with( [ 'id' => $id ] );
-        $project = Session::get('project');
-        return redirect('guest/create/estimate/')->with(['project' => $project]);
+        if(empty($request->session()->get('project'))){
+            $request->session()->put('project',  $data);
+        }else{
+            $project = $request->session()->get('project');
+            $request->session()->put('project',  $data);
+        }
+
+        return redirect('guest/create/estimate/');
+
                 // dd(session('project'));
             
         }
@@ -57,8 +73,9 @@ class GuestController extends Controller
         $data = session('project');
 
         if ($data) {
-           
-            return view('guests/set_estimate')->with('project', Session::get('project'));
+            $project = Session::get('project');
+            $request->session()->put('project', $project);
+            return view('guests/set_estimate')->with(['project' => $project]);
            
         }
 
@@ -94,7 +111,7 @@ class GuestController extends Controller
             $data = [
                 'time' => $request->time,
                 'price_per_hour' => $request->cost_per_hour,
-                'equipment_cost' => $request->equipment_cost,
+                'equipment_cost' => $request->est1,
                 'sub_contractors' => $request->sub_contractors,
                 'sub_contractors_cost' => $request->sub_contractors_cost,
                 'similar_projects' => $request->similar_projects,
@@ -103,8 +120,35 @@ class GuestController extends Controller
                 'start' => $request->start,
                 'end' => $request->end
         ];
+           $project = Session::get('project');
+            // session::put(['estimate' =>  $data]);
+            $request->session()->put('estimate', $data);
+            $request->session()->put('project', $project);
 
+            // $ddata = Session::all();
+            //  dd($ddata);
+            return redirect('guest/create/client/');
         }
 
+    }
+
+    public function clientcreate(Request $request)
+    {
+        $data = session('project');
+
+        if ($data) {
+            $estimate = Session::get('estimate');
+            $project = Session::get('project');
+            $request->session()->put('project', $project);
+            $request->session()->put('estmate', $estimate);
+            return view('guests/client')->with(['project' => $project,'estimate' => $estimate,]);
+           
+        }
+
+        
+
+        // return redirect('guest/create/client/')->with("error", "You need to create a project first");
+
+     
     }
 }

@@ -137,17 +137,20 @@ Route::get('guest/create_estimate', function () {
     return view('create_estimate');
 });
 
-Route::get('guest/create_estimate', function () {
-    return view('guests/guest_estimate');
-});
+// Route::get('guest/create_estimate', function () {
+//     return view('guests/guest_estimate');
+// });
 
-Route::get('guest/create/project/', function () {
-    return view('guests/createproject');
-});
+// Route::get('guest/create/project/', function () {
+//     return view('guests/createproject');
+// });
+
+Route::get('guest/create_estimate', 'GuestController@step1')->middleware('guest');
 
 Route::post('guest/project/create', 'GuestController@createproject')->middleware('guest');
 
 Route::get('guest/create/estimate', 'GuestController@estimatecreate')->middleware('guest');
+Route::post('guest/save/estimate', 'GuestController@estimatesave')->middleware('guest');
 
 Route::get('/set_estimate', function () {
     return view('set_estimate');
