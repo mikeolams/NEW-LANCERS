@@ -174,6 +174,10 @@ Route::get('/set_estimate', function () {
 
 
 
+Route::get('/trackproject', function(){
+    return view('trackproject');
+});
+
 Route::get('/transactions', 'TransactionsController@index');
 
 
