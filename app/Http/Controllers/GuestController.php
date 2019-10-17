@@ -41,4 +41,10 @@ class GuestController extends Controller
         }
 
     }
+
+    public function contact_form()
+    {
+
+        
+    }
 }
