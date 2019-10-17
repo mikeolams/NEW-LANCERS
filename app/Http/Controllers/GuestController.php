@@ -54,7 +54,9 @@ class GuestController extends Controller
        $message->message =  $request->contents;
        $message->subject = $request->subject;
        $message->save();
-       return redirect('/guest/contact')->with("success", "Message Set Successfully");
+
+       //$data["success"] =;
+       return redirect('/guest/contact')->with(["success" => "<span style='color:green;'>Message Set Successfully</span>"]);
 
     }
 }
