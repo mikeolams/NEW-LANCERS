@@ -207,4 +207,3 @@ Route::get('invoice/review', function() {
 Route::get('invoices/{invoice}/getpdf', 'InvoiceController@getPdf');
 Route::resource('invoices', 'InvoiceController');
 
-
