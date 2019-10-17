@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Symfony\Component\Routing\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -120,6 +122,10 @@ Route::get('guest/create_project/', function () {
 
 Route::get('/set_estimate', function () {
     return view('set_estimate');
+});
+
+Route::get('/changepassword', function(){
+    return view('changepassword');
 });
 
 
