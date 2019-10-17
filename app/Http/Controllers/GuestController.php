@@ -45,6 +45,10 @@ class GuestController extends Controller
     public function process_contact_form(Request $request)
     {
 
+     $data=[];
+
+
+     return redirect('/guest/contact')->with($data);
 
     }
 }

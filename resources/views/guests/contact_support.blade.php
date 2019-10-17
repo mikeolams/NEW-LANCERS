@@ -276,8 +276,6 @@
         <h4>Read the frequently asked questions<br>or send us a message</h4>
 
         <form class="contact-form" action="/guest/process_contact_form">
-          <label for="email" class="form-label">Email</label>
-          <input name="email" type="text" class="inpt">
 
            <label for="subject" class="form-label">Subject</label>
           <input name="subject" type="text" class="inpt">
