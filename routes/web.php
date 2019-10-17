@@ -13,27 +13,31 @@ use Illuminate\Http\Request;
 */
 
 Auth::routes(['verify' => true]);
-Route::post('password/create', 'AuthController@create_password')->name('password.create');
+Route::post('/password/create', 'AuthController@create_password')->name('password.create');
+
 // =========================== Not necessary
 Route::get('/passwordresetconfirmation', function () { return view('passwordresetconfirmation');});
 Route::get('/passwordresetmessage', function () { return view('passwordresetmessage'); });
 Route::get('/passwordreset', function () { return view('passwordreset'); });
-Route::get('password/changed', function() { return view('passwordchanged'); });
+Route::get('/password/changed', function() { return view('passwordchanged'); });
 // =========================================
 
 Route::get('/', function () { return view('welcome'); });
 Route::get('/pricing', function () { return view('pricing'); });
-Route::get('guest/create_estimate', function () { return view('create_estimate'); });
-Route::get('guest/create_project/', function () { return view('createproject'); });
-Route::post('guest/project/create', 'GuestController@createproject')->middleware('guest');
 
+Route::get('/guest/create_project/', function () { return view('createproject'); });
+Route::post('/guest/project/create', 'GuestController@createproject')->middleware('guest');
+Route::get('/guest/create_estimate', 'GuestController@step1')->middleware('guest');
+Route::get('/guest/create/estimate', 'GuestController@estimatecreate')->middleware('guest');
+Route::post('/guest/save/estimate', 'GuestController@estimatesave')->middleware('guest');
+Route::get('/guest/contact', function () { return view('guests/contact_support'); });
+Route::post('/guest/process_contact_form',"GuestController@process_contact_form");
 
+Route::get('/countries', 'DataController@countries');
+Route::get('/states/{id}', 'DataController@states');
+Route::get('/currencies', 'DataController@currencies');
 
-Route::get('countries', 'DataController@countries');
-Route::get('states/{id}', 'DataController@states');
-Route::get('currencies', 'DataController@currencies');
-
-Route::get('test/pdf', function(){ return view('invoice_view_pdf'); });
+Route::get('/test/pdf', function(){ return view('invoice_view_pdf'); });
 Route::get('/invoice/pdf', function() {
     $pdf = PDF::loadView('invoice_view_pdf');
     return $pdf->download('lancers_invoice.pdf');
@@ -47,7 +51,7 @@ Route::get('/email/client', function(Request $request){
 });
 
 Route::group(['middleware' => 'auth:web'], function(){
-    Route::get('logout', 'AuthController@logout')->name('logout');
+    Route::get('/logout', 'AuthController@logout')->name('logout');
     
     Route::get('/dashboard', 'HomeController@index')->name('dashboard');
     Route::get('/dashboard/profile', 'ProfileController@index')->name('dashboard-profile');
@@ -61,20 +65,20 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/users/settings/emails', "emailsettingsController@index")->middleware('auth');
     Route::put('/users/settings/emails', "emailsettingsController@updateEmailSettings")->middleware('auth')->name('SET-EMAIL');
     Route::post('/users/edit/profile/image', "ProfileController@updateImage")->middleware('auth')->name('Profile-Image');
-    Route::get('user/notifications', 'NotificationsController@notifications');
-    Route::put('user/notifications/read/{$id}', 'NotificationsController@markAsRead');
-    Route::put('user/notifications/read/all', 'NotificationsController@markAllAsRead');
+    Route::get('/user/notifications', 'NotificationsController@notifications');
+    Route::put('/user/notifications/read/{$id}', 'NotificationsController@markAsRead');
+    Route::put('/user/notifications/read/all', 'NotificationsController@markAllAsRead');
 
 
     Route::post('/contracts/{project_id}/{template_id}', 'ContractControler@store')->name('create.contract');
     Route::put('/contracts/{project_id}/{id}')->name('edit.contract');
     Route::delete('/contracts/{project_id}/{id}')->name('delete.contract');
 
-    Route::get('tasks', 'TaskController@getAllTasks');
-    Route::get('tasks/{id}', 'TaskController@getTask');
-    Route::post('tasks', 'TaskController@createTask');
-    Route::put('tasks/{id}', 'TaskController@updateTask');
-    Route::delete('tasks/{id}', 'TaskController@deleteTask');
+    Route::get('/tasks', 'TaskController@getAllTasks');
+    Route::get('/tasks/{id}', 'TaskController@getTask');
+    Route::post('/tasks', 'TaskController@createTask');
+    Route::put('/tasks/{id}', 'TaskController@updateTask');
+    Route::delete('/tasks/{id}', 'TaskController@deleteTask');
     Route::put('/tasks/{task}/team', 'TaskController@addTeam');
 
     Route::get('estimates', 'EstimateController@index')->middleware('auth');
