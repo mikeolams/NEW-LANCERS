@@ -25,6 +25,7 @@ class GuestController extends Controller
     public function step1(Request $request)
     {
         $project = $request->session()->get('project');
+        
         if(!$project)
         {
         return view('guests/guest_estimate');
