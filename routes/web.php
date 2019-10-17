@@ -59,6 +59,26 @@ Route::delete('/contracts/{project_id}/{id}')->name('delete.contract');
 Route::get('/pricing', function () {
     return view('pricing');
 });
+//web route inside web view
+//client
+Route::get('/client', function () {
+    return view('client');
+});
+Route::get('/project/status', function () {
+    return view('project-status');
+});
+
+
+Route::get('/project/collabrators', function () {
+    return view('project-collabrators');
+});
+
+Route::get('/invoice', function () {
+    return view('invoice_view');
+});
+Route::get('/client-info', function () {
+    return view('client-info');
+});
 
 
 
@@ -158,6 +178,10 @@ Route::get('/set_estimate', function () {
 
 
 
+Route::get('/trackproject', function(){
+    return view('trackproject');
+});
+
 Route::get('/transactions', 'TransactionsController@index');
 
 
@@ -192,3 +216,6 @@ Route::get('invoices/{invoice}/getpdf', 'InvoiceController@getPdf');
 Route::resource('invoices', 'InvoiceController');
 
 
+Route::get('guest/contact', function () {
+    return view('guests/contact_support');
+});
