@@ -30,8 +30,8 @@ Route::post('/guest/project/create', 'GuestController@createproject')->middlewar
 Route::get('/guest/create_estimate', 'GuestController@step1')->middleware('guest');
 Route::get('/guest/create/estimate', 'GuestController@estimatecreate')->middleware('guest');
 Route::post('/guest/save/estimate', 'GuestController@estimatesave')->middleware('guest');
-Route::get('/guest/contact', function () { return view('guests/contact_support'); });
-Route::post('/guest/process_contact_form',"GuestController@process_contact_form");
+Route::get('/contact', function () { return view('contact_support'); });
+Route::post('/process_contact_form',"ContactMessageController@process_contact_form");
 
 Route::get('/countries', 'DataController@countries');
 Route::get('/states/{id}', 'DataController@states');
@@ -209,12 +209,6 @@ Route::get('invoice/review', function() {
 //Invoice routes
 Route::get('invoices/{invoice}/getpdf', 'InvoiceController@getPdf');
 Route::resource('invoices', 'InvoiceController');
-
-
-
-Route::get('guest/contact', function () {
-    return view('guests/contact_support');
-});
 
 
 Route::group(['middleware' => 'auth:web'], function(){
