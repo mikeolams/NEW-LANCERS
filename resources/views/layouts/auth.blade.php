@@ -369,7 +369,7 @@ table.project-table tbody tr td, table.project-table thead tr th {
                     <img src="https://lancer-app.000webhostapp.com/images/svg/customer.svg" height="20" width="auto"> <span> Client</span>
                 </a>
             </li>
-            <li class="@if(request()->path() == 'project/status') active @endif">
+            <li class="@if(request()->path() == 'projects/status') active @endif">
                 <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><img src="https://lancer-app.000webhostapp.com/images/svg/lightbulb.svg" height="20" width="auto"> <span> Projects</span></a>
                 <ul class="collapse list-unstyled " id="homeSubmenu">
                     <li>
@@ -390,13 +390,13 @@ table.project-table tbody tr td, table.project-table thead tr th {
                     
                 </ul>
             </li>
-            <li class="@if(request()->path() == 'invoice') active @endif">
-                <a href="{{url('invoice')}}">
+            <li class="@if(request()->path() == 'invoices') active @endif">
+                <a href="{{url('invoices')}}">
                     <img src="https://lancer-app.000webhostapp.com/images/svg/approve-invoice.svg" height="20" width="auto"> <span> Invoice</span>
                 </a>
             </li>
             <li>
-                <a href="{{url('contract')}}">
+                <a href="{{url('contracts')}}">
                     <img src="https://lancer-app.000webhostapp.com/images/svg/policy.svg" height="20" width="auto"> <span> Contract</span>
                 </a>
             </li>
@@ -459,4 +459,8 @@ table.project-table tbody tr td, table.project-table thead tr th {
     </div>
 
 </div> 
+
+<!-- Inject other content after wrapper div -->
+@yield('others')
+
 @endsection
