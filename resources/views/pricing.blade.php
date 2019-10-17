@@ -552,7 +552,7 @@ text-decoration: none;
 <h6>with dedicated support and quick and consistent deolverance of new features, you can trust your<br>
 process in our able hands</h6>
 <br>
-<button onclick="window.location.assign('/guest/contact')" type="button" class="btn" >Contact Sales</button>
+<button onclick="window.location.assign('/contact')" type="button" class="btn" >Contact Sales</button>
 </div>
 </article>
 @stop
