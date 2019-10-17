@@ -259,7 +259,7 @@
         </ul>
     </div>
 @endif
-        {{empty(Session::get('success')) ? "":Session::get('success')}}
+       <span style='color:green;'> {{empty(Session::get('success')) ? "":Session::get('success')}}</span>
 
         <form class="contact-form" action="/process_contact_form" method="post">
             @csrf <!-- {{ csrf_field() }} -->
