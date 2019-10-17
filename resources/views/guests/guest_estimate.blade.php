@@ -296,8 +296,7 @@
        
                         </div>
                     </div>
-               <button type="submit" class="a-next disabled"><a href="#">NEXT</a></button>
-            </form>
+               <button class="a-next disabled"><a href="#">NEXT</a></button>
        </section>
     </div>
 

@@ -23,7 +23,13 @@ class GuestController extends Controller
     public function step1(Request $request)
     {
         $project = $request->session()->get('project');
+        if(!$project)
+        {
+        return view('guests/guest_estimate');
+        }
+
         return view('guests/guest_estimate',compact('project', $project));
+        
        
     }
 
@@ -143,16 +149,11 @@ class GuestController extends Controller
            
         }
 
-        
+
 
         // return redirect('guest/create/client/')->with("error", "You need to create a project first");
 
      
     }
 
-    public function process_contact_form(Request $request)
-    {
-
-
-    }
 }
