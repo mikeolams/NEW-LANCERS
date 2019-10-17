@@ -89,27 +89,27 @@ Route::get('/client-info', function () {
 
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
-Route::get('/dashboard/profile', 'ProfileController@index')->name('dashboard-profile');
+Route::get('/dashboard/profile/settings', 'ProfileController@index')->middleware('auth')->name('dashboard-profile');
 
-Route::get('/dashboard/profile/view', 'ProfileController@userProfileDetails')->name('user-profile');
-
-
-Route::post('/users/edit/profile', "ProfileController@editProfile")->middleware('auth')->name('edit-profile');
-
-Route::get('/users/subscriptions', "SubscriptionController@showSubscriptions")->middleware('auth')->name('subscriptions');
-
-Route::get('/users/subscriptions/{planId}', "SubscriptionController@subscribeUser")->middleware('auth');
+Route::get('/pricing', "SubscriptionController@showSubscriptions")->name('subscriptions');
 
 Route::get('users/subscribe/{txref}', "SubscriptionController@subscribeUser");
 
-Route::get('/users/view/subscriptions', "SubscriptionController@showPlan")->middleware('auth');
 
-Route::get('/users/settings/emails', "emailsettingsController@index")->middleware('auth');
+Route::get('/dashboard/emails/settings', "emailsettingsController@index")->middleware('auth');
 
 Route::put('/users/settings/emails', "emailsettingsController@updateEmailSettings")->middleware('auth')->name('SET-EMAIL');
 
 
-Route::post('/users/edit/profile/image', "ProfileController@updateImage")->middleware('auth')->name('Profile-Image');
+Route::post('/users/edit/profile/company', "ProfileController@editProfile")->middleware('auth')->name('edit-company');
+
+
+Route::post('/users/edit/profile/personal', "ProfileController@editProfileUser")->middleware('auth')->name('edit-profile');
+
+Route::post('/dashboard/edit/profile/image', "ProfileController@updateImage")->middleware('auth')->name('Profile-Image');
+
+//Route::get('/users/subscriptions/{planId}', "SubscriptionController@subscribeUser")->middleware('auth');
+
 
 
 
@@ -147,7 +147,7 @@ Route::put('user/notifications/read/{$id}', 'NotificationsController@markAsRead'
 Route::put('user/notifications/read/all', 'NotificationsController@markAllAsRead');
 
 
-// 
+//
 Route::get('/invoice_sent', function () {
     return view('invoice_sent');
 });
@@ -219,11 +219,11 @@ Route::get('guest/contact', function () {
 
 Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/logout', 'AuthController@logout')->name('logout');
-    
+
     Route::get('/dashboard', 'HomeController@index')->name('dashboard');
     Route::get('/dashboard/profile', 'ProfileController@index')->name('dashboard-profile');
     Route::get('/dashboard/profile/view', 'ProfileController@userProfileDetails')->name('user-profile');
-    
+
     Route::post('/users/edit/profile', "ProfileController@editProfile")->middleware('auth')->name('edit-profile');
     Route::get('/users/subscriptions', "SubscriptionController@showSubscriptions")->middleware('auth')->name('subscriptions');
     Route::get('/users/subscriptions/{planId}', "SubscriptionController@subscribeUser")->middleware('auth');
@@ -260,8 +260,8 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::post('/rave/callback', 'RaveController@callback')->name('callback');
     Route::resource('transactions', 'TransactionsController');
     Route::get('/transactions', 'TransactionsController@index');
-    
-    
+
+
     Route::get('/projects', 'ProjectController@list');
     Route::get('/project/status', 'ProjectController@list');
     Route::get('/project/track', function(){ return view('trackproject'); });
@@ -270,7 +270,7 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/clients', 'ClientController@list');
     Route::get('/client/add', function() { return view('addclients'); });
     Route::get('/client-info', function () { return view('client-info'); });
-    
+
     //Invoice routes
     // Route::resource('invoices', 'InvoiceController');
     Route::get('/invoices', 'InvoiceController@list');
@@ -280,9 +280,9 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/invoice_sent', function () { return view('invoice_sent'); });
     Route::get('/invoice-view', function () { return view('invoice-view'); });
     Route::get('/client-doc-view', function () { return view('client-doc-view'); });
-    
-    
+
+
     Route::get('/notifications', 'NotificationsController@notifications');
-    
+
 });
 
