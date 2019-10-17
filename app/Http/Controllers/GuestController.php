@@ -42,9 +42,9 @@ class GuestController extends Controller
 
     }
 
-    public function contact_form()
+    public function process_contact_form(Request $request)
     {
 
-        
+
     }
 }
