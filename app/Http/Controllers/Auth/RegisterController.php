@@ -71,7 +71,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        $name = explode(" ",$request->name);
+        $name = explode(" ",$data['name']);
         $user->profile()->create(['first_name' => $name[0], 'last_name' => $name[1]]);
 
         $subscriber = new Subscription;
