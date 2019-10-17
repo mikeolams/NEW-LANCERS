@@ -17,6 +17,11 @@ use App\ContactMessage;
 
 class GuestController extends Controller
 {
+    public function __construct($value='')
+    {
+        $this->middleware('auth');  
+
+    }
     public function createproject()
     {
        
