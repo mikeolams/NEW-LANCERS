@@ -138,6 +138,7 @@ Route::delete('estimates/{estimate}', 'EstimateController@destroy')->middleware(
 
 Route::get('user/notifications', 'NotificationsController@notifications');
 Route::put('user/notifications/read/{$id}', 'NotificationsController@markAsRead');
+
 Route::put('user/notifications/read/all', 'NotificationsController@markAllAsRead');
 
 
@@ -162,15 +163,14 @@ Route::post('guest/project/create', 'GuestController@createproject')->middleware
 Route::get('guest/create/estimate', 'GuestController@estimatecreate')->middleware('guest');
 Route::post('guest/save/estimate', 'GuestController@estimatesave')->middleware('guest');
 
-// Route::get('/set_estimate', function () {
-//     return view('set_estimate');
-// });
+
 
 
 
 Route::get('/trackproject', function(){
     return view('trackproject');
 });
+
 
 Route::get('/transactions', 'TransactionsController@index');
 
@@ -206,11 +206,8 @@ Route::get('invoices/{invoice}/getpdf', 'InvoiceController@getPdf');
 Route::resource('invoices', 'InvoiceController');
 
 
-Route::get('guest/contact', function () {
-    
-return view('guests/contact_support');
 
+Route::get('guest/contact', function () {
+    return view('guests/contact_support');
 });
 
-
-Route::post('guest/process_contact_form',"GuestController@process_contact_form");
