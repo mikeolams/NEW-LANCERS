@@ -364,7 +364,7 @@
     	<header>
 			<nav class="navbar navbar-expand-lg navbar-main">
 				<div class="container">
-					<a class="navbar-brand" href="#">
+					<a class="navbar-brand" href="/">
 						<img src="{{ asset('images/svg/logo-white.svg') }}" class="img img-responsive" height="30" width="auto">
 					</a>
 					<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
