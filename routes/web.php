@@ -226,4 +226,3 @@ Route::resource('invoices', 'InvoiceController');
 Route::get('guest/contact', function () {
     return view('guests/contact_support');
 });
-
