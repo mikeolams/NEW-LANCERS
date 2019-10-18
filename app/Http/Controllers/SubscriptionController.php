@@ -49,6 +49,12 @@ class SubscriptionController extends Controller
                 //main logic present in Subscription model
                 $subscribeUserToPlan = $Subscriber->subscribeToPlan($planDetails['data']['id'], Auth::id(), $months);
 
+                // if($subscribeUserToPlan === true){
+                //     return $this->success("Subscribed sucessfully", str_replace("_"," " ,ucfirst($planDetails['data']['name'])));
+                // }else {
+                //     return $this->error("Subscription failed");
+                // }      
+
                 if(($subscribeUserToPlan['status'] == false) && ($subscribeUserToPlan['payload'] != null))
                 {
                     return redirect('/users/subscriptions')->with(['editErrors'=>$subscribeUserToPlan['payload']]);

@@ -57,9 +57,7 @@ Route::get('/email/client', function(Request $request){
     abort(404);
 });
 
-/**
- * Protected Routes
- */
+
 Route::group(['middleware' => 'auth:web'], function(){
     // Auth
     Route::get('/logout', 'AuthController@logout')->name('logout');
