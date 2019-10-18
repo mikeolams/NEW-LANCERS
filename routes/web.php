@@ -98,6 +98,13 @@ Route::get('/set_estimate', function () {
     return view('set_estimate');
 });
 
+Route::get('/send_invoice', function(){
+    return view('send_invoice');
+});
+
+Route::get('/project_page', function(){
+    return view('project_page');
+});
 
 
     Route::get('/transactions', 'TransactionsController@index');
@@ -114,3 +121,4 @@ Route::get('/invoice/pdf', function() {
 Route::get('test/pdf', function(){
     return view('invoice_view_pdf');
 });
+
