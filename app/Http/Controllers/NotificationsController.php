@@ -18,7 +18,7 @@ class NotificationsController extends Controller
     	$user = Auth::user();
 
     	$notifications = $user->notifications->take(25);
-        return view('notifications')->with('notifications',$notifications);
+        return view('notifications')->withNotifications($notifications);
 		// return response()->json($notifications, 200);
     }
 

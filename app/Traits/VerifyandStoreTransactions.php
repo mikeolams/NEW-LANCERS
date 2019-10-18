@@ -91,7 +91,7 @@ Trait VerifyandStoreTransactions{
 		        		'reason' => "This transaction has been previouly processed"
 		        	];
 		        }else{		        	
-			        if($data['status'] == 'success' && ((string)$chargeAmount == (string)($amount * 100))){
+			        if($data['status'] == 'success' && ((string)$chargeAmount == (string)$amount)){
 			          // the transaction was successful, you can deliver value
 			          /* 
 			          @ also remember that if this was a card transaction, you can store the 

@@ -16,6 +16,9 @@ class DatabaseSeeder extends Seeder
         // $this->call(DocumentsTableSeeder::class);
 
         factory(App\User::class, 10)->create()->each(function ($user){
+            $name = explode(" ",$user->name);
+            $user->profile()->create(['first_name' => $name[0], 'last_name' => $name[1]]);
+
             $subscriber = new Subscription;
             $subscriber->subscribeToPlan(1 , $user->id, 12);
         });
