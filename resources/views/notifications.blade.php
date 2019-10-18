@@ -1,5 +1,6 @@
 @extends('layouts.auth')
-@section('styles.sub')
+
+@push('styles')
 <style>
 .user {
 	width: 50px;
@@ -38,6 +39,7 @@ h1 {
 	margin-bottom: 15px;
 	margin-right: 20px;
     margin-left: 30px;
+    border-radius: 5px;
 }
 
 
@@ -67,24 +69,28 @@ p {
 }
 
 </style>
-@endsection
+@endpush
 
 
 @section('main-content')
+
+
 <h1>NOTIFICATIONS</h1>
-<div class="notification-box">
-    <div class="d-flex bd-highlight">
-        <div class="p-2 flex-shrink-1 bd-highlight">
-            <img src="https://res.cloudinary.com/ros4eva/image/upload/v1570747847/Vector_c4lyp5.png">
-        </div>
-        <div class="p-2 w-100 bd-highlight">
-            <b>A new invoice was created</b><br>
-            <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua.</span>
-            <p>Today 10:21AM</p>
-        </div>
-    </div>
-</div>
+
+@foreach($notifications as $key => $notification)
+	<div class="notification-box">
+	    <div class="d-flex bd-highlight">
+	        <div class="p-2 flex-shrink-1 bd-highlight">
+	            <img src="https://res.cloudinary.com/ros4eva/image/upload/v1570747847/{{$key%2 == 0 ?'Vector3_gicch8' : 'Vector_c4lyp5'}}.png">
+	        </div>
+	        <div class="p-2 w-100 bd-highlight">
+	            <b>{{$notification->data['subject']}}</b><br>
+	            <span>{{$notification->data['body']}}</span>
+	            <p>{{prettyDate($notification->created_at)}}</p>
+	        </div>
+	    </div>
+	</div>
+@endforeach
 @endsection
 
 
