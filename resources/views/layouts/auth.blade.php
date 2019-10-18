@@ -365,7 +365,7 @@ table.project-table tbody tr td, table.project-table thead tr th {
                     <img src="https://lancer-app.000webhostapp.com/images/svg/home.svg" height="20" width="auto"> <span> Dashboard</span></a>
             </li>
             <li class=" @if(request()->path() == 'client') active @endif">
-                <a href="{{url('client')}}">
+                <a href="{{url('clients')}}">
                     <img src="https://lancer-app.000webhostapp.com/images/svg/customer.svg" height="20" width="auto"> <span> Client</span>
                 </a>
             </li>
@@ -453,7 +453,13 @@ table.project-table tbody tr td, table.project-table thead tr th {
                             <a class="nav-link border-left p-3" href="/notifications"><img src="https://lancer-app.000webhostapp.com/images/svg/notification.svg" height="25" width="auto"> <span class="d-lg-none d-xl-none"> Notification</span></a>
                         </li>
                         <li class="nav-item">
+<<<<<<< HEAD
                             <a class="nav-link border-left p-3" href="/dashboard/profile"><span class="border rounded-circle p-1 font-weight-bold">{{strtoupper(explode(" ", auth()->user()->name)[0][0].explode(" ", auth()->user()->name)[1][0])}}</span> <span class="d-lg-none d-xl-none"> Hello {{explode(" ", auth()->user()->name)[0]}}</span></a>
+=======
+                            <a class="nav-link border-left p-3" href="/dashboard/profile/settings"><span class="border rounded-circle p-1 font-weight-bold">
+                                {{strtoupper(explode(" ", auth()->user()->name)[0][0])}}
+                            </span> <span class="d-lg-none d-xl-none"> Hello {{explode(" ", auth()->user()->name)[0]}}</span></a>
+>>>>>>> 3db4fb02f8a85c661b452414415b4e2729a7890d
                         </li>
                         <li class="nav-item">
                             <a class="nav-link p-3" href="{{url('/logout')}}" ><i class="fas fa-sign-out-alt"></i> <span class="d-lg-none d-xl-none"> Logout</span></a>
