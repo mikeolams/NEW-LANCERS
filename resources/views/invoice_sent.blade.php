@@ -86,6 +86,6 @@
     </div>
 
     <div class="side">  
-        <button class="invBtn">VIEW INVOICES</button>
+        <button class="invBtn" onClick="window.location.href='/invoices'">VIEW INVOICES</button>
     </div>
 @endsection
