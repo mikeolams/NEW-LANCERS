@@ -18,7 +18,7 @@
 									<a href="settings-profile.html" class="nav-option py-3">Profile Settings</a>
 									<a href="settings-email.html" class="nav-option active-nav py-3"
 										>Email Notifications</a>
-										<a href="/pricing" class="nav-option py-3">Subscription</a>
+										<a href="/users/notifications" class="nav-option py-3">Subscription</a>
 								</div>
 							</div>
 						</div>
