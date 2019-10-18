@@ -25,6 +25,10 @@ class InvoiceController extends Controller
         $this->middleware('auth');
     }
 
+    public function send($id){
+        return view('invoice_sent');
+    }
+
     public function index(){
         $user = Auth::user();
 

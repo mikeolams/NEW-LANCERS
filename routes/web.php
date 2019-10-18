@@ -16,15 +16,22 @@ use Illuminate\Http\Request;
  * Public Routes
 */
 Route::get('/', function () { return view('welcome'); });
-// Route::get('/pricing', function () { return view('pricing'); });
-Route::get('/pricing', "SubscriptionController@showSubscriptions")->name('subscriptions');
+Route::get('/pricing', function () { return view('pricing'); });
 
 //Guest Routes 
+
 // Guest Onboarding
-Route::get('guest/create_estimate', 'GuestController@step1')->middleware('guest');
-Route::post('guest/project/create', 'GuestController@createproject')->middleware('guest');
-Route::get('guest/create/estimate', 'GuestController@estimatecreate')->middleware('guest');
-Route::post('guest/save/estimate', 'GuestController@estimatesave')->middleware('guest');    
+// Route::get('guest/create_estimate', 'GuestController@step1')->middleware('guest');
+// Route::post('guest/project/create', 'GuestController@createproject')->middleware('guest');
+// Route::get('guest/create/estimate', 'GuestController@estimatecreate')->middleware('guest');
+// Route::post('guest/save/estimate', 'GuestController@estimatesave')->middleware('guest');    
+
+// Route::get('/guest/create_project/', function () { return view('createproject'); });
+Route::post('/guest/project/create', 'GuestController@createproject')->middleware('guest');
+Route::get('/guest/create_estimate', 'GuestController@step1')->middleware('guest');
+Route::get('/guest/create/estimate', 'GuestController@estimatecreate')->middleware('guest');
+Route::post('/guest/save/estimate', 'GuestController@estimatesave')->middleware('guest');
+
 Route::get('/guest/contact', function () { return view('guests/contact_support'); });
 Route::post('/guest/process_contact_form',"GuestController@process_contact_form");
 
@@ -57,14 +64,9 @@ Route::get('/email/client', function(Request $request){
     abort(404);
 });
 
-
-//Invoice routes
-Route::get('clients/{client}/invoices/{invoice}', 'InvoiceController@clientInvoice');
-Route::get('invoices/{invoice}/getpdf', 'InvoiceController@getPdf');
-Route::post('invoices/send', 'InvoiceController@sendinvoice');
-Route::resource('invoices', 'InvoiceController');
-
-
+/**
+ * Protected Routes
+ */
 Route::group(['middleware' => 'auth:web'], function(){
     // Auth
     Route::get('/logout', 'AuthController@logout')->name('logout');
@@ -73,6 +75,7 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/dashboard', 'HomeController@index')->name('dashboard');
     Route::get('/dashboard/profile', 'ProfileController@index')->name('dashboard-profile');
     Route::get('/dashboard/profile/view', 'ProfileController@userProfileDetails')->name('user-profile');
+    
     
     // User Routes
     Route::post('/users/edit/profile', "ProfileController@editProfile")->middleware('auth')->name('edit-profile');
@@ -88,22 +91,51 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::put('/user/notifications/read/{$id}', 'NotificationsController@markAsRead');
     Route::put('/user/notifications/read/all', 'NotificationsController@markAllAsRead');
 
+
     // Project Routes
     Route::get('/projects', 'ProjectController@list');
     Route::get('/project/status', 'ProjectController@list');
     Route::get('/project/track', function(){ return view('trackproject'); });
     Route::get('/project/collabrators', function () { return view('project-collabrators'); });
 
+    // Client Routes
     Route::get('/clients', 'ClientController@list');
+
     Route::get('/add/client', function() { return view('addclients'); });
+
+    // Route::get('/client/add', 'ClientController@show');
+
     Route::post('/client/add', 'ClientController@store');
     Route::get('/client-info', function () { return view('client-info'); });
     
     //Invoice routes
+    // Route::resource('invoices', 'InvoiceController');
+    Route::get('/invoices', 'InvoiceController@list');
+    Route::get('/invoice/pay/{txref}', 'InvoiceController@pay');
+    Route::get('/invoices/{invoice}/getpdf', 'InvoiceController@getPdf');
+    Route::get('/invoice/review', function() { return view('reviewinvoice'); });
+    Route::get('/invoice', function () { return view('invoice_view'); });
+    Route::get('/invoice_sent', function () { return view('invoice_sent'); });
+    Route::post('/invoice/send/{id}', 'InvoiceController@send');
     Route::get('/invoice-view', function () { return view('invoice-view'); });
     Route::get('/client-doc-view', function () { return view('client-doc-view'); });
 
     // Estimate Routes
+    Route::get('/estimates', 'EstimateController@index')->middleware('auth');
+    Route::post('estimates', 'EstimateController@store')->middleware('auth');
+    Route::put('/estimates/{estimate}', 'EstimateController@update')->middleware('auth');
+    Route::delete('/estimates/{estimate}', 'EstimateController@destroy')->middleware('auth');
+    Route::get('/estimates/{estimate}', 'EstimateController@show')->middleware('auth');
+    Route::get('/estimate/create/step1', 'EstimateController@step1');
+    // Route::get('/estimate/create/step2', 'EstimateController@step2');
+    // Route::get('/estimate/create/step3', 'EstimateController@step3');
+    // Route::get('/estimate/create/step4', 'EstimateController@step4');
+    // Route::get('/estimate/create/step5', 'EstimateController@step5');
+    Route::post('/estimate/create/step2', 'EstimateController@step2');
+    Route::post('/estimate/create/step3', 'EstimateController@step3');
+    Route::post('/estimate/create/step4', 'EstimateController@step4');
+    Route::post('/estimate/create/step5', 'EstimateController@step5');
+
     Route::get('/estimates', 'EstimateController@index')->middleware('auth');
     Route::post('estimates', 'EstimateController@store')->middleware('auth');
     Route::get('/estimate/create', function () { return view('set_estimate'); });
@@ -124,14 +156,16 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::put('/contracts/{project_id}/{id}')->name('edit.contract');
     Route::delete('/contracts/{project_id}/{id}')->name('delete.contract');
 
+    // Trasaction/Payment/Subscription Routes
     // Route::post('/pay', 'RaveController@initialize')->name('pay');
     // Route::get('payment/{type}/{ref?}', 'PaymentContoller@create');
     // Route::post('/rave/callback', 'RaveController@callback')->name('callback');
     Route::resource('transactions', 'TransactionsController');
     Route::get('/transactions', 'TransactionsController@index');
+    Route::resource('transactions', 'TransactionsController');
+    Route::get('/transactions', 'TransactionsController@index');
     Route::get('payment/subscription/{type}', 'PaymentContoller@create');
     Route::get('payment/invoice/{ref}', 'PaymentContoller@invoice'); //ref is the timestamp value of the created_at field
-
 
 
     Route::get('/projects', 'ProjectController@list');
@@ -156,11 +190,10 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/client-doc-view', function () { return view('client-doc-view'); });
 
 
+    // Others 
+
     Route::get('/notifications', 'NotificationsController@notifications');
     Route::get('user/notifications', 'NotificationsController@notifications');
     Route::put('user/notifications/read/{$id}', 'NotificationsController@markAsRead');
-
-    Route::put('user/notifications/read/all', 'NotificationsController@markAllAsRead');
-    
-
+    Route::put('user/notifications/read/all', 'NotificationsController@markAllAsRead');    
 });
