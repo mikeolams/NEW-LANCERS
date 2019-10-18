@@ -110,16 +110,6 @@ class SubscriptionController extends Controller
     }
 
 
-
-
-
-
-
-
-
-
-
-
     public function userSubscription()
     {
         $user = Auth::user();
@@ -134,6 +124,7 @@ class SubscriptionController extends Controller
         $plans = SubscriptionPlan::all()->toArray();
 
 
+        // dd($plans);
         return view('pricing')->with(['plans'=> $plans]);
 
     }

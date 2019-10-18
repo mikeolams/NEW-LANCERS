@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Model;
 class SubscriptionPlan extends Model
 {
     protected $guarded = ['id'];
-    protected $casts = [
-        'features' => 'array'
-    ];
+    // protected $casts = [
+    //     'features' => 'array'
+    // ];
     function checkPlan($planId)
     {
         $plan = SubscriptionPlan::find($planId);
