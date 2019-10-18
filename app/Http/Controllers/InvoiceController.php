@@ -20,8 +20,7 @@ class InvoiceController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
-    {
+    public function index(){
         $user = Auth::user();
 
         // return $user->projects;
@@ -95,7 +94,37 @@ class InvoiceController extends Controller
         return view('invoices.viewinvoice')->with('invoice', $invoice);
     }
 
+<<<<<<< HEAD
     public function getPdf($invoice){
+=======
+    public function list(){
+        $filter = Request()->filter ?? false;
+        if($filter && !in_array($filter, ['all', 'paid', 'unpaid'])) $filter = false;
+
+        $invoices = Invoice::join('projects', 'projects.id', 'invoices.project_id')
+                            ->join('clients', 'clients.id', 'projects.client_id')
+                    ->leftjoin('currencies AS ic', 'invoices.currency_id', 'ic.id')
+                    ->where('projects.user_id', Auth::user()->id);
+        
+        if($filter && $filter !== 'all') $invoices = $invoices->where('invoices.status', $filter);
+        
+        $invoices = $invoices->select('invoices.*', 'clients.name AS client', 'projects.title AS project_title', 'ic.symbol AS invoice_currency')
+                    ->get();
+        
+        // $result = [];
+        // $invoices = Auth::user()->projects;
+        // if($invoices->count() > 0){
+        //     foreach($invoices as $project){
+        //         if($project->invoice !== null) array_push($result, $project->invoice);
+        //     }
+        // }
+        return view('invoices.list')->withInvoices($invoices);
+        // return $result->count() > 0 ? $this->SUCCESS('Invoice retrieved', $invoice) : $this->SUCCESS('No invoice found');
+    }
+
+    public function getPdf($invoice)
+    {
+>>>>>>> 5202046b063aaba55ee767a47154850a0b5f7afc
         $invoice = Invoice::findOrFail($invoice);
 
         $filename = "invoice#".strtotime($invoice->created_at).".pdf";
