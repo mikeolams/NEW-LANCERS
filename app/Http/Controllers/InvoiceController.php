@@ -8,7 +8,10 @@ use App\Client;
 use App\Project;
 use App\Invoice;
 use App\Estimate;
+use App\Mail\SendInvoice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Crypt;
 
 class InvoiceController extends Controller
 {
@@ -92,19 +95,55 @@ class InvoiceController extends Controller
         return view('invoices.viewinvoice')->with('invoice', $invoice);
     }
 
-    public function getPdf($invoice)
-    {
+    public function getPdf($invoice){
         $invoice = Invoice::findOrFail($invoice);
+
+        $filename = "invoice#".strtotime($invoice->created_at).".pdf";
 
         $project_id = $invoice->project_id;
 
-        $invoicex = Project::where('id', $project_id)->select('id','title', 'estimate_id', 'client_id')->with(['estimate', 'invoice', 'client'])->first();
+        $invoice = Project::where('id', $project_id)->select('id','title', 'estimate_id', 'client_id')->with(['estimate', 'invoice', 'client'])->first();
 
-            // dd("here");
-            $pdf = PDF::loadView('invoice_view_pdf', [$data => $invoicex]);  
+            $pdf = PDF::loadView('invoices.pdf', ['invoice' => $invoice]);  
 
+            return $pdf->download($filename);
+    }
 
-            return $pdf->download('lancers_invoice.pdf');
+    public function sendinvoice(Request $request){
+        $invoice_id = $request->invoice;
+
+        $invoice = Invoice::findOrFail($invoice_id);
+
+        $project_name = $invoice->project->title;
+
+        $client = $invoice->project->client;
+
+        $client_email = $client->email;
+
+        $encoded = base64_encode(base64_encode($client_email));
+
+        $url = "/clients/".$encoded."/invoices/".strtotime($invoice->created_at);
+
+        $name = Auth::user()->name;
+
+        Mail::to($client_email)
+            ->send(new SendInvoice([
+                'user' => $name,
+                'name' => $client->name,
+                'amount' => $invoice->amount,
+                'invoice_url' => $url,
+                'project' => $project_name
+            ]));
+
+        return view('invoices.invoicesent');
+    }
+
+    public function clientInvoice($client, $invoice)
+    {
+        $client_email = base64_decode(base64_decode($client));
+
+        return view('invoices.clientinvoice');
+        dd($client_email);
     }
 
     public function view($invoice_id){

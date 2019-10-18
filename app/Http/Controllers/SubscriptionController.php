@@ -50,7 +50,7 @@ class SubscriptionController extends Controller
                 $subscribeUserToPlan = $Subscriber->subscribeToPlan($planDetails['data']['id'], Auth::id(), $months);
 
                 if($subscribeUserToPlan === true){
-                    return $this->success("Subscribed sucessfully", str_replace("_"," " ,ucfirst($planDetails['data']['name'])) )
+                    return $this->success("Subscribed sucessfully", str_replace("_"," " ,ucfirst($planDetails['data']['name'])));
                 }else {
                     return $this->error("Subscription failed");
                 }      

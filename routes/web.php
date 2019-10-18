@@ -87,12 +87,6 @@ Route::put('/users/settings/emails', "emailsettingsController@updateEmailSetting
 Route::post('/users/edit/profile/image', "ProfileController@updateImage")->middleware('auth')->name('Profile-Image');
 
 
-
-
-
-Route::post('/pay', 'RaveController@initialize')->name('pay');
-Route::post('/rave/callback', 'RaveController@callback')->name('callback');
-
 Route::get('payment/{type}/{ref?}', 'PaymentContoller@create');
 
 Route::resource('transactions', 'TransactionsController');
@@ -184,7 +178,9 @@ Route::get('invoice/review', function() {
 
 
 //Invoice routes
+Route::get('clients/{client}/invoices/{invoice}', 'InvoiceController@clientInvoice');
 Route::get('invoices/{invoice}/getpdf', 'InvoiceController@getPdf');
+Route::post('invoices/send', 'InvoiceController@sendinvoice');
 Route::resource('invoices', 'InvoiceController');
 
 
