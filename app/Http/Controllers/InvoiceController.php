@@ -4,17 +4,22 @@ namespace App\Http\Controllers;
 
 use Auth;
 use PDF;
+use App\User;
 use App\Client;
 use App\Project;
 use App\Invoice;
 use App\Estimate;
+use Carbon\Carbon;
 use App\Mail\SendInvoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Crypt;
+use App\Notifications\UserNotification;
+use App\Traits\VerifyandStoreTransactions;
 
 class InvoiceController extends Controller
 {
+    use VerifyandStoreTransactions;
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -94,6 +99,7 @@ class InvoiceController extends Controller
         return view('invoices.viewinvoice')->with('invoice', $invoice);
     }
 
+
     public function list(){
         $filter = Request()->filter ?? false;
         if($filter && !in_array($filter, ['all', 'paid', 'unpaid'])) $filter = false;
@@ -167,8 +173,43 @@ class InvoiceController extends Controller
     {
         $client_email = base64_decode(base64_decode($client));
 
-        return view('invoices.clientinvoice');
-        dd($client_email);
+        $invoice = Invoice::where('created_at', Carbon::createFromTimestamp($invoice))->first();
+
+        $project_id = $invoice->project_id;
+
+        $invoice = Project::where('id', $project_id)->select('id','title', 'estimate_id', 'client_id')->with(['estimate', 'invoice', 'client'])->first();
+
+        return view('invoices.clientinvoice')->with('invoice', $invoice);
+    }
+
+
+    public function pay($txref){
+        $data = $this->verifyTransaction($txref);
+
+        // dd($data);
+
+        if($data['success']){            
+            $invoice = Invoice::find($data['invoice_id']);
+
+            $invoice->update(['status' => 'paid']);
+
+            $project_name = $invoice->project->title;
+
+            $user = User::find($invoice->project->user_id);
+
+            $user->notify(new UserNotification([
+                "subject" => "Invoice paid",
+                "body" => "This is to notify you that the invoice for the project ".$project_name." in the amount NGN".$invoice->amount." has been paid",
+                "action" => [
+                    "text" => "View invoices",
+                    "url" => "/invoices"
+                ]
+            ]));
+
+            return "Thanks, ".$user->name." has successfully recived the payment";
+        }else{
+            return $data['reason'];
+        }
     }
 
     public function view($invoice_id){
