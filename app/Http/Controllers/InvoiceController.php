@@ -99,7 +99,6 @@ class InvoiceController extends Controller
         return view('invoices.viewinvoice')->with('invoice', $invoice);
     }
 
-
     public function list(){
         $filter = Request()->filter ?? false;
         if($filter && !in_array($filter, ['all', 'paid', 'unpaid'])) $filter = false;
