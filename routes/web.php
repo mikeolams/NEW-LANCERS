@@ -20,7 +20,7 @@ Route::get('/pricing', function () { return view('pricing'); });
 
 //Guest Routes 
 // Guest Onboarding
-Route::get('guest/create_estimate', 'GuestController@step1')->middleware('guest');
+Route::get('guest/create/project', 'GuestController@step1')->middleware('guest');
 Route::post('guest/project/create', 'GuestController@createproject')->middleware('guest');
 Route::get('guest/create/estimate', 'GuestController@estimatecreate')->middleware('guest');
 Route::post('guest/save/estimate', 'GuestController@estimatesave')->middleware('guest');	
@@ -87,7 +87,7 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/project/collabrators', function () { return view('project-collabrators'); });
 
     Route::get('/clients', 'ClientController@list');
-    Route::get('/client/add', function() { return view('clients.add'); });
+    Route::get('/client/add', function() { return view('addclients'); });
     Route::post('/client/add', 'ClientController@store');
     Route::get('/client-info', function () { return view('client-info'); });
     

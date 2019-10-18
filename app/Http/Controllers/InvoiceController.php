@@ -94,9 +94,6 @@ class InvoiceController extends Controller
         return view('invoices.viewinvoice')->with('invoice', $invoice);
     }
 
-<<<<<<< HEAD
-    public function getPdf($invoice){
-=======
     public function list(){
         $filter = Request()->filter ?? false;
         if($filter && !in_array($filter, ['all', 'paid', 'unpaid'])) $filter = false;
@@ -124,7 +121,6 @@ class InvoiceController extends Controller
 
     public function getPdf($invoice)
     {
->>>>>>> 5202046b063aaba55ee767a47154850a0b5f7afc
         $invoice = Invoice::findOrFail($invoice);
 
         $filename = "invoice#".strtotime($invoice->created_at).".pdf";

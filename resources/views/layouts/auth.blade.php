@@ -441,7 +441,7 @@ table.project-table tbody tr td, table.project-table thead tr th {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link p-3" href="#"><img src="https://lancer-app.000webhostapp.com/images/svg/help.svg" height="25" width="auto"> <span class="d-lg-none d-xl-none"> You need help?</span></a>
+                            <a class="nav-link p-3" href="{{ url('/contact') }}"><img src="https://lancer-app.000webhostapp.com/images/svg/help.svg" height="25" width="auto"> <span class="d-lg-none d-xl-none"> You need help?</span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link border-left p-3" href="#"><img src="https://lancer-app.000webhostapp.com/images/svg/alarm-clock.svg" height="25" width="auto"> <span class="d-lg-none d-xl-none"> Reminder</span></a>
