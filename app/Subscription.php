@@ -106,4 +106,15 @@ class Subscription extends Model
     {
         return $this->hasOne('App\SubscriptionPlan', 'id','plan_id');
     }
+
+    public static function planData()
+    {
+        $user = auth()->user();
+        $current_plan = $user->subscription->subscriptionPlan;
+
+        $current_plan['end'] = Carbon::parse($user->subscription->enddate);
+        $current_plan['months'] = Carbon::now()->diffInMonths($current_plan['end']);
+
+        return $current_plan;
+    }
 }

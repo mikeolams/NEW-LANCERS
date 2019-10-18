@@ -235,6 +235,7 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::post('/users/edit/profile', "ProfileController@editProfile")->middleware('auth')->name('edit-profile');
     Route::get('/users/subscriptions', "SubscriptionController@showSubscriptions")->middleware('auth')->name('subscriptions');
     Route::get('/users/subscriptions/{planId}', "SubscriptionController@subscribeUser")->middleware('auth');
+    // Route::get('/users/subscription', "SubscriptionController@showSubscriptions");
     Route::get('users/subscribe/{txref}', "SubscriptionController@subscribeUser");
     Route::get('/users/view/subscriptions', "SubscriptionController@showPlan")->middleware('auth');
     Route::get('/users/settings/emails', "emailsettingsController@index")->middleware('auth');
@@ -285,7 +286,7 @@ Route::group(['middleware' => 'auth:web'], function(){
     // Route::post('/rave/callback', 'RaveController@callback')->name('callback');
     Route::resource('transactions', 'TransactionsController');
     Route::get('/transactions', 'TransactionsController@index');
-    Route::get('payment/subscription/{type}/{ref?}', 'PaymentContoller@create');
+    Route::get('payment/subscription/{type}', 'PaymentContoller@create');
     Route::get('payment/invoice/{ref}', 'PaymentContoller@invoice'); //ref is the timestamp value of the created_at field
 
 
@@ -321,7 +322,4 @@ Route::group(['middleware' => 'auth:web'], function(){
 });
 
 
-Route::get('test/pdf', function(){
-    return view('invoice_view_pdf');
-});
 
