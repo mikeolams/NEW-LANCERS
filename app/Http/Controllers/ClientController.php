@@ -53,13 +53,9 @@ class ClientController extends Controller
 
     public function list(){
         $user = Auth::user();
-        $clients = $user->clients()->select('id','name','contacts','profile_picture')->with('project:title,status')->paginate(10);
-
-        // $user = User::find(1);
-        // return $users->projects()->clients()->;
-        
-        // $client = Client::where('user_id', Auth::user()->id)->paginate(10);
-        return $clients !== null ? $this->SUCCESS('Client retrieved', $clients) : $this->SUCCESS('No client found');
+        $clients = $user->clients()->select('id','name','contacts','profile_picture')->with('project:title,status')->get();
+        return view('clients.list')->withClients($client);
+        // return $clients !== null ? $this->SUCCESS('Client retrieved', $clients) : $this->SUCCESS('No client found');
     }
 
     public function view($client_id){

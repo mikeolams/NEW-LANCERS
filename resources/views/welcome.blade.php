@@ -238,12 +238,14 @@
 							<li class="nav-item">
 								<a class="nav-link" href="{{ url('/pricing') }}">Pricing</a>
 							</li>
+							@guest
 							<li class="nav-item">
 								<a class="nav-link" href="{{ route('login') }}">Sign in</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="{{ route('register') }}">Sign up</a>
-							</li>                             
+							</li>
+							@endauth                          
 						</ul>
 					</div>
 				</div>
