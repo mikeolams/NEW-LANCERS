@@ -216,7 +216,7 @@ Route::get('invoice/review', function() {
 
 Route::get('guest/eval_estimate', function () {
     return view('eval_estimation');
-})
+});
 
 
 //Invoice routes
