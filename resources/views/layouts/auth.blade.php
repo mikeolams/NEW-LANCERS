@@ -199,7 +199,7 @@ a[data-toggle="collapse"] {
 ul ul a {
   font-size: 0.9em !important;
   padding-left: 30px !important;
-  background: rgba(19, 41, 82, 1);;
+  background: rgba(19, 41, 82, 1);
 }
 ul.CTAs {
   padding: 20px;
