@@ -90,7 +90,7 @@ class PaymentContoller extends Controller
             if(empty($invoice)){
                 return "Invalid payment option"; 
             }else{ 
-                if($invoice->status = "paid"){
+                if($invoice->status == "paid"){
                     return "This invoice has been paid";
                 }
                 $key = Transaction::$PYS_PUB_KEY;

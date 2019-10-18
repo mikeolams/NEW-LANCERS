@@ -107,9 +107,11 @@ Route::group(['middleware' => 'auth:web'], function(){
 
     Route::post('/client/add', 'ClientController@store');
     Route::get('/client-info', function () { return view('client-info'); });
+    Route::get('/clients/{client}/invoices/{invoice}', 'InvoiceController@clientInvoice');
     
     //Invoice routes
     // Route::resource('invoices', 'InvoiceController');
+    Route::post('/invoices/send', 'InvoiceController@sendinvoice');
     Route::get('/invoices', 'InvoiceController@list');
     Route::get('/invoice/pay/{txref}', 'InvoiceController@pay');
     Route::get('/invoices/{invoice}/getpdf', 'InvoiceController@getPdf');

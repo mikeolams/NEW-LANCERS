@@ -124,26 +124,26 @@ class EstimateController extends Controller
                         'status' => 'pending'
                         ]);
 
-            $invoice = Invoice::create([
-                'project_id' => $project->id,
-                'issue_date' => $data['issued_date'],
-                'due_date' => $data['due'],
-                'amount' => $data['total'],
-                'estimate_id' =>  $estimate->id,
-                'amount_paid' =>  0,
-                'currency_id' => session('estimate')['currency_id'],
-                'status' => 'unpaid'
-            ]);
+            // $invoice = Invoice::create([
+            //     'project_id' => $project->id,
+            //     'issue_date' => $data['issued_date'],
+            //     'due_date' => $data['due'],
+            //     'amount' => $data['total'],
+            //     'estimate_id' =>  $estimate->id,
+            //     'amount_paid' =>  0,
+            //     'currency_id' => session('estimate')['currency_id'],
+            //     'status' => 'unpaid'
+            // ]);
             
 
-            $data['invoice_no'] = $invoice->id;
+            // $data['invoice_no'] = $invoice->id;
             $client->save();
             $project->save();
-            $invoice->save();
+            // $invoice->save();
             DB::commit();
             // dd(session()->all());
-            return view('estimate.step5')
-                    ->withData($data);
+            return view('addclients')
+                    ->with('estimate', $estimate->id);
         }catch(\Throwable $e){
             return back()->with('error', $e->getMessage());
             DB::rollback();

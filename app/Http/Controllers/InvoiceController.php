@@ -40,6 +40,11 @@ class InvoiceController extends Controller
             if($invoice->invoice == null){
                 unset($invoices[$key]);
             }
+
+                        if($invoice->client_id == null){
+                unset($invoices[$key]);
+            }
+
         }
         // return $invoices;
         return view('invoices.invoicelist')->with('invoices', $invoices);
@@ -68,9 +73,12 @@ class InvoiceController extends Controller
             $invoice = Invoice::create(['project_id' => $estimate->project_id, 'estimate_id' => $estimate->id, 'amount' => $estimate->estimate]);
         }
 
+        // dd($invoice->project);
+
         $invoice->project->client;
         $invoice->estimate = $estimate;
 
+        // dd($invoice);
         // return $invoice;
         return view('invoices.reviewinvoice')->with('invoice', $invoice);
     }
