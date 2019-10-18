@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Carbon\Carbon;
+use App\Invoice;
 use App\Transaction;
 use App\Subscription;
 use App\SubscriptionPlan;
@@ -80,16 +81,20 @@ class PaymentContoller extends Controller
     }
 
 
-    public function invoicePayment($ref)
+    public function invoice($ref)
     {
         if($ref == null){
-            return $this->error("Invalid payment option");
+            return "Invalid payment option";
         }else{
-            $invoice = Invoice::where('created_at', Carbon::parse($ref))->first();
-
-            if(!empty($invoice)){
-                return $this->error("Invalid payment option"); 
-            }else{                  
+            $invoice = Invoice::where('created_at', Carbon::createFromTimestamp($ref))->first();
+            if(empty($invoice)){
+                return "Invalid payment option"; 
+            }else{ 
+                if($invoice->status = "paid"){
+                    return "This invoice has been paid";
+                }
+                $key = Transaction::$PYS_PUB_KEY;
+                $txRef = Transaction::generateRef();
                 $data = [
                     "name" => "Invoice #".$ref,
                     "amount" => $invoice->amount,
@@ -97,11 +102,11 @@ class PaymentContoller extends Controller
                     "redirect" => '/invoice/pay/',
                     "key" => $key,
                     'ref' => $txRef,
-                    "id" => $invoice->id
+                    "id" => $invoice->id,
+                    'balance' => 0
                 ];
             }
-
-            return $this->success("payment details retrieved", $data);
+            return view('paystackpay')->with('data', $data);
         }
     }
 }

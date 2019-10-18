@@ -21,11 +21,10 @@ Route::get('/pricing', "SubscriptionController@showSubscriptions")->name('subscr
 
 //Guest Routes 
 // Guest Onboarding
-Route::get('guest/create/project', 'GuestController@step1')->middleware('guest');
+Route::get('guest/create_estimate', 'GuestController@step1')->middleware('guest');
 Route::post('guest/project/create', 'GuestController@createproject')->middleware('guest');
 Route::get('guest/create/estimate', 'GuestController@estimatecreate')->middleware('guest');
-Route::post('guest/save/estimate', 'GuestController@estimatesave')->middleware('guest');	
-
+Route::post('guest/save/estimate', 'GuestController@estimatesave')->middleware('guest');    
 Route::get('/guest/contact', function () { return view('guests/contact_support'); });
 Route::post('/guest/process_contact_form',"GuestController@process_contact_form");
 
@@ -96,7 +95,7 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/project/collabrators', function () { return view('project-collabrators'); });
 
     Route::get('/clients', 'ClientController@list');
-    Route::get('/client/add', function() { return view('addclients'); });
+    Route::get('/add/client', function() { return view('addclients'); });
     Route::post('/client/add', 'ClientController@store');
     Route::get('/client-info', function () { return view('client-info'); });
     
@@ -146,6 +145,7 @@ Route::group(['middleware' => 'auth:web'], function(){
 
     //Invoice routes
     Route::resource('invoices', 'InvoiceController');
+    // Route::post('invoices/send', 'InvoiceController@sendinvoice');
     // Route::get('/invoices', 'InvoiceController@list');
     Route::get('/invoices/{invoice}/getpdf', 'InvoiceController@getPdf');
     Route::get('/invoice/pay/{txref}', 'InvoiceController@pay');
