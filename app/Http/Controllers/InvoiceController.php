@@ -32,12 +32,12 @@ class InvoiceController extends Controller
 
         $invoices = $user->projects()->select('id', 'title', 'client_id')->with(['client:id,name', 'invoice:id,project_id,amount,status,issue_date,created_at'])->get();
 
-        // foreach ($invoices as $key => $invoice) {
-        //     if($invoice->invoice == null){
-        //         unset($invoices[$key]);
-        //     }
-        // }
-        return $invoices;
+        foreach ($invoices as $key => $invoice) {
+            if($invoice->invoice == null){
+                unset($invoices[$key]);
+            }
+        }
+        // return $invoices;
         return view('invoices.invoicelist')->with('invoices', $invoices);
     }
 
