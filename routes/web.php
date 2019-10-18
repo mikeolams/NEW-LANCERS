@@ -112,8 +112,6 @@ Route::post('/dashboard/edit/profile/image', "ProfileController@updateImage")->m
 
 
 
-Route::get('payment/{type}/{ref?}', 'PaymentContoller@create');
-
 Route::resource('transactions', 'TransactionsController');
 
 Route::get('countries', 'DataController@countries');
@@ -134,11 +132,6 @@ Route::get('estimates/{estimate}', 'EstimateController@show')->middleware('auth'
 Route::post('estimates', 'EstimateController@store')->middleware('auth');
 Route::put('estimates/{estimate}', 'EstimateController@update')->middleware('auth');
 Route::delete('estimates/{estimate}', 'EstimateController@destroy')->middleware('auth');
-
-Route::get('user/notifications', 'NotificationsController@notifications');
-Route::put('user/notifications/read/{$id}', 'NotificationsController@markAsRead');
-
-Route::put('user/notifications/read/all', 'NotificationsController@markAllAsRead');
 
 
 //
@@ -245,11 +238,14 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::put('/estimates/{estimate}', 'EstimateController@update')->middleware('auth');
     Route::delete('/estimates/{estimate}', 'EstimateController@destroy')->middleware('auth');
 
-    Route::post('/pay', 'RaveController@initialize')->name('pay');
-    Route::get('payment/{type}/{ref?}', 'PaymentContoller@create');
-    Route::post('/rave/callback', 'RaveController@callback')->name('callback');
+    // Route::post('/pay', 'RaveController@initialize')->name('pay');
+    // Route::get('payment/{type}/{ref?}', 'PaymentContoller@create');
+    // Route::post('/rave/callback', 'RaveController@callback')->name('callback');
     Route::resource('transactions', 'TransactionsController');
     Route::get('/transactions', 'TransactionsController@index');
+    Route::get('payment/subscription/{type}/{ref?}', 'PaymentContoller@create');
+    Route::get('payment/invoice/{ref}', 'PaymentContoller@invoice'); //ref is the timestamp value of the created_at field
+
 
 
     Route::get('/projects', 'ProjectController@list');
@@ -262,9 +258,10 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/client-info', function () { return view('client-info'); });
 
     //Invoice routes
-    // Route::resource('invoices', 'InvoiceController');
-    Route::get('/invoices', 'InvoiceController@list');
+    Route::resource('invoices', 'InvoiceController');
+    // Route::get('/invoices', 'InvoiceController@list');
     Route::get('/invoices/{invoice}/getpdf', 'InvoiceController@getPdf');
+    Route::get('/invoice/pay/{txref}', 'InvoiceController@pay');
     Route::get('/invoice/review', function() { return view('reviewinvoice'); });
     Route::get('/invoice', function () { return view('invoice_view'); });
     Route::get('/invoice_sent', function () { return view('invoice_sent'); });
@@ -273,6 +270,10 @@ Route::group(['middleware' => 'auth:web'], function(){
 
 
     Route::get('/notifications', 'NotificationsController@notifications');
+    Route::get('user/notifications', 'NotificationsController@notifications');
+    Route::put('user/notifications/read/{$id}', 'NotificationsController@markAsRead');
+
+    Route::put('user/notifications/read/all', 'NotificationsController@markAllAsRead');
 
 });
 
