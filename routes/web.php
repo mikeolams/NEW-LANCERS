@@ -16,7 +16,8 @@ use Illuminate\Http\Request;
  * Public Routes
 */
 Route::get('/', function () { return view('welcome'); });
-Route::get('/pricing', function () { return view('pricing'); });
+// Route::get('/pricing', function () { return view('pricing'); });
+Route::get('/pricing', "SubscriptionController@showSubscriptions")->name('subscriptions');
 
 //Guest Routes 
 Route::get('/guest/create_project/', function () { return view('createproject'); });
@@ -64,11 +65,21 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/logout', 'AuthController@logout')->name('logout');
     
     // Dashboard Routes
+    // Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+    // Route::get('/dashboard/profile', 'ProfileController@index')->name('dashboard-profile');
+    // Route::get('/dashboard/profile/view', 'ProfileController@userProfileDetails')->name('user-profile');
+    
+    // Bits_and_Bytes:six: 7:51 PM
     Route::get('/dashboard', 'HomeController@index')->name('dashboard');
-    Route::get('/dashboard/profile', 'ProfileController@index')->name('dashboard-profile');
-    Route::get('/dashboard/profile/view', 'ProfileController@userProfileDetails')->name('user-profile');
-    
-    
+    Route::get('/dashboard/profile/settings', 'ProfileController@index')->middleware('auth')->name('dashboard-profile');
+
+    Route::get('users/subscribe/{txref}', "SubscriptionController@subscribeUser");
+    Route::get('/dashboard/emails/settings', "emailsettingsController@index")->middleware('auth');
+    Route::put('/users/settings/emails', "emailsettingsController@updateEmailSettings")->middleware('auth')->name('SET-EMAIL');
+    Route::post('/users/edit/profile/company', "ProfileController@editProfile")->middleware('auth')->name('edit-company');
+    Route::post('/users/edit/profile/personal', "ProfileController@editProfileUser")->middleware('auth')->name('edit-profile');
+    Route::post('/dashboard/edit/profile/image', "ProfileController@updateImage")->middleware('auth')->name('Profile-Image');
+        
     // User Routes
     Route::post('/users/edit/profile', "ProfileController@editProfile")->middleware('auth')->name('edit-profile');
     Route::get('/users/subscriptions', "SubscriptionController@showSubscriptions")->middleware('auth')->name('subscriptions');
@@ -76,9 +87,9 @@ Route::group(['middleware' => 'auth:web'], function(){
     // Route::get('/users/subscription', "SubscriptionController@showSubscriptions");
     Route::get('users/subscribe/{txref}', "SubscriptionController@subscribeUser");
     Route::get('/users/view/subscriptions', "SubscriptionController@showPlan")->middleware('auth');
-    Route::get('/users/settings/emails', "emailsettingsController@index")->middleware('auth');
-    Route::put('/users/settings/emails', "emailsettingsController@updateEmailSettings")->middleware('auth')->name('SET-EMAIL');
-    Route::post('/users/edit/profile/image', "ProfileController@updateImage")->middleware('auth')->name('Profile-Image');
+    // Route::get('/users/settings/emails', "emailsettingsController@index")->middleware('auth');
+    // Route::put('/users/settings/emails', "emailsettingsController@updateEmailSettings")->middleware('auth')->name('SET-EMAIL');
+    // Route::post('/users/edit/profile/image', "ProfileController@updateImage")->middleware('auth')->name('Profile-Image');
     Route::get('/user/notifications', 'NotificationsController@notifications');
     Route::put('/user/notifications/read/{$id}', 'NotificationsController@markAsRead');
     Route::put('/user/notifications/read/all', 'NotificationsController@markAllAsRead');
