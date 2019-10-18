@@ -214,6 +214,10 @@ Route::get('invoice/review', function() {
     return view('reviewinvoice');
 });
 
+Route::get('guest/eval_estimate', function () {
+    return view('eval_estimation');
+})
+
 
 //Invoice routes
 Route::get('clients/{client}/invoices/{invoice}', 'InvoiceController@clientInvoice');
