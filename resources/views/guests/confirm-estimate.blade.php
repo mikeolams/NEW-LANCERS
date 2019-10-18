@@ -2,7 +2,14 @@
 
  @section('styles')
   <style>
-   /* nav */
+    body {
+  font-family: 'Ubuntu', sans-serif;
+  margin: 0;
+  padding: 0;
+  font-size: 1em;
+}
+
+/* nav */
 
 #container {
   display: grid;
@@ -29,7 +36,7 @@
 
 .cnc {
   border: none;
-  background: #e4e4e4;
+  background: #0ABAB5;
   height: 50px;
   width: 100%;
   color: white;
@@ -132,6 +139,13 @@ i input {
   width: 90%;
 }
 
+.hour {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+
+
 #currency {
   font-family: Ubuntu;
   font-style: normal;
@@ -140,8 +154,14 @@ i input {
   line-height: 28px;
   color: #262626;
   padding-bottom: 20px;
+  
 }
 
+#currency p{
+float: right;
+padding-right: 10px;
+/* h */
+}
 select {
   border: none;
   border-bottom: 1px solid;
@@ -149,7 +169,7 @@ select {
 
 .btn {
   border: 1px solid #e4e4e4;
-  background: #e4e4e4;
+  background: #0ABAB5;
   margin-top: 40px;
   margin-left: 30%;
   width: 40%;
@@ -188,7 +208,21 @@ select {
     width: 100%;
   }
 }
+    
+ @media (max-width: 600px) {
+  .main-section {
+  margin: 50px auto;
+  width: 80%;
+}
+  
+  
+input {
+   width: 80%;
+  margin-bottom:10px;
+ }
+}
   </style>
+
  @endsection
 
 @section('header')
@@ -223,9 +257,9 @@ select {
   </div>
 
 
-  <div class="container-fluid main-section">
+<div class="container-fluid main-section">
 
-<form  method="POST" action="/guest/project/create">
+  <form  method="POST" action="/guest/project/create">
       @csrf
     <div id="word">
       <h1>Evaluation</h1>

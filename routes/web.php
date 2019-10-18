@@ -68,10 +68,12 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/dashboard/profile', 'ProfileController@index')->name('dashboard-profile');
     Route::get('/dashboard/profile/view', 'ProfileController@userProfileDetails')->name('user-profile');
     
+    
     // User Routes
     Route::post('/users/edit/profile', "ProfileController@editProfile")->middleware('auth')->name('edit-profile');
     Route::get('/users/subscriptions', "SubscriptionController@showSubscriptions")->middleware('auth')->name('subscriptions');
     Route::get('/users/subscriptions/{planId}', "SubscriptionController@subscribeUser")->middleware('auth');
+    // Route::get('/users/subscription', "SubscriptionController@showSubscriptions");
     Route::get('users/subscribe/{txref}', "SubscriptionController@subscribeUser");
     Route::get('/users/view/subscriptions', "SubscriptionController@showPlan")->middleware('auth');
     Route::get('/users/settings/emails', "emailsettingsController@index")->middleware('auth');
@@ -80,6 +82,7 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/user/notifications', 'NotificationsController@notifications');
     Route::put('/user/notifications/read/{$id}', 'NotificationsController@markAsRead');
     Route::put('/user/notifications/read/all', 'NotificationsController@markAllAsRead');
+
 
     // Project Routes
     Route::get('/projects', 'ProjectController@list');
@@ -96,6 +99,7 @@ Route::group(['middleware' => 'auth:web'], function(){
     //Invoice routes
     // Route::resource('invoices', 'InvoiceController');
     Route::get('/invoices', 'InvoiceController@list');
+    Route::get('/invoice/pay/{txref}', 'InvoiceController@pay');
     Route::get('/invoices/{invoice}/getpdf', 'InvoiceController@getPdf');
     Route::get('/invoice/review', function() { return view('reviewinvoice'); });
     Route::get('/invoice', function () { return view('invoice_view'); });
@@ -105,6 +109,11 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/client-doc-view', function () { return view('client-doc-view'); });
 
     // Estimate Routes
+    Route::get('/estimates', 'EstimateController@index')->middleware('auth');
+    Route::post('estimates', 'EstimateController@store')->middleware('auth');
+    Route::put('/estimates/{estimate}', 'EstimateController@update')->middleware('auth');
+    Route::delete('/estimates/{estimate}', 'EstimateController@destroy')->middleware('auth');
+    Route::get('/estimates/{estimate}', 'EstimateController@show')->middleware('auth');
     Route::get('/estimate/create/step1', 'EstimateController@step1');
     // Route::get('/estimate/create/step2', 'EstimateController@step2');
     // Route::get('/estimate/create/step3', 'EstimateController@step3');
@@ -136,13 +145,19 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::delete('/contracts/{project_id}/{id}')->name('delete.contract');
 
     // Trasaction/Payment/Subscription Routes
-    Route::post('/pay', 'RaveController@initialize')->name('pay');
-    Route::get('payment/{type}/{ref?}', 'PaymentContoller@create');
+    // Route::post('/pay', 'RaveController@initialize')->name('pay');
+    // Route::get('payment/{type}/{ref?}', 'PaymentContoller@create');
     Route::post('/rave/callback', 'RaveController@callback')->name('callback');
     Route::resource('transactions', 'TransactionsController');
     Route::get('/transactions', 'TransactionsController@index');
-    
+    Route::resource('transactions', 'TransactionsController');
+    Route::get('/transactions', 'TransactionsController@index');
+    Route::get('payment/subscription/{type}', 'PaymentContoller@create');
+    Route::get('payment/invoice/{ref}', 'PaymentContoller@invoice'); //ref is the timestamp value of the created_at field
+
     // Others 
     Route::get('/notifications', 'NotificationsController@notifications');
-    
+    Route::get('user/notifications', 'NotificationsController@notifications');
+    Route::put('user/notifications/read/{$id}', 'NotificationsController@markAsRead');
+    Route::put('user/notifications/read/all', 'NotificationsController@markAllAsRead');    
 });

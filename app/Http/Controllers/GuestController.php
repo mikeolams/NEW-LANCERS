@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Auth\Events\Registered;
 use App\User;
 use App\Project;
 use App\Estimate;
@@ -23,7 +24,14 @@ class GuestController extends Controller
     public function step1(Request $request)
     {
         $project = $request->session()->get('project');
+        
+        if(!$project)
+        {
+        return view('guests/guest_estimate');
+        }
+
         return view('guests/guest_estimate',compact('project', $project));
+        
        
     }
 
@@ -143,16 +151,10 @@ class GuestController extends Controller
            
         }
 
-        
+
 
         // return redirect('guest/create/client/')->with("error", "You need to create a project first");
 
      
-    }
-
-    public function process_contact_form(Request $request)
-    {
-
-
     }
 }

@@ -92,6 +92,6 @@
     </div>
 
     <div class="side">  
-        <button class="invBtn" onClick="window.location.href='/invoices'">VIEW INVOICES</button>
+        <a class="invBtn" href="/invoices">VIEW INVOICES</a>
     </div>
 @endsection

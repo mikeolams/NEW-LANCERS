@@ -245,7 +245,12 @@
 							<li class="nav-item">
 								<a class="nav-link" href="{{ route('register') }}">Sign up</a>
 							</li>
-							@endauth                          
+							@endauth 
+							@auth
+							<li class="nav-item">
+								<a class="nav-link" href="{{ route('logout') }}">Logout</a>
+							</li>
+							@endauth
 						</ul>
 					</div>
 				</div>
