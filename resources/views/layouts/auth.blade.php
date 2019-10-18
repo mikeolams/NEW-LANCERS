@@ -369,11 +369,7 @@ table.project-table tbody tr td, table.project-table thead tr th {
                     <img src="https://lancer-app.000webhostapp.com/images/svg/customer.svg" height="20" width="auto"> <span> Client</span>
                 </a>
             </li>
-            <li class=" @if(request()->path() == '{{ url('/dashboard/profile/settings') }}') active @endif">
-                <a href="{{ url('/dashboard/profile/settings') }}">
-                    <img src="https://lancer-app.000webhostapp.com/images/svg/approval.svg" height="20" width="auto"> <span> Settings</span>
-                </a>
-            </li>
+           
             <li class="@if(request()->path() == 'projects/status') active @endif">
                 <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><img src="https://lancer-app.000webhostapp.com/images/svg/lightbulb.svg" height="20" width="auto"> <span> Projects</span></a>
                 <ul class="collapse list-unstyled " id="homeSubmenu">
@@ -411,7 +407,13 @@ table.project-table tbody tr td, table.project-table thead tr th {
                     <img src="https://lancer-app.000webhostapp.com/images/svg/approval.svg" height="20" width="auto"> <span> Proposals</span>
                 </a>
             </li>
+                     <li class=" @if(request()->path() == '{{ url('/dashboard/profile/settings') }}') active @endif">
+                <a href="{{ url('/dashboard/profile/settings') }}">
+                    <img src="https://lancer-app.000webhostapp.com/images/svg/approval.svg" height="20" width="auto"> <span> Settings</span>
+                </a>
+            </li>
         </ul>
+
     </nav>
 
 
