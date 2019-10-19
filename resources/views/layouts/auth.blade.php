@@ -453,9 +453,8 @@ table.project-table tbody tr td, table.project-table thead tr th {
                             <a class="nav-link border-left p-3" href="/notifications"><img src="https://lancer-app.000webhostapp.com/images/svg/notification.svg" height="25" width="auto"> <span class="d-lg-none d-xl-none"> Notification</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-left p-3" href="/dashboard/profile/settings"><span class="border rounded-circle p-1 font-weight-bold">
-                                {{strtoupper(explode(" ", auth()->user()->name)[0][0])}}
-                            </span> <span class="d-lg-none d-xl-none"> Hello {{explode(" ", auth()->user()->name)[0]}}</span></a>
+                            <a class="nav-link border-left p-3" href="/dashboard/profile"><span class="border rounded-circle p-1 font-weight-bold">{{ucfirst(Auth::user()->name)}}</span> <span class="d-lg-none d-xl-none"> Hello {{ucfirst(Auth::user()->name)}}</span></a>
+
                         </li>
                         <li class="nav-item">
                             <a class="nav-link p-3" href="{{url('/logout')}}" ><i class="fas fa-sign-out-alt"></i> <span class="d-lg-none d-xl-none"> Logout</span></a>

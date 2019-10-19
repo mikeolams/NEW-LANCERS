@@ -529,7 +529,7 @@ process in our able hands</h6>
                 </div>
                 <div class="row mt-5 pt-5">
 
-                @if($plans != null)
+                @if(isset($plans) && $plans != null)
 
 @foreach($plans as $mainPlans)
 
