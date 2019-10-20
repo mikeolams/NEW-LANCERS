@@ -43,8 +43,12 @@ Route::get('/pricing', "SubscriptionController@showSubscriptions")->name('subscr
 Route::get('guest/create/step1', 'GuestController@step1')->middleware('guest');
 Route::post('guest/save/step1', 'GuestController@createstep1')->middleware('guest');
 Route::get('guest/create/step2', 'GuestController@createstep2')->middleware('guest');
-Route::post('/guest/save/step2', 'GuestController@estimatesave')->middleware('guest');
-Route::get('/guest/create/estimate', 'GuestController@estimatecreate')->middleware('guest');
+Route::post('/guest/save/step2', 'GuestController@savestep2')->middleware('guest');
+Route::get('/guest/create/step3', 'GuestController@createstep3')->middleware('guest');
+Route::post('/guest/save/step3', 'GuestController@savestep3')->middleware('guest');
+Route::post('/guest/create/step4', 'GuestController@createstep4')->middleware('guest');
+
+
 
 
 Route::get('/guest/contact', function () { return view('guests/contact_support'); });
