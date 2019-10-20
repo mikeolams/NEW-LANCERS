@@ -14,6 +14,16 @@ use Hash;
 Use Validator;
 use Session;
 use Redirect;
+use Carbon\Carbon;
+use App\Client;
+use App\State;
+use App\Country;
+use App\Currency;
+use Mail;
+use Illuminate\Support\Facades\DB;
+use App\Http\Resources\Estimate as EstimateResource;
+use App\Http\Resources\EstimateCollection;
+
 
 
 class GuestController extends Controller
@@ -27,15 +37,15 @@ class GuestController extends Controller
         
         if(!$project)
         {
-        return view('guests/guest_estimate');
+        return view('guests/step1');
         }
 
-        return view('guests/guest_estimate',compact('project', $project));
+        return view('guests/step1',compact('project', $project));
         
        
     }
 
-    public function createproject(Request $request)
+    public function createstep1(Request $request)
     {
        
         $validator = Validator::make($request->all(), [
@@ -66,7 +76,7 @@ class GuestController extends Controller
             $request->session()->put('project',  $data);
         }
 
-        return redirect('guest/create/estimate/');
+        return redirect('guest/create/step2/');
 
                 // dd(session('project'));
             
@@ -74,7 +84,7 @@ class GuestController extends Controller
 
     }
 
-    public function estimatecreate(Request $request)
+    public function createstep2(Request $request)
     {
         $data = session('project');
 
@@ -92,7 +102,7 @@ class GuestController extends Controller
 
 
 
-    public function estimatesave(Request $request)
+    public function savestep2(Request $request)
     {
        
         $validator = Validator::make($request->all(), [
