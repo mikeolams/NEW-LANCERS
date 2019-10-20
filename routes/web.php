@@ -46,7 +46,9 @@ Route::get('guest/create/step2', 'GuestController@createstep2')->middleware('gue
 Route::post('/guest/save/step2', 'GuestController@savestep2')->middleware('guest');
 Route::get('/guest/create/step3', 'GuestController@createstep3')->middleware('guest');
 Route::post('/guest/save/step3', 'GuestController@savestep3')->middleware('guest');
-Route::post('/guest/create/step4', 'GuestController@createstep4')->middleware('guest');
+Route::get('/guest/create/step4', 'GuestController@createstep4')->middleware('guest');
+Route::post('/guest/save/step4', 'GuestController@savestep4')->middleware('guest');
+
 
 
 

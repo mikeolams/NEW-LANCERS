@@ -23,7 +23,9 @@ use Mail;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\Estimate as EstimateResource;
 use App\Http\Resources\EstimateCollection;
-
+use App\Profile;
+use App\Subscription;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 
 class GuestController extends Controller
@@ -40,7 +42,8 @@ class GuestController extends Controller
         return view('guests/step1');
         }
 
-        return view('guests/step1',compact('project', $project));
+        // return view('guests/step1',compact('project', $project));
+        return view('guests/step1');
         
        
     }
@@ -199,13 +202,60 @@ class GuestController extends Controller
                $request->session()->put('contacts', $contacts);
     
            
-               return redirect('guest/create/step4');
+               return redirect('guest/create/step5');
                 
                 
                 
            
         }
+
+        public function createstep4(Request $request){
+
+           return view('guests/register');
+        }
+
+        public function savestep4(Request $request){
+            $session_project = $request->session()->get('project');
+            $session_client = $request->session()->get('client');
+            $session_contacts = $request->session()->get('contacts');
+            $session_estimate = $request->session()->get('estimate');
+
+            Validator::make($request->all, [
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+            ]);
+
+            $user = new User;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+
+            if($user->save){
+                if($session_contacts){
+                    foreach($session_contacts as $contact){
+                        array_push($session_contacts, ["name"=>$contact["'name'"], "email"=>$contact["'email'"] ]);
+                    }
+                    $contacts = json_encode($contacts);
+                }
+                
+                    $client = new Client;
+                    $client->user_id = $user->id;
+                    $client->name = $request->name;
+                    $client->email = $request->email;
+                    $client->street = $request->street;
+                    $client->street_number = $request->street_number;
+                    $client->city = $request->city;
+                    $client->country_id = $request->country_id;
+                    $client->state_id = $request->state_id;
+                    $client->zipcode = $request->zipcode;
+                    if(gettype($contacts) == 'string'){
+                        $client->contacts = $contacts;
+                    };
+            }
+           
     
+         }
 
      
 }
