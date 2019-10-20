@@ -369,14 +369,14 @@ table.project-table tbody tr td, table.project-table thead tr th {
                     <img src="https://lancer-app.000webhostapp.com/images/svg/customer.svg" height="20" width="auto"> <span> Client</span>
                 </a>
             </li>
-           
+
             <li class="@if(request()->path() == 'projects/status') active @endif">
                 <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><img src="https://lancer-app.000webhostapp.com/images/svg/lightbulb.svg" height="20" width="auto"> <span> Projects</span></a>
                 <ul class="collapse list-unstyled " id="homeSubmenu">
                     <li>
                         <a href="{{url('project/status')}}" class="pl-4"><i class="fas fa-dot-circle"></i> Status</a>
                     </li>
-            
+
                     <li>
                         <a href="{{url('project/overview')}}" class="pl-4"><i class="fas fa-dot-circle"></i> Overview</a>
                     </li>
@@ -443,6 +443,14 @@ table.project-table tbody tr td, table.project-table thead tr th {
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item">
+                    @if(Auth::user()->profile_picture !== 'user-default.png')
+                    <img id="image_selecter" src="{{ asset(Auth::user()->profile_picture) }}" style="width: 60px; height: 60px; border-radius: 10%; pointer: finger;" alt="Profile Image">
+                    @endif
+                    @if(Auth::user()->profile_picture == 'user-default.png')
+                    <img id="image_selecter" src="{{ asset('images/user-default.jpg') }}" style="width: 60px; height: 60px; border-radius: 10%; pointer: finger;" alt="Profile Image">
+                    @endif
+                    </li>
                         <li class="nav-item active">
                             <a class="nav-link p-3" href="{{ url('/contact') }}"><img src="https://lancer-app.000webhostapp.com/images/svg/help.svg" height="25" width="auto"> <span class="d-lg-none d-xl-none"> You need help?</span></a>
                         </li>
