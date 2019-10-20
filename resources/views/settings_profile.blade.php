@@ -12,21 +12,22 @@
 					<div class="d-flex flex-column align-items-center">
 						<div class="d-flex flex-column align-items-center">
 							<div class="d-flex flex-column">
-								
+
 								<a href="/dashboard/profile/settings" class="nav-option active-nav py-3">Profile Settings</a>
-								<a href="/dashboard/emails/settings" class="nav-option">Email Notifications</a>
+								<a href="/dashboard/emails/settings" class="nav-option">Email Settings</a>
 								<a href="/users/subscriptions" class="nav-option py-3">Subscription</a>
 							</div>
 						</div>
+                        <i>Click on image to Upload</i>
 						@if(null !== session('ImageUploadMessage'))
 						{{session('ImageUploadMessage')}}
 						@endif
-						@if(null !== $data[3])
-						<img id="image_selecter" src="{{ asset($data[3]['profile_picture']) }}" style="width: 100px; height: 100px; border-radius: 10%; pointer: finger;" alt="Profile Image">
-						@endif
-						@if(null == $data[3])
-						<img id="image_selecter" src="{{ asset('images/user-default.jpg') }}" style="width: 100px; height: 100px; border-radius: 10%; pointer: finger;" alt="Profile Image">
-						@endif
+						@if(Auth::user()->profile_picture !== 'user-default.png')
+                    <img id="image_selecter" src="{{ asset(Auth::user()->profile_picture) }}" style="width: 100px; height: 100px; border-radius: 10%; pointer: finger;" alt="Profile Image">
+                    @endif
+                    @if(Auth::user()->profile_picture == 'user-default.png')
+                    <img id="image_selecter" src="{{ asset('images/user-default.jpg') }}" style="width: 100px; height: 100px; border-radius: 10%; pointer: finger;" alt="Profile Image">
+                    @endif
 						<form action="{{ route('Profile-Image') }}"" method="POST" enctype="multipart/form-data">
 							@csrf
 							<input id="picture" name="profileimage" type="file" style="visibility: hidden;"  onchange="image1(this);" />
@@ -144,7 +145,7 @@
 				<div class="col-sm-8 offset-md-4 company-details-form mt-5 pl-5 pr-5 pt-4 pb-4">
 					<p><strong>Company Information</strong></p>
 					<div class="container">
-						<form id="company-details"  method="POST" action="{{ route('edit-profile') }}">
+						<form id="company-details"  method="POST" action="{{ route('edit-company') }}">
 							@csrf
 							<label for="" class="msg"></label>
 							<p>
