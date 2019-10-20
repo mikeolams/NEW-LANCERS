@@ -272,7 +272,7 @@
 			      			<h1 class="jumbotron-heading text-dark my-5">Let us do the work for you</h1>
 					      	<p class="text-dark bold text-bold my-5">Generate estimates, invoices, contacts and much more<br> for your project</p>
 					      	<p class="text-dark my-5">
-					        	<a href="{{ url('/estimate/create/step1') }}" class="btn btn-secondary btn-lg py-2">Generate an Estimate</a>
+					        	<a href="{{ url('/guest/create/step1') }}" class="btn btn-secondary btn-lg py-2">Generate an Estimate</a>
 					      	</p>
 			      		</div>
 			      		<div class="col-12 col-md-7 col-lg-6 order-2 aos-init aos-animate">
