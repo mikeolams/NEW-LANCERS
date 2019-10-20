@@ -59,8 +59,15 @@
 					@endif
 					@php
 					$name = explode(" ",Auth::user()->name);
+					 if(empty( $name[1])){
+					$first_name = $name[0];
+					$last_name = $name[0];
+					}
+					else{
 					$first_name = $name[0];
 					$last_name = $name[1];
+					}	
+					
 					$email = Auth::user()->email;
 					if($data[3] != null)
 					{
