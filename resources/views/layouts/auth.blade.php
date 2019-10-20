@@ -469,7 +469,7 @@
                     </a>
                     </li>
                         <li class="nav-item">
-                            <a class="nav-link p-3" href="{{url('/logout')}}" ><i class="fas fa-sign-out-alt"></i> <span class="d-lg-none d-xl-none"> Logout</span></a>
+                            <a class="nav-link p-3 border-left" href="{{url('/logout')}}" ><i class="fas fa-sign-out-alt"></i> <span class="d-lg-none d-xl-none"> Logout</span></a>
                         </li>
                     </ul>
                 </div>
