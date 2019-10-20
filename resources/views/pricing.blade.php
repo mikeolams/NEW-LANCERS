@@ -3,144 +3,21 @@
 
 @section('styles')
   <style>
-     :root{
-				--primary-color: #091429;
-				--secondary-color: #0ABAB5;
-				--dark-color: #262626;
-				--light-color: #B1B1B1;
-			}
-			   /****************************/
-			  /*------- main styles ------*/
-			 /****************************/
-			body{
-				font-family: 'Open Sans', sans-serif !important;
-				font-size: calc(14px + (26 - 14) * ((100vw - 300px) / (1600 - 300)))  !important;
-			}
+            .navbar-brand{
+                font-family: Pacifico;
+                color: white
+                }
+            .navbar-brand h3 span{
+                color: #0ABAB5
+            }
+            .navbar-brand :hover{
+                color: rgb(255, 255, 255);
+            }
 
-			h1,
-			.h1{
-			  	font-weight: 600 !important;
-				font-size: 3.5rem;
-			  	font-size: calc(38px + 4 * (100vw - 767px) / 700);
-			  	line-height: 120% !important;
-				vertical-align: top !important;
-			}
-			h2,
-			.h2 {
-			  	font-size: 3.2rem;
-			  	font-size: calc(28px + 4 * (100vw - 767px) / 700);
-			  	font-weight: 700;
-			}
-			h3,
-			.h3 {
-			  	font-size: 2rem !important;
-			  	font-size: calc(24px + 4 * (100vw - 767px) / 700) !important;
-			  	font-weight: 600 !important;
-				line-height: 150% !important;
-			}
-			h4,
-			.h4 {
-			  font-size: 1.6rem;
-			}
-			h5,
-			.h5 {
-			  	font-size: 1.2rem;
-				font-weight: 700 !important;
-				line-height: 150% !important;
-			}
-			h6,
-			.h6 {
-			  font-size: 1.4rem;
-			}
-			p{
-				font-size: 16px !important;
-				font-weight: normal;
-				line-height: 32px;
-			}
-			p.bold{
-				font-size: 18px !important;
-				font-weight: 700;
-				line-height: 32px;
-			}
-			.text-primary{
-				color: var(--primary-color) !important;
-			}
-			.text-secondary{
-				color: var(--secondary-color) !important;
-			}
-			.text-dark{
-				color: var(--dark-color) !important;
-			}
-			.text-light{
-				color: var(--light-color) !important;
-			}
-			.bg-primary{
-				background-color: var(--primary-color) !important;
-			}
-			.bg-secondary{
-				background-color: var(--secondary-color) !important;
-			}
-			.bg-light{
-				background-color: var(--light-color) !important;
-			}
-			.bg-dark{
-				background-color: var(--dark-color) !important;
-			}
-			.btn{
-				border: none !important;
-				display: inline-block;
-				position: relative;
-				overflow: hidden;
-				transition: all ease-in-out .5s;
-			}
-			.btn::after {
-				content: "";
-				display: block;
-				position: absolute;
-				top: 0;
-				left: 25%;
-				height: 100%;
-				width: 40%;
-				background-color: #000;
-				border-radius: 50%;
-				opacity: 0;
-				pointer-events: none;
-				transition: all ease-in-out 1s;
-				transform: scale(5, 5);
-			}
-			.btn:active::after {
-				padding: 0;
-				margin: 0;
-				opacity: .2;
-				transition: 0s;
-				transform: scale(0, 0);
-			}
-			.btn-primary{
-				background-color: var(--primary-color) !important;
-			}
-			.btn-secondary{
-				background-color: var(--secondary-color) !important;
-			}
-			.btn-primary-outline{
-				background-color: transparent !important;
-				color: var(--primary-color)  !important;
-				border: 1px solid var(--primary-color)  !important;
-			}
-			.btn-secondary-outline{
-				background-color: transparent !important;
-				color: var(--secondary-color)  !important;
-				border: 2px solid var(--secondary-color)  !important;
-			}
-			.btn-primary:hover, .btn-secondary:hover, .btn-primary-outline:hover, .btn-secondary-secondary:hover{
-				border-color: inherit !important;
-				opacity: 0.8 !important;
-			}
-
-
- /*------Navbar------------*/
+						 /*------Navbar------------*/
 
 			.navbar-main {
-			    background-color: var(--primary-color);
+			    background-color: #091429;
 			}
 			.navbar-main .navbar-brand,
 			.navbar-main .navbar-text {
@@ -194,7 +71,6 @@
 			.navbar-toggler.collapsed .bottom-bar {
 			  transform: rotate(0);
 			}
-
 
 
             .pricing-header{
