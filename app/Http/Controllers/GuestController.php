@@ -87,15 +87,16 @@ class GuestController extends Controller
     public function createstep2(Request $request)
     {
         $data = session('project');
+        $currencies = Currency::all('id', 'code');
 
         if ($data) {
             $project = Session::get('project');
             $request->session()->put('project', $project);
-            return view('guests/set_estimate')->with(['project' => $project]);
+            return view('guests/step2')->with(['project' => $project, 'currencies' => $currencies]);
            
         }
 
-        return redirect('guest/create/project/')->with("error", "You need to create a project first");
+        return redirect('guest/create/step1/')->with("error", "You need to create a project first");
 
      
     }
@@ -104,67 +105,107 @@ class GuestController extends Controller
 
     public function savestep2(Request $request)
     {
+
+         $project = Session::get('project');
+        $request->session()->put('project', $project);
        
-        $validator = Validator::make($request->all(), [
-            // 'project_id' => 'required|numeric',
-            'time' => 'required|numeric',
-            'price_per_hour' => 'required|numeric',
-            'equipment_cost' => 'nullable|numeric',
-            'sub_contractors' => 'nullable|string',
-            'sub_contractors_cost' => 'nullable|numeric',
-            'similar_projects' => 'required|numeric',
-            'rating' => 'required|numeric',
-            'currency_id' => 'required|numeric',
-            'start' => 'required|date',
-            'end' => 'required|date'
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     // 'project_id' => 'required|numeric',
+        //     'time' => 'required|numeric',
+        //     'price_per_hour' => 'required|numeric',
+        //     'equipment_cost' => 'nullable|numeric',
+        //     'sub_contractors' => 'nullable|string',
+        //     'sub_contractors_cost' => 'nullable|numeric',
+        //     'similar_projects' => 'required|numeric',
+        //     'rating' => 'required|numeric',
+        //     'currency_id' => 'required',
+        //     'start' => 'required|date',
+        //     'end' => 'required|date'
+        // ]);
 
         
 
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        } else {
+        // if ($validator->fails()) {
+        //     return back()->withErrors($validator)->withInput();
+        // } else {
             $data = [
                 'time' => $request->time,
                 'price_per_hour' => $request->cost_per_hour,
-                'equipment_cost' => $request->est1,
+                'equipment_cost' => $request->equipment_cost,
                 'sub_contractors' => $request->sub_contractors,
                 'sub_contractors_cost' => $request->sub_contractors_cost,
                 'similar_projects' => $request->similar_projects,
                 'rating' => $request->rating,
-                'currency_id' => $request->currency,
+                'currency_id' => $request->currency_id,
                 'start' => $request->start,
                 'end' => $request->end
         ];
-           $project = Session::get('project');
-            // session::put(['estimate' =>  $data]);
-            $request->session()->put('estimate', $data);
-            $request->session()->put('project', $project);
+           
+
+        $request->session()->put('estmate', $data);
 
             // $ddata = Session::all();
-            //  dd($ddata);
-            return redirect('guest/create/client/');
-        }
+            //  dd($data);
+            return redirect('guest/create/step3');
+        // }
 
     }
 
-    public function clientcreate(Request $request)
+    public function createstep3(Request $request)
     {
         $data = session('project');
+        $countries = Country::all('id', 'name');
+        $states = State::all('id', 'name');
 
         if ($data) {
             $estimate = Session::get('estimate');
             $project = Session::get('project');
             $request->session()->put('project', $project);
             $request->session()->put('estmate', $estimate);
-            return view('guests/client')->with(['project' => $project,'estimate' => $estimate,]);
+            return view('guests/step4')->with(['project' => $project,'estimate' => $estimate,
+             'countries' => $countries, 'states' => $states]);
            
         }
 
+        return redirect('guest/create/step1/')->with("error", "You need to create a project first");
 
+    }
 
-        // return redirect('guest/create/client/')->with("error", "You need to create a project first");
+        public function savestep3(Request $request){
+            $contacts = [];
+            if($request->contact){
+                foreach($request->contact as $contact){
+                    array_push($contacts, ["name"=>$contact["'name'"], "email"=>$contact["'email'"] ]);
+                }
+                $contacts = json_encode($contacts);
+            }
+        $data = [
+                'name' => $request->name,
+                'email' => $request->email,
+                'street' => $request->street,
+                'street_number' => $request->street_number,
+                'city' => $request->city,
+                'country_id' => $request->country_id,
+                'state_id' => $request->state_id,
+                'zipcode' => $request->zipcode,
+               ];
+
+               $project = Session::get('project');
+               $estimate = Session::get('estimate');
+               // session::put(['estimate' =>  $data]);
+               $request->session()->put('estimate', $estimate);
+               $request->session()->put('project', $project);
+               $request->session()->put('client', $data);
+               $request->session()->put('contacts', $contacts);
+    
+           
+               return redirect('guest/create/step4');
+                
+                
+                
+           
+        }
+    
 
      
-    }
 }
