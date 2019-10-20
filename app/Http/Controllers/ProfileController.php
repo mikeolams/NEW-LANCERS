@@ -77,7 +77,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * show user profile details
+     * show user profile details to form
      */
 
     function userProfileDetails()
@@ -120,12 +120,6 @@ class ProfileController extends Controller
     }
 
 
-/*$messages = [
-    'required' => 'The :attribute field is required.',
-];
-
-$validator = Validator::make($input, $rules, $messages);
-*/
 
     protected function validatorId(array $data)
     {

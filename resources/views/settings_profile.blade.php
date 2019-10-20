@@ -28,7 +28,7 @@
 								<button style="display: none;" id="picture_upload" type="submit" class="green-btn">Upload Image</button>
 							</div>
 						</form>
-						
+
 						<div class="d-flex flex-column align-items-center">
 							<div class="d-flex flex-column">
 
@@ -37,7 +37,7 @@
 								<a href="/users/subscriptions" class="nav-option py-3">Subscription</a>
 							</div>
 						</div>
-                     
+
 					</div>
 				</div>
 			</div>
@@ -68,8 +68,8 @@
 					else{
 					$first_name = $name[0];
 					$last_name = $name[1];
-					}	
-					
+					}
+
 					$email = Auth::user()->email;
 					if($data[3] != null)
 					{
@@ -156,6 +156,7 @@
 					<div class="container">
 						<form id="company-details"  method="POST" action="{{ route('edit-company') }}">
 							@csrf
+
 							<label for="" class="msg"></label>
 							<p>
 								<div class="form-group">
@@ -172,11 +173,7 @@
 									<!-- <span id="name_message"></span> -->
 								</div>
 							</p>
-							<!-- <p>
-										<div class="caretCompany">
-													<h6> <i class="fas fa-angle-down show-angle-down"></i><i class="fas fa-angle-up show-angle-up"></i> &nbsp Address Setting</h6>
-										</div>
-							</p> -->
+
 							<div class="form-group">
 								<p>
 									<div>
