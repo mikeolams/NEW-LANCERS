@@ -262,6 +262,7 @@
     
 @endsection
 
+
 @section('content')
  	<main>
 			<section class="jumbotron p-0 text-left rounded-0 bg-white">
