@@ -295,7 +295,7 @@
 			  						We take into consideration your work hours, subcontractors, among other things, to make sure you always have a healthy profit at the end of the day
 			  					</p>
 			  					<p class="text-dark my-4">
-						        	<a href="{{ url('/estimate/create/step1') }}" class="btn btn-secondary btn-lg py-2">Generate an Estimate</a>
+						        	<a href="{{ url('/guest/create/step1') }}" class="btn btn-secondary btn-lg py-2">Generate an Estimate</a>
 						      	</p>
 		  					</div>
 		  				</div>
@@ -337,7 +337,7 @@
 		  			<div class="row">
 		  				<div class="col-md-12">
 		  					<p class="text-center">
-			  					<a class="btn btn-secondary-outline btn-lg" href="{{ url('/') }}" >Create Invoice</a>
+			  					<a class="btn btn-secondary-outline btn-lg" href="{{ url('/guest/create/step1') }}" >Create Invoice</a>
 			  				</p>
 		  				</div>
 		  			</div>
@@ -366,7 +366,7 @@
 							<li><a class="text-dark" href="{{ url('/dashboard') }}">Dashboard</a></li>
 							<li><a class="text-dark" href="{{ url('/projects') }}">Projects</a></li>
 							<li><a class="text-dark" href="{{ url('/invoices') }}">Invoices</a></li>
-							<li><a class="text-dark" href="{{ url('/guest/create_estimate') }}">Create a Project</a></li>
+							<li><a class="text-dark" href="{{ url('/guest/create/step1') }}">Create a Project</a></li>
 						</ul>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-4">

@@ -16,7 +16,8 @@ use Illuminate\Http\Request;
  * Public Routes
 */
 Route::get('/', function () { return view('welcome'); });
-Route::get('/pricing', function () { return view('pricing'); });
+// Route::get('/pricing', function () { return view('pricing'); });
+Route::get('/pricing', "SubscriptionController@showSubscriptions")->name('subscriptions');
 
 //Guest Routes 
 
@@ -27,10 +28,12 @@ Route::get('/pricing', function () { return view('pricing'); });
 // Route::post('guest/save/estimate', 'GuestController@estimatesave')->middleware('guest');    
 
 // Route::get('/guest/create_project/', function () { return view('createproject'); });
-Route::post('/guest/project/create', 'GuestController@createproject')->middleware('guest');
-Route::get('/guest/create_estimate', 'GuestController@step1')->middleware('guest');
+Route::get('guest/create/step1', 'GuestController@step1')->middleware('guest');
+Route::post('guest/save/step1', 'GuestController@createstep1')->middleware('guest');
+Route::get('guest/create/step2', 'GuestController@createstep2')->middleware('guest');
+Route::post('/guest/save/step2', 'GuestController@estimatesave')->middleware('guest');
 Route::get('/guest/create/estimate', 'GuestController@estimatecreate')->middleware('guest');
-Route::post('/guest/save/estimate', 'GuestController@estimatesave')->middleware('guest');
+
 
 Route::get('/guest/contact', function () { return view('guests/contact_support'); });
 Route::post('/guest/process_contact_form',"GuestController@process_contact_form");
@@ -72,21 +75,31 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/logout', 'AuthController@logout')->name('logout');
     
     // Dashboard Routes
+    // Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+    // Route::get('/dashboard/profile', 'ProfileController@index')->name('dashboard-profile');
+    // Route::get('/dashboard/profile/view', 'ProfileController@userProfileDetails')->name('user-profile');
+    
+    // Bits_and_Bytes:six: 7:51 PM
     Route::get('/dashboard', 'HomeController@index')->name('dashboard');
-    Route::get('/dashboard/profile', 'ProfileController@index')->name('dashboard-profile');
-    Route::get('/dashboard/profile/view', 'ProfileController@userProfileDetails')->name('user-profile');
-    
-    
+    Route::get('/dashboard/profile/settings', 'ProfileController@index')->middleware('auth')->name('dashboard-profile');
+
+    Route::get('users/subscribe/{txref}', "SubscriptionController@subscribeUser");
+    Route::get('/dashboard/emails/settings', "emailsettingsController@index")->middleware('auth');
+    Route::put('/users/settings/emails', "emailsettingsController@updateEmailSettings")->middleware('auth')->name('SET-EMAIL');
+    Route::post('/users/edit/profile/company', "ProfileController@editProfile")->middleware('auth')->name('edit-company');
+    Route::post('/users/edit/profile/personal', "ProfileController@editProfileUser")->middleware('auth')->name('edit-profile');
+    Route::post('/dashboard/edit/profile/image', "ProfileController@updateImage")->middleware('auth')->name('Profile-Image');
+        
     // User Routes
     Route::post('/users/edit/profile', "ProfileController@editProfile")->middleware('auth')->name('edit-profile');
     Route::get('/users/subscriptions', "SubscriptionController@showSubscriptions")->middleware('auth')->name('subscriptions');
     Route::get('/users/subscriptions/{planId}', "SubscriptionController@subscribeUser")->middleware('auth');
     // Route::get('/users/subscription', "SubscriptionController@showSubscriptions");
-    Route::get('users/subscribe/{txref}', "SubscriptionController@subscribeUser");
+    // Route::get('users/subscribe/{txref}', "SubscriptionController@subscribeUser");
     Route::get('/users/view/subscriptions', "SubscriptionController@showPlan")->middleware('auth');
-    Route::get('/users/settings/emails', "emailsettingsController@index")->middleware('auth');
-    Route::put('/users/settings/emails', "emailsettingsController@updateEmailSettings")->middleware('auth')->name('SET-EMAIL');
-    Route::post('/users/edit/profile/image', "ProfileController@updateImage")->middleware('auth')->name('Profile-Image');
+    // Route::get('/users/settings/emails', "emailsettingsController@index")->middleware('auth');
+    // Route::put('/users/settings/emails', "emailsettingsController@updateEmailSettings")->middleware('auth')->name('SET-EMAIL');
+    // Route::post('/users/edit/profile/image', "ProfileController@updateImage")->middleware('auth')->name('Profile-Image');
     Route::get('/user/notifications', 'NotificationsController@notifications');
     Route::put('/user/notifications/read/{$id}', 'NotificationsController@markAsRead');
     Route::put('/user/notifications/read/all', 'NotificationsController@markAllAsRead');
@@ -129,19 +142,17 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::delete('/estimates/{estimate}', 'EstimateController@destroy')->middleware('auth');
     Route::get('/estimates/{estimate}', 'EstimateController@show')->middleware('auth');
     Route::get('/estimate/create/step1', 'EstimateController@step1');
-    // Route::get('/estimate/create/step2', 'EstimateController@step2');
-    // Route::get('/estimate/create/step3', 'EstimateController@step3');
-    // Route::get('/estimate/create/step4', 'EstimateController@step4');
-    // Route::get('/estimate/create/step5', 'EstimateController@step5');
+    Route::get('/estimate/create/step2', 'EstimateController@step2');
+    Route::get('/estimate/create/step3', 'EstimateController@step3');
+    Route::get('/estimate/create/step4', 'EstimateController@step4');
+    Route::get('/estimate/create/step5', 'EstimateController@step5');
     Route::post('/estimate/create/step2', 'EstimateController@step2');
     Route::post('/estimate/create/step3', 'EstimateController@step3');
     Route::post('/estimate/create/step4', 'EstimateController@step4');
     Route::post('/estimate/create/step5', 'EstimateController@step5');
 
-    Route::get('/estimates', 'EstimateController@index')->middleware('auth');
-    Route::post('estimates', 'EstimateController@store')->middleware('auth');
+
     Route::get('/estimate/create', function () { return view('set_estimate'); });
-    Route::get('/estimates/{estimate}', 'EstimateController@show')->middleware('auth');
     Route::put('/estimates/{estimate}', 'EstimateController@update')->middleware('auth');
     Route::delete('/estimates/{estimate}', 'EstimateController@destroy')->middleware('auth');
 
@@ -170,10 +181,10 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('payment/invoice/{ref}', 'PaymentContoller@invoice'); //ref is the timestamp value of the created_at field
 
 
-    Route::get('/projects', 'ProjectController@list');
-    Route::get('/project/status', 'ProjectController@list');
-    Route::get('/project/track', function(){ return view('trackproject'); });
-    Route::get('/project/collabrators', function () { return view('project-collabrators'); });
+    // Route::get('/projects', 'ProjectController@list');
+    // Route::get('/project/status', 'ProjectController@list');
+    // Route::get('/project/track', function(){ return view('trackproject'); });
+    // Route::get('/project/collabrators', function () { return view('project-collabrators'); });
 
     Route::get('/clients', 'ClientController@list');
     Route::get('/client/add', function() { return view('addclients'); });
