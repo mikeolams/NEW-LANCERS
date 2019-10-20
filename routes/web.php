@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 /**
  * Public Routes
 */
-Route::get('/', function () { return view('welcome'); });
+Route::get('/', function () { return view('welcome'); })->middleware('guest');
 
 // Route::get('/pricing', function () { return view('pricing'); });
 
@@ -88,7 +88,7 @@ Route::group(['middleware' => 'auth:web'], function(){
 
     // Dashboard Routes
 
-    Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+    Route::get('/dashboard', 'HomeController@index')->name('dashboard')->middleware('auth');
     Route::get('/dashboard/profile/settings', 'ProfileController@index')->middleware('auth')->name('dashboard-profile');
     Route::get('/dashboard/profile/view', 'ProfileController@userProfileDetails')->name('user-profile');
     Route::post('/dashboard/edit/profile/image', "ProfileController@updateImage")->middleware('auth')->name('Profile-Image');
