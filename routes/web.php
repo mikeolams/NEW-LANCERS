@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 */
 Route::get('/', function () { return view('welcome'); })->middleware('guest');
 
-// Route::get('/pricing', function () { return view('pricing'); });
+
 
 
 
@@ -99,7 +99,7 @@ Route::group(['middleware' => 'auth:web'], function(){
     // Route::get('/dashboard', 'HomeController@index')->name('dashboard');
     // Route::get('/dashboard/profile', 'ProfileController@index')->name('dashboard-profile');
     // Route::get('/dashboard/profile/view', 'ProfileController@userProfileDetails')->name('user-profile');
-    
+
 
 
     Route::get('users/subscribe/{txref}', "SubscriptionController@subscribeUser");
@@ -107,7 +107,7 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::put('/users/settings/emails', "emailsettingsController@updateEmailSettings")->middleware('auth')->name('SET-EMAIL');
     Route::post('/users/edit/profile/company', "ProfileController@editProfile")->middleware('auth')->name('edit-company');
     Route::post('/users/edit/profile/personal', "ProfileController@editProfileUser")->middleware('auth')->name('edit-profile');
-        
+
 
     // User Routes
     Route::post('/users/edit/profile', "ProfileController@editProfile")->middleware('auth')->name('edit-profile');
@@ -119,7 +119,7 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/users/subscriptions', "SubscriptionController@showSubscriptions")->middleware('auth')->name('subscriptions');
     Route::get('/users/subscriptions/{planId}', "SubscriptionController@subscribeUser")->middleware('auth');
     // Route::get('/users/subscription', "SubscriptionController@showSubscriptions");
-    // Route::get('users/subscribe/{txref}', "SubscriptionController@subscribeUser");
+    Route::get('users/subscribe/{txref}', "SubscriptionController@subscribeUser");
     Route::get('/users/view/subscriptions', "SubscriptionController@showPlan")->middleware('auth');
 
     Route::get('/user/notifications', 'NotificationsController@notifications');
@@ -171,7 +171,7 @@ Route::group(['middleware' => 'auth:web'], function(){
 
 
     Route::get('/estimate/create', function () { return view('set_estimate'); });
- 
+
 
     // Task Routes
     Route::get('/tasks', 'TaskController@getAllTasks');
