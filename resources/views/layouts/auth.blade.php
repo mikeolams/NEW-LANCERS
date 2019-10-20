@@ -461,10 +461,10 @@
                     <li class="nav-item">
                      <a class="nav-link border-left p-3" href="/dashboard/profile">
                     @if(Auth::user()->profile_picture !== 'user-default.png')
-                    <img id="image_selecter" src="{{ asset(Auth::user()->profile_picture) }}" style="width: 60px; height: 60px; border-radius: 10%; pointer: finger;" alt="Profile Image">
+                    <img id="image_selecter" src="{{ asset(Auth::user()->profile_picture) }}" style="width: 30px; height: 30px; border-radius: 10%; pointer: finger;" alt="Profile Image">
                     @endif
                     @if(Auth::user()->profile_picture == 'user-default.png')
-                    <img id="image_selecter" src="{{ asset('images/user-default.jpg') }}" style="width: 60px; height: 60px; border-radius: 10%; pointer: finger;" alt="Profile Image">
+                    <img id="image_selecter" src="{{ asset('images/user-default.jpg') }}" style="width: 30px; height: 30px; border-radius: 10%; pointer: finger;" alt="Profile Image">
                     @endif
                     </a>
                     </li>
