@@ -374,7 +374,7 @@
 						<p class="text-dark small">
 							52b, Charity Lane, off Magboso Highway, Ikate, London, Nigeria
 						</p>
-						<h5 class="">
+						<h5>
 							<a href="#" class="text-dark mr-2"><i class="fab fa-facebook-square"></i></a> 
 							<a href="#" class="text-dark"><i class="fab fa-twitter-square"></i></a>
 						</h3>
