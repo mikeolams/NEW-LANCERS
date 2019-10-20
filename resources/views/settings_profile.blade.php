@@ -10,15 +10,7 @@
 						<p class="logo text-center py-2">Lan<span>c</span>ers</p>
 					</div>
 					<div class="d-flex flex-column align-items-center">
-						<div class="d-flex flex-column align-items-center">
-							<div class="d-flex flex-column">
-
-								<a href="/dashboard/profile/settings" class="nav-option active-nav py-3">Profile Settings</a>
-								<a href="/dashboard/emails/settings" class="nav-option">Email Settings</a>
-								<a href="/users/subscriptions" class="nav-option py-3">Subscription</a>
-							</div>
-						</div>
-                        <i>Click on image to Upload</i>
+						   <i>Click on image to Upload</i>
 						@if(null !== session('ImageUploadMessage'))
 						{{session('ImageUploadMessage')}}
 						@endif
@@ -36,6 +28,16 @@
 								<button style="display: none;" id="picture_upload" type="submit" class="green-btn">Upload Image</button>
 							</div>
 						</form>
+						
+						<div class="d-flex flex-column align-items-center">
+							<div class="d-flex flex-column">
+
+								<a href="/dashboard/profile/settings" class="nav-option active-nav py-3">Profile Settings</a>
+								<a href="/dashboard/emails/settings" class="nav-option">Email Settings</a>
+								<a href="/users/subscriptions" class="nav-option py-3">Subscription</a>
+							</div>
+						</div>
+                     
 					</div>
 				</div>
 			</div>

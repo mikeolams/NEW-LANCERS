@@ -89,7 +89,8 @@ class ProfileController extends Controller
         //check if collection is null similar to mysqli num ros
         if($userProfile != null)
         {
-            if((sizeof($userProfile->toArray()) > 0) && ($userProfile->toArray()['company'] != null))
+            // if((sizeof($userProfile->toArray()) > 0) && ($userProfile->toArray()['company'] != null))
+            if((sizeof($userProfile->toArray()) > 0) && ($userProfile->company != null))
             {
                 $details = $userProfile->toArray();
 
