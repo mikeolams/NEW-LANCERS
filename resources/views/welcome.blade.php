@@ -372,11 +372,11 @@
 					<div class="col-xs-12 col-sm-6 col-md-4">
 						<h5>Reach us</h5>
 						<p class="text-dark small">
-							52b, Charity Lane, off Magboso Highway, Ikate, London, Nigeria
+							52b, Charity Lane, off Magboso Highway, Ikate, London, Nigeria.
 						</p>
 						<h5>
-							<a href="#" class="text-dark mr-2"><i class="fab fa-facebook-square"></i></a> 
-							<a href="#" class="text-dark"><i class="fab fa-twitter-square"></i></a>
+							<a href="http://facebook.com" class="text-dark mr-2"><i class="fab fa-facebook-square"></i></a> 
+							<a href="http://twitter.com" class="text-dark"><i class="fab fa-twitter-square"></i></a>
 						</h3>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-4">
