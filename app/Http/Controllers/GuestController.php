@@ -202,7 +202,7 @@ class GuestController extends Controller
                $request->session()->put('contacts', $contacts);
     
            
-               return redirect('guest/create/step4');
+               return redirect('register');
                 
                 
                 
@@ -232,6 +232,10 @@ class GuestController extends Controller
             $user->password = Hash::make($request->password);
 
             if($user->save){
+                $project = new Project;
+                $project->title =  $session_project->title;
+                $project->save();
+
                 if($session_contacts){
                     foreach($session_contacts as $contact){
                         array_push($session_contacts, ["name"=>$contact["'name'"], "email"=>$contact["'email'"] ]);
@@ -241,17 +245,28 @@ class GuestController extends Controller
                 
                     $client = new Client;
                     $client->user_id = $user->id;
-                    $client->name = $request->name;
-                    $client->email = $request->email;
-                    $client->street = $request->street;
-                    $client->street_number = $request->street_number;
-                    $client->city = $request->city;
-                    $client->country_id = $request->country_id;
-                    $client->state_id = $request->state_id;
-                    $client->zipcode = $request->zipcode;
+                    $client->name = $session_client->name;
+                    $client->email = $session_client->email;
+                    $client->street = $session_client->street;
+                    $client->street_number = $session_client->street_number;
+                    $client->city = $session_client->city;
+                    $client->country_id = $session_client->country_id;
+                    $client->state_id = $session_client->state_id;
+                    $client->zipcode = $session_client->zipcode;
                     if(gettype($contacts) == 'string'){
                         $client->contacts = $contacts;
                     };
+
+                    $invoice = Invoice::create([
+                        'project_id' => $project->id,
+                        'issue_date' => $data['issued_date'],
+                        'due_date' => $data['due'],
+                        'amount' => $data['total'],
+                        'estimate_id' =>  $estimate->id,
+                        'amount_paid' =>  0,
+                        'currency_id' => session('estimate')['currency_id'],
+                        'status' => 'unpaid'
+                    ]);
             }
            
     
