@@ -2,8 +2,8 @@
 @extends('layouts.app')
 
 @section('styles')
- <style>
- 	:root{
+  <style>
+     :root{
 				--primary-color: #091429;
 				--secondary-color: #0ABAB5;
 				--dark-color: #262626;
@@ -197,168 +197,210 @@
 
 
 
-	.pricing{
-			width: 100%;
-			padding: 70px;
-	}
+            .pricing-header{
+                background: #091429
+            }
+
+            .pricing-header .nav-link{
+            font-size: 15px;
+            color: aliceblue;
+            }
+
+            .navbar-collapse{
+                justify-content: flex-end
+            }
+
+            .pricing{
+                width: 100%;
+                padding-top: 70px;
+                padding-left: 20px;
+                padding-right: 20px;
+                padding: auto;
+            }
 
 
-	.pricing .title-header{
-			text-align: center
-	}
+            .pricing .title-header{
+                text-align: center
+            }
 
-	.pricing .title-header h1{
-			font-size: 65px;
-			padding-left: 160px;
-			padding-right: 160px;
-	}
-	.pricecol{
-			height: 450px;
-			border: 1px solid rgb(197, 132, 132);
-			position: relative;
-	}
-	.pricetext{
-			text-align: center;
-			font-size: 30px;
+            .pricing .title-header h1{ 
+                font-size: 65px;
+                padding-left: 160px;
+                padding-right: 160px;
+            }
+            .pricecol{
+                padding-left: 20px !important;
+                padding-right: 20px !important;
+                margin-top: 20px;
+                height: 450px;
+                border: 1px solid #000000;
+                box-sizing: border-box;
+                border-radius: 6px;
+                position: relative;
+                margin-bottom: 40px;
+                width: 95%;
+                margin-left: auto;
+                margin-right: auto;
 
-	}
-	.pricenumber{
-			text-align: center;
-			font-size: 48px;
+            }
+            .pricetext{
+                text-align: center;
+                font-size: 30px;
 
-	}
+            }
+            .pricenumber{
+                text-align: center;
+                font-size: 48px;
+                
+            }
 
-	.price-button{
-			width: 100%;
-			position: absolute;
-			bottom: 2%;
-			left:0;
-	}
+            .price-button{
+                width: 100%;
+                position: absolute;
+                bottom: 2%;
+                left:0;
+                padding-left: 28px !important;
+                padding-right: 28px !important;
+            }
 
-	.pricelist{
-			list-style: none;
-	}
-	.pricelist li{
-			margin: 5px auto
-	}
-	.pricelist li span{
-			margin: auto 5px
-	}
+            .pricelist{
+                list-style: none;
+            }
+            .pricelist li{
+                margin: 5px auto
+            }
+            .pricelist li span{
+                margin: auto 5px
+            }
 
-	.price-button a{
-			background: #0ABAB5;
-			color: #fff;
-			border: none
-	}
+            .button:hover {
+                color: white;
+            }
 
+            .price-button a{
+                color: #fff;
+                border: none
+            }
 
-	.price-button a:hover{
-			background: rgb(9, 155, 150);
-	}
+            .price-button a{
+                background-color: #0ABAB5 ;
+            }
 
-	.pricenumber::before{
-			font-size: 17px;
-			content: '\0024';
-			position: relative;
-			left: -2px;
-			top: -25px
-	}
+            .price-button a:hover{
+                background: rgb(9, 155, 150);
+            }
 
-	.pricenumber{
-			position: relative;
-	}
+            .pricenumber::before{
+                font-size: 17px;
+                content: '\0024';
+                position: relative;
+                left: -2px;
+                top: -25px
+            }
 
-	.pricenumber p{
-			font-size: 17px;
-			display: inline;
-	}
-	article {
-			background-color:#091429;
-			padding: 25px;
-	}
+            .pricenumber{
+                position: relative;
+            }
 
-	footer {
-			background-color: white;
-			padding: 25px;
-	}
+            .pricenumber p{
+                font-size: 17px;
+                display: inline;
+            }
+            article {
+                background-color:#091429;
+                padding: 25px;
+            }
 
-	.enter-div {
-			text-align: center;
-			color: white;
-			font-weight: normal;
-			font-style: normal;
+            footer {
+                background-color: white;
+                padding: 25px;
+            }
 
-	}
+            .enter-div {
+                text-align: center;
+                color: white;
+                font-weight: normal;
+                font-style: normal;
+            }
 
-	#enter-line {
-			line-height: 65px;
-	}
+            .enter-div > h6 {
+                font-weight: normal;
+            }
 
-	#lancer {
+            #enter-line {
+                line-height: 65px;
+            }
 
-	font-style: normal;
-	font-weight: normal;
-	font-family: 'Pacifico', cursive;
-	font-size: 20px;
-	}
+            #lancer {
 
-	#btn-sub {
-			background: #0ABAB5;
-			border-radius: 4px;
-			color: #FFFFFF;
-	}
+            font-style: normal;
+            font-weight: normal;
+            font-family: 'Pacifico', cursive;
+            font-size: 20px;
+            }
 
-	#email-input {
-	background: #FFFFFF;
-	border: 1px solid #C4C4C4;
-	box-sizing: border-box;
-	border-radius: 2px;
-	color: black;
-	}
+            #btn-sub {
+                background: #0ABAB5;
+                border-radius: 4px;
+                border-width: 0px;
+                color: #FFFFFF;
+            }
 
-	.btn {
-	background: #091429;
-	border: 1px solid #0ABAB5 ;
-	color: #0ABAB5;
-	box-sizing: border-box;
-	border-radius: 6px;
-	}
+            #email-input {
+                background: #FFFFFF;
+                border: 1px solid #C4C4C4;
+                box-sizing: border-box;
+                border-radius: 2px;
+                color: black;
+                font-size: 0.8em;
+                padding: 5px;
+                }
 
-	.link {
-			color: black;
-	}
+            .btn {
+                border: 1px solid #0ABAB5 ;
+                color: #0ABAB5;
+                box-sizing: border-box;
+                border-radius: 6px;
+                }
 
+            .link {
+                color: black;
+            }
 
-	@media only screen and (max-width: 600px) {
-			.pricing .title-header h1{
-					padding: 0;
-					font-size: 35px
-			}
-			.pricing{
-					padding: 20px;
-			}
+            .card {
+                background: #FFFFFF;
+                border: none;
+                width: 350px !important;
+                max-width: 350px !important;
+                margin-right: auto;
+                margin-left: auto;
+            }
 
+            ul {
+                padding: 0% !important;
+            }
+            
+            #btn-sub:hover {
+                background-color: rgb(9, 155, 150);
+            }
+            
+            #navbarNavAltMarkup a:hover {
+                color: #0ABAB5 !important;
+            }
 
+            span.avoidwrap { display:inline-block; }
 
-			.pricecol{
-					margin: 20px auto
-			}
-		}
+            @media only screen and (max-width: 600px) {
+                .pricing .title-header h1{
+                    font-size: 35px
+                }
 
-		/*-----------footer list--------*/
+                .pricecol{
+                    margin: 20px auto
+                }
 
-			.list-unstyled li a{
-				font-size: 17px !important;
-				transition: 0.25s !important;
-				font-style: normal;
-				font-weight: normal;
-			}
-
-			.list-unstyled li a:hover{
-				color: gray !important;
-				text-decoration: none;
-			}
- </style>
+            }
+      </style>
 @endsection
 
 @section('header')
@@ -423,11 +465,11 @@
         </div>
 
             @if($loop->index == 1)
-            <p class="m-0" style="font-size: 12px">All Starter features and</p>
+            <p class="m-0 text-center" style="font-size: 12px">All Starter features and</p>
             @endif
 
             @if($loop->index == 2)
-            <p class="m-0" style="font-size: 12px">All Starter and Pro features and</p>
+            <p class="m-0 text-center" style="font-size: 12px">All Starter and Pro features and</p>
             @endif
 
             @php
@@ -473,13 +515,13 @@
 
                      @if(Auth::user() != null)
                       <div class="price-button p-3">
-                      <a href='{{$url}}'>Purchase</a>
+                      <a class="btn btn-primary btn-block" href='{{$url}}'>Purchase</a>
                       </div>
                       @endif
 
                       @if(Auth::user() == null)
                       <div class="price-button p-3">
-                      <a href="/register">Sign up</a>
+                      <a class="btn btn-primary btn-block" href="/register">Sign up</a>
                       </div>
                       @endif
           @endforeach
