@@ -202,7 +202,7 @@ class GuestController extends Controller
                $request->session()->put('contacts', $contacts);
     
            
-               return redirect('guest/create/step5');
+               return redirect('guest/create/step4');
                 
                 
                 
