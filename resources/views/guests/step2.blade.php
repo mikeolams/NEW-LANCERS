@@ -225,7 +225,7 @@ select {
 
   <div class="container-fluid main-section">
 
-<form  method="POST" action="/guest/project/create">
+<form  method="POST" action="/guest/save/step2">
       @csrf
     <div id="word">
       <h1>Evaluation</h1>
@@ -312,42 +312,13 @@ select {
 
 
       <div id="currency">
-        Currency:<select>
-          <option value="1">NGN</option>
-          <option value="2">AED</option>
-          <option value="3">AFN</option>
-          <option>ALL</option>
-          <option>AMD</option>
-          <option>ANG</option>
-          <option>AOA</option>
-          <option>ARS</option>
-          <option>AUD</option>
-          <option>AWG</option>
-          <option>AZN</option>
-          <option>BAM</option>
-          <option>BBD</option>
-          <option>BDT</option>
-          <option>BGN</option>
-          <option>BHD</option>
-          <option>BIF</option>
-          <option>BMD</option>
-          <option>BND</option>
-          <option>BOB</option>
-          <option>BRL</option>
-          <option>BSD</option>
-          <option>BSD</option>
-          <option>BTN</option>
-          <option>BWP</option>
-          <option>BYN</option>
-          <option>BZD</option>
-          <option>CAD</option>
-          <option>CDF</option>
-          <option>CHF</option>
-          <option>CLP</option>
-          <option>CNY</option>
-          <option>COP</option>
-          <option>CRC</option>
-          <option>CUC</option>
+        Currency:<select name="currency_id">
+         <option value="">
+         Select Currency
+         </option>
+          @foreach($currencies as $currency)
+          <option value="{{$currency->id}}">{{$currency->code}}</option>
+          @endforeach
         </select>
 
       </div>
@@ -356,7 +327,7 @@ select {
 
     </div >
 
-    <button class="btn nex" type="submit">NEXT</button>
+    <button class="btn next" type="submit">NEXT</button>
   </form>
     </div>
 

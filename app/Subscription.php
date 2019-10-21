@@ -106,4 +106,22 @@ class Subscription extends Model
     {
         return $this->hasOne('App\SubscriptionPlan', 'id','plan_id');
     }
+
+    public static function planData()
+    {
+        $userDetails = auth()->user();
+        $user_id = auth()->user()->toArray()['id'];
+        $plan = Subscription::where('user_id',$user_id)->first();
+        if($plan != null)
+        {
+            return $plan;
+         }
+        else {
+            //no plan to show
+            return $plan;
+
+        }
+
+
+    }
 }

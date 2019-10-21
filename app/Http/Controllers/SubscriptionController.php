@@ -53,7 +53,7 @@ class SubscriptionController extends Controller
                 //     return $this->success("Subscribed sucessfully", str_replace("_"," " ,ucfirst($planDetails['data']['name'])));
                 // }else {
                 //     return $this->error("Subscription failed");
-                // }      
+                // }
 
                 if(($subscribeUserToPlan['status'] == false) && ($subscribeUserToPlan['payload'] != null))
                 {
@@ -63,17 +63,20 @@ class SubscriptionController extends Controller
 
                 if($subscribeUserToPlan['status'] == true)
                 {
-                    return redirect('/users/subscriptions')->with(['editStatus'=>'User subscribed to ', 'plan'=> str_replace("_"," " ,ucfirst($planDetails['data']['name']))]);
+                    request()->session()->flash('success', "Your subscription to ".ucfirst($planDetails['data']['name']." plan was sucessful"));
+                    return redirect('/users/subscriptions')->with('plan', Subscription::planData());
 
                 }
 
                 if(($subscribeUserToPlan['status'] == false) && ($subscribeUserToPlan['payload'] == null)) {
-                    return redirect('/users/subscriptions')->with(['editErrors'=>'Plan subscription not successful']);
+                    request()->session()->flash('error', $subscribeUserToPlan['payload']);
+                    return redirect('/users/subscriptions')->with('plan', Subscription::planData());
 
                 }
 
             } else {
-                return redirect('/users/subscriptions')->with(['editErrors'=>'Plan subscription not successful']);
+                request()->session()->flash('error', 'Plan subscription not successful');
+                return redirect('/users/subscriptions')->with('plan', Subscription::planData());
             }
         }
 
@@ -100,24 +103,14 @@ class SubscriptionController extends Controller
             $planEndDate = $plan->toArray()['enddate'];
             $userPlan = SubscriptionPlan::where('id',$plan->toArray()['plan_id'])->first();
 
-            return view('userSubscription')->with(['plans'=> $userPlan->toArray(),'dates' => [$planStartDate,$planEndDate]]);
+            return view('users.subscription')->with(['plans'=> $userPlan->toArray(),'dates' => [$planStartDate,$planEndDate]]);
         }
         else {
             //no plan to show
-            return view('userSubscription')->with(['plans'=> null,'dates' =>null]);
+            return view('users.subscription')->with(['plans'=> null,'dates' =>null]);
 
         }
     }
-
-
-
-
-
-
-
-
-
-
 
 
     public function userSubscription()
@@ -132,8 +125,6 @@ class SubscriptionController extends Controller
     function showSubscriptions()
     {
         $plans = SubscriptionPlan::all()->toArray();
-
-
         return view('pricing')->with(['plans'=> $plans]);
 
     }
