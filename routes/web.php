@@ -95,6 +95,7 @@ Route::group(['middleware' => 'auth:web'], function(){
     // Dashboard Routes
 
     Route::get('/dashboard', 'HomeController@index')->name('dashboard')->middleware('auth');
+    Route::get('/dashboard/profile', 'ProfileController@index')->name('dashboard-profile');
     Route::get('/dashboard/profile/settings', 'ProfileController@index')->middleware('auth')->name('dashboard-profile');
     Route::get('/dashboard/profile/view', 'ProfileController@userProfileDetails')->name('user-profile');
     Route::post('/dashboard/edit/profile/image', "ProfileController@updateImage")->middleware('auth')->name('Profile-Image');
@@ -103,9 +104,8 @@ Route::group(['middleware' => 'auth:web'], function(){
 
 
     // Route::get('/dashboard', 'HomeController@index')->name('dashboard');
-    // Route::get('/dashboard/profile', 'ProfileController@index')->name('dashboard-profile');
     // Route::get('/dashboard/profile/view', 'ProfileController@userProfileDetails')->name('user-profile');
-
+    //Route::get('/dashboard/profile', function () { return view('user_profile'); }); This is another alternative to the dashboard/profile
 
 
     Route::get('users/subscribe/{txref}', "SubscriptionController@subscribeUser");
@@ -136,6 +136,9 @@ Route::group(['middleware' => 'auth:web'], function(){
     // Project Routes
     Route::get('/projects', 'ProjectController@list');
     Route::get('/project/status', 'ProjectController@list');
+    Route::get('/project/overview', 'ProjectController@list');
+    Route::get('/project/task', 'ProjectController@list');
+    Route::get('/project/documents', 'ProjectController@list');
     Route::get('/project/track', function(){ return view('trackproject'); });
     Route::get('/project/collabrators', function () { return view('project-collabrators'); });
 
@@ -188,6 +191,7 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::put('/tasks/{task}/team', 'TaskController@addTeam');
 
     // Contract Routes
+    Route::get ('/contracts', function() { return view('contracts'); });
     Route::post('/contracts/{project_id}/{template_id}', 'ContractControler@store')->name('create.contract');
     Route::put('/contracts/{project_id}/{id}')->name('edit.contract');
     Route::delete('/contracts/{project_id}/{id}')->name('delete.contract');
@@ -218,6 +222,13 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/invoice_sent', function () { return view('invoice_sent'); });
     Route::get('/invoice-view', function () { return view('invoice-view'); });
     Route::get('/client-doc-view', function () { return view('client-doc-view'); });
+
+
+    //Proposals
+    Route::get('/proposals', function() { return view('proposals');});
+
+    //Contact
+    Route::get('/contact', function() { return view('contact_support');});
 
 
     // Others
