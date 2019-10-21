@@ -42,7 +42,7 @@ class PaymentContoller extends Controller
                 'key' => $key,
                 'ref' => $txRef,
                 'balance' => 0
-            ];   
+            ];
         }
 
         if(in_array($type, array_keys($payment_types))){
@@ -52,22 +52,28 @@ class PaymentContoller extends Controller
             // get the users current subcription
             $sub = $user->subscription;
 
-            // check if there's still some days left for the plan to exprire, so as to remove the cost from the charge 
+            // check if there's still some days left for the plan to exprire, so as to remove the cost from the charge
             if($sub){
                 if($sub->plan_id > $data['id']){
                     // return session value here
                     return "Sorry, you cannot downgrade your subscription";
                 }
 
-                if($data['id'] > $sub->plan_id){                    
+                if($data['id'] > $sub->plan_id){
                     $remaining = Carbon::parse($sub->enddate)->diffInDays(Carbon::parse($sub->startdate));
                     $plan = SubscriptionPlan::find($sub->plan_id);
-
+                    //constraint to check for null value returned from db query
+                    if($plan !== null)
+                    {
                     $price_per_day = $plan->price/30;
 
                     $balance = $price_per_day * $remaining;
 
                     $data['balance'] = $balance;
+                    }
+                      //if null value is returned cast balance to nill
+                    $data['balance'] = 0;
+
                 }
             }
 
@@ -88,8 +94,8 @@ class PaymentContoller extends Controller
         }else{
             $invoice = Invoice::where('created_at', Carbon::createFromTimestamp($ref))->first();
             if(empty($invoice)){
-                return "Invalid payment option"; 
-            }else{ 
+                return "Invalid payment option";
+            }else{
                 if($invoice->status == "paid"){
                     return "This invoice has been paid";
                 }

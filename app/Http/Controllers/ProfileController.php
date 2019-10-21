@@ -77,7 +77,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * show user profile details
+     * show user profile details to form
      */
 
     function userProfileDetails()
@@ -89,7 +89,8 @@ class ProfileController extends Controller
         //check if collection is null similar to mysqli num ros
         if($userProfile != null)
         {
-            if((sizeof($userProfile->toArray()) > 0) && ($userProfile->toArray()['company'] != null))
+            // if((sizeof($userProfile->toArray()) > 0) && ($userProfile->toArray()['company'] != null))
+            if((sizeof($userProfile->toArray()) > 0) && ($userProfile->company != null))
             {
                 $details = $userProfile->toArray();
 
@@ -119,12 +120,6 @@ class ProfileController extends Controller
     }
 
 
-/*$messages = [
-    'required' => 'The :attribute field is required.',
-];
-
-$validator = Validator::make($input, $rules, $messages);
-*/
 
     protected function validatorId(array $data)
     {

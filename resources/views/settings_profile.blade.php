@@ -10,23 +10,16 @@
 						<p class="logo text-center py-2">Lan<span>c</span>ers</p>
 					</div>
 					<div class="d-flex flex-column align-items-center">
-						<div class="d-flex flex-column align-items-center">
-							<div class="d-flex flex-column">
-								
-								<a href="/dashboard/profile/settings" class="nav-option active-nav py-3">Profile Settings</a>
-								<a href="/dashboard/emails/settings" class="nav-option">Email Notifications</a>
-								<a href="/users/subscriptions" class="nav-option py-3">Subscription</a>
-							</div>
-						</div>
+						   <i>Click on image to Upload</i>
 						@if(null !== session('ImageUploadMessage'))
 						{{session('ImageUploadMessage')}}
 						@endif
-						@if(null !== $data[3])
-						<img id="image_selecter" src="{{ asset($data[3]['profile_picture']) }}" style="width: 100px; height: 100px; border-radius: 10%; pointer: finger;" alt="Profile Image">
-						@endif
-						@if(null == $data[3])
-						<img id="image_selecter" src="{{ asset('images/user-default.jpg') }}" style="width: 100px; height: 100px; border-radius: 10%; pointer: finger;" alt="Profile Image">
-						@endif
+						@if(Auth::user()->profile_picture !== 'user-default.png')
+                    <img id="image_selecter" src="{{ asset(Auth::user()->profile_picture) }}" style="width: 100px; height: 100px; border-radius: 10%; pointer: finger;" alt="Profile Image">
+                    @endif
+                    @if(Auth::user()->profile_picture == 'user-default.png')
+                    <img id="image_selecter" src="{{ asset('images/user-default.jpg') }}" style="width: 100px; height: 100px; border-radius: 10%; pointer: finger;" alt="Profile Image">
+                    @endif
 						<form action="{{ route('Profile-Image') }}"" method="POST" enctype="multipart/form-data">
 							@csrf
 							<input id="picture" name="profileimage" type="file" style="visibility: hidden;"  onchange="image1(this);" />
@@ -35,6 +28,16 @@
 								<button style="display: none;" id="picture_upload" type="submit" class="green-btn">Upload Image</button>
 							</div>
 						</form>
+
+						<div class="d-flex flex-column align-items-center">
+							<div class="d-flex flex-column">
+
+								<a href="/dashboard/profile/settings" class="nav-option active-nav py-3">Profile Settings</a>
+								<a href="/dashboard/emails/settings" class="nav-option">Email Settings</a>
+								<a href="/users/subscriptions" class="nav-option py-3">Subscription</a>
+							</div>
+						</div>
+
 					</div>
 				</div>
 			</div>
@@ -58,8 +61,15 @@
 					@endif
 					@php
 					$name = explode(" ",Auth::user()->name);
+					 if(empty( $name[1])){
+					$first_name = $name[0];
+					$last_name = $name[0];
+					}
+					else{
 					$first_name = $name[0];
 					$last_name = $name[1];
+					}
+
 					$email = Auth::user()->email;
 					if($data[3] != null)
 					{
@@ -144,8 +154,9 @@
 				<div class="col-sm-8 offset-md-4 company-details-form mt-5 pl-5 pr-5 pt-4 pb-4">
 					<p><strong>Company Information</strong></p>
 					<div class="container">
-						<form id="company-details"  method="POST" action="{{ route('edit-profile') }}">
+						<form id="company-details"  method="POST" action="{{ route('edit-company') }}">
 							@csrf
+
 							<label for="" class="msg"></label>
 							<p>
 								<div class="form-group">
@@ -162,11 +173,7 @@
 									<!-- <span id="name_message"></span> -->
 								</div>
 							</p>
-							<!-- <p>
-										<div class="caretCompany">
-													<h6> <i class="fas fa-angle-down show-angle-down"></i><i class="fas fa-angle-up show-angle-up"></i> &nbsp Address Setting</h6>
-										</div>
-							</p> -->
+
 							<div class="form-group">
 								<p>
 									<div>
