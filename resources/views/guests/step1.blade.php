@@ -487,12 +487,14 @@ button {
                 <h5 class="card-title">A new project</h5>
                 <p class="card-text">Create a new estimate and set up a new project based on the information.
                 </p>
-
+        <form id="create-project" method="post"action="/guest/save/step1" >
+                    @csrf
                 <div class="project">
                     <input class="l-proj" type="text" placeholder="Project Name" name="" id="createProject">
                     <br>
                     <span class="req">Required</span>
                 </div>
+        </form>
             </div>
         </div>
     </div>
