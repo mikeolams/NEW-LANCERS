@@ -108,11 +108,11 @@ Route::group(['middleware' => 'auth:web'], function(){
     //Route::get('/dashboard/profile', function () { return view('user_profile'); }); This is another alternative to the dashboard/profile
 
 
-    Route::get('users/subscribe/{txref}', "SubscriptionController@subscribeUser");
+    //Route::get('users/subscribe/{txref}', "SubscriptionController@subscribeUser");
 
-    Route::put('/users/settings/emails', "emailsettingsController@updateEmailSettings")->middleware('auth')->name('SET-EMAIL');
-    Route::post('/users/edit/profile/company', "ProfileController@editProfile")->middleware('auth')->name('edit-company');
-    Route::post('/users/edit/profile/personal', "ProfileController@editProfileUser")->middleware('auth')->name('edit-profile');
+    //Route::put('/users/settings/emails', "emailsettingsController@updateEmailSettings")->middleware('auth')->name('SET-EMAIL');
+    //Route::post('/users/edit/profile/company', "ProfileController@editProfile")->middleware('auth')->name('edit-company');
+   // Route::post('/users/edit/profile/personal', "ProfileController@editProfileUser")->middleware('auth')->name('edit-profile');
 
 
     // User Routes
