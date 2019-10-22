@@ -490,11 +490,11 @@ button {
         <form id="create-project" method="post"action="/guest/save/step1" >
                     @csrf
                 <div class="project">
-                    <input class="l-proj" type="text" placeholder="Project Name" name="" id="createProject">
+                    <input class="l-proj" name="title" type="text" placeholder="Project Name" name="" id="createProject">
                     <br>
                     <span class="req">Required</span>
                 </div>
-        </form>
+       
             </div>
         </div>
     </div>
@@ -504,9 +504,10 @@ button {
     <div class="container-fluid">
         <div class="row text-center">
             <div class="col-12">
-                <button class="a-next disabled" id="btn"><a href="#">NEXT</a></button>
+                <button class="a-next disabled" id="btn">NEXT</button>
             </div>
         </div>
+      </form>
     </div>
 
 @endsection
