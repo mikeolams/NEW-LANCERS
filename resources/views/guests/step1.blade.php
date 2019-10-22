@@ -489,7 +489,7 @@ button {
                 </p>
 
                 <div class="project">
-                    <input class="l-proj" type="text" onmouseout="verifyPath()" placeholder="Project Name" name="" id="createProject">
+                    <input class="l-proj" type="text" placeholder="Project Name" name="" id="createProject">
                     <br>
                     <span class="req">Required</span>
                 </div>
@@ -513,21 +513,25 @@ button {
     
 <script>
         function verifyPath() {
-            let createProject = document.getElementById('createProject').value;
+        let a_next =  document.querySelector('.a-next');
+        let next = document.querySelector('.next');
+        
+        if (createProject.value !== "" && createProject.value.length >= 4 ) {
+             a_next.style.background = '#0ABAB5';
+             next.style.background = '#0ABAB5';
 
-            if (createProject !== "") {
-                document.querySelector('.a-next').style.background = '#0ABAB5';
-                document.querySelector('.next').style.background = '#0ABAB5';
-
-                document.querySelector('.a-next').classList.remove('disabled');
-                document.querySelector('.next').classList.remove('disabled');
-            } else {
-                //console.log('here works');
-                document.querySelector('.next').style.background = 'rgba(207, 204, 204, 0.4)';
-                document.querySelector('.next').classList.add('disabled');
-                document.querySelector('.a-next').style.background = 'rgba(207, 204, 204, 0.4)';
-                document.querySelector('.a-next').classList.add('disabled');
-            }
+            document.querySelector('.a-next').classList.remove('disabled');
+            document.querySelector('.next').classList.remove('disabled');
+        } else {
+            //console.log('here works');
+            document.querySelector('.next').style.background = 'rgba(207, 204, 204, 0.4)';
+            document.querySelector('.next').classList.add('disabled');
+            document.querySelector('.a-next').style.background = 'rgba(207, 204, 204, 0.4)';
+            document.querySelector('.a-next').classList.add('disabled');
         }
+    }
+    
+    let createProject = document.getElementById('createProject');
+    createProject.addEventListener('keyup', verifyPath);
     </script>
 @endsection
