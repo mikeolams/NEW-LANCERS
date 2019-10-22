@@ -7,7 +7,7 @@
 @section('main-content')
     <div class="container">
         <button class='create-invoice' onClick="window.location.href('./invoice/create')">Create Invoice</button>
-    </div> 
+    </div>
     <section class="">
         <div class="container-fluid">
             <h4 class="mt-0 text-primary">Invoices</h4>

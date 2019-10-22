@@ -3,7 +3,8 @@
 @section('main-content')
 						<div class="content">
 						<!---------Body Content------------>
-						<a href="/add/client" class="createInvoice">Create Invoice</a>
+						<a href="/client/add" class="createInvoice">Create Invoice</a>
+
 						<h3>INVOICE</h3>
 						<p class="all">
 							<label for="allInvoiceList"></label>
@@ -67,7 +68,7 @@
 						@else
 							<p class="text-center">No invoices to show</p>
 						@endif
-					</div>				
+					</div>
 @endsection
 
 @section('script')

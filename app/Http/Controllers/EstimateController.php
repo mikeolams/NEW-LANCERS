@@ -28,15 +28,32 @@ class EstimateController extends Controller
         $project = '';
         $currencies = Currency::all('id', 'code');
 
-        if($request->old_project && $request->new_project) $project = ['type'=>'new', 'project'=>$request->new_project];
-        elseif($request->old_project) $project = ['type'=>'old', 'project'=>$request->old_project];
-        elseif($request->new_project) $project = ['type'=>'new', 'project'=>$request->new_project];
 
-        if($project == '') return back()->with('error', 'Please specify either an old or new project');
+        switch($request)
+        {
+            case((null !== $request->old_project) && (null !== $request->new_project)): return back()->with('error', 'Please specify either an old or new project not both');
+            break;
+            case(null !== $request->old_project): $project = ['type'=>'old', 'project'=>$request->old_project];
+            break;
+            case(null !== $request->new_project): $project = ['type'=>'new', 'project'=>$request->new_project];
+            break;
+            default: return back()->with('error', 'Please specify either an old or new project');
+        }
+
+        //user should be able to select only one project, this method below would
+        // make it possible for the user to select both new and old
+        //and either would be taken leading to data loss
+
+       // if($request->old_project && $request->new_project) $project = ['type'=>'new', 'project'=>$request->new_project];
+        //elseif($request->old_project) $project = ['type'=>'old', 'project'=>$request->old_project];
+        //elseif($request->new_project) $project = ['type'=>'new', 'project'=>$request->new_project];
+
+       // if($project == '') return back()->with('error', 'Please specify either an old or new project');
+
         if($project['type'] == 'old') $project['project'] = Project::whereId($project['project'])->first()->title;
 
         session(['project'=>$project]);
-        return view('estimate.step2')->withProject($project['project'])->withCurrencies($currencies);
+        return view('estimate.step2')->withProject(ucfirst($project['project']))->withCurrencies($currencies);
     }
 
     public function step3(Request $request){
@@ -60,7 +77,7 @@ class EstimateController extends Controller
             return view('estimate.step5')->withClient($client);
         }else{
             return view('estimate.step4')->withCountries($countries)->withStates($states);
-        }        
+        }
     }
 
     public function step5(Request $request){
@@ -82,7 +99,7 @@ class EstimateController extends Controller
         try{
             // $client = new Client;
             // $estimate = new Estimate;
-            
+
             $data['project'] = session('project')['project'];
             $data['company'] = session('client')['name'];
             $data['company_address'] = session('client')['street'] . session('client')['city'];
@@ -96,11 +113,11 @@ class EstimateController extends Controller
             $data['equipment_cost'] = session('estimate')['equipment_cost'];
             $data['sub_contractors_cost'] = session('estimate')['sub_contractors_cost'];
             $data['total'] = $data['workmanship'] + $data['equipment_cost'] + $data['sub_contractors_cost'];
-            
+
             // Estimate ID set to 1 because an estimate must not have a project
             $estimate = Estimate::create(array_merge(session('estimate'), ['estimate'=>$data['total'], 'project_id'=>1]));
             // $client = Client::create(array_merge(session('client'), ['user_id'=>Auth::user()->id]) );
-            
+
             $client = new Client;
             $client->user_id = Auth::user()->id;
             $client->name = session('client')['name'];
@@ -112,10 +129,10 @@ class EstimateController extends Controller
             $client->state_id = session('client')['state_id'];
             $client->zipcode = session('client')['zipcode'];
             $client->contacts = session('client')['contacts'];
-            
+
             $project = Project::create([
-                        'title'=>$data['project'], 
-                        'user_id' => Auth::user()->id, 
+                        'title'=>$data['project'],
+                        'user_id' => Auth::user()->id,
                         'client_id' => $client->id,
                         'estimate_id' => $estimate->id,
                         'tracking_code' => random_int(10, 100000),
@@ -134,7 +151,7 @@ class EstimateController extends Controller
             //     'currency_id' => session('estimate')['currency_id'],
             //     'status' => 'unpaid'
             // ]);
-            
+
 
             // $data['invoice_no'] = $invoice->id;
             $client->save();
