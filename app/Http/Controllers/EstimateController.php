@@ -56,12 +56,20 @@ class EstimateController extends Controller
         return view('estimate.step2')->withProject(ucfirst($project['project']))->withCurrencies($currencies);
     }
 
-    public function step3(Request $request){
-        $estimate = $request->all();
-        $clients = Client::where('user_id', Auth::user()->id)->select('id', 'name')->get();
-        session(['estimate'=>$estimate]);
 
-        return view('estimate.step3')->withClients($clients);
+    public function step3(Request $request){
+        (sizeof($request->all()) != 0) ? $estimate = $request->all() : $estimate = null;
+
+        if($estimate != null)
+        {
+            $clients = Client::where('user_id', Auth::user()->id)->select('id', 'name')->get();
+            session(['estimate'=>$estimate]);
+
+            return view('estimate.step3')->withClients($clients);
+        }
+        return redirect('/estimate/create/step1')->with('error', 'Please specify either an old or new project in stage 1 before moving on to other stages');
+
+
     }
 
     public function step4(Request $request){

@@ -77,9 +77,14 @@
    upload_button.style.display = "block";
     }
 
-    //estimate form jquery
+    //estimate form jquery step1
     $("#upperNext").on("click", function() {
         $("#formNext").trigger("click");
+      });
+
+      //estimate form jquery step3
+    $("#upperNext3").on("click", function() {
+        $("#formNext3").trigger("click");
       });
 
 
