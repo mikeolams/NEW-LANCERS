@@ -2,7 +2,7 @@
 
 
 @section('styles')
-<style> 
+<style>
     body {
       box-sizing: border-box;
       margin: 0px;
@@ -241,7 +241,7 @@
                 />
             </a>
             <div class="column-2">Client</div>
-            <a href="#" @click.prevent="next" class="column-3">NEXT</a>
+            <a href="#" @click.prevent="next" id="NextStep3Upper" class="column-3">NEXT</a>
         </nav>
     </header>
 
@@ -255,7 +255,7 @@
                 <div class="sub-box">
                 <p class="txt">An already existing Client</p>
                 <select name="client" class="select-project" style="color: #919191">
-                    <option value="new" selected>Select Project</option>
+                    <option value="new" selected>Select Client</option>
                     @foreach($clients as $client)
                     <option value="{{$client->id}}">{{$client->name}}</option>
                     @endforeach
@@ -265,9 +265,9 @@
                     <p class="cli-text">A new Client</p>
                 </a>
             </div>
-            
+
             <div class="footer-next">
-                <button type="submit">NEXT</button>
+                <button id="NextStep3form" type="submit">NEXT</button>
             </div>
             </form>
     </div>

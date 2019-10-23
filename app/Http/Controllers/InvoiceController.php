@@ -69,7 +69,9 @@ class InvoiceController extends Controller {
             $invoice = $pre_invoice;
         } else {
 
-            $invoice = Invoice::create(['issue_date' => $estimate->start, 'due_date' => $estimate->end, 'estimate_id' => $estimate->id, 'amount' => $estimate->estimate, 'currency_id' => $estimate->currency_id])->with('estimate');
+            $estimate = Estimate::findOrFail($request->estimate_id);
+            $createinvoice = Invoice::create(['issue_date' => $estimate->start, 'due_date' => $estimate->end, 'estimate_id' => $estimate->id, 'amount' => $estimate->estimate, 'currency_id' => $estimate->currency_id]);
+            $invoice = Invoice::whereId($createinvoice->id)->with('estimate')->first();
         }
 
         return view('invoices.reviewinvoice')->with('invoice', $invoice);
@@ -101,7 +103,6 @@ class InvoiceController extends Controller {
         return view('invoices.viewinvoice')->with('invoice', $invoice);
     }
 
-    
     public function listGet(Request $request) {
         if ($request->filter == 'paid') {
             $data['invoices'] = Invoice::whereStatus('paid')->with('estimate')->with('currency')->get();
