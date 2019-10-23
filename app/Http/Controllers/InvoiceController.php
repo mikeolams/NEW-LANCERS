@@ -3,67 +3,193 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use PDF;
+use App\User;
+use App\Client;
+use App\Project;
 use App\Invoice;
+use App\Estimate;
+use Carbon\Carbon;
+use App\Mail\SendInvoice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Crypt;
+use App\Notifications\UserNotification;
+use App\Traits\VerifyandStoreTransactions;
 
-class InvoiceController extends Controller
-{
+class InvoiceController extends Controller {
+
+    use VerifyandStoreTransactions;
+
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
+    public function send($id) {
+        return view('invoice_sent');
+    }
+
+    public function index() {
+        $user = Auth::user();
+
+        // return $user->projects;
+
+        $invoices = $user->projects()->select('id', 'title', 'client_id')->with(['client:id,name', 'invoice:id,project_id,amount,status,issue_date,created_at'])->get();
+
+        foreach ($invoices as $key => $invoice) {
+            if ($invoice->invoice == null) {
+                unset($invoices[$key]);
+            }
+
+            if ($invoice->client_id == null) {
+                unset($invoices[$key]);
+            }
+        }
+        // return $invoices;
+        return view('invoices.invoicelist')->with('invoices', $invoices);
+    }
+
     /**
      * Creates new record in the invoice table
      */
-    public function store(Request $request){
-        $data = $request->all();
-        // $validation = Validation::invoice($data);
-        // if(!$validation) return $this->ERROR('Form validation failed', $validation);
+    public function store(Request $request) {
 
-        try{
-            if(Invoice::create($data)){
-                logger('New Invoice created');
-                return $this->SUCCESS('New Invoice created');
-            }
-            return $this->ERROR('Invoice creation failed');
-        }catch(\Throwable $e){
-            return $this->ERROR('Invoice creation failed', $e);
+        $this->validate($request, [
+            'estimate_id' => 'required|numeric'
+        ]);
+
+        $estimate = Estimate::findOrFail($request->estimate_id);
+
+        $pre_invoice = Invoice::where('estimate_id', $request->estimate_id)->first();
+
+        if ($pre_invoice !== null) {
+
+            $pre_invoice->update(['amount' => $estimate->estimate]);
+
+            $invoice = $pre_invoice;
+        } else {
+
+            $invoice = Invoice::create(['issue_date' => $estimate->start, 'due_date' => $estimate->end, 'estimate_id' => $estimate->id, 'amount' => $estimate->estimate, 'currency_id' => $estimate->currency_id])->with('estimate');
+        }
+
+        return view('invoices.reviewinvoice')->with('invoice', $invoice);
+    }
+
+    public function delete(Request $request, $invoice) {
+        $invoice = Invoice::findOrFail($invoice);
+
+        $user = Auth::user();
+
+        if ($invoice->project->user_id !== $user->id) {
+            $request->session()->flash('error', "You're unauthorized to delete this invoice");
+            return redirect()->back();
+        } else {
+            $request->session()->flash('status', 'Deleted');
+            return redirect()->back();
         }
     }
 
-    public function update(Request $request){
-        $data = $request->all();
-        $invoice = Invoice::where('project_id', $data['project_id'])->first();
-        try{
-            if($invoice){
-                $invoice->update($data);
-                logger('Invoice record modified successfully');
-                return $this->SUCCESS('Invoice record modified successfully');
-            }
-            return $this->ERROR('No record found for specified invoice');
-        }catch(\Throwable $e){
-            return $this->ERROR('Invoice modification failed', $e);
+    public function show($invoice) {
+        $invoice = Invoice::findOrFail($invoice);
+
+        // dd($invoice);
+        $project_id = $invoice->project_id;
+
+        $invoice = Project::where('id', $project_id)->select('id', 'title', 'estimate_id', 'client_id')->with(['estimate', 'invoice', 'client'])->first();
+
+        // return $invoice;
+        return view('invoices.viewinvoice')->with('invoice', $invoice);
+    }
+
+
+    public function listGet(Request $request) {
+        if ($request->filter == 'paid') {
+            $data['invoices'] = Invoice::whereStatus('paid')->with('estimate')->with('currency')->get();
+        } elseif ($request->filter == 'unpaid') {
+            $data['invoices'] = Invoice::whereStatus('unpaid')->with('estimate')->with('currency')->get();
+        } else {
+            $data['invoices'] = Invoice::with('estimate')->with('currency')->get();
+        }
+        return view('invoices.list', $data);
+    }
+
+    public function getPdf($invoice) {
+        $invoice = Invoice::findOrFail($invoice);
+
+        $filename = "invoice#" . strtotime($invoice->created_at) . ".pdf";
+
+        $project_id = $invoice->project_id;
+
+        $invoice = Project::where('id', $project_id)->select('id', 'title', 'estimate_id', 'client_id')->with(['estimate', 'invoice', 'client'])->first();
+
+        $pdf = PDF::loadView('invoices.pdf', ['invoice' => $invoice]);
+
+        return $pdf->download($filename);
+    }
+
+    public function sendinvoice(Request $request) {
+        $invoice_id = $request->invoice;
+
+        $invoice = Invoice::findOrFail($invoice_id);
+
+        $project_name = $invoice->project->title;
+
+        $client = $invoice->project->client;
+
+        $client_email = $client->email;
+
+        $encoded = base64_encode(base64_encode($client_email));
+
+        $url = "/clients/" . $encoded . "/invoices/" . strtotime($invoice->created_at);
+
+        $name = Auth::user()->name;
+
+        Mail::to($client_email)
+                ->send(new SendInvoice([
+                    'user' => $name,
+                    'name' => $client->name,
+                    'amount' => $invoice->amount,
+                    'invoice_url' => $url,
+                    'project' => $project_name
+        ]));
+
+        return view('invoices.invoicesent');
+    }
+
+    public function clientInvoice($client, $invoice) {
+        $client_email = base64_decode(base64_decode($client));
+        $invoice = Invoice::where('created_at', Carbon::createFromTimestamp($invoice))->first();
+
+        $project_id = $invoice->project_id;
+        $invoice = Project::where('id', $project_id)->select('id', 'title', 'estimate_id', 'client_id')->with(['estimate', 'invoice', 'client'])->first();
+        return view('invoices.clientinvoice')->with('invoice', $invoice);
+    }
+
+    public function pay($txref) {
+        $data = $this->verifyTransaction($txref);
+        // dd($data);
+        if ($data['success']) {
+            $invoice = Invoice::find($data['invoice_id']);
+            $invoice->update(['status' => 'paid']);
+            $project_name = $invoice->project->title;
+            $user = User::find($invoice->project->user_id);
+            $user->notify(new UserNotification([
+                "subject" => "Invoice paid",
+                "body" => "This is to notify you that the invoice for the project " . $project_name . " in the amount NGN" . $invoice->amount . " has been paid",
+                "action" => [
+                    "text" => "View invoices",
+                    "url" => "/invoices"
+                ]
+            ]));
+            return "Thanks, " . $user->name . " has successfully recived the payment";
+        } else {
+            return $data['reason'];
         }
     }
 
-    public function delete(Request $request){
-        if($invoice = Invoice::find($request->client_id)){
-            $invoice->delete();
-            logger('Invoice Deleted - ' . $invoice->name);
-            return $this->SUCCESS('Invoice Deleted - ' . $invoice->name);
-        }
-        return $this->ERROR('Invoice deletion failed');
-    }
-
-    public function list(){
-        $result = [];
-        $projects = Auth::user()->projects;
-        if($projects->count() > 0){
-            foreach($projects as $project){
-                if($project->invoice !== null) array_push($result, $project->invoice);
-            }
-        }
-        return $result->count() > 0 ? $this->SUCCESS('Invoice retrieved', $invoice) : $this->SUCCESS('No invoice found');
-    }
-
-    public function view($invoice_id){
-        $invoice = Invoice::where(['id'=>$invoice_id, 'project_id' => Auth::user()->id])->first();
+    public function view($invoice_id) {
+        $invoice = Invoice::where(['id' => $invoice_id, 'project_id' => Auth::user()->id])->first();
         return $invoice->count() > 0 ? $this->SUCCESS('Invoice retrieved', $invoice) : $this->SUCCESS('No invoice found');
     }
+
 }

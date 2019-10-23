@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Project;
 class Estimate extends Model
 {
     // protected $fillable = [
@@ -20,7 +20,21 @@ class Estimate extends Model
     //     'end',
     // ];
 
-
     protected $guarded = ['id'];
+    
+    public function projects()
+    {
+        return $this->belongsTo('App\Project');
+    }
+     public function project()
+    {
+        return $this->belongsTo(Project::class, 'project_id')->with('client');
+    }
+    
+
+    public function invoice()
+    {
+        return $this->hasOne('App\Invoice');
+    }
 
 }
