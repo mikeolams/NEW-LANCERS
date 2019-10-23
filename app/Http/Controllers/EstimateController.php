@@ -55,18 +55,36 @@ class EstimateController extends Controller {
     public function step4(Request $request) {
         $countries = Country::all('id', 'name');
         $states = State::all('id', 'name');
-        $client = 'new';
 
-        if ($request->client)
-            $client = $request->client;
-
-        if ($client !== 'new') {
-            $client = Client::whereId($client)->first();
-            session(['client' => $client]);
-            return view('estimate.step5')->withClient($client);
-        } else {
-            return view('estimate.step4')->withCountries($countries)->withStates($states);
+        $client = Client::whereId($request->client)->first();
+        if (is_object($client)) {
+            $data['project'] = session('project')['project'];
+            $data['company'] = session('client')['name'];
+            $data['company_address'] = session('client')['street'] . session('client')['city'];
+            $data['company_country'] = Country::find(session('client')['country_id'])->name;
+            $data['issued_date'] = Carbon::now();
+            $data['due'] = session('estimate')['end'];
+            $data['currency'] = Currency::find(session('estimate')['currency_id'])->code;
+            $data['currency_symbol'] = Currency::find(session('estimate')['currency_id'])->symbol;
+            $data['lancer_name'] = Auth::user()->name;
+            $data['workmanship'] = session('estimate')['price_per_hour'] * session('estimate')['time'];
+            $data['equipment_cost'] = session('estimate')['equipment_cost'];
+            $data['sub_contractors_cost'] = session('estimate')['sub_contractors_cost'];
+            $data['total'] = $data['workmanship'] + $data['equipment_cost'] + $data['sub_contractors_cost'];
+            $project = Project::create([
+                        'title' => $data['project'],
+                        'user_id' => Auth::user()->id,
+                        'client_id' => $request->client,
+                        'tracking_code' => random_int(10, 100000),
+                        'progress' => 0,
+                        'collaborators' => session('estimate')['sub_contractors'],
+                        'status' => 'pending'
+            ]);
+            $project->save();
+            $estimate = Estimate::create(array_merge(session('estimate'), ['estimate' => $data['total'], 'project_id' => $project->id]));
+            return view('addclients')->with('estimate', $estimate->id);
         }
+        return view('estimate.step4')->withCountries($countries)->withStates($states);
     }
 
     public function step5(Request $request) {

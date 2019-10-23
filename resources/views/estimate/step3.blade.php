@@ -255,7 +255,7 @@
                 <div class="sub-box">
                 <p class="txt">An already existing Client</p>
                 <select name="client" class="select-project" style="color: #919191">
-                    <option value="new" selected>Select Project</option>
+                    <option value="new" selected>Select Client</option>
                     @foreach($clients as $client)
                     <option value="{{$client->id}}">{{$client->name}}</option>
                     @endforeach
