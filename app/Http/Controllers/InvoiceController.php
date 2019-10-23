@@ -127,7 +127,7 @@ class InvoiceController extends Controller
 
         $invoices = $invoices->select('invoices.*', 'clients.name AS client', 'projects.title AS project_title', 'ic.symbol AS invoice_currency')
                     ->get();
-        //dd($invoices);
+
 
         // $result = [];
         // $invoices = Auth::user()->projects;

@@ -60,7 +60,7 @@ class EstimateController extends Controller
     public function step3(Request $request){
         (sizeof($request->all()) != 0) ? $estimate = $request->all() : $estimate = null;
 
-        if($estimate != null)
+        if(($estimate != null) && (null !== session('project')))
         {
             $clients = Client::where('user_id', Auth::user()->id)->select('id', 'name')->get();
             session(['estimate'=>$estimate]);
@@ -181,7 +181,7 @@ class EstimateController extends Controller
             return view('addclients')
                     ->with('estimate', $estimate->id);
         }catch(\Throwable $e){
-            dd($e->getMessage());
+
             return back()->with('error', $e->getMessage());
             DB::rollback();
         }

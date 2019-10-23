@@ -119,9 +119,9 @@
 								<!-- <span id="emessage"></span> -->
 							</div>
 							<div class="caret">
-								<h6> <i class="fas fa-angle-down show-angle-down"></i><i class="fas fa-angle-up show-angle-up"></i> &nbsp Change Password</h6>
+								<h6 onClick="showPassword()"> <i class="fas fa-angle-down show-angle-down"></i><i class="fas fa-angle-up show-angle-up"></i> &nbsp Change Password</h6>
 							</div>
-							<div class="form-group show-password-section">
+							<div id="pass_guide" class="form-group show-password-section">
 								<p>
 									<div>
 										<label for="my-password">Password</label>
@@ -142,6 +142,7 @@
 								</br>
 								</br>
 								</br>
+
 								<p style="text-align: center;">
 									<button  type="submit" class="green-btn">Update</button>
 								</p>
@@ -281,4 +282,5 @@
 				</div>
 			</div>
 		</div>
+
 		@endsection
