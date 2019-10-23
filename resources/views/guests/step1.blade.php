@@ -465,7 +465,7 @@ button {
             <p class="nav cEstimate" id="cre">Create Estimate</p>
         </div>
         <div>
-            <input class="next disabled" id="ext" type="button" value="NEXT" onclick="manage">
+            <input class="next disabled" id="ext" type="button"  value="NEXT" onclick="manage" id="btne" disabled>
         </div>
     </div>
 @endsection
@@ -490,11 +490,11 @@ button {
         <form id="create-project" method="post"action="/guest/save/step1" >
                     @csrf
                 <div class="project">
-                    <input class="l-proj" type="text" placeholder="Project Name" name="" id="createProject">
+                    <input class="l-proj" name="title" type="text" placeholder="Project Name" name="title" id="createProject">
                     <br>
                     <span class="req">Required</span>
                 </div>
-        </form>
+       
             </div>
         </div>
     </div>
@@ -504,9 +504,11 @@ button {
     <div class="container-fluid">
         <div class="row text-center">
             <div class="col-12">
-                <button class="a-next disabled" id="btn"><a href="#">NEXT</a></button>
+                <button type="submit" onclick="this.disabled=true;this.value='Sending, please wait...';this.form.submit();"
+                 class="a-next disabled" id="btne" disabled>NEXT</button>
             </div>
         </div>
+      </form>
     </div>
 
 @endsection
@@ -517,23 +519,48 @@ button {
         function verifyPath() {
         let a_next =  document.querySelector('.a-next');
         let next = document.querySelector('.next');
+        let bt = document.getElementById('btne');
+
+
         
         if (createProject.value !== "" && createProject.value.length >= 4 ) {
              a_next.style.background = '#0ABAB5';
              next.style.background = '#0ABAB5';
+              bt.disabled = false;
+
 
             document.querySelector('.a-next').classList.remove('disabled');
             document.querySelector('.next').classList.remove('disabled');
         } else {
+
             //console.log('here works');
             document.querySelector('.next').style.background = 'rgba(207, 204, 204, 0.4)';
             document.querySelector('.next').classList.add('disabled');
             document.querySelector('.a-next').style.background = 'rgba(207, 204, 204, 0.4)';
             document.querySelector('.a-next').classList.add('disabled');
+             bt.disabled = true;
+              bt.preventDefault();
+            
+            
+             
         }
     }
     
     let createProject = document.getElementById('createProject');
-    createProject.addEventListener('keyup', verifyPath);
+    window.onload=function(){
+         createProject.addEventListener('keyup', verifyPath);
+    }
+   
+
+     function manage(createProject) {
+        let bt = document.getElementById('btne');
+        if (createProject.value != '') {
+            bt.disabled = false;
+        }
+        else {
+            bt.disabled = true;
+             bt.preventDefault(); 
+        }
+    }    
     </script>
 @endsection

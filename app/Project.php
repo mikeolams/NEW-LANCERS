@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Client;
 class Project extends Model
 {
     protected $guarded = ['id'];
@@ -15,11 +15,11 @@ class Project extends Model
     public function user(){
         return $this->belongsTo('App\User');
     }
-
-    public function client()
-    {
-    	return $this->belongsTo('App\Client');
+     public function client(){
+        return $this->belongsTo(Client::class, 'client_id');
     }
+
+   
 
     public function estimate()
     {

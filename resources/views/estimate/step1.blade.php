@@ -2,7 +2,7 @@
 <!-- Select Project -->
 
 @section('styles')
-    <style> 
+    <style>
         body {
             font-family: 'Roboto', sans-serif;
             overflow: auto;
@@ -57,7 +57,7 @@
             border: 1px solid gray;
             background: #0ABAB5 !important;
             color: white;
-            
+
         }
 
         .dark:hover {
@@ -114,7 +114,7 @@
         #cnc {
             cursor: pointer;
         }
-        
+
         .dropbtn, .project {
             /* margin-top: 37px; */
             width: 100%;
@@ -127,13 +127,13 @@
             font-size: 20px;
             background: rgba(207, 204, 204, 0.4);
         }
-        
+
         a:hover{cursor: pointer;}
 
 
 
 
-        
+
         body {
         box-sizing: border-box;
         margin: 0px;
@@ -335,13 +335,13 @@
             }
         }
     </style>
-        
+
     @endsection
 
 
 @section('content')
     <div class="contaner">
-            
+
         <header style="border-bottom: 2px solid rgb(223, 223, 223);">
             <nav style="display: flex; ">
                 <a href="#"  @click.prevent="$router.push('/estimate')" class="column-1">
@@ -357,12 +357,13 @@
                     />
                 </a>
                 <div class="column-2">Create Estimate</div>
-                <a href="#" @click.prevent="next" class="column-3">NEXT</a>
+                <a href="#" @click.prevent="next" id="upperNext" class="column-3">NEXT</a>
             </nav>
         </header>
 
 
         <h1 class="">What project are you estimating?</h1>
+        <h1 style="color:red;">@if(null !== session('error')) {{session('error')}} @endif</h1>
         <form method="post" action="/estimate/create/step2">
             @csrf
             <div class="row ml-auto mr-auto box justify-content-center">
@@ -372,7 +373,7 @@
                             <h5 class="card-title">A previously created project</h5>
                             <p style="padding-bottom: 10px;" class="card-text">Find estimate for a previously created project, by doing so the
                                 estimate
-                                gets populated with some of the data. 
+                                gets populated with some of the data.
                             </p>
                             <div class="contents dropdown">
                                 <select class="dropbtn" name="old_project" id="projectSelect">
@@ -380,8 +381,8 @@
                                     @foreach($projects as $project)
                                     <option value="{{$project->id}}">{{$project->title}}</option>
                                     @endforeach
-                                </select>  
-                                <!-- <i class="fa fa-caret-down"></i> -->                            
+                                </select>
+                                <!-- <i class="fa fa-caret-down"></i> -->
                             </div>
                         </div>
                     </div>
@@ -402,9 +403,10 @@
                 <!-- @if(session('success'))<p><span class="alert alert-success">{{session('success')}}</span></p>
                 @elseif(session('error'))<p><span class="">{{session('error')}}</span></p> @endif -->
             </div>
-            <button type="submit" class="btn dark">NEXT</button>
+            <button type="submit" id="formNext" class="btn dark">NEXT</button>
         </form>
     </div>
+
 @endsection
 
 @section('script')
