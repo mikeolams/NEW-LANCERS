@@ -369,25 +369,12 @@
                     <img src="https://lancer-app.000webhostapp.com/images/svg/customer.svg" height="20" width="auto"> <span> Client</span>
                 </a>
             </li>
-<<<<<<< HEAD
-=======
-
->>>>>>> c6b1e92aee440f0e8693a85d18accbd7d53ca3a7
             <li class="@if(request()->path() == 'projects/status') active @endif">
                 <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><img src="https://lancer-app.000webhostapp.com/images/svg/lightbulb.svg" height="20" width="auto"> <span> Projects</span></a>
                 <ul class="collapse list-unstyled " id="homeSubmenu">
                     <li>
                         <a href="{{url('project/status')}}" class="pl-4"><i class="fas fa-dot-circle"></i> Status</a>
                     </li>
-<<<<<<< HEAD
-                     <li>
-                <a href="/dashboard/profile/settings">
-                    <img src="https://lancer-app.000webhostapp.com/images/svg/approval.svg" height="20" width="auto"> <span> Settings</span>
-                </a>
-            </li>
-=======
-
->>>>>>> c6b1e92aee440f0e8693a85d18accbd7d53ca3a7
                     <li>
                         <a href="{{url('project/overview')}}" class="pl-4"><i class="fas fa-dot-circle"></i> Overview</a>
                     </li>
@@ -479,16 +466,7 @@
                     </a>
                     </li>
                         <li class="nav-item">
-<<<<<<< HEAD
-                            <a class="nav-link border-left p-3" href="/dashboard/profile/settings"><span class="border rounded-circle p-1 font-weight-bold">
-                                {{strtoupper(explode(" ", auth()->user()->name)[0][0])}}
-                            </span> <span class="d-lg-none d-xl-none"> Hello {{explode(" ", auth()->user()->name)[0]}}</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link p-3" href="{{url('/logout')}}" ><i class="fas fa-sign-out-alt"></i> <span class="d-lg-none d-xl-none"> Logout</span></a>
-=======
                             <a class="nav-link p-3 border-left" href="{{url('/logout')}}" ><i class="fas fa-sign-out-alt"></i> <span class="d-lg-none d-xl-none"> Logout</span></a>
->>>>>>> c6b1e92aee440f0e8693a85d18accbd7d53ca3a7
                         </li>
                     </ul>
                 </div>
