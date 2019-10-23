@@ -25,6 +25,7 @@ class ProjectController extends Controller {
             $data['projects'] = Project::whereUser_id(Auth::user()->id)->with('user')->get();
         }
         return view('projects.list', $data);
+        
     }
 
     /**
