@@ -424,18 +424,17 @@
             </div>
         </div>
         </section>
-     <article>
-<div class="enter-div">
-<h4 id="enter-line">Enterprise ready tools</h4>
-<h6>with dedicated support and quick and consistent deolverance of new features, you can trust your<br>
-process in our able hands</h6>
-<br>
-<button onclick="window.location.assign('/contact')" type="button" class="btn" >Contact Sales</button>
-</div>
+<article>
+    <div class="enter-div">
+        <h4 id="enter-line">Enterprise ready tools</h4>
+        <h6>With dedicated support and quick and consistent delivery of new features, you can trust your<br>
+            process in our able hands</h6>
+        <br>
+        <button onclick="window.location.assign('/contact')" type="button" class="btn" >Contact Sales</button>
+    </div>
 </article>
 
 @stop
-
 
 
 @section('footer')
@@ -495,6 +494,3 @@ process in our able hands</h6>
 			</div>
 		</footer>
 @stop
-
-
-
