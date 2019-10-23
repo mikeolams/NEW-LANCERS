@@ -267,8 +267,8 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::put('user/notifications/read/{$id}', 'NotificationsController@markAsRead');
     Route::put('user/notifications/read/all', 'NotificationsController@markAllAsRead');    
 
-    Route::get('client-active', funtion() {return view('client-active'); });
-    Route::get('client-nav-bar', funtion() {return view('client-nav-bar'); });
+    Route::get('client-active', function() {return view('client-active'); });
+    Route::get('client-nav-bar', function() {return view('client-nav-bar'); });
 });
 
 
@@ -277,8 +277,3 @@ Route::group(['middleware' => 'auth:web'], function(){
     });
 
     Route::get('/redirect', function () { return vew('redirect');});
-
-    });
-
-
-
