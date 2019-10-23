@@ -294,18 +294,28 @@
 					</button>
 					<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 						<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-							<li class="nav-item ">
+                          	<li class="nav-item ">
 								<a class="nav-link" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
 							</li>
-							<li class="nav-item active">
-								<a class="nav-link " href="{{ url('/pricing') }}">Pricing</a>
-							</li>
-						<li class="nav-item">
-								<a class="nav-link" href="{{ route('login') }}">Sign in</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="{{ route('register') }}">Sign up</a>
-							</li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="{{ url('/guest/create/step1') }}">Create Invoice</a>
+                                </li>
+                            @auth
+                                <li class="nav-item">
+                                    <a class="nav-link " href="{{ url('/') }}">Track a Project</a>
+                                </li>
+                            @endauth
+                            <li class="nav-item active">
+                                <a class="nav-link " href="{{ url('/pricing') }}">Pricing</a>
+                            </li>
+                            @guest
+    						    <li class="nav-item">
+    								<a class="nav-link" href="{{ route('login') }}">Sign in</a>
+    							</li>
+    							<li class="nav-item">
+    								<a class="nav-link" href="{{ route('register') }}">Sign up</a>
+    							</li>
+                            @endauth
 						</ul>
 					</div>
 				</div>
@@ -337,7 +347,7 @@
         <p class="pricetext">{{ str_replace("_"," ",ucfirst($mainPlans['name']))}}</p>
 
         <div class="price">
-        <h5 class="pricenumber">{{ str_replace("_"," ",ucfirst($mainPlans['price']))}}<p>/mo</p></h5>
+        <h5 class="pricenumber">{{ number_format(str_replace("_"," ", ($mainPlans['price'] )), 2 ) }}<p>/mo</p></h5>
         </div>
 
             @if($loop->index == 1)
@@ -414,18 +424,17 @@
             </div>
         </div>
         </section>
-     <article>
-<div class="enter-div">
-<h4 id="enter-line">Enterprise ready tools</h4>
-<h6>with dedicated support and quick and consistent deolverance of new features, you can trust your<br>
-process in our able hands</h6>
-<br>
-<button onclick="window.location.assign('/contact')" type="button" class="btn" >Contact Sales</button>
-</div>
+<article>
+    <div class="enter-div">
+        <h4 id="enter-line">Enterprise ready tools</h4>
+        <h6>With dedicated support and quick and consistent delivery of new features, you can trust your<br>
+            process in our able hands</h6>
+        <br>
+        <button onclick="window.location.assign('/contact')" type="button" class="btn" >Contact Sales</button>
+    </div>
 </article>
 
 @stop
-
 
 
 @section('footer')
@@ -433,7 +442,7 @@ process in our able hands</h6>
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12 col-sm-6 col-md-2">
-						<img src="{{ asset('images/svg/logo-dark.svg') }}" alt="" class="img img-responsive mb-2" height="30" width="auto">
+						<img src="https://res.cloudinary.com/nxcloud/image/upload/v1570984909/Lancer/Lancers_c40ozr.svg" alt="" class="img img-responsive mb-2" height="30" width="auto">
 						<ul class="list-unstyled">
 							<li><a class="text-dark" href="{{ url('/pricing') }}">Pricing</a></li>
 							<li><a class="text-dark" href="{{ url('/login') }}">Sign in</a></li>
@@ -469,21 +478,19 @@ process in our able hands</h6>
 								<label for="staticEmail2" class="sr-only">Email</label>
 								<input type="email" class="form-control" id="staticEmail2" value="" placeholder="Email Address" required>
 							</div>
-							<button type="submit" class="btn btn-secondary mb-2">Subscribe</button>
+							<button type="submit" class="btn btn-primary mb-2" id="btn-sub">Subscribe</button>
 						</form>
 					</div>
 				</div>
 			</div>
 			<div class="bg-white text-left py-2 mt-0">
-				<div class="container">
-					<p class="float-right">
-			    	<a href="#">Back to top</a>
-				    </p>
-				    <p>&copy; Lancer 2019.</p>
-				</div>
+                <div class="container">
+                    <p class="float-right">
+                    {{-- <a href="#">Back to top</a> --}}
+                    <a href=""class="btn btn-secondary mb-2" id="btn-sub">
+                        <span>&#8593;</span></a>
+                    </p>
+                </div>
 			</div>
 		</footer>
 @stop
-
-
-
