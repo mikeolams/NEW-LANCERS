@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use PDF;
 use App\User;
 use App\Client;
@@ -69,7 +70,7 @@ class InvoiceController extends Controller {
         } else {
 
             $estimate = Estimate::findOrFail($request->estimate_id);
-            $createinvoice = Invoice::create(['user_id' => Auth::user()->id,'issue_date' => $estimate->start, 'due_date' => $estimate->end, 'estimate_id' => $estimate->id, 'amount' => $estimate->estimate, 'currency_id' => $estimate->currency_id]);
+            $createinvoice = Invoice::create(['user_id' => Auth::user()->id, 'issue_date' => $estimate->start, 'due_date' => $estimate->end, 'estimate_id' => $estimate->id, 'amount' => $estimate->estimate, 'currency_id' => $estimate->currency_id]);
             $invoice = Invoice::whereId($createinvoice->id)->with('estimate')->first();
         }
 
@@ -129,7 +130,7 @@ class InvoiceController extends Controller {
 
     public function sendinvoice(Request $request) {
         $invoice_id = $request->invoice;
-        
+
 
         $invoice = Invoice::with('estimate')->findOrFail($invoice_id);
 
@@ -157,12 +158,8 @@ class InvoiceController extends Controller {
     }
 
     public function clientInvoice($client, $invoice) {
-        $client_email = base64_decode(base64_decode($client));
-        $invoice = Invoice::where('created_at', Carbon::createFromTimestamp($invoice))->first();
-
-        $project_id = $invoice->project_id;
-        $invoice = Project::where('id', $project_id)->select('id', 'title', 'estimate_id', 'client_id')->with(['estimate', 'invoice', 'client'])->first();
-        return view('invoices.clientinvoice')->with('invoice', $invoice);
+        $data['invoice'] = Invoice::with('estimate')->where('created_at', Carbon::createFromTimestamp($invoice))->first();
+        return view('invoices.clientinvoice', $data);
     }
 
     public function pay($txref) {
