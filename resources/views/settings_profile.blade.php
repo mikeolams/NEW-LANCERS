@@ -119,32 +119,29 @@
 								<!-- <span id="emessage"></span> -->
 							</div>
 							<div class="caret">
-								<h6> <span onclick="myFunction()" style="cursor:pointer;"><i class="fas fa-angle-down show-angle-down"></i><i class="fas fa-angle-up show-angle-up"></i></button> &nbsp Change Password</h6>
+								<h6> <i class="fas fa-angle-down show-angle-down"></i><i class="fas fa-angle-up show-angle-up"></i> &nbsp Change Password</h6>
 							</div>
 							<div class="form-group show-password-section">
-								<div id="changepassword" style="display: none;">
-									<p>
-										<div>
-											<label for="my-password">Password</label>
-											<input id="password" class="form-control" type="password" name="password_old" placeholder="Current password">
-										</div>
-									</p>
-									<div class="newpassword">
-										<div class="newPass">
-											<label for="new_password">New Password</label>
-											<input id="npassword" class="form-control" type="password" name="password" placeholder="New password">
-										</div>
-										<div class="conPass">
-											<label for="confirm_password">Confirm Password</label>
-											<input id="cpassword" class="form-control" type="password" name="password_confirmation" placeholder="Confirm password">
-										</div>
+								<p>
+									<div>
+										<label for="my-password">Password</label>
+										<input id="password" class="form-control" type="password" name="password_old" placeholder="Current password">
+									</div>
+								</p>
+								<div class="newpassword">
+									<div class="newPass">
+										<label for="new_password">New Password</label>
+										<input id="npassword" class="form-control" type="password" name="password" placeholder="New password">
+									</div>
+									<div class="conPass">
+										<label for="confirm_password">Confirm Password</label>
+										<input id="cpassword" class="form-control" type="password" name="password_confirmation" placeholder="Confirm password">
 									</div>
 								</div>
 								</br>
 								</br>
 								</br>
 								</br>
-
 								<p style="text-align: center;">
 									<button  type="submit" class="green-btn">Update</button>
 								</p>
@@ -284,15 +281,4 @@
 				</div>
 			</div>
 		</div>
-
 		@endsection
-<script type="text/javascript">
-	function myFunction() {
-  var x = document.getElementById("changepassword");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
-</script>
