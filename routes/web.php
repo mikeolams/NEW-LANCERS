@@ -95,7 +95,7 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/client/add', 'ClientController@show');
     Route::post('/client/add', 'ClientController@store');
     Route::get('/client-info', function () { return view('client-info'); });
-    
+
     //Invoice routes
     // Route::resource('invoices', 'InvoiceController');
     Route::get('/invoices', 'InvoiceController@list');
@@ -107,6 +107,8 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::post('/invoice/send/{id}', 'InvoiceController@send');
     Route::get('/invoice-view', function () { return view('invoice-view'); });
     Route::get('/client-doc-view', function () { return view('client-doc-view'); });
+    Route::get('client-send-invoice-active', function (){ return view('client-send-invoice-active'); });
+    Route::get('client-send-invoice', function (){ return view('client-send-invoice'); });
 
     // Estimate Routes
     Route::get('/estimates', 'EstimateController@index')->middleware('auth');
@@ -119,14 +121,17 @@ Route::group(['middleware' => 'auth:web'], function(){
     // Route::get('/estimate/create/step3', 'EstimateController@step3');
     // Route::get('/estimate/create/step4', 'EstimateController@step4');
     // Route::get('/estimate/create/step5', 'EstimateController@step5');
+    // Route::get('/estimate/create/step6', 'EstimateController@step6');
     Route::post('/estimate/create/step2', 'EstimateController@step2');
     Route::post('/estimate/create/step3', 'EstimateController@step3');
     Route::post('/estimate/create/step4', 'EstimateController@step4');
     Route::post('/estimate/create/step5', 'EstimateController@step5');
+    Route::post('/estimate/create/step6', 'EstimateController@step6');
 
     Route::get('/estimates', 'EstimateController@index')->middleware('auth');
     Route::post('estimates', 'EstimateController@store')->middleware('auth');
-    Route::get('/estimate/create', function () { return view('set_estimate'); });
+    Route::get('/estimate/create', function () {return view('set_estimate'); });
+    Route::get('/estimate-create', function() {return view('estimate-create'); });
     Route::get('/estimates/{estimate}', 'EstimateController@show')->middleware('auth');
     Route::put('/estimates/{estimate}', 'EstimateController@update')->middleware('auth');
     Route::delete('/estimates/{estimate}', 'EstimateController@destroy')->middleware('auth');
@@ -159,5 +164,9 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/notifications', 'NotificationsController@notifications');
     Route::get('user/notifications', 'NotificationsController@notifications');
     Route::put('user/notifications/read/{$id}', 'NotificationsController@markAsRead');
-    Route::put('user/notifications/read/all', 'NotificationsController@markAllAsRead');    
+    Route::put('user/notifications/read/all', 'NotificationsController@markAllAsRead');
+    Route::get('/settingspage', function() {return view('settingspage'); });    
+
+    Route::get('client-active', funtion() {return view('client-active'); });
+    Route::get('client-nav-bar', funtion() {return view('client-nav-bar'); });
 });
