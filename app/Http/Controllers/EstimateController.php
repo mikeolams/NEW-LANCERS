@@ -96,7 +96,7 @@ class EstimateController extends Controller {
             foreach ($request->contact as $contact) {
                 array_push($contacts, ["name" => $contact["'name'"], "email" => $contact["'email'"]]);
             }
-            $contacts = json_encode($contacts);
+            $contacts = $contacts;
         }
 
         $client['contacts'] = $contacts;
@@ -106,6 +106,12 @@ class EstimateController extends Controller {
         try {
             // $client = new Client;
             // $estimate = new Estimate;
+    if(!empty($contacts[0]['email'])){
+        $emailcontact = $contacts[0]['email'];
+    }
+    else{
+        $emailcontact = null;
+    }
 
             $data['project'] = session('project')['project'];
             $data['company'] = session('client')['name'];
@@ -123,7 +129,7 @@ class EstimateController extends Controller {
             $clients = new Client;
             $clients->user_id = Auth::user()->id;
             $clients->name = session('client')['name'];
-            // $client->email = session('client')['email'];
+            $clients->email = $emailcontact;
             $clients->street = session('client')['street'];
             $clients->street_number = session('client')['street_number'];
             $clients->city = session('client')['city'];

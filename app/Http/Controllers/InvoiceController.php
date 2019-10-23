@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Auth;
 use PDF;
 use App\User;
 use App\Client;
@@ -16,7 +14,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
 use App\Notifications\UserNotification;
 use App\Traits\VerifyandStoreTransactions;
-use App\Http\Controllers\Auth;
+use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller {
 
@@ -131,19 +129,19 @@ class InvoiceController extends Controller {
 
     public function sendinvoice(Request $request) {
         $invoice_id = $request->invoice;
+        
 
-        $invoice = Invoice::findOrFail($invoice_id);
+        $invoice = Invoice::with('estimate')->findOrFail($invoice_id);
 
-        $project_name = $invoice->project->title;
+        $project_name = $invoice->estimate->project->title;
 
-        $client = $invoice->project->client;
+        $client = $invoice->estimate->project->client;
 
         $client_email = $client->email;
 
         $encoded = base64_encode(base64_encode($client_email));
 
         $url = "/clients/" . $encoded . "/invoices/" . strtotime($invoice->created_at);
-
         $name = Auth::user()->name;
 
         Mail::to($client_email)
