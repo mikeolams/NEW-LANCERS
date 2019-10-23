@@ -112,6 +112,7 @@ class EstimateController extends Controller {
     else{
         $emailcontact = null;
     }
+    
 
             $data['project'] = session('project')['project'];
             $data['company'] = session('client')['name'];
