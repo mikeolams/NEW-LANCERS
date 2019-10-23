@@ -26,6 +26,7 @@ li {
 .h1, h1 {
     font-size: 2.4rem !important;
     margin-top: 4% !important;
+    margin-left: 32% !important;
     color: #262626;
 }
 .text-center h1 {
@@ -37,7 +38,7 @@ button {
     background: #ffffff;
     border: none;
     height: 100%;
-}
+    }
 #container div {
     border: 1px solid black;
 }
@@ -122,7 +123,9 @@ h5 {
     display: grid;
     min-height: 34vh;
     max-width: fit-content;
+    justify-content: center;
     position: relative;
+    
 }
 .card .card-body
 {
@@ -135,6 +138,8 @@ h5 {
     border: 5px solid black;
     box-sizing: border-box;
 }
+
+
 .dropbtn, .project {
      margin-top: 1vh; 
     height: 50px;
@@ -176,16 +181,7 @@ h5 {
     color: white;
 }
 
-.est {
-    color: white; 
-    background:  #0ABAB5;
-    font-weight: bold;
-    font-size: 28px;
-    line-height: 32px;
-    padding: 10px;
-    text-align: center;
-    padding-top: 10px !important;
-}
+
 li {
     padding: 15px;
     margin: 8px !important;
@@ -237,6 +233,7 @@ option, select{
  /*#ext {
     justify-content: center;
     border: none;
+    background: #0ABAB5 !important;
     color: white;
     border: none !important;
 }*/
@@ -456,126 +453,114 @@ button {
 }
 
 }
-    </style>
+    </style>    
 @endsection
 
 @section('header')
 <div id="container">
         <div>
-            <button class="close navM"  id="close"><a href="index.html"><img id="clear" src="https://res.cloudinary.com/celx/image/upload/v1570718446/vhmdnd4sf3f5w3burj4m.svg" alt=""></a></button>
+            <button class="close navM" id="close"><a href="index.html" ><img id="clear" src="https://res.cloudinary.com/celx/image/upload/v1570718446/vhmdnd4sf3f5w3burj4m.svg" alt=""></a></button>
         </div>
         <div>
             <p class="nav cEstimate" id="cre">Create Estimate</p>
         </div>
         <div>
-           <input class="next disabled" id="ext" type="button" value="NEXT">
+            <input class="next disabled" id="ext" type="button"  value="NEXT" onclick="manage" id="btne" disabled>
         </div>
-      </div>    
+    </div>
 @endsection
 
 @section('content')
 <div class="container-fluid">
         <div class="row text-center">
-          <div class="col-12">
-            <h1>What project are you estimating?</h1>
-          </div>
+            <div class="col-12">
+                <h1>What project are you estimating?</h1>
+            </div>
         </div>
-        </div>
-      
-        <div class="row ml-auto box justify-content-center">
-          <div class="col-md-4">
-              <div class="card">
-                  <div class="card-body">
-                      <h5 class="card-title">A previously created project</h5>
-                      <p class="card-text">Find estimate for a previously created project, by doing so the estimate gets populated with some of the data.</p>
-      
-                      <div class="dropdown mr-1">
-                         <select class="dropbtn" name="" onmouseout="verifyPath()" id="projectSelect">
-                             <option value="select" selected="disabled">Select Project</option>
-                             <a href=""><option value="app" class="dropdown-item">Glacier Fintech App</option></a>
-                             <a href=""><option value="branding" class="dropdown-item">AB Technology Solutions Branding</option></a>
-                         </select>  
-                         <i class="fa fa-caret-down"></i>                           
-                     </div>
-                 </div>
-             </div>
-         </div>
-        
-          <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">A new project</h5>
-                    <p class="card-text">Create a new estimate and set up a new project based on the
-                        information.
-                    </p>
-                  
-                   <div class="project">
-                       <input class="l-proj" type="text" onmouseout="verifyPath()" placeholder= "Project Name" name="" id="createProject">
-                       <br>
-                       <span class="req">Required</span>
-                   </div>
+    </div>
+
+
+
+    <div class="row ml-auto box justify-content-center">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">A new project</h5>
+                <p class="card-text">Create a new estimate and set up a new project based on the information.
+                </p>
+        <form id="create-project" method="post"action="/guest/save/step1" >
+                    @csrf
+                <div class="project">
+                    <input class="l-proj" name="title" type="text" placeholder="Project Name" name="title" id="createProject">
+                    <br>
+                    <span class="req">Required</span>
                 </div>
-             </div>
-           </div>
-      
-       </div>
-      
-      <div class="container-fluid">
-      <div class="row text-center">
-        <div class="col-12">
-          <button class="a-next disabled"><a href="#">NEXT</a></button>
+       
+            </div>
         </div>
-      </div>
-      </div>      
+    </div>
+
+    </div>
+
+    <div class="container-fluid">
+        <div class="row text-center">
+            <div class="col-12">
+                <button type="submit" onclick="this.disabled=true;this.value='Sending, please wait...';this.form.submit();"
+                 class="a-next disabled" id="btne" disabled>NEXT</button>
+            </div>
+        </div>
+      </form>
+    </div>
+
 @endsection
 
 @section('script')
     
 <script>
-        let est_content = document.querySelector('#est_content');
-        let estimate_page = document.querySelector('#Create_estimate');
-    
-        let hide = () => {
-           // estimate_page.classList.add('hidden');
-           document.querySelector('#Create_estimate').classList.remove('hidden');
-           document.querySelector('#estimate').classList.add('hidden');
-           
-        }
-    
-        est_content.addEventListener('click', hide );
-    
-    
-        document.querySelector('#close').addEventListener('click', () => {
-            document.querySelector('#estimate').classList.remove('hidden');
-            document.querySelector('#Create_estimate').classList.add('hidden');
-    
-        });
-    
-            //createProject = '';
+        function verifyPath() {
+        let a_next =  document.querySelector('.a-next');
+        let next = document.querySelector('.next');
+        let bt = document.getElementById('btne');
+
+
         
-        
-        
-    
-        function verifyPath(){
-            let createProject = document.getElementById('createProject').value;
-            let projectSelect = document.getElementById('projectSelect');
-    
-            let ele = projectSelect.selectedIndex;
-    
-            if ( createProject !== "" || ele !== 0 ){
-                document.querySelector('.a-next').style.background = '#0ABAB5';
-                document.querySelector('.next').style.background = '#0ABAB5';
-                
-                document.querySelector('.a-next').classList.remove('disabled');
-                document.querySelector('.next').classList.remove('disabled');
-            } else {
-                //console.log('here works');
-                document.querySelector('.next').style.background = 'rgba(207, 204, 204, 0.4)';
-                document.querySelector('.next').classList.add('disabled');
-                document.querySelector('.a-next').style.background = 'rgba(207, 204, 204, 0.4)';
-                document.querySelector('.a-next').classList.add('disabled');
-            }
+        if (createProject.value !== "" && createProject.value.length >= 4 ) {
+             a_next.style.background = '#0ABAB5';
+             next.style.background = '#0ABAB5';
+              bt.disabled = false;
+
+
+            document.querySelector('.a-next').classList.remove('disabled');
+            document.querySelector('.next').classList.remove('disabled');
+        } else {
+
+            //console.log('here works');
+            document.querySelector('.next').style.background = 'rgba(207, 204, 204, 0.4)';
+            document.querySelector('.next').classList.add('disabled');
+            document.querySelector('.a-next').style.background = 'rgba(207, 204, 204, 0.4)';
+            document.querySelector('.a-next').classList.add('disabled');
+             bt.disabled = true;
+              bt.preventDefault();
             
+            
+             
         }
-        </script>
+    }
+    
+    let createProject = document.getElementById('createProject');
+    window.onload=function(){
+         createProject.addEventListener('keyup', verifyPath);
+    }
+   
+
+     function manage(createProject) {
+        let bt = document.getElementById('btne');
+        if (createProject.value != '') {
+            bt.disabled = false;
+        }
+        else {
+            bt.disabled = true;
+             bt.preventDefault(); 
+        }
+    }    
+    </script>
 @endsection

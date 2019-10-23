@@ -2,8 +2,8 @@
 <!-- Evaluate Estimate -->
 
 @section('styles')
-<style> 
-    /* Name: James Chima 
+<style>
+    /* Name: James Chima
     Slack UserName: @jamis */
     body {
         overflow-x: hidden !important;}
@@ -47,7 +47,7 @@
       border-bottom: 0.15rem solid #e4e4e4;
       height: 4rem;
       width: 66%;
-      
+
     }
 
     .next-button {
@@ -64,7 +64,7 @@
       position: absolute;
       left: 30%;
     }
-    
+
     .next-button p {
       margin-top: 15px;
       font-size: 15px;
@@ -100,9 +100,9 @@
         color: #e4e4e4;
         margin-top: 20px;
         margin-left: 5px;
-        
+
         }
-        
+
         .close-button span i {
         font-size: 1rem;
         color: #e4e4e4;
@@ -182,7 +182,7 @@
       border: 1px solid #91919187;
     }
     /* @Ezeko*/
-    
+
     .date>input{
       border: none;
       text-decoration: underline;
@@ -345,7 +345,7 @@
 
 
 @section('content')<div>
-    <!-- Name:          James Chima 
+    <!-- Name:          James Chima
     Slack UserName: @jamis -->
     <div class="container-fluid">
         <div class="row">
@@ -366,7 +366,8 @@
             </div>
 
             <div class="next-button">
-                <p class="text-center">NEXT</p>
+
+                <a href="#"  class="text-center" @click.prevent="next" id="upperNext" class="column-3">NEXT</a>
             </div>
         </div>
     </div>
@@ -446,7 +447,7 @@
                     <input type="number" required name="rating" id="exp2"> /5
                 </div>
                 <hr />
-                <!-- Name:          Mary Jonah  
+                <!-- Name:          Mary Jonah
                 Slack UserName: @Mary_Jonah -->
                 <div id="currency">
                     Currency:

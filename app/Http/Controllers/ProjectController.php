@@ -45,7 +45,7 @@ class ProjectController extends Controller
 
         // return $projects, and not json verified by @BlinShine
         if($projects){
-            return $this->SUCCESS("project retrieved", $projects);
+            return $this->SUCCESS("Projects retrieved", $projects);
         }
          return $this->ERROR('no Project Found');
     }
@@ -58,7 +58,7 @@ class ProjectController extends Controller
 
         // return $projects, instead of json verified by @BlinShine
         if($projects){
-            return $this->SUCCESS("Projects retrieved", $tasks);
+            return $this->SUCCESS("Projects retrieved", $projects);
         }
         return $this->ERROR('no project Found');
     }
