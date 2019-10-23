@@ -17,8 +17,8 @@ class CreateProjectsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->text('description')->nullable();
-            $table->integer('user_id')->nullable();
-            $table->integer('client_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('client_id')->nullable();
             $table->integer('estimate_id')->nullable();
             $table->string('tracking_code')->nullable();
             $table->integer('invoice_id')->nullable();
@@ -27,6 +27,13 @@ class CreateProjectsTable extends Migration
             $table->enum('status', ['pending', 'in-progress', 'completed']);
             $table->integer('contract_id')->nullable();
             $table->timestamps();
+             $table->foreign('user_id')
+                    ->references('id')->on('users')
+                    ->onDelete('cascade')->onUpdate('cascade');
+              $table->foreign('client_id')
+                    ->references('id')->on('clients')
+                    ->onDelete('cascade')->onUpdate('cascade');
+              
         });
     }
 

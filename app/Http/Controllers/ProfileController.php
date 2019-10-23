@@ -407,8 +407,7 @@ class ProfileController extends Controller
 
       }
       else{
-        //dd($request->input('last_name'));
-        //dd($userDetails);
+
         $userDetails->name = $request->input('first_name').' '.$request->input('last_name');
 
         $userDetails->email = $request->input('email');

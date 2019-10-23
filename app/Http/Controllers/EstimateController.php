@@ -17,14 +17,14 @@ use App\Http\Resources\Estimate as EstimateResource;
 use App\Http\Resources\EstimateCollection;
 use Illuminate\Support\Facades\Auth;
 
-class EstimateController extends Controller
-{
-    public function step1(Request $request){
+class EstimateController extends Controller {
+
+    public function step1(Request $request) {
         $projects = Project::where('user_id', Auth::user()->id)->select('id', 'title')->get();
         return view('estimate.step1')->withProjects($projects);
     }
 
-    public function step2(Request $request){
+    public function step2(Request $request) {
         $project = '';
         $currencies = Currency::all('id', 'code');
 
@@ -85,7 +85,7 @@ class EstimateController extends Controller
             $client = Client::where('id',$client)->first();
             session(['client'=>$client]);
             return view('estimate.step5')->withClient($client);
-        }else{
+        } else {
             return view('estimate.step4')->withCountries($countries)->withStates($states);
         }
 
@@ -94,14 +94,14 @@ class EstimateController extends Controller
 
     }
 
-    public function step5(Request $request){
+    public function step5(Request $request) {
         $data = [];
         $client = $request->all();
         $contacts = [];
 
-        if($request->contact){
-            foreach($request->contact as $contact){
-                array_push($contacts, ["name"=>$contact["'name'"], "email"=>$contact["'email'"] ]);
+        if ($request->contact) {
+            foreach ($request->contact as $contact) {
+                array_push($contacts, ["name" => $contact["'name'"], "email" => $contact["'email'"]]);
             }
             $contacts = json_encode($contacts);
         }
@@ -109,10 +109,10 @@ class EstimateController extends Controller
 
 
         $client['contacts'] = $contacts;
-        session(['client'=>$client]);
+        session(['client' => $client]);
 
         DB::beginTransaction();
-        try{
+        try {
             // $client = new Client;
             // $estimate = new Estimate;
 
@@ -156,8 +156,11 @@ class EstimateController extends Controller
                         'progress' => 0,
                         'collaborators' => session('estimate')['sub_contractors'],
                         'status' => 'pending'
-                        ]);
-
+            ]);
+            $project->save();
+            // Estimate ID set to 1 because an estimate must not have a project
+            $estimate = Estimate::create(array_merge(session('estimate'), ['estimate' => $data['total'], 'project_id' => $project->id]));
+            // $client = Client::create(array_merge(session('client'), ['user_id'=>Auth::user()->id]) );
             // $invoice = Invoice::create([
             //     'project_id' => $project->id,
             //     'issue_date' => $data['issued_date'],
@@ -185,19 +188,16 @@ class EstimateController extends Controller
             return back()->with('error', $e->getMessage());
             DB::rollback();
         }
-
     }
-
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
-    {
+    public function show(Project $project) {
         $estimate = Estimate::where('project_id', $project->id)->first();
-        if($estimate){
+        if ($estimate) {
             return $this->SUCCESS($estimate);
         }
         return $this->ERROR('Estimate not Found');
@@ -209,8 +209,7 @@ class EstimateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $request->validate([
             'project_id' => 'required|numeric',
             'time' => 'required|numeric',
@@ -243,8 +242,7 @@ class EstimateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Estimate $estimate)
-    {
+    public function update(Request $request, Estimate $estimate) {
 
         $request->validate([
             'project_id' => 'required|numeric',
@@ -277,12 +275,12 @@ class EstimateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Estimate $estimate)
-    {
-        if($estimate = Estimate::find($estimate->id)){
+    public function destroy(Estimate $estimate) {
+        if ($estimate = Estimate::find($estimate->id)) {
             $estimate->delete();
             return $this->SUCCESS('Estimate Deleted');
         }
         return $this->ERROR('Estimate deletion failed');
     }
+
 }
