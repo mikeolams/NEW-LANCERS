@@ -87,6 +87,6 @@ class ContractControler extends Controller
     public function destroy($id)
     {
         $contract = Contract::findorfail($id);
-        $contact->delete();
+        $contract->delete();
     }
 }
