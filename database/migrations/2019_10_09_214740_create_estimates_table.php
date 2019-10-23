@@ -14,6 +14,7 @@ class CreateEstimatesTable extends Migration {
     public function up() {
         Schema::create('estimates', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('project_id');
             $table->integer('time');
             $table->integer('price_per_hour');
@@ -28,6 +29,9 @@ class CreateEstimatesTable extends Migration {
             $table->date('start');
             $table->date('end');
             $table->timestamps();
+             $table->foreign('user_id')
+                    ->references('id')->on('users')
+                    ->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('project_id')
                     ->references('id')->on('projects')
                     ->onDelete('cascade')->onUpdate('cascade');

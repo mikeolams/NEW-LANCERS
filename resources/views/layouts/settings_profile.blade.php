@@ -1,253 +1,213 @@
 @extends('layouts.app')
 
 @section('styles')
-<style>
-    body {
-        font-family: 'Roboto', sans-serif;
-        font-weight: 200;
-        font-size: 14px;
-    }
+	  <style>
+        body {
+					font-family: 'Roboto', sans-serif;
+            font-weight: 200;
+						font-size:14px;
+        }
 
-    h1 {
-        font-family: 'Open Sans', sans-serif;
-        font-weight: Bold;
-        font-size: 24px;
-    }
+        h1 {
+						font-family: 'Open Sans', sans-serif;
+            font-weight: Bold;
+            font-size: 24px;
+        }
 
-    h3 {
-        font-family: 'Open Sans', sans-serif;
-        font-weight: bold;
-        font-size: 18px;
-    }
+        h3 {
+					font-family: 'Open Sans', sans-serif;
+            font-weight: bold;
+            font-size: 18px;
+        }
 
-    .form-container {
-        width: 70%;
-        margin-left: 200px;
-    }
+        .form-container{
+            width: 70%;
+            margin-left: 200px;
+        }
 
-    .profile_form,
-    .company-details-form {
-        border: 1px solid #c4c4c4;
-    }
+        .profile_form, .company-details-form {
+            border: 1px solid #c4c4c4;
+        }
 
-    .names,
-    .title_text,
-    .newpassword .coy-details,
-    .coy-details-2,
-    .coy-contact {
-        width: 100%;
-        overflow: hidden;
-    }
+        .names,
+        .title_text,
+        .newpassword
+        .coy-details,
+        .coy-details-2,
+        .coy-contact{
+            width: 100%;
+            overflow: hidden;
+        }
 
-    .firstname,
-    .lastname,
-    .title,
-    .email,
-    .newPass,
-    .conPass,
-    .coy-details-name,
-    .coy-details-email,
-    .coy-currency,
-    .coy-contact-state,
-    .coy-contact-country,
-    .coy-time-zone {
-        width: 49%;
-    }
+        .firstname,
+        .lastname,
+        .title,
+        .email,
+        .newPass,
+        .conPass,
+        .coy-details-name,
+        .coy-details-email,
+        .coy-currency,
+        .coy-contact-state,
+        .coy-contact-country,
+        .coy-time-zone{
+            width: 49%;
+        }
 
-    .firstname,
-    .title,
-    .newPass,
-    .coy-details-name,
-    .coy-currency,
-    .coy-contact-country,
-    .caret-angles {
-        float: left;
-    }
+        .firstname,
+        .title,
+        .newPass,
+        .coy-details-name,
+        .coy-currency,
+        .coy-contact-country,
+        .caret-angles {
+            float: left;
+        }
 
-    .lastname,
-    .email,
-    .conPass,
-    .coy-details-email,
-    .coy-contact-state,
-    .coy-time-zone,
-    .caret-title {
-        float: right;
-    }
+        .lastname,
+        .email,
+        .conPass,
+        .coy-details-email,
+        .coy-contact-state,
+        .coy-time-zone,
+        .caret-title {
+            float: right;
+        }
 
-    label {
-        display: block;
-    }
+        label {
+            display: block;
 
-    .company-details-form {
-        margin-bottom: 100px;
-    }
+        }
 
-    .form_title {
-        text-transform: uppercase;
-        margin-left: 470px;
-    }
+        .company-details-form{
+            margin-bottom: 100px;
+        }
 
-    .caret h6 {
-        font-weight: bold;
-        padding: 15px;
-    }
+        .form_title{
+            text-transform: uppercase;
+            margin-left: 470px;
+        }
 
-    a {
-        color: #000;
-    }
+        .caret h6{
+            font-weight: bold;
+            padding: 15px;
+        }
 
-    a:hover {
-        text-decoration: none;
-        color: #000;
-    }
+        a {
+            color: #000;
+        }
 
-    .btn-success {
-        background-color: #0ABAB5;
-        border: thin #0ABAB5 solid;
-    }
+        a:hover {
+            text-decoration: none;
+            color: #000;
+        }
 
-    .btn-success:hover {
-        background-color: #0ABAB5;
-        border: thin #0ABAB5 solid;
-    }
+        .btn-success {
+            background-color: #0ABAB5;
+            border: thin #0ABAB5 solid;
+        }
 
-    .mybtn,
-    .btn-company-details {
-        margin-left: 200px;
-        margin-top: 10px;
-    }
+        .btn-success:hover {
+            background-color: #0ABAB5;
+            border: thin #0ABAB5 solid;
+        }
 
-    form#loginform button {
-        background: #0ABAB5;
-        border: 0px
-    }
+        .mybtn, .btn-company-details{
+            margin-left: 200px;
+            margin-top: 10px;
+        }
 
-    div.floatright a,
-    div.floatright p {
-        font-size: 16px;
-    }
+        form#loginform button {
+            background: #0ABAB5;
+            border: 0px
+        }
 
-    .error {
-        background-color: red;
-    }
+        div.floatright a,
+        div.floatright p {
+            font-size: 16px;
+        }
 
-    .msg {
-        color: red;
-        padding: 5px 5px;
-    }
+        .error {
+            background-color: red;
+        }
 
-    /* .password-section {
-            display: none;   
+        .msg{
+            color: red;
+            padding: 5px 5px;
+        }
+
+        /* .password-section {
+            display: none;
             transform: scale(1.0);
             transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
         } */
-    .show-angle-down {
-        display: none;
-    }
 
-    input,
-    select {
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: bold !important;
-        font-size: 14px !important;
-    }
-
-    label {
-        font-weight: bold;
-    }
-
-    .green-btn {
-        font-size: 16px;
-        padding: 5px 20px;
-        background-color: #0abab5;
-        color: #ffffff;
-        border: none;
-        border-radius: 6px;
-    }
-
-    .side-nav {
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        padding-bottom: 200px;
-    }
-
-    .logo-con {
-        background-color: #000000;
-    }
-
-    .logo {
-        font-family: "Pacifico", cursive;
-        color: #ffffff;
-        font-size: 36px;
-    }
-
-    .logo span {
-        color: #0abab5;
-    }
-
-    .nav-option {
-        font-family: Open Sans;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 18px;
-        color: #4f4f4f;
-        text-align: left;
-    }
-
-    .active-nav {
-        color: #0abab5;
-    }
-
-    a:hover {
-        text-decoration: none;
-        color: #0abab5;
-    }
-
-    form {
-        min-height: 500px;
-    }
-
-    .profile_form {
-        padding-bottom: 1em;
-    }
-
-    .hide {
-        display: none;
-    }
-
-    .show-password-section {
-        min-height: 10vh;
-        margin-top: 1rem;
-        -webkit-transition: margin 0.25s ease-out;
-        -moz-transition: margin 0.25s ease-out;
-        -o-transition: margin 0.25s ease-out;
-        transition: margin 0.25s ease-out;
-        /* background-color: #091429 !important; */
-    }
-
-    .update {
-        margin-top: 1px;
-    }
-
-    .address {
-        padding-top: 1em;
-
-    }
-
-    @media only screen and (max-width: 616px) {
-
-        .form-container {
-            width: 100%;
-            margin-left: 0px;
+        .show-angle-down{
+            display: none;
         }
+				input, select{
+					font-family: Roboto;
+					font-style: normal;
+					font-weight: bold!important;
+					font-size: 14px!important;
+				}
+				label{
+					font-weight: bold;
+				}
+				.green-btn {
+				font-size: 16px;
+				padding: 5px 20px;
+				background-color: #0abab5;
+				color: #ffffff;
+				border: none;
+				border-radius: 6px;
+			}
+			.side-nav {
+				box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+				padding-bottom: 200px;
+			}
+			.logo-con {
+				background-color: #000000;
+			}
+			.logo {
+				font-family: "Pacifico", cursive;
+				color: #ffffff;
+				font-size: 36px;
+			}
+			.logo span {
+				color: #0abab5;
+			}
+			.nav-option {
+				font-family: Open Sans;
+				font-style: normal;
+				font-weight: bold;
+				font-size: 18px;
+				color: #4f4f4f;
+				text-align: left;
+			}
+			.active-nav {
+				color: #0abab5;
+			}
+			a:hover {
+				text-decoration: none;
+				color: #0abab5;
+			}
+			form{
+				min-height:100px;
+			}
+        @media (max-width: 616px) {
 
-        .profile_form {
-            width: 90%;
-            margin: 0 auto;
-        }
+            .form-container{
+                width: 100%;
+                margin-left: 0px;
+            }
+            .profile_form {
+                width: 90%;
+                margin: 0 auto;
+            }
 
-        .mybtn,
-        .btn-company-details {
+             .mybtn,
+             .btn-company-details{
             margin-left: 0px;
         }
 
@@ -269,555 +229,198 @@
             width: 100%;
         }
 
-        .form_title {
+        .form_title{
             text-transform: uppercase;
             margin-left: 30px;
             margin-bottom: 0px;
             padding-bottom: 0px;
         }
 
-        .kc-nav-box {
-            height: 80px;
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        }
+}
 
-        .kc-a-u {
-            height: 50px;
-            width: 50px;
-            border: 1px solid black;
-            border-radius: 50%;
-        }
 
-        .update {
-            margin-top: 1px;
-        }
 
-        .address {
-            padding-top: 1em;
+.kc-nav-box{
+	height:80px;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.kc-a-u{
+	height:50px;
+	width:50px;
+	border:1px solid black;
+	border-radius:50%;
+}
 
-        }
 
+@media only screen and (max-width: 1024px) {
+    .kc-a-u{
+			height:50px;
+	width:50px;
+	border:1px solid black;
+	border-radius:50%;
     }
 
-    @media only screen and (max-width: 1024px) {
-        .kc-a-u {
-            height: 20px;
-            width: 50px;
-            border: 1px solid black;
-            border-radius: 50%;
-        }
+}
+@media only screen and (max-width: 999px) {
+	.v-nav-index{
+					z-index: 5;
+					border:1px solid #c4c4c4;
+					background-color: #ffffff;
+	}
+	form{
+				height:100%;
+				min-height:100%;
+			}
+			.kc-unlist-item{
+				justify-content: center;
+			}
+}
 
+@media only screen and (max-width: 768px) {
+    .kc-unlist-item{
+        flex-direction:row;
+				width:90%;
+				margin:0 5%!important;
     }
 
-    @media only screen and (min-width: 999px) {
-        .v-nav-index {
-            z-index: 5;
-            border: 1px solid #c4c4c4;
-            background-color: #ffffff;
-        }
-
-        form {
-            height: 100%;
-            min-height: 100%;
-        }
-
-        .kc-unlist-item {
-            justify-content: center;
-        }
+}
+@media only screen and (max-width: 768px) {
+    .kc-a-u{
+			height:50px;
+	width:50px;
+	border:1px solid black;
+	border-radius:50%;
+        margin-left:2vh;
     }
 
-    @media only screen and (max-width: 768px) {
-        .kc-unlist-item {
-            flex-direction: row;
-            width: 90%;
-            margin: 0 5% !important;
-        }
+}
 
-        .kc-a-u {
-            height: 50px;
-            width: 50px;
-            border: 1px solid black;
-            border-radius: 50%;
-            margin-left: 2vh;
-        }
-
-        .address {
-            padding-top: 7em;
-
-        }
-
-        .profile_form {
-            width: 100%;
-            height: 100%;
-            margin: 0 auto;
-        }
-
-        .update {
-            margin-top: 90px;
-        }
-
+@media only screen and (max-width: 414px) {
+    .kc-a-u{
+			height:50px;
+	width:50px;
+	border:1px solid black;
+	border-radius:50%;
+        margin-left:2vh;
     }
 
-    @media only screen and (max-width: 414px) {
-        .kc-a-u {
-            height: 50px;
-            width: 50px;
-            border: 1px solid black;
-            border-radius: 50%;
-            margin-left: 2vh;
-        }
+}
 
-        .update {
-            margin-top: 1px;
-        }
-
-        .address {
-            padding-top: 1em;
-
-        }
-
+@media only screen and (max-width: 375px) {
+    .kc-unlist-item{
+        flex-direction:row;
     }
 
-    @media only screen and (min-width: 415px) {
-
-        .update {
-            margin-top: 1px;
-        }
-
-        .address {
-            padding-top: 1em;
-
-        }
-
+}
+@media only screen and (max-width: 375px) {
+    .kc-a-u{
+			height:50px;
+	width:50px;
+	border:1px solid black;
+	border-radius:50%;
+        margin-left:2vh;
     }
 
-    @media only screen and (min-width: 617px) {
-
-        .update {
-            margin-top: 90px;
-        }
-
-        .address {
-            padding-top: 5em;
-
-        }
-
-        .profile_form {
-            width: 100%;
-            height: 100%;
-            margin: 0 auto;
-        }
-
+}
+@media only screen and (max-width: 360px) {
+    .kc-unlist-item{
+        flex-direction:row;
     }
 
-    @media only screen and (max-width: 375px) {
-        .kc-unlist-item {
-            flex-direction: row;
-        }
+}
 
+@media only screen and (max-width: 360px) {
+    .kc-a-u{
+			height:50px;
+	width:50px;
+	border:1px solid black;
+	border-radius:50%;
+        margin-left:2vh;
     }
 
-    @media only screen and (max-width: 375px) {
-        .kc-a-u {
-            height: 50px;
-            width: 50px;
-            border: 1px solid black;
-            border-radius: 50%;
-            margin-left: 2vh;
-        }
-
+}
+@media only screen and (max-width: 320px) {
+    .kc-a-u{
+			height:50px;
+	width:50px;
+	border:1px solid black;
+	border-radius:50%;
+        margin-left:2vh;
     }
-
-    @media only screen and (max-width: 360px) {
-        .kc-unlist-item {
-            flex-direction: row;
-        }
-
-    }
-
-    @media only screen and (max-width: 360px) {
-        .kc-a-u {
-            height: 50px;
-            width: 50px;
-            border: 1px solid black;
-            border-radius: 50%;
-            margin-left: 2vh;
-        }
-
-    }
-
-    @media only screen and (max-width: 320px) {
-        .kc-a-u {
-            height: 50px;
-            width: 50px;
-            border: 1px solid black;
-            border-radius: 50%;
-            margin-left: 2vh;
-        }
-    }
-</style>
-
+}
+    </style>
 @endsection
 
 
 @section('content')
 
-<div style="background:#ffffff;" class="col-12 border kc-nav-box">
-    <div class="row">
-        <nav class="navbar col-12 navbar-expand-lg navbar-light  border-bottom kc-nav-box">
-            <a class="navbar-brand" href="/dashboard">
-                <img src="{{ asset('images/Shape.svg') }}" class="mr-3">
-                DASHBOARD</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+   	<div style="background:#ffffff;" class="col-12 border kc-nav-box">
+		<div class="row">
+			<nav class="navbar col-12 navbar-expand-lg navbar-light  border-bottom kc-nav-box">
+					<a class="navbar-brand" href="/dashboard">
+					<img src="{{ asset('images/Shape.svg') }}" class="mr-3">
+					DASHBOARD</a>
+				    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				    <span class="navbar-toggler-icon"></span>
+			        </button>
 
-            <div class="row collapse navbar-collapse mx-0 px-0 v-nav-index" id="navbarSupportedContent">
-                <form class="form-inline my-2 my-lg-0 ml-auto col-lg-6 col-sm-12">
-                    <input class="form-control mr-sm-2 col-12" type="search" placeholder="Search" aria-label="Search">
-                </form>
-                <ul class="navbar-nav ml-0 kc-unlist-item">
+			  		<div class="row collapse navbar-collapse mx-0 px-0 v-nav-index" id="navbarSupportedContent">
+			  			<form class="form-inline my-2 my-lg-0 ml-auto col-lg-6 col-sm-12">
+					      <input class="form-control mr-sm-2 col-12" type="search" placeholder="Search" aria-label="Search">
+				    	</form>
+					    <ul class="navbar-nav ml-0 kc-unlist-item">
+                        
+                                <li class="nav-item active border-right">
+                                    <a class="nav-link mt-2 mr-3" href="#">
+                                        <img src="{{ asset('images/help.svg') }}">
+                                    </a>
+                                </li>
+                                <li class="nav-item border-right">
+                                    <a class="nav-link mt-2 mx-3" href="#">
+                                        <img src="{{ asset('images/alarm-clock.svg') }}">
+                                    </a>
+                                </li>
 
-                    <li class="nav-item active border-right">
-                        <a class="nav-link mt-2 mr-3" href="/dashboard">
-                            <img src="{{ asset('images/help.svg') }}">
-                        </a>
-                    </li>
-                    <li class="nav-item border-right">
-                        <a class="nav-link mt-2 mx-3" href="/dashboard">
-                            <img src="{{ asset('images/alarm-clock.svg') }}">
-                        </a>
-                    </li>
-
-                    <li class="nav-item border-right">
-                        <a class="nav-link mt-2 mx-3" href="/dashboard">
-                            <img src="{{ asset('images/Vector.svg') }}">
-                        </a>
-                    </li>
-
-
-
-                    <!-- <li class="nav-item">
-                        <a class="nav-link border-left p-3" href="/dashboard/profile">
-                            @if(Auth::user()->profile_picture !== 'user-default.png')
-                            <img id="" src="{{ asset(Auth::user()->profile_picture) }}" style="width: 30px; height: 30px; border-radius: 60%; pointer: finger;" alt="Profile Image">
-                            @endif
-                            @if(Auth::user()->profile_picture == 'user-default.png')
-                            <img id="" src="{{ asset('images/user-default.jpg') }}" style="width: 30px; height: 30px; border-radius: 60%; pointer: finger;" alt="Profile Image">
-                            @endif
-                        </a>
-                    </li> -->
-
-                    <li class="nav-item">
-                        <a class="nav-link p-3 border-left" href="{{url('/logout')}}"><i class="fas fa-sign-out-alt"></i> <span class="d-lg-none d-xl-none"> Logout</span></a>
-                    </li>
-                </ul>
-                <div class="d-lg-none" style="width:100%">
-                    <div class="d-flex flex-column align-items-center	">
-                        <a href="/dashboard/profile/settings" class="nav-option py-3 active-nav">Profile Settings</a>
-                        <a href="/dashboard/emails/settings" class="nav-option py-3">Email Notifications</a>
-                        <a href="/subscriptions" class="nav-option py-3">Subscription</a>
-                    </div>
-                </div>
-            </div>
-
-        </nav>
-    </div>
-</div>
+                                <li class="nav-item border-right">
+                                    <a class="nav-link mt-2 mx-3" href="#">
+                                        <img src="{{ asset('images/Vector.svg') }}">
+                                    </a>
+                                </li>
 
 
 
+                                <li class="nav-item">
+                                <a class="nav-link border-left p-3" href="/dashboard/profile">
+                                    @if(Auth::user()->profile_picture !== 'user-default.png')
+                                            <img id="" src="{{ asset(Auth::user()->profile_picture) }}" style="width: 30px; height: 30px; border-radius: 60%; pointer: finger;" alt="Profile Image">
+                                            @endif
+                                            @if(Auth::user()->profile_picture == 'user-default.png')
+                                            <img id="" src="{{ asset('images/user-default.jpg') }}" style="width: 30px; height: 30px; border-radius: 60%; pointer: finger;" alt="Profile Image">
+                                        @endif
+                                </a>
+                                </li>
+
+                                <li class="nav-item">
+                                <a class="nav-link p-3 border-left" href="{{url('/logout')}}" ><i class="fas fa-sign-out-alt"></i> <span class="d-lg-none d-xl-none"> Logout</span></a>
+                                </li>
+							</ul>
+							<div class="d-lg-none" style="width:100%">
+								<div class="d-flex flex-column align-items-center	">
+									<a href="/dashboard/profile/settings" class="nav-option py-3 active-nav">Profile Settings</a>
+									<a href="/dashboard/emails/settings" class="nav-option py-3"
+										>Email Notifications</a>
+									<a href="/subscriptions" class="nav-option py-3">Subscription</a>
+								</div>
+							</div>
+						</div>
+
+			</nav>
+		</div>
+	</div>
 
 
-<div class="col-sm-12 col-md-8  pl-2 pr-2 pb-4">
-    <div class="container profile_form">
-        <form id="profileForm">
-            <label for="" class="msg"></label>
-            <div class="form-group">
-                <div class="names">
-                    <div class="firstname">
-                        <label for="firstName">First Name</label>
-                        <input id="Fname" class="form-control" type="text" name="" placeholder="First Name">
-                    </div>
-                    <div class="lastname">
-                        <label for="lastName">Last Name</label>
-                        <input id="Lname" class="form-control" type="text" name="" placeholder="Last Name">
-                    </div>
-                </div>
-                <!-- <span id="name_message"></span> -->
-            </div>
-            <div class="form-group">
-                <div class="title_text">
-                    <div class="title">
-                        <label for="title">Title</label>
-                        <input id="mytitle" class="form-control" type="text" name="" placeholder="Your Job Title">
-                    </div>
-                    <div class="email">
-                        <label for="my-email">User Email</label>
-                        <input id="email" class="form-control" type="text" name="" placeholder="Your Email Address">
-                    </div>
-                </div>
-                <!-- <span id="emessage"></span> -->
-            </div>
-            <div class="caret">
-                <h6> <i class="fas fa-angle-down show-angle-down"></i><i class="fas fa-angle-up show-angle-up"></i> &nbsp Change Password</h6>
-            </div>
-            <div class="form-group show-password-section hide">
-
-                <p>
-                    <div>
-                        <label for="my-password">Password</label>
-                        <input id="password" class="form-control" type="password" name="my-password" placeholder="Current password">
-                    </div>
-                </p>
-                <div class="newpassword">
-                    <div class="newPass">
-                        <label for="new_password">New Password</label>
-                        <input id="npassword" class="form-control" type="password" name="new_password" placeholder="New password">
-                    </div>
-                    <div class="conPass">
-                        <label for="confirm_password">Confirm Password</label>
-                        <input id="cpassword" class="form-control" type="password" name="confirm_password" placeholder="Confirm password">
-                    </div>
-                </div>
-                <!-- <span id="pmessage"></span> -->
-            </div>
-
-            <div class="d-flex justify-content-center update">
-                <button type="submit" class="green-btn">Update</button>
-            </div>
-        </form>
-
-    </div>
-
-</div>
-</div>
-
-<div class="row align-items-center mt-5 no-gutters">
-
-    <div class="col-sm-8 offset-md-4 company-details-form mt-5 pl-5 pr-5 pt-4 pb-4">
-        <div class="container">
-            <form id="company-details">
+    @yield('main-content')
 
 
-                <div class="form-group company1">
-                    <div class="coy-details">
-                        <div class="coy-details-name">
-                            <label for="firstName">Company Name</label>
-                            <input id="coyName" class="form-control" type="text" name="" placeholder="Company Name">
-                        </div>
-                        <div class="coy-details-email">
-                            <label for="lastName">Company Email</label>
-                            <input id="coyEmail" class="form-control" type="text" name="" placeholder="Company Email">
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="caret address">
-                    <h6> <i class="fas fa-angle-down show-angle-down"></i><i class="fas fa-angle-up show-angle-up"></i> &nbsp Address Setting</h6>
-                </div>
-                <div>
-                    <div>
-                        <label for="my-password">Company Address</label>
-                        <input id="coyaddress" class="form-control" type="password" name="my-password" placeholder="Company Address">
-                    </div>
-                    <div class="coy-contact">
-                        <div class="coy-contact-country ">
-                            <label for="state">Country</label>
-                            <select class="form-control">
-                                <option>Country</option>
-                                <option>Nigeria</option>
-                                <option>United States</option>
-                                <option>Japan</option>
-                                <option>Brazil</option>
-                            </select>
-                        </div>
-                        <div class="coy-contact-state ">
-                            <label for="country">State</label>
-                            <select class="form-control" id="country">
-                                <option>State</option>
-                                <option>Lagos</option>
-                                <option>Ogun</option>
-                                <option>Ondo</option>
-                                <option>Oyo</option>
-                            </select>
-                        </div>
-                    </div>
-
-
-
-                    <div class="form-group">
-                        <div class="coy-details-2">
-                            <div class="coy-currency">
-                                <label for="currency">Currency</label>
-                                <select class="form-control" id="country">
-                                    <option>Currency</option>
-                                    <option>Naira</option>
-                                    <option>Dollar</option>
-                                    <option>Pounds</option>
-                                    <option>Euro</option>
-                                </select>
-                            </div>
-                            <div class="coy-time-zone">
-                                <label for="time-zone">Time Zone</label>
-                                <select class="form-control" id="country">
-                                    <option>Time Zone</option>
-                                    <option>GMT</option>
-                                    <option>GMT +1</option>
-                                    <option>Don't know</option>
-                                    <option>Don't care</option>
-                                </select>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="d-flex justify-content-center">
-                    <button type="submit" class="green-btn">Update</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-</div>
-
-
-
-
-
-<script>
-    const firstName = document.querySelector("#Fname");
-    const lastName = document.querySelector("#Lname");
-    const email = document.querySelector("#email");
-    const title = document.querySelector("#mytitle");
-    const password = document.querySelector("#password");
-    const newPassword = document.querySelector("#npassword");
-    const conPassword = document.querySelector("#cpassword");
-    const companyName = document.querySelector("#coyname");
-    const companyEmail = document.querySelector("#coyemail");
-    const companyAddress = document.querySelector("#coyaddress");
-    const msg = document.querySelector(".msg");
-    const submitButton = document.querySelector(".mybtn");
-    const companyDetailsButton = document.querySelector(".btn-company-details");
-    const form = document.querySelector("#profileForm");
-    const divCaret = document.querySelector(".caret");
-    const passwordSection = document.querySelector(".show-password-section");
-    const showCaret = document.querySelector(".show-angle-down");
-    const hidePasswordSection = document.querySelector(".hide");
-    // const showAddress = document.querySelector(".show-address");
-
-    // hides and shows the password update fields
-    divCaret.addEventListener('click', function(e) {
-        passwordSection.classList.toggle('hide');
-        e.preventDefault();
-    });
-    // divCaret.addEventListener('click',function(e){
-    // 	showAddress.classList.toggle('hide');
-    // 	e.preventDefault();
-    // });
-    const caretClick = (event) => {
-        if (event.target === divCaret) {
-            passwordSection.classList.remove("password-section");
-            showCaret.style.display = 'block';
-        } else {
-            passwordSection.classList.add("password-section");
-        }
-    }
-    divCaret.addEventListener('click', caretClick());
-
-    const showPasswordSection = () => {
-        caret.classList.remove("password-section");
-    }
-
-    divCaret.addEventListener("click", toggleCaret);
-    // submitButton.addEventListener('click', (e) => {
-    //     e.preventDefault();
-    //     msg.textContent = " ";
-    //     if(firstName.value == ' ' || lastName.value === ' ' || email.value === ' ' || title.value === ' '  || password.value === ' ' || newPassword.value === ' ' || conPassword.value === ' '){
-    //         msg.textContent = "Please, fill all required fields";
-    //         return false;
-    //      }
-    // });
-    firstName.addEventListener('input', (e) => {
-        msg.textContent = " ";
-        const validator = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/g;
-        if (!validator.test(firstName.value)) {
-            msg.textContent = "Please, enter valid first name & not numbers";
-            return false;
-        }
-    });
-    lastName.addEventListener('input', (e) => {
-        msg.textContent = " ";
-        const validator = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/g;
-        if (!validator.test(lastName.value)) {
-            msg.textContent = "Please, enter valid last name & not numbers";
-            return false;
-        }
-    });
-    title.addEventListener('input', (e) => {
-        msg.textContent = " ";
-        const validator = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/g;
-        if (!validator.test(title.value)) {
-            msg.textContent = "Please, enter valid job title";
-            return false;
-        }
-    });
-
-    email.addEventListener('input', (e) => {
-        msg.textContent = " ";
-        const validator = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (!validator.test(email.value)) {
-            msg.textContent = "Please, enter valid email address";
-            return false;
-        }
-    });
-    password.addEventListener('input', (e) => {
-        msg.textContent = " ";
-        const validator = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,}$/;
-
-        if (!validator.test(password.value)) {
-            msg.textContent = "Password must contain 1 lower and 1 uppercase alphabet, must contain a special character and must not be less than 8 character length";
-            return false;
-        }
-    });
-
-    newPassword.addEventListener('input', (e) => {
-        msg.textContent = " ";
-        const validator = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,}$/;
-
-        if (!validator.test(newPassword.value)) {
-            msg.textContent = "Password must contain 1 lower and 1 uppercase alphabet, must contain a special character and must not be less than 8 character length";
-            return false;
-        }
-    });
-    conPassword.addEventListener('input', (e) => {
-        msg.textContent = " ";
-        if (newPassword.value !== conPassword.value) {
-            msg.textContent = "Passwords do not match";
-            return false;
-        }
-    });
-    // companyDetailsButton.addEventListener('click', (e) => {
-    //     e.preventDefault();
-    //     msg.textContent = " ";
-    //     if(companyName.value == ' ' || companyEmail.value === ' ' || companyAddress.value === ' '){ 
-    //         msg.textContent = "Please, fill all required fields";
-    //         return false;
-    //      }
-    // });
-
-    companyEmail.addEventListener('input', (e) => {
-        msg.textContent = " ";
-        const validator = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (!validator.test(companyEmail.value)) {
-            msg.textContent = "Please, enter valid email address";
-            return false;
-        }
-    });
-</script>
-
-@yield('main-content')
 
 @endsection

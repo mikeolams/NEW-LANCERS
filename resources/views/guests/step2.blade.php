@@ -1,227 +1,279 @@
-@extends('layouts.app')
+@extends('layouts.step')
 
  @section('styles')
   <style>
-   /* nav */
+  
+      /*navbar css*/
+     #containere {
+                display: grid;
+                grid-template-columns: 1fr 8fr 2fr;
+            }
+            /*changed this*/
+            #containere div {
+                box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.1);
+                outline: none;
+                height: 60px;
+            }
+            #containere p {
+                justify-content: center;
+                margin-top: 15px;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 1.3em;
+                color: #323A43;
+            }
+            div>#ext {
+                background: rgba(207, 204, 204, 0.4);
+                font-size: 24px;
+                font-weight: bold;
+                justify-content: center;
+                border: none;
+                color: white;
+                width: 100%;
+                height: 60px;
+                outline: none;
+                /*added outline none*/
+            }
+            
+            /*changed this from clear to close*/
+            div>.close {
+                outline: none;
+                padding-top: 15px;
+            }
+            .close {
+                color: #C4C4C4;
+                width: 100%;
+            }
+    /*end of nav bar*/
 
-#container {
-  display: grid;
-  grid-template-columns: 0.5fr 0.5fr 5fr 1fr;
-}
+    /* main section */
 
-#container div {
-  box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.1);
-  height: 50px;
-}
+    .main-section {
+      margin: 50px auto;
+      width: 50%;
+    }
 
-#container i {
-  padding-top: 15px;
-  color: #C4C4C4
-}
+    .section1 {
+      border: 1px solid #919191;
+      box-sizing: border-box;
+    }
 
-#container p {
-  justify-content: center;
-  margin-top: 15px;
-  font-style: normal;
-  font-weight: bold;
-  color: #323A43;
-}
+    .section1 div {
+      padding: 5px 20px;
+    }
 
-.cnc {
-  border: none;
-  background: #e4e4e4;
-  height: 50px;
-  width: 100%;
-  color: white;
-}
+    #word h1 {
+      font-family: Ubuntu;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 32px;
+      line-height: 48px;
+      color: #262626;
+    }
 
-/* main section */
+    #word h5 {
+      font-family: Ubuntu;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 21px;
+      color: #262626;
+    }
 
-.main-section {
-  margin: 50px auto;
-  width: 50%;
-}
+    #glac h1 {
+      font-family: Ubuntu;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 1.8rem;
+      line-height: 41px;
+      color: #262626;
+      padding-top: 30px;
+      margin-left: 50px;
+    }
 
-.section1 {
-  border: 1px solid #919191;
-  box-sizing: border-box;
-}
+    div h3 {
+      font-family: Ubuntu;
+      font-style: bold;
+      font-weight: bold;
+      font-size: 1.4rem;
+      line-height: 41px;
+      color: #262626;
+    }
 
-.section1 div {
-  padding: 5px 20px;
-}
+    .bill p {
+      font-size: 1em;
+      padding-top: 10px;
+      color: #262626;
+    }
 
-#word h1 {
-  font-family: Ubuntu;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 32px;
-  line-height: 48px;
-  color: #262626;
-}
+    .hour {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
 
-#word h5 {
-  font-family: Ubuntu;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 21px;
-  color: #262626;
-}
+    .hours {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
 
-#glac h1 {
-  font-family: Ubuntu;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 1.8rem;
-  line-height: 41px;
-  color: #262626;
-  padding-top: 30px;
-  margin-left: 50px;
-}
+    input {
+      height: 30px;
+      width: 50%;
+      text-align: center;
+      border: 1px solid;
+    }
 
-div h3 {
-  font-family: Ubuntu;
-  font-style: bold;
-  font-weight: bold;
-  font-size: 1.4rem;
-  line-height: 41px;
-  color: #262626;
-}
+    .start {
+      margin-left: 100px;
+      width: 100%;
+    }
 
-.bill p {
-  font-size: 1em;
-  padding-top: 10px;
-  color: #262626;
-}
+    .end {
+      margin-left: 50px;
+      width: 100%;
+    }
 
-.hour {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
+    i input {
+      border: none;
+      border-bottom: 1px solid;
+      text-decoration: underline;
+    }
 
-.hours {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
+    .sub {
+      width: 90%;
+    }
 
-input {
-  height: 30px;
-  width: 50%;
-  text-align: center;
-  border: 1px solid;
-}
+    #currency {
+      font-family: Ubuntu;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 20px;
+      line-height: 28px;
+      color: #262626;
+      padding-bottom: 20px;
+    }
 
-.start {
-  margin-left: 100px;
-  width: 100%;
-}
+    select {
+      border: none;
+      border-bottom: 1px solid;
+    }
 
-.end {
-  margin-left: 50px;
-  width: 100%;
-}
+    .btn {
+      border: 1px solid #e4e4e4;
+      background: #e4e4e4;
+      margin-top: 40px;
+      margin-left: 30%;
+      width: 40%;
+      height: 60px;
+      color: white;
+    }
 
-i input {
-  border: none;
-  border-bottom: 1px solid;
-  text-decoration: underline;
-}
+    @media screen and (max-width: 1400px) {
+      .start {
+        margin-left: 80px;
+        width: 100%;
+      }
+      .end {
+        margin-left: 30px;
+        width: 100%;
+      }
+    }
 
-.sub {
-  width: 90%;
-}
+    @media screen and (max-width: 1102px) {
+      .hours {
+        display: grid;
+        grid-template-columns: 0.5fr 1fr 1fr;
+      }
+    }
 
-#currency {
-  font-family: Ubuntu;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 28px;
-  color: #262626;
-  padding-bottom: 20px;
-}
+    @media (max-width: 948px) {
+      .hour, .hours {
+        display: block;
+      }
+      .start {
+        margin-left: 0px;
+        width: 100%;
+      }
+      .end {
+        margin-left: 0px;
+        width: 100%;
+      }
+    }
 
-select {
-  border: none;
-  border-bottom: 1px solid;
-}
 
-.btn {
-  border: 1px solid #e4e4e4;
-  background: #e4e4e4;
-  margin-top: 40px;
-  margin-left: 30%;
-  width: 40%;
-  height: 60px;
-  color: white;
-}
+        @media (max-width: 700px){
+      #glac h1 {
+        /* font-family: Ubuntu; */
+        /* font-style: normal; */
+        /* font-weight: normal; */
+        font-size: 1rem;
+        line-height: 25px;
+        /* color: #262626; */
+        padding-top: 30px;
+        margin-left: 25px;
+    }
 
-@media screen and (max-width: 1400px) {
-  .start {
-    margin-left: 80px;
-    width: 100%;
-  }
-  .end {
-    margin-left: 30px;
-    width: 100%;
-  }
-}
+    .main-section {
+      margin: 25px auto;
+      width: 80%;
+    }
+    }
 
-@media screen and (max-width: 1102px) {
-  .hours {
-    display: grid;
-    grid-template-columns: 0.5fr 1fr 1fr;
-  }
-}
+    @media (max-width: 400px){
+      #glac h1 {
+        /* font-family: Ubuntu; */
+        /* font-style: normal; */
+        /* font-weight: normal; */
+        font-size: 1rem;
+        line-height: 25px;
+        /* color: #262626; */
+        padding-top: 30px;
+        margin-left: 25px;
+    }
 
-@media (max-width: 948px) {
-  .hour, .hours {
-    display: block;
-  }
-  .start {
-    margin-left: 0px;
-    width: 100%;
-  }
-  .end {
-    margin-left: 0px;
-    width: 100%;
-  }
-}
+    .main-section {
+      margin: 25px auto;
+      width: 95%;
+    }
+
+    input {
+    height: 35px;
+    width: 60%;
+    text-align: center;
+    border: 1px solid;
+    }
+
+    select {
+    border: none;
+    border-bottom: 1px solid;
+    font-size: 14px;
+    }
+    }
+
+
+
   </style>
  @endsection
 
 @section('header')
+<div id="containere">
+        <div>
+            <button class="close navM" ><a href="{{ url('/') }}"><span>
+                    <i class="fa fa-times"></i>
+                  </span></a></button>
+        </div>
+        <div>
+            <p class="nav cEstimate" id="cre">Create Estimate</p>
+        </div>
+        <div>
 
+            <input class="next disabled" id="ext" type="button"  value="NEXT" onclick="manage" id="btne" disabled>
+
+        </div>
+</div>
 @endsection
 
 @section('content')
-  <div id="container">
-
-
-    <div class=" text-center">
-      <span>
-        <i class="fa fa-times"></i>
-      </span>
-    </div>
-
-    <div class="text-center">
-      <span>
-        <i class="fa fa-chevron-left"></i>
-      </span>
-    </div>
-
-    <div class="text-center">
-      <p class="">Create Estimate</p>
-    </div>
-
-    <div class="">
-      <input class="text-center cnc" value="NEXT" type="button">
-    </div>
-
-
-  </div>
-
 
   <div class="container-fluid main-section">
 
@@ -333,3 +385,54 @@ select {
 
   </div>
 @endsection
+
+@section('script')
+    
+<script>
+        function verifyPath() {
+        let a_next =  document.querySelector('.a-next');
+        let next = document.querySelector('.next');
+        let bt = document.getElementById('btne');
+
+
+        
+        if (createProject.value !== "" && createProject.value.length >= 4 ) {
+             a_next.style.background = '#0ABAB5';
+             next.style.background = '#0ABAB5';
+              bt.disabled = false;
+
+
+            document.querySelector('.a-next').classList.remove('disabled');
+            document.querySelector('.next').classList.remove('disabled');
+        } else {
+
+            //console.log('here works');
+            document.querySelector('.next').style.background = 'rgba(207, 204, 204, 0.4)';
+            document.querySelector('.next').classList.add('disabled');
+            document.querySelector('.a-next').style.background = 'rgba(207, 204, 204, 0.4)';
+            document.querySelector('.a-next').classList.add('disabled');
+             bt.disabled = true;
+              bt.preventDefault();
+            
+            
+             
+        }
+    }
+    
+    let createProject = document.getElementById('createProject');
+    window.onload=function(){
+         createProject.addEventListener('keyup', verifyPath);
+    }
+   
+
+     function manage(createProject) {
+        let bt = document.getElementById('btne');
+        if (createProject.value != '') {
+            bt.disabled = false;
+        }
+        else {
+            bt.disabled = true;
+             bt.preventDefault(); 
+        }
+    }    
+    </script>
