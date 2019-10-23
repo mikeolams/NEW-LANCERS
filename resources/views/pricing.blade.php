@@ -414,75 +414,75 @@
             </div>
         </div>
         </section>
-     <article>
-<div class="enter-div">
-<h4 id="enter-line">Enterprise ready tools</h4>
-<h6>with dedicated support and quick and consistent deolverance of new features, you can trust your<br>
-process in our able hands</h6>
-<br>
-<button onclick="window.location.assign('/contact')" type="button" class="btn" >Contact Sales</button>
-</div>
+<article>
+    <div class="enter-div">
+        <h4 id="enter-line">Enterprise ready tools</h4>
+        <h6>With dedicated support and quick and consistent delivery of new features, you can trust your<br>
+            process in our able hands</h6>
+        <br>
+        <button onclick="window.location.assign('/contact')" type="button" class="btn" >Contact Sales</button>
+    </div>
 </article>
 
 @stop
 
 
-
 @section('footer')
     <footer class="bg-white pt-4">
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-12 col-sm-6 col-md-2">
-						<img src="{{ asset('images/svg/logo-dark.svg') }}" alt="" class="img img-responsive mb-2" height="30" width="auto">
-						<ul class="list-unstyled">
-							<li><a class="text-dark" href="{{ url('/pricing') }}">Pricing</a></li>
-							<li><a class="text-dark" href="{{ url('/login') }}">Sign in</a></li>
-							<li><a class="text-dark" href="{{ url('/register') }}">Sign up</a></li>
-						</ul>
-					</div>
-					<div class="col-xs-12 col-sm-6 col-md-2">
-						<h5>Features</h5>
-						<ul class="list-unstyled">
-							<li><a class="text-dark" href="{{ url('/dashboard') }}">Dashboard</a></li>
-							<li><a class="text-dark" href="{{ url('/projects') }}">Projects</a></li>
-							<li><a class="text-dark" href="{{ url('/invoices') }}">Invoices</a></li>
-							<li><a class="text-dark" href="{{ url('/guest/create_estimate') }}">Create a Project</a></li>
-						</ul>
-					</div>
-					<div class="col-xs-12 col-sm-6 col-md-4">
-						<h5>Reach us</h5>
-						<p class="text-dark small">
-							52b, Charity Lane, off Magboso Highway, Ikate, London, Nigeria
-						</p>
-						<h5 class="">
-							<a href="#" class="text-dark mr-2"><i class="fab fa-facebook-square"></i></a>
-							<a href="#" class="text-dark"><i class="fab fa-twitter-square"></i></a>
-						</h3>
-					</div>
-					<div class="col-xs-12 col-sm-6 col-md-4">
-						<h5>Stay up to date</h5>
-						<p class="text-dark small">
-							Get emails about our newest features and events you can visit. We promise not to spam.
-						</p>
-						<form class="form-inline">
-							<div class="form-group mb-2 mr-2">
-								<label for="staticEmail2" class="sr-only">Email</label>
-								<input type="email" class="form-control" id="staticEmail2" value="" placeholder="Email Address" required>
-							</div>
-							<button type="submit" class="btn btn-secondary mb-2">Subscribe</button>
-						</form>
-					</div>
-				</div>
-			</div>
-			<div class="bg-white text-left py-2 mt-0">
-				<div class="container">
-					<p class="float-right">
-			    	<a href="#">Back to top</a>
-				    </p>
-				    <p>&copy; Lancer 2019.</p>
-				</div>
-			</div>
-		</footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-2">
+                    <img src="https://res.cloudinary.com/nxcloud/image/upload/v1570984909/Lancer/Lancers_c40ozr.svg" alt="" class="img img-responsive mb-2" height="30" width="auto">
+                    <ul class="list-unstyled">
+                        <li><a class="text-dark" href="{{ url('/pricing') }}">Pricing</a></li>
+                        <li><a class="text-dark" href="{{ url('/login') }}">Sign in</a></li>
+                        <li><a class="text-dark" href="{{ url('/register') }}">Sign up</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-2">
+                    <h5>Features</h5>
+                    <ul class="list-unstyled">
+                        <li><a class="text-dark" href="{{ url('/dashboard') }}">Dashboard</a></li>
+                        <li><a class="text-dark" href="{{ url('/projects') }}">Projects</a></li>
+                        <li><a class="text-dark" href="{{ url('/invoices') }}">Invoices</a></li>
+                        <li><a class="text-dark" href="{{ url('/guest/create/step1') }}">Create a Project</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <h5>Reach us</h5>
+                    <p class="text-dark small">
+                        52b, Charity Lane, off Magboso Highway, Ikate, London, Nigeria
+                    </p>
+                    <h5 class="">
+                        <a href="#" class="text-dark mr-2"><i class="fab fa-facebook-square"></i></a>
+                        <a href="#" class="text-dark"><i class="fab fa-twitter-square"></i></a>
+                    </h5>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <h5>Stay up to date</h5>
+                    <p class="text-dark small">
+                        Get emails about our newest features and events you can visit. We promise not to spam.
+                    </p>
+                    <form class="form-inline">
+                        <div class="form-group mb-2 mr-2">
+                            <label for="staticEmail2" class="sr-only">Email</label>
+                            <input type="email" class="form-control" id="staticEmail2" value="" placeholder="Email Address" required>
+                        </div>
+                        <button type="submit" class="btn btn-secondary mb-2" id="btn-sub">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white text-left py-2 mt-0">
+            <div class="container">
+                <p class="float-right">
+                    <a href="#"class="btn btn-secondary mb-2" id="btn-sub">
+                    <span>&#8593;</span></a>
+                </p>
+                <p>&copy; Lancer 2019.</p>
+            </div>
+        </div>
+    </footer>
 @stop
 
 
