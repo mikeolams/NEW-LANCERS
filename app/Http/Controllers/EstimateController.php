@@ -60,8 +60,8 @@ class EstimateController extends Controller {
         if (is_object($client)) {
             $data['project'] = session('project')['project'];
             $data['company'] = session('client')['name'];
-          //  $data['company_address'] = session('client')['street'] . session('client')['city'];
-          //  $data['company_country'] = Country::find(session('client')['country_id'])->name;
+            //  $data['company_address'] = session('client')['street'] . session('client')['city'];
+            //  $data['company_country'] = Country::find(session('client')['country_id'])->name;
             $data['issued_date'] = Carbon::now();
             $data['due'] = session('estimate')['end'];
             $data['currency'] = Currency::find(session('estimate')['currency_id'])->code;
@@ -81,7 +81,7 @@ class EstimateController extends Controller {
                         'status' => 'pending'
             ]);
             $project->save();
-            $estimate = Estimate::create(array_merge(session('estimate'), ['estimate' => $data['total'], 'project_id' => $project->id]));
+            $estimate = Estimate::create(array_merge(session('estimate'), ['estimate' => $data['total'], 'project_id' => $project->id, 'user_id' => Auth::user()->id]));
             return view('addclients')->with('estimate', $estimate->id);
         }
         return view('estimate.step4')->withCountries($countries)->withStates($states);
@@ -144,7 +144,7 @@ class EstimateController extends Controller {
             ]);
             $project->save();
             // Estimate ID set to 1 because an estimate must not have a project
-            $estimate = Estimate::create(array_merge(session('estimate'), ['estimate' => $data['total'], 'project_id' => $project->id]));
+            $estimate = Estimate::create(array_merge(session('estimate'), ['estimate' => $data['total'], 'project_id' => $project->id,'user_id' => Auth::user()->id]));
             // $client = Client::create(array_merge(session('client'), ['user_id'=>Auth::user()->id]) );
             // $invoice = Invoice::create([
             //     'project_id' => $project->id,

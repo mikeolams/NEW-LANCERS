@@ -137,11 +137,11 @@ Route::group(['middleware' => 'auth:web'], function() {
 
 
     // Project Routes
-    Route::get('/projects', 'ProjectController@list');
-    Route::get('/project/status', 'ProjectController@list');
-    Route::get('/project/overview', 'ProjectController@list');
-    Route::get('/project/task', 'ProjectController@list');
-    Route::get('/project/documents', 'ProjectController@list');
+    Route::get('/projects', 'ProjectController@listGet');
+    Route::get('/project/status', 'ProjectController@listGet');
+    Route::get('/project/overview', 'ProjectController@listGet');
+    Route::get('/project/task', 'ProjectController@listGet');
+    Route::get('/project/documents', 'ProjectController@listGet');
     Route::get('/project/track', function() {
         return view('trackproject');
     });
