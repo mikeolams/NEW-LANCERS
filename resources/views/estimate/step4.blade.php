@@ -3,7 +3,7 @@
 
 @section('styles')
     <link rel="stylesheet" type="text/css" href="{{asset('css/add_client.css')}}" />
-<style> 
+<style>
     * {
         margin: 0;
         padding: 0;
@@ -95,7 +95,7 @@
         box-sizing: border-box;
     }
 
-    
+
     .content .form-group span {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -114,17 +114,17 @@
         width: 90%;
         padding: 0 10px;
     }
-    
+
     .country {
         height: 29px;
         overflow: hidden;
         width: 80%;
-    } 
+    }
 
     main section:last-child{
         width: 200px;
-        margin: 0 auto;         
-        margin-top: 30px;        
+        margin: 0 auto;
+        margin-top: 30px;
         font-size: 2rem;
     }
 
@@ -143,7 +143,7 @@
         }
         .content .form-group {
             grid-template-columns: 1fr 3fr;
-        }  
+        }
         .country {
             height: 29px;
             overflow: hidden;
@@ -155,7 +155,7 @@
 
 
 
-    
+
     body {
       box-sizing: border-box;
       margin: 0px;
@@ -362,7 +362,7 @@
 
 @section('content')
 <div class="container-fluid">
-    
+
     <header style="border-bottom: 2px solid rgb(223, 223, 223);">
         <nav style="display: flex; ">
             <a href="#"  @click.prevent="$router.push('/estimate')" class="column-1">
@@ -387,7 +387,8 @@
         <br>
         <form method="post" action="/estimate/create/step5" id="form">
             @csrf
-            <h2>Client Information</h2><br>
+
+
             @if(session('success'))<br> <h6><span class="alert alert-success">{{session('success')}}</span></h6>
             @elseif(session('error'))<br> <h6><span class="">{{session('error')}}</span></h6> @endif
             <section class="content">
@@ -405,7 +406,7 @@
                             <input required type="text" name="street" id="street" placeholder="Street">
                             <input required type="number" name="street_number" id="number" placeholder="Number">
                         </span>
-                        
+
                         <label for="city_Zcode">City & Zip Code</label>
                         <span>
                             <input required type="text" name="city" id="city" placeholder="City">
@@ -416,6 +417,7 @@
                         <span>
                             <select required name="country_id" class="country">
                                 <option value="" selected>Country</option>
+
                                 @foreach($countries as $country)
                                 <option value="{{$country->id}}">{{$country->name}}</option>
                                 @endforeach
@@ -423,6 +425,7 @@
 
                             <select required name="state_id" class="country">
                                 <option value="" selected>Select State</option>
+
                             </select>
                             <!-- <input required type="text" name="state" id="state" placeholder="state"> -->
                         </span>
@@ -453,7 +456,7 @@
         newElement.innerHTML = `
             <label for="company_name_${count}">Contact name</label>
             <input type="text" name="contact[${count}]['name']" id="contact_name${count}" placeholder="e.g Ben Davies">
-            
+
             <label for="company_email">Contact email</label>
             <input type="email" name="contact[${count}]['email']" id="email_${count}" placeholder="e.g email@domain.com">
         `;
@@ -468,7 +471,8 @@
             $.ajax({
                 url: '/states/'+encodeURI(countryID),
                 type: "GET",
-                dataType: "json",
+                dataType: "json"
+                 ,
                 success:function(data) {
                     $('select[name="state_id"]').empty();
                     $('select[name="state_id"]').append('<option selected value="">Select State</option>');

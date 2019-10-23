@@ -101,7 +101,7 @@ class InvoiceController extends Controller {
         return view('invoices.viewinvoice')->with('invoice', $invoice);
     }
 
-    
+
     public function listGet(Request $request) {
         if ($request->filter == 'paid') {
             $data['invoices'] = Invoice::whereStatus('paid')->with('estimate')->with('currency')->get();

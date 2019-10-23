@@ -55,7 +55,7 @@
         @empty
           <p class="text-center">No invoices to show</p>
         @endforelse
-            </div>				
+            </div>
             @endsection
 
             @section('script')
