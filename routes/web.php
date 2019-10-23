@@ -108,11 +108,11 @@ Route::group(['middleware' => 'auth:web'], function(){
     //Route::get('/dashboard/profile', function () { return view('user_profile'); }); This is another alternative to the dashboard/profile
 
 
-    Route::get('users/subscribe/{txref}', "SubscriptionController@subscribeUser");
+    //Route::get('users/subscribe/{txref}', "SubscriptionController@subscribeUser");
 
-    Route::put('/users/settings/emails', "emailsettingsController@updateEmailSettings")->middleware('auth')->name('SET-EMAIL');
-    Route::post('/users/edit/profile/company', "ProfileController@editProfile")->middleware('auth')->name('edit-company');
-    Route::post('/users/edit/profile/personal', "ProfileController@editProfileUser")->middleware('auth')->name('edit-profile');
+    //Route::put('/users/settings/emails', "emailsettingsController@updateEmailSettings")->middleware('auth')->name('SET-EMAIL');
+    //Route::post('/users/edit/profile/company', "ProfileController@editProfile")->middleware('auth')->name('edit-company');
+   // Route::post('/users/edit/profile/personal', "ProfileController@editProfileUser")->middleware('auth')->name('edit-profile');
 
 
     // User Routes
@@ -152,7 +152,7 @@ Route::group(['middleware' => 'auth:web'], function(){
     //Invoice routes
     // Route::resource('invoices', 'InvoiceController');
     Route::post('/invoices/send', 'InvoiceController@sendinvoice');
-    Route::get('/invoices', 'InvoiceController@list');
+
     Route::get('/invoice/pay/{txref}', 'InvoiceController@pay');
     Route::get('/invoices/{invoice}/getpdf', 'InvoiceController@getPdf');
     Route::get('/invoice/review', function() { return view('reviewinvoice'); });
@@ -169,13 +169,21 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::delete('/estimates/{estimate}', 'EstimateController@destroy')->middleware('auth');
     Route::get('/estimates/{estimate}', 'EstimateController@show')->middleware('auth');
     Route::get('/estimate/create/step1', 'EstimateController@step1');
+
     Route::get('/estimate/create/step2', 'EstimateController@step2');
+
     Route::get('/estimate/create/step3', 'EstimateController@step3');
+
     Route::get('/estimate/create/step4', 'EstimateController@step4');
+
     Route::get('/estimate/create/step5', 'EstimateController@step5');
+
     Route::post('/estimate/create/step2', 'EstimateController@step2');
+
     Route::post('/estimate/create/step3', 'EstimateController@step3');
+
     Route::post('/estimate/create/step4', 'EstimateController@step4');
+
     Route::post('/estimate/create/step5', 'EstimateController@step5');
 
 
@@ -212,9 +220,10 @@ Route::group(['middleware' => 'auth:web'], function(){
 
 
     //Invoice routes
-    Route::resource('invoices', 'InvoiceController');
+    //Route::resource('invoices', 'InvoiceController');
     // Route::post('invoices/send', 'InvoiceController@sendinvoice');
     // Route::get('/invoices', 'InvoiceController@list');
+     Route::get('/invoices', 'InvoiceController@listGet');
     Route::get('/invoices/{invoice}/getpdf', 'InvoiceController@getPdf');
     Route::get('/invoice/pay/{txref}', 'InvoiceController@pay');
     Route::get('/invoice/review', function() { return view('reviewinvoice'); });
