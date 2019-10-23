@@ -56,7 +56,7 @@ class EstimateController extends Controller
         return view('estimate.step2')->withProject(ucfirst($project['project']))->withCurrencies($currencies);
     }
 
-
+    //CHECK IF FORM CONTENTS ARE PRESENT AND ACT ACCORDINGLY
     public function step3(Request $request){
         (sizeof($request->all()) != 0) ? $estimate = $request->all() : $estimate = null;
 
@@ -73,19 +73,25 @@ class EstimateController extends Controller
     }
 
     public function step4(Request $request){
+       if((null !== session('estimate')) && (null !== $request->client))
+       {
         $countries = Country::all('id', 'name');
         $states = State::all('id', 'name');
         $client = 'new';
 
-        if($request->client) $client = $request->client;
+        $client = $request->client;
 
         if($client !== 'new') {
-            $client = Client::whereId($client)->first();
+            $client = Client::where('id',$client)->first();
             session(['client'=>$client]);
             return view('estimate.step5')->withClient($client);
         }else{
             return view('estimate.step4')->withCountries($countries)->withStates($states);
         }
+
+       }
+       return redirect('/estimate/create/step1')->with('error', 'Please specify either an old or new project in stage 1 before moving on to other stages');
+
     }
 
     public function step5(Request $request){
@@ -99,6 +105,8 @@ class EstimateController extends Controller
             }
             $contacts = json_encode($contacts);
         }
+
+
 
         $client['contacts'] = $contacts;
         session(['client'=>$client]);
@@ -126,22 +134,23 @@ class EstimateController extends Controller
             $estimate = Estimate::create(array_merge(session('estimate'), ['estimate'=>$data['total'], 'project_id'=>1]));
             // $client = Client::create(array_merge(session('client'), ['user_id'=>Auth::user()->id]) );
 
-            $client = new Client;
-            $client->user_id = Auth::user()->id;
-            $client->name = session('client')['name'];
+            $clientModel = new Client;
+            $clientModel->user_id = Auth::user()->id;
+
+            $clientModel->name = session('client')['name'];
             // $client->email = session('client')['email'];
-            $client->street = session('client')['street'];
-            $client->street_number = session('client')['street_number'];
-            $client->city = session('client')['city'];
-            $client->country_id = session('client')['country_id'];
-            $client->state_id = session('client')['state_id'];
-            $client->zipcode = session('client')['zipcode'];
-            $client->contacts = session('client')['contacts'];
+            $clientModel->street = session('client')['street'];
+            $clientModel->street_number = session('client')['street_number'];
+            $clientModel->city = session('client')['city'];
+            $clientModel->country_id = session('client')['country_id'];
+            $clientModel->state_id = session('client')['state_id'];
+            $clientModel->zipcode = session('client')['zipcode'];
+            $clientModel->contacts = session('client')['contacts'];
 
             $project = Project::create([
                         'title'=>$data['project'],
                         'user_id' => Auth::user()->id,
-                        'client_id' => $client->id,
+                        'client_id' => $clientModel->id,
                         'estimate_id' => $estimate->id,
                         'tracking_code' => random_int(10, 100000),
                         'progress' => 0,
@@ -162,14 +171,17 @@ class EstimateController extends Controller
 
 
             // $data['invoice_no'] = $invoice->id;
-            $client->save();
+            $clientModel->save();
             $project->save();
+
+
             // $invoice->save();
             DB::commit();
             // dd(session()->all());
             return view('addclients')
                     ->with('estimate', $estimate->id);
         }catch(\Throwable $e){
+            dd($e->getMessage());
             return back()->with('error', $e->getMessage());
             DB::rollback();
         }

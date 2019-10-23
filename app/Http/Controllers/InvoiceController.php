@@ -113,18 +113,22 @@ class InvoiceController extends Controller
 
     public function list(){
         $filter = Request()->filter ?? false;
+     // dd($filter);
         if($filter && !in_array($filter, ['all', 'paid', 'unpaid'])) $filter = false;
 
-        $invoices = Invoice::join('projects', 'projects.id', 'invoices.project_id')
+      //$invoices = DB::table('invoices')->join('projects', 'projects.id', 'invoices.project_id')
+
+      $invoices = Invoice::join('projects', 'projects.id', 'invoices.project_id')
                             ->join('clients', 'clients.id', 'projects.client_id')
                     ->leftjoin('currencies AS ic', 'invoices.currency_id', 'ic.id')
                     ->where('projects.user_id', Auth::user()->id);
-        
+
         if($filter && $filter !== 'all') $invoices = $invoices->where('invoices.status', $filter);
-        
+
         $invoices = $invoices->select('invoices.*', 'clients.name AS client', 'projects.title AS project_title', 'ic.symbol AS invoice_currency')
                     ->get();
-        
+        //dd($invoices);
+
         // $result = [];
         // $invoices = Auth::user()->projects;
         // if($invoices->count() > 0){
@@ -146,7 +150,7 @@ class InvoiceController extends Controller
 
         $invoice = Project::where('id', $project_id)->select('id','title', 'estimate_id', 'client_id')->with(['estimate', 'invoice', 'client'])->first();
 
-            $pdf = PDF::loadView('invoices.pdf', ['invoice' => $invoice]);  
+            $pdf = PDF::loadView('invoices.pdf', ['invoice' => $invoice]);
 
             return $pdf->download($filename);
     }
@@ -193,7 +197,7 @@ public function clientInvoice($client, $invoice)
     public function pay($txref){
         $data = $this->verifyTransaction($txref);
         // dd($data);
-        if($data['success']){            
+        if($data['success']){
             $invoice = Invoice::find($data['invoice_id']);
             $invoice->update(['status' => 'paid']);
             $project_name = $invoice->project->title;

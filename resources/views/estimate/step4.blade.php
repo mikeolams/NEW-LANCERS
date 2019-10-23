@@ -387,7 +387,7 @@
         <br>
         <form method="post" action="/estimate/create/step5" id="form">
             @csrf
-            <h2>Client Information</h2><br>
+
 
             @if(session('success'))<br> <h6><span class="alert alert-success">{{session('success')}}</span></h6>
             @elseif(session('error'))<br> <h6><span class="">{{session('error')}}</span></h6> @endif
@@ -425,6 +425,7 @@
 
                             <select required name="state_id" class="country">
                                 <option value="" selected>Select State</option>
+
                             </select>
                             <!-- <input required type="text" name="state" id="state" placeholder="state"> -->
                         </span>
@@ -471,7 +472,7 @@
                 url: '/states/'+encodeURI(countryID),
                 type: "GET",
                 dataType: "json"
-                 },
+                 ,
                 success:function(data) {
                     $('select[name="state_id"]').empty();
                     $('select[name="state_id"]').append('<option selected value="">Select State</option>');
@@ -479,7 +480,7 @@
                         $('select[name="state_id"]').append('<option value="'+ value.id +'">'+ value.name +'</option>');
                     });
                 }
-           );
+            });
             }else{
                 $('select[name="state"]').empty();
             }
