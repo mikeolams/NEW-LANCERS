@@ -352,14 +352,9 @@
               </tfoot>
             </table>
 
+              
           </section>
 
-{{--           <div class="lanclient-footer-tab">
-            <p class ="light-head"><strong>Notes</strong></p>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dolor</p>
-            <p>laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi</p>
-          </div>
- --}}
         </div>
       </div>
 @endsection
