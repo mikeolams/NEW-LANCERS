@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
 use App\Notifications\UserNotification;
 use App\Traits\VerifyandStoreTransactions;
+use App\Http\Controllers\Auth;
 
 class InvoiceController extends Controller {
 
@@ -70,7 +71,7 @@ class InvoiceController extends Controller {
         } else {
 
             $estimate = Estimate::findOrFail($request->estimate_id);
-            $createinvoice = Invoice::create(['issue_date' => $estimate->start, 'due_date' => $estimate->end, 'estimate_id' => $estimate->id, 'amount' => $estimate->estimate, 'currency_id' => $estimate->currency_id]);
+            $createinvoice = Invoice::create(['user_id' => Auth::user()->id,'issue_date' => $estimate->start, 'due_date' => $estimate->end, 'estimate_id' => $estimate->id, 'amount' => $estimate->estimate, 'currency_id' => $estimate->currency_id]);
             $invoice = Invoice::whereId($createinvoice->id)->with('estimate')->first();
         }
 
@@ -105,11 +106,11 @@ class InvoiceController extends Controller {
 
     public function listGet(Request $request) {
         if ($request->filter == 'paid') {
-            $data['invoices'] = Invoice::whereStatus('paid')->with('estimate')->with('currency')->get();
+            $data['invoices'] = Invoice::whereUser_id(Auth::user()->id)->whereStatus('paid')->with('estimate')->with('currency')->get();
         } elseif ($request->filter == 'unpaid') {
-            $data['invoices'] = Invoice::whereStatus('unpaid')->with('estimate')->with('currency')->get();
+            $data['invoices'] = Invoice::whereUser_id(Auth::user()->id)->whereStatus('unpaid')->with('estimate')->with('currency')->get();
         } else {
-            $data['invoices'] = Invoice::with('estimate')->with('currency')->get();
+            $data['invoices'] = Invoice::whereUser_id(Auth::user()->id)->with('estimate')->with('currency')->get();
         }
         return view('invoices.list', $data);
     }
