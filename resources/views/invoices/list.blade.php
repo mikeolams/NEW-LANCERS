@@ -6,8 +6,8 @@
 
 @section('main-content')
     <div class="container">
-        <button class='create-invoice' onClick="window.location.href('./invoice/create')">Create Invoice</button>
-    </div>
+        <a href="{{url('estimate/create/step1')}}">    <button class='create-invoice' >Create Invoice</button> </a>
+    </div> 
     <section class="">
         <div class="container-fluid">
             <h4 class="mt-0 text-primary">Invoices</h4>
