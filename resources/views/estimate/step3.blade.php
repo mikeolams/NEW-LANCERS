@@ -2,7 +2,7 @@
 
 
 @section('styles')
-<style> 
+<style>
     body {
       box-sizing: border-box;
       margin: 0px;
@@ -241,7 +241,7 @@
                 />
             </a>
             <div class="column-2">Client</div>
-            <a href="#" @click.prevent="next" class="column-3">NEXT</a>
+            <a href="#" @click.prevent="next" id="NextStep3Upper" class="column-3">NEXT</a>
         </nav>
     </header>
 
@@ -265,9 +265,9 @@
                     <p class="cli-text">A new Client</p>
                 </a>
             </div>
-            
+
             <div class="footer-next">
-                <button type="submit">NEXT</button>
+                <button id="NextStep3form" type="submit">NEXT</button>
             </div>
             </form>
     </div>

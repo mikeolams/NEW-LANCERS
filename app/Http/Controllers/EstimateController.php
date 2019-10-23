@@ -60,8 +60,8 @@ class EstimateController extends Controller {
         if (is_object($client)) {
             $data['project'] = session('project')['project'];
             $data['company'] = session('client')['name'];
-            $data['company_address'] = session('client')['street'] . session('client')['city'];
-            $data['company_country'] = Country::find(session('client')['country_id'])->name;
+          //  $data['company_address'] = session('client')['street'] . session('client')['city'];
+          //  $data['company_country'] = Country::find(session('client')['country_id'])->name;
             $data['issued_date'] = Carbon::now();
             $data['due'] = session('estimate')['end'];
             $data['currency'] = Currency::find(session('estimate')['currency_id'])->code;
