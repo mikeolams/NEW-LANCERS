@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
 use PDF;
 use App\User;
 use App\Client;
@@ -16,6 +15,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
 use App\Notifications\UserNotification;
 use App\Traits\VerifyandStoreTransactions;
+use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller {
 
@@ -70,7 +70,7 @@ class InvoiceController extends Controller {
         } else {
 
             $estimate = Estimate::findOrFail($request->estimate_id);
-            $createinvoice = Invoice::create(['issue_date' => $estimate->start, 'due_date' => $estimate->end, 'estimate_id' => $estimate->id, 'amount' => $estimate->estimate, 'currency_id' => $estimate->currency_id]);
+            $createinvoice = Invoice::create(['user_id' => Auth::user()->id, 'issue_date' => $estimate->start, 'due_date' => $estimate->end, 'estimate_id' => $estimate->id, 'amount' => $estimate->estimate, 'currency_id' => $estimate->currency_id]);
             $invoice = Invoice::whereId($createinvoice->id)->with('estimate')->first();
         }
 
@@ -105,11 +105,11 @@ class InvoiceController extends Controller {
 
     public function listGet(Request $request) {
         if ($request->filter == 'paid') {
-            $data['invoices'] = Invoice::whereStatus('paid')->with('estimate')->with('currency')->get();
+            $data['invoices'] = Invoice::whereUser_id(Auth::user()->id)->whereStatus('paid')->with('estimate')->with('currency')->get();
         } elseif ($request->filter == 'unpaid') {
-            $data['invoices'] = Invoice::whereStatus('unpaid')->with('estimate')->with('currency')->get();
+            $data['invoices'] = Invoice::whereUser_id(Auth::user()->id)->whereStatus('unpaid')->with('estimate')->with('currency')->get();
         } else {
-            $data['invoices'] = Invoice::with('estimate')->with('currency')->get();
+            $data['invoices'] = Invoice::whereUser_id(Auth::user()->id)->with('estimate')->with('currency')->get();
         }
         return view('invoices.list', $data);
     }
@@ -131,18 +131,18 @@ class InvoiceController extends Controller {
     public function sendinvoice(Request $request) {
         $invoice_id = $request->invoice;
 
-        $invoice = Invoice::findOrFail($invoice_id);
 
-        $project_name = $invoice->project->title;
+        $invoice = Invoice::with('estimate')->findOrFail($invoice_id);
 
-        $client = $invoice->project->client;
+        $project_name = $invoice->estimate->project->title;
+
+        $client = $invoice->estimate->project->client;
 
         $client_email = $client->email;
 
         $encoded = base64_encode(base64_encode($client_email));
 
         $url = "/clients/" . $encoded . "/invoices/" . strtotime($invoice->created_at);
-
         $name = Auth::user()->name;
 
         Mail::to($client_email)
@@ -158,12 +158,8 @@ class InvoiceController extends Controller {
     }
 
     public function clientInvoice($client, $invoice) {
-        $client_email = base64_decode(base64_decode($client));
-        $invoice = Invoice::where('created_at', Carbon::createFromTimestamp($invoice))->first();
-
-        $project_id = $invoice->project_id;
-        $invoice = Project::where('id', $project_id)->select('id', 'title', 'estimate_id', 'client_id')->with(['estimate', 'invoice', 'client'])->first();
-        return view('invoices.clientinvoice')->with('invoice', $invoice);
+        $data['invoice'] = Invoice::with('estimate')->where('created_at', Carbon::createFromTimestamp($invoice))->first();
+        return view('invoices.clientinvoice', $data);
     }
 
     public function pay($txref) {

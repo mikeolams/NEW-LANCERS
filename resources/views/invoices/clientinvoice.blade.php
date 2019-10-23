@@ -262,7 +262,7 @@
             <button type="button">Print</button> <button type="button">Download as PDF</button>
           </div>
             <div class="right">
-            <a href="/payment/invoice/{{strtotime($invoice->invoice->created_at)}}" class="btn btn-secondary" type="button">Make Payment</a>
+            <a href="/payment/invoice/{{strtotime($invoice->created_at)}}" class="btn btn-secondary" type="button">Make Payment</a>
           </div>
         </div>
 
@@ -282,13 +282,13 @@
 
           <div class="lanclient-billing">
               <div> <p class="billing-clhead">Bill to</p>
-                     <div class="bills-descrip"> <p class="bills-description">{{$invoice->client->name}}</p> <p class="bills-description">{{$invoice->client->email}}</p>
-                             <p>{{getState($invoice->client->state_id)}}, {{getCountry($invoice->client->country_id)}}</p>
+                     <div class="bills-descrip"> <p class="bills-description">{{$invoice->estimate->project->client->name}}</p> <p class="bills-description">{{$invoice->estimate->project->client->email}}</p>
+                             <p>{{$invoice->estimate->project->client->state->name}},  {{$invoice->estimate->project->client->country->name}}</p>
                      </div>
               </div>
                         <div>
                               <div class="top-mid-bill-details"> <p class="billing-clhead">Issue Date</p>
-                               <p class="bills-description">{{dateSlash($invoice->invoice->issue_date ?? $invoice->invoice->created_at)}}</p>
+                               <p class="bills-description">{{strtotime($invoice->issue_date ?? $invoice->created_at)}}</p>
                               </div>
                                      <div class="bottom-mid-bill-details">
                                <p class="billing-clhead">Due Date</p>
@@ -299,7 +299,7 @@
              <div class="last-child-billing">
                      <div class="top-last-bill-details"> <p class="billing-clhead">Hourly Rate</p> <p class="bills-description" id = "hourly-rateN">N/A</p>
                      </div>
-                          <div class="bottom-last-bill-details"> <p class="billing-clhead">Amount Due</p> <p class="bills-description">NGN {{number_format((float)$invoice->invoice->amount, 2)}}</p>
+                          <div class="bottom-last-bill-details"> <p class="billing-clhead">Amount Due</p> <p class="bills-description">NGN {{number_format($invoice->amount)}}</p>
                            </div>
             </div>
           </div>
@@ -317,7 +317,7 @@
               <tbody>
                 <tr>
                   <td>Man Hours</td>
-                  <td>{{$invoice->invoice->time}}</td>
+                  <td>{{$invoice->time}}</td>
                   <td>NGN{{number_format((float)$invoice->estimate->price_per_hour, 2)}}</td>
                   <td>NGN{{number_format((float)($invoice->estimate->price_per_hour * $invoice->estimate->time), 2)}}</td>
                 </tr>
@@ -338,7 +338,7 @@
                 <tr>
                   <td colspan="2" class= "no-border-table"></td>
                   <td class= "no-border-table" >Total</td>
-                  <td class= "no-border-table" >NGN {{number_format((float)$invoice->invoice->amount, 2)}}</td>
+                  <td class= "no-border-table" >NGN {{number_format((float)$invoice->amount, 2)}}</td>
                 </tr>
                 <tr>
                   <td colspan="2" class= "no-border-table"></td>
@@ -347,19 +347,14 @@
                 <tr>
                   <td colspan="2" class= "no-border-table"></td>
                   <td class= "no-border-table">Amount Due</td>
-                  <td class= "no-border-table">NGN{{number_format((float)$invoice->invoice->amount, 2)}}</td>
+                  <td class= "no-border-table">NGN{{number_format((float)$invoice->amount, 2)}}</td>
                 </tr>
               </tfoot>
             </table>
 
+              
           </section>
 
-{{--           <div class="lanclient-footer-tab">
-            <p class ="light-head"><strong>Notes</strong></p>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dolor</p>
-            <p>laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi</p>
-          </div>
- --}}
         </div>
       </div>
 @endsection
