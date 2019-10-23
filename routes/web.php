@@ -272,5 +272,13 @@ Route::group(['middleware' => 'auth:web'], function(){
 });
 
 
-});
+    Route::get('test/pdf', function() {
+        return view('invoice_view_pdf');
+    });
+
+    Route::get('/redirect', function () { return vew('redirect');});
+
+    });
+
+
 
