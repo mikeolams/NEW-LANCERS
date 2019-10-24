@@ -19,6 +19,7 @@ class CreateTrailsTable extends Migration
                 $table->foreign('user_id')->references('id')->on('users');
             $table->string('event')->index('event');
             $table->longtext('description')->nullable();
+            $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });
     }
