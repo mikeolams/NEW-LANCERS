@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateContactMessagesTable extends Migration
+class CreateTrailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateContactMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('contact_messages', function (Blueprint $table) {
+        Schema::create('trails', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->index('user_id');
                 $table->foreign('user_id')->references('id')->on('users');
-            $table->text('subject');
-            $table->mediumText('message');
-            $table->mediumText('response')->nullable();
+            $table->string('event')->index('event');
+            $table->longtext('description')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateContactMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contact_messages');
+        Schema::dropIfExists('trails');
     }
 }
