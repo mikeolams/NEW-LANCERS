@@ -80,7 +80,10 @@ Route::group(['middleware' => 'auth:api'], function(){
     // Task API routes
     Route::get('tasks','TaskController@index');
     Route::get('tasks/{task}/team', 'TaskController@team');
-    
+    Route::delete('/tasks/{task}', 'TaskController@destroy');
+    Route::get('tasks/detail/{task}', 'TaskController@show');
+    Route::put('tasks/{task}', 'TaskController@update');
+    Route::post('tasks/{task}/team', 'TaskController@addTeam');
 });
 
 Route::get('tasks/detail/{task}','TaskController@show');

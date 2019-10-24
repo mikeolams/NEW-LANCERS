@@ -58,7 +58,7 @@ class ProjectController extends Controller
 
         // return $projects, instead of json verified by @BlinShine
         if($projects){
-            return $this->SUCCESS("Projects retrieved", $tasks);
+            return $this->SUCCESS("Projects retrieved", $projects);
         }
         return $this->ERROR('no project Found');
     }
@@ -221,7 +221,7 @@ class ProjectController extends Controller
             ]);
 
             $user = Auth::user();
-            // dd($user->subscription);
+            // max($user->subscription);
             $max_collaborators = $user->subscription->subscriptionPlan->features['collaborators'];
 
             if(count($team) >= $max_collaborators){
@@ -244,8 +244,9 @@ class ProjectController extends Controller
             // $project->save();
 
             return $this->SUCCESS("collaborator added", $project);
-        }else{
-            return $this->error("Not authorized",[] , 401);
+        }
+        else{
+            return $this->error("Not authorized", [] , 401);
         }
     }
 
@@ -269,11 +270,13 @@ class ProjectController extends Controller
                 return $this->success("collaborator removed", null , 204);
 
                 // return $this->success("collaborator removed", [] , 204);
-            }else{
-                return $this->error("collaborator not found", [], 404);
             }
-        }else{
-            return $this->error("Not authorized",[] , 401);
+            else{
+                return $this->error("collaborator not found", [] , 404);
+            }
+        }
+        else{
+            return $this->error("Not authorized", [] , 401);
         }
 
     }
