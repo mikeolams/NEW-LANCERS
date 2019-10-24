@@ -13,7 +13,7 @@ use App\EmailSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class emailsettingsController extends Controller
+class EmailsettingsController extends Controller
 {
     protected function validatorInvoice(array $data)
     {

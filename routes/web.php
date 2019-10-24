@@ -100,9 +100,10 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/client-doc-view', function () { return view('client-doc-view'); });
 
     // Estimate Routes
-    Route::get('/estimates', 'EstimateController@index')->middleware('auth');
-    Route::post('estimates', 'EstimateController@store')->middleware('auth');
+    // Route::get('/estimates', 'EstimateController@index')->middleware('auth');
+    // Route::post('estimates', 'EstimateController@store')->middleware('auth');
     Route::put('/estimates/{estimate}', 'EstimateController@update')->middleware('auth');
+    Route::get('/estimates/{estimate}', 'EstimateController@show')->middleware('auth');
     Route::delete('/estimates/{estimate}', 'EstimateController@destroy')->middleware('auth');
     Route::get('/estimates/{estimate}', 'EstimateController@show')->middleware('auth');
     Route::get('/estimate/create/step1', 'EstimateController@step1');
@@ -110,13 +111,6 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::post('/estimate/create/step3', 'EstimateController@step3');
     Route::post('/estimate/create/step4', 'EstimateController@step4');
     Route::post('/estimate/create/step5', 'EstimateController@step5');
-
-    Route::get('/estimates', 'EstimateController@index')->middleware('auth');
-    Route::post('estimates', 'EstimateController@store')->middleware('auth');
-    Route::get('/estimate/create', function () { return view('set_estimate'); });
-    Route::get('/estimates/{estimate}', 'EstimateController@show')->middleware('auth');
-    Route::put('/estimates/{estimate}', 'EstimateController@update')->middleware('auth');
-    Route::delete('/estimates/{estimate}', 'EstimateController@destroy')->middleware('auth');
 
     // Task Routes
     Route::get('/tasks', 'TaskController@getAllTasks');

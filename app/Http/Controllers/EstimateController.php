@@ -28,7 +28,7 @@ class EstimateController extends Controller
         $project = '';
         $currencies = Currency::all('id', 'code');
 
-        if($request->old_project && $request->new_project) $project = ['type'=>'new', 'project'=>$request->new_project];
+        if($request->old_project && $request->new_project) return back()->with('error', 'Please specify either an old or new project');
         elseif($request->old_project) $project = ['type'=>'old', 'project'=>$request->old_project];
         elseif($request->new_project) $project = ['type'=>'new', 'project'=>$request->new_project];
 
@@ -98,7 +98,7 @@ class EstimateController extends Controller
             $data['total'] = $data['workmanship'] + $data['equipment_cost'] + $data['sub_contractors_cost'];
             
             // Estimate ID set to 1 because an estimate must not have a project
-            $estimate = Estimate::create(array_merge(session('estimate'), ['estimate'=>$data['total'], 'project_id'=>1]));
+            $estimate = Estimate::create(array_merge(session('estimate'), ['estimate'=>$data['total']]));
             // $client = Client::create(array_merge(session('client'), ['user_id'=>Auth::user()->id]) );
             
             $client = new Client;

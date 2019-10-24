@@ -385,7 +385,7 @@
     <main>
         <h2>Client Information</h2>
         <br>
-        <form method="post" action="/estimate/create/step5" id="form">
+        <form method="post" action="/estimate/create/step5">
             @csrf
             <h2>Client Information</h2><br>
             @if(session('success'))<br> <h6><span class="alert alert-success">{{session('success')}}</span></h6>
@@ -445,6 +445,9 @@
 
 @section('script')
 <script type="text/javascript">
+    window.addEventListener('load', function() {
+        addContact();
+    })
     let count = 1;
     function addContact(){
         let element = document.querySelector('#contacts')
@@ -452,10 +455,10 @@
         newElement.classList.add('form-group');
         newElement.innerHTML = `
             <label for="company_name_${count}">Contact name</label>
-            <input type="text" name="contact[${count}]['name']" id="contact_name${count}" placeholder="e.g Ben Davies">
+            <input type="text" required name="contact[${count}]['name']" id="contact_name${count}" placeholder="e.g Ben Davies">
             
             <label for="company_email">Contact email</label>
-            <input type="email" name="contact[${count}]['email']" id="email_${count}" placeholder="e.g email@domain.com">
+            <input type="email" required name="contact[${count}]['email']" id="email_${count}" placeholder="e.g email@domain.com">
         `;
         element.appendChild(newElement);
         count+=1;
