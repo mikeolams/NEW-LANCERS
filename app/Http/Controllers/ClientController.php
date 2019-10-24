@@ -83,21 +83,25 @@ class ClientController extends Controller
         // return $clients !== null ? $this->SUCCESS('Client retrieved', $clients) : $this->SUCCESS('No client found');
     }
 
-    // public function listGet() {
-    //     $filter = Request()->filter;
-    //     if ($filter == 'pending') {
-    //         $data['clients'] =clients::whereUser_id(Auth::user()->id)->whereStatus('pending')->with('user')->get();
-    //     } elseif ($filter == 'active') {
-    //         $data['clients'] = clients::whereUser_id(Auth::user()->id)->whereStatus('active')->with('user')->get();
-    //     } elseif ($filter == 'completed') {
-    //         $data['clients'] = clients::whereUser_id(Auth::user()->id)->whereStatus('completed')->with('user')->get();
-    //     } else {
-    //         $data['clients'] = clients::whereUser_id(Auth::user()->id)->with('user')->get();
-    //     }
-    //     return view('clients.list', $data);
+//list client projects
+    public function listGet() {
+        $filter = Request()->get('filter');
+        // dd($filter);
+        $data = array();
+        if ($filter == 'pending') {
+            $Clients =Client::whereUser_id(Auth::user()->id)->whereStatus('pending')->with('user')->get();
+        } elseif ($filter == 'active') {
+            $Clients = Client::whereUser_id(Auth::user()->id)->whereStatus('active')->with('user')->get();
+        } elseif ($filter == 'completed') {
+            $Clients = Client::whereUser_id(Auth::user()->id)->whereStatus('completed')->with('user')->get();
+            // dd($Clients);
+        } else {
+            $Clients = Client::whereUser_id(Auth::user()->id)->with('user')->get();
+           
+        return view('Clients.list')->with('projects', $Clients);
         
-    // }
-
+    }
+}
 
     public function view($client_id){
         $client = Client::where(['id'=>$client_id, 'user_id' => Auth::user()->id])->first();

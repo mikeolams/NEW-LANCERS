@@ -150,15 +150,11 @@ Route::group(['middleware' => 'auth:web'], function() {
     });
 
     // Client Routes
-    Route::get('/clients', 'ClientController@list');
+    Route::get('/clients', 'ClientController@listGet');
     Route::post('/client/add', 'ClientController@store');
     Route::get('/client-info', function () {
         return view('client-info');
     });
-    Route::get('/clients/{status}', 'ClientController@view');
-    // Route::get('/clients/pending', 'ClientController@listGet');
-    // Route::get('/clients/completed', 'ClienttController@listGet');
-    // Route::get('/clients/active', 'ClientController@listGet');
 
 
     Route::get('/clients/{client}/invoices/{invoice}', 'InvoiceController@clientInvoice');

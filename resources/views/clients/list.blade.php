@@ -10,15 +10,7 @@
             <h4 class="mt-0 text-primary">Clients</h4>
             <div class="">
                 <div class="">
-                    <!-- <form class="form-inline" >
-                        <select id="select_status" class="form-control">
-                            <option selected>All</option>
-                            <option>Pending</option>
-                            <option>Active</option>
-                            <option>Completed</option>
-                        </select>
-                    </form> -->
-                      <form class="form-inline" method="GET">
+                    <form class="form-inline" method="GET" >
                     <select class="form-control" id="select-filter">
                         <option value="all" @if (Request()->filter) {{ 'selected' }} @endif >All</option>
                         <option value="pending" @if (Request()->filter && Request()->filter == 'pending') {{ 'selected' }} @endif>Pending</option>
@@ -26,6 +18,15 @@
                         <option value="completed" @if (Request()->filter && Request()->filter == 'completed') {{ 'selected' }} @endif>Completed</option>
                     </select>
                 </form>
+                <!-- <form class="form-inline" method="GET" >
+                       
+                    <select class="form-control" id="select-filter">
+                        <option value="all" @if (Request()->filter) {{ 'selected' }} @endif ><a href="clients?filter=all">All</a></option>
+                        <option value="pending" @if (Request()->filter && Request()->filter == 'pending') {{ 'selected' }} @endif><a href="clients?filter=pending">Pending</a></option>
+                        <option value="active" @if (Request()->filter && Request()->filter == 'active') {{ 'selected' }} @endif><a href="clients?filter=active">Active</a></option>
+                        <option value="completed" @if (Request()->filter && Request()->filter == 'completed') {{ 'selected' }} @endif><a href="clients?filter=completed">Completed</a></option>
+                    </select>
+                </form> -->
 
 
 
@@ -84,6 +85,7 @@
                                 @endforeach
                             @endif
                         </tbody>
+                        
                     </table>
                 </div>
             </div>
@@ -98,13 +100,18 @@
     </button>
 @endsection
 
-@section('scripting')
+@section('script')
 <script>
-    alert(11);
-    let select = document.querySelector('#select_status');
-    console.log(select);
-    select.addEventListener('change', function(){
-        this.form.submit();
-    }, false);
+
+    let selectStatus = document.querySelector('#select-filter');
+    selectStatus.addEventListener('change', function () {
+        // console.log('change here')
+        // this.form.action = "/projects?status="+selectStatus.value;
+        // this.form.submit();
+        if (selectStatus.value == 'all')
+            window.location.href = "/clients";
+        else
+            window.location.href = "/clients?filter=" + selectStatus.value;
+    }, false)
 </script>
 @endsection
