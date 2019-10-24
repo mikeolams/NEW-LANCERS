@@ -21,6 +21,7 @@ class CreateProfilesTable extends Migration
             $table->string('last_name');
             $table->string('title')->nullable();
             $table->string('profile_picture')->nullable();
+            $table->text('biodata')->nullable();
             $table->string('company_name')->nullable();
             $table->string('company_email')->nullable();
             $table->text('company_address')->nullable();
