@@ -151,6 +151,7 @@ Route::group(['middleware' => 'auth:web'], function() {
 
     // Client Routes
     Route::get('/clients', 'ClientController@listGet');
+    Route::get('/clients/add', 'ClientController@show');
     Route::post('/client/add', 'ClientController@store');
     Route::get('/client-info', function () {
         return view('client-info');

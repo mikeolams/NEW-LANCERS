@@ -43,6 +43,7 @@ class ClientController extends Controller
             };
             if($client->save()){
                 return back()->with('success', 'New client created');
+                // return back('clients.add')->with('success', 'New client created');
                 // return $this->SUCCESS('New client created', $data);
             }
         }catch(\Throwable $e){
@@ -97,10 +98,8 @@ class ClientController extends Controller
             // dd($Clients);
         } else {
             $Clients = Client::whereUser_id(Auth::user()->id)->with('user')->get();
-           
-        return view('Clients.list')->with('projects', $Clients);
-        
     }
+    return view('Clients.list')->with('projects', $Clients);
 }
 
     public function view($client_id){
