@@ -35,12 +35,6 @@ Route::get('/currencies', 'DataController@currencies');
 // Authentication Routes
 Auth::routes(['verify' => true]);
 Route::post('/password/create', 'AuthController@create_password')->name('password.create');
-// =========================== Not necessary - has been handled by Auth::routes() above
-Route::get('/passwordresetconfirmation', function () { return view('passwordresetconfirmation');});
-Route::get('/passwordresetmessage', function () { return view('passwordresetmessage'); });
-Route::get('/passwordreset', function () { return view('passwordreset'); });
-Route::get('/password/changed', function() { return view('passwordchanged'); });
-// =========================================
 
 // Generate PDF from Invoice
 Route::get('/invoice/pdf', function() {
@@ -73,7 +67,6 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::post('/users/edit/profile', "ProfileController@editProfile")->middleware('auth')->name('edit-profile');
     Route::get('/users/subscriptions', "SubscriptionController@showSubscriptions")->middleware('auth')->name('subscriptions');
     Route::get('/users/subscriptions/{planId}', "SubscriptionController@subscribeUser")->middleware('auth');
-    // Route::get('/users/subscription', "SubscriptionController@showSubscriptions");
     Route::get('users/subscribe/{txref}', "SubscriptionController@subscribeUser");
     Route::get('/users/view/subscriptions', "SubscriptionController@showPlan")->middleware('auth');
     Route::get('/users/settings/emails', "emailsettingsController@index")->middleware('auth');
@@ -82,7 +75,6 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/user/notifications', 'NotificationsController@notifications');
     Route::put('/user/notifications/read/{$id}', 'NotificationsController@markAsRead');
     Route::put('/user/notifications/read/all', 'NotificationsController@markAllAsRead');
-
 
     // Project Routes
     Route::get('/projects', 'ProjectController@list');
@@ -97,7 +89,6 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/client-info', function () { return view('client-info'); });
     
     //Invoice routes
-    // Route::resource('invoices', 'InvoiceController');
     Route::get('/invoices', 'InvoiceController@list');
     Route::get('/invoice/pay/{txref}', 'InvoiceController@pay');
     Route::get('/invoices/{invoice}/getpdf', 'InvoiceController@getPdf');
@@ -115,10 +106,6 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::delete('/estimates/{estimate}', 'EstimateController@destroy')->middleware('auth');
     Route::get('/estimates/{estimate}', 'EstimateController@show')->middleware('auth');
     Route::get('/estimate/create/step1', 'EstimateController@step1');
-    // Route::get('/estimate/create/step2', 'EstimateController@step2');
-    // Route::get('/estimate/create/step3', 'EstimateController@step3');
-    // Route::get('/estimate/create/step4', 'EstimateController@step4');
-    // Route::get('/estimate/create/step5', 'EstimateController@step5');
     Route::post('/estimate/create/step2', 'EstimateController@step2');
     Route::post('/estimate/create/step3', 'EstimateController@step3');
     Route::post('/estimate/create/step4', 'EstimateController@step4');
