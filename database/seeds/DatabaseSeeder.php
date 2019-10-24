@@ -12,9 +12,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $this->call([//(UsersTableSeeder::class);
         // $this->call(DocumentsTableSeeder::class);
-
+        TasksTableSeeder::class,
+        ]); 
         factory(App\User::class, 10)->create()->each(function ($user){
             $name = explode(" ",$user->name);
             $user->profile()->create(['first_name' => $name[0], 'last_name' => $name[1]]);

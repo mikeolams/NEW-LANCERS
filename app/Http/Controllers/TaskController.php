@@ -109,13 +109,13 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Task $task)
+    public function destroy(Request $request, Task $task)
     {
-        if($task = Task::find($task->id)){
-            $task->delete();
-            return $this->SUCCESS('Task Deleted');
-        }
-        return $this->ERROR('Task deletion failed');
+        $this->authorize('destroy', $task);
+
+        $task->delete();
+
+        return redirect('/tasks');
     }
 
     public function addTeam(Task $task, Request $request) {
