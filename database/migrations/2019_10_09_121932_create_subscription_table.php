@@ -19,7 +19,7 @@ class CreateSubscriptionTable extends Migration
                 $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('plan_id');
                 $table->foreign('plan_id')->references('id')->on('subscription_plans');
-            $table->unsignedBigInteger('authorization_id');
+            $table->unsignedBigInteger('authorization_id')->nullable();
                 $table->foreign('authorization_id')->references('id')->on('authorizations');
             $table->date('startdate');
             $table->date('enddate');

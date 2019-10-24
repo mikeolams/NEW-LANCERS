@@ -24,9 +24,9 @@ class CreateClientsTable extends Migration
             $table->string('street_number')->nullable();
             $table->string('city')->nullable();
             $table->unsignedBigInteger('country_id')->nullable();
-                $table->foreign('country_id')->references('id')->on('countries');
+                $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('state_id')->nullable();
-                $table->foreign('state_id')->references('id')->on('states');
+                $table->foreign('state_id')->references('id')->on('states')->onDelete('cascade')->onUpdate('cascade');
             $table->string('zipcode')->nullable();
             $table->string('timezone')->nullable();
             $table->text('contacts')->nullable();
