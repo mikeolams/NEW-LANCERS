@@ -241,7 +241,8 @@
                 />
             </a>
             <div class="column-2">Client</div>
-            <a href="#" @click.prevent="next" id="NextStep3Upper" class="column-3">NEXT</a>
+           <a href="#" @click.prevent="next" id="NextStep3Upper" class="column-3 float-right" style="border: 1px solid gray;
+               background: #0ABAB5 !important;">NEXT</a>
         </nav>
     </header>
 
@@ -267,7 +268,8 @@
             </div>
 
             <div class="footer-next">
-                <button id="NextStep3form" type="submit">NEXT</button>
+                <button id="NextStep3form" class=""type="submit" style="border: 1px solid gray;
+                                 background: #0ABAB5 !important; height: 70px; width: 200px;color:#fff!important">NEXT</button>
             </div>
             </form>
     </div>

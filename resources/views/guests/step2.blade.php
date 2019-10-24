@@ -1,335 +1,581 @@
 @extends('layouts.app')
+<!-- Select Project -->
 
- @section('styles')
-  <style>
-   /* nav */
+@section('styles')
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        overflow: auto;
+    }
 
-#container {
-  display: grid;
-  grid-template-columns: 0.5fr 0.5fr 5fr 1fr;
-}
+    h1 {
+        margin-top: 5%;
+        margin-left: 18%;
+        color: #262626;
+    }
 
-#container div {
-  box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.1);
-  height: 50px;
-}
+    h5 {
+        font-weight: bold;
+        color: #262626;
+    }
 
-#container i {
-  padding-top: 15px;
-  color: #C4C4C4
-}
+    p {
+        padding-bottom: 40px;
+    }
 
-#container p {
-  justify-content: center;
-  margin-top: 15px;
-  font-style: normal;
-  font-weight: bold;
-  color: #323A43;
-}
+    .box {
+        margin-top: 5%;
 
-.cnc {
-  border: none;
-  background: #e4e4e4;
-  height: 50px;
-  width: 100%;
-  color: white;
-}
+    }
 
-/* main section */
+    .card-body:hover {
+        border: 2px solid #0ABAB5;
+        box-sizing: border-box;
+    }
 
-.main-section {
-  margin: 50px auto;
-  width: 50%;
-}
+    .btn-on {
+        width: 100%;
+        background: gray;
+        border: 1px solid rgba(145, 145, 145, 0.4);
+        box-sizing: border-box;
 
-.section1 {
-  border: 1px solid #919191;
-  box-sizing: border-box;
-}
+        text-align: left;
+        color: #091429;
+        height: 50px;
+    }
 
-.section1 div {
-  padding: 5px 20px;
-}
+    .btn-on:hover {
+        color: #E4E4E4;
+        background: #0ABAB5 !important;
+    }
 
-#word h1 {
-  font-family: Ubuntu;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 32px;
-  line-height: 48px;
-  color: #262626;
-}
+    .dark {
+        margin-top: 40px;
+        margin-left: 40%;
+        width: 20%;
+        height: 60px;
+        border: 1px solid gray;
+        background: #0ABAB5 !important;
+        color: white;
 
-#word h5 {
-  font-family: Ubuntu;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 21px;
-  color: #262626;
-}
+    }
 
-#glac h1 {
-  font-family: Ubuntu;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 1.8rem;
-  line-height: 41px;
-  color: #262626;
-  padding-top: 30px;
-  margin-left: 50px;
-}
+    .dark:hover {
 
-div h3 {
-  font-family: Ubuntu;
-  font-style: bold;
-  font-weight: bold;
-  font-size: 1.4rem;
-  line-height: 41px;
-  color: #262626;
-}
+        background: #0ABAB5!important;
+        color: white;
+    }
 
-.bill p {
-  font-size: 1em;
-  padding-top: 10px;
-  color: #262626;
-}
+    #name {
+        padding: 10px;
+        width: 100%;
+        height: 50px;
+        font-size: 20px;
+        border: 1px solid rgba(145, 145, 145, 0.4);
+    }
 
-.hour {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
+    #container {
+        display: grid;
+        grid-template-columns: 1fr 5fr 1fr;
 
-.hours {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
+    }
 
-input {
-  height: 30px;
-  width: 50%;
-  text-align: center;
-  border: 1px solid;
-}
+    #container div {
+        border: 1px solid black;
+        height: 50px;
+    }
 
-.start {
-  margin-left: 100px;
-  width: 100%;
-}
+    #container p {
+        justify-content: center;
+        margin-top: 15px;
+        font-style: normal;
+        font-weight: bold;
 
-.end {
-  margin-left: 50px;
-  width: 100%;
-}
 
-i input {
-  border: none;
-  border-bottom: 1px solid;
-  text-decoration: underline;
-}
+        color: #323A43;
+    }
 
-.sub {
-  width: 90%;
-}
+    #ext {
+        justify-content: center;
+        border: none;
+        background: gray !important;
+        color: white;
+        width: 100%;
+        height: 50px;
+    }
 
-#currency {
-  font-family: Ubuntu;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 28px;
-  color: #262626;
-  padding-bottom: 20px;
-}
 
-select {
-  border: none;
-  border-bottom: 1px solid;
-}
+    #ext:hover {
 
-.btn {
-  border: 1px solid #e4e4e4;
-  background: #e4e4e4;
-  margin-top: 40px;
-  margin-left: 30%;
-  width: 40%;
-  height: 60px;
-  color: white;
-}
+        background:  #091429 !important;
 
-@media screen and (max-width: 1400px) {
-  .start {
-    margin-left: 80px;
-    width: 100%;
-  }
-  .end {
-    margin-left: 30px;
-    width: 100%;
-  }
-}
+    }
 
-@media screen and (max-width: 1102px) {
-  .hours {
-    display: grid;
-    grid-template-columns: 0.5fr 1fr 1fr;
-  }
-}
+    #cnc {
+        cursor: pointer;
+    }
 
-@media (max-width: 948px) {
-  .hour, .hours {
-    display: block;
-  }
-  .start {
-    margin-left: 0px;
-    width: 100%;
-  }
-  .end {
-    margin-left: 0px;
-    width: 100%;
-  }
-}
-  </style>
- @endsection
+    .dropbtn, .project {
+        /* margin-top: 37px; */
+        width: 100%;
+        height: 50px;
+        padding: 10px;
+        border: 1px solid rgba(145, 145, 145, 0.4);
+        /* box-sizing: border-box; */
+    }
+    option, select {
+        font-size: 20px;
+        background: rgba(207, 204, 204, 0.4);
+    }
 
-@section('header')
+    a:hover{cursor: pointer;}
+
+
+
+
+
+    body {
+        box-sizing: border-box;
+        margin: 0px;
+        font-family: ubuntu !important;
+    }
+
+    .con-div {
+        background-color: #FFFFFF;
+        width: 100%;
+        margin: auto;
+    }
+
+    .top-divs {
+        display: flex;
+        margin: 0 auto;
+        width: 100%;
+        background-color: #FFFFFF;
+        font-family: Roboto;
+    }
+
+    .ctrl-div {
+        width: 8%;
+        text-align: center;
+        border: 1px solid #919191;
+    }
+
+    .ctrl-btn {
+        width: 100%;
+        background-color: #FFFFFF;
+        border: none;
+    }
+
+    .inv-div {
+        width: 60%;
+        text-align: center;
+        border: 1px solid #919191;
+    }
+
+    #inv-btn {
+        width: 100%;
+        border: none;
+        padding: 0.5em;
+        font-weight: 500;
+        font-size: 28px;
+        background-color: #FFFFFF;
+    }
+
+    .send-div {
+        width: 32%;
+        text-align: center;
+        border: 1px solid #919191;
+    }
+
+    #send-btn {
+        width: 100%;
+        border: none;
+        padding: 0.5em;
+        color: #FFF;
+        font-size: 28px;
+        background-color:  rgba(196, 196, 196, 0.4);
+    }
+
+    .cli-info {
+        width:75%;
+        height:80vh;
+        background-color:#FFFFFF;
+        margin: auto
+    }
+
+    .cli-box {
+        display: flex;
+        justify-content:space-around;
+    }
+
+    .sub-box {
+        width: 30%;
+        padding: 2em 1em;
+        margin: 2em;
+        background-color:#FFF;
+        text-align:center;
+        border: 1px solid #919191;
+        border-radius: 2px
+    }
+
+    .sub-box:hover {
+        border: 3px solid gray;
+    }
+
+    .select-project {
+        width: 90%;
+        padding: 1em;
+        border: 1px solid #919191;
+    }
+
+    .cli-text {
+        padding-top: 1.5em;
+    }
+
+    .my-icon {
+        width: 100%;
+        margin: 0.6em 0;
+        color: #c4c4c4;
+        background-color: #FFFFFF;
+    }
+
+    .what-cli {
+        padding: 1.5em 1em !important;
+        margin: 0;
+        font-size: 42px !important;
+        font-weight: bold !important;
+        color: #323232;
+    }
+
+    .txt {
+        margin: 2em 0;
+    }
+    .column-1 {
+        width: 5%;
+        border-right: 2px solid rgb(223, 223, 223);
+        padding: 1em;
+        text-align: center;
+        color: black;
+        text-decoration: none;
+    }
+    .column-2 {
+        width: 75%;
+        text-align: center;
+        align-items: center;
+        padding: 0.8em;
+        color: black;
+        text-decoration: none;
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+    .column-3 {
+        width: 15%;
+        border-left: 2px solid rgb(223, 223, 223);
+        padding: 0.8em;
+        text-align: center;
+        background-color: rgba(196, 196, 196, 0.4);
+        color: white;
+        text-decoration: none;
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+
+    @media screen and (max-width: 500px) {
+        .cli-box {
+            display: block;
+        }
+
+        .sub-box {
+            width: 90%;
+            margin: 2em 0em;
+        }
+
+        option {
+            width: 80%;
+        }
+
+        .what-cli {
+            font-size: 1.3em;
+        }
+    }
+    @media (max-width: 575.98px) {
+        .column-1 {
+            width: 15%;
+            padding: 0;
+        }
+        .column-2 {
+            width: 75%;
+            padding-top: 0.6em;
+            font-size: 0.9em;
+        }
+        .column-3 {
+            width: 25%;
+            padding-top: 0.7em;
+            font-size: 0.8em;
+        }
+        img {
+            height: 20px;
+            width: 10px;
+            padding-top: 0.6em;
+        }
+    }
+
+    @media (min-width: 576px) and (max-width: 767px) {
+        .column-1 {
+            width: 10%;
+        }
+        img {
+            height: 15px;
+            width: 10px;
+        }
+    }
+    @media (min-width: 768px) and (max-width: 991.98px) {
+        .column-1 {
+            width: 9%;
+        }
+    }
+
+
+
+
+</style>
 
 @endsection
+
 
 @section('content')
-  <div id="container">
+<div class="contaner">
 
+    <header style="border-bottom: 2px solid rgb(223, 223, 223);">
+        <nav style="display: flex; ">
+            <a href="#"  @click.prevent="$router.push('/estimate')" class="column-1">
+                <img
+                    src="https://res.cloudinary.com/mide358/image/upload/v1570621469/clear_24px_rasbwc.png"
+                    alt="navIcon"
+                    />
+            </a>
+            <a href="#" @click.prevent="previous" class="column-1">
+                <img
+                    src="https://res.cloudinary.com/mide358/image/upload/c_scale,h_27,w_13/v1570621434/Vector_ag4hnv.png"
+                    alt="navIcon"
+                    />
+            </a>
+            <div class="column-2">Create Estimate</div>
+            <a href="#" @click.prevent="next" id="upperNext" class="column-3 float-right" style="border: 1px solid gray;
+               background: #0ABAB5 !important;">NEXT</a>
+        </nav>
+    </header>
 
-    <div class=" text-center">
-      <span>
-        <i class="fa fa-times"></i>
-      </span>
-    </div>
-
-    <div class="text-center">
-      <span>
-        <i class="fa fa-chevron-left"></i>
-      </span>
-    </div>
-
-    <div class="text-center">
-      <p class="">Create Estimate</p>
-    </div>
-
-    <div class="">
-      <input class="text-center cnc" value="NEXT" type="button">
-    </div>
-
-
-  </div>
-
-
-  <div class="container-fluid main-section">
-
-<form  method="POST" action="/guest/save/step2">
-      @csrf
-    <div id="word">
-      <h1>Evaluation</h1>
-      <h5>Please Input the required fields in the form below</h5><br>
-    </div>
-
-
-
-    <div class="section1">
-
-      <div id="glac">
-        <h1>{{ $project['title'] }}</h1>
-        <hr />
-      </div>
-      <hr />
-
-      <div id="bill">
-        <h3>Billing</h3>
-
-        <div class="hour">
-          <p>How long (in hours) will it take you to complete this project?</p>
-
-          <input type="text" name="time" placeholder="Hours" />
+    <!--@Ezeko -->
+    <div class="container">
+        <div class="clearrfix"></div>
+        <br/> <br/>
+        <div class="card-title">
+            <h2 class="">Evaluation</h2>
+            <h6>Please Input the required fields in the form below</h6>
         </div>
-        <div class="hour">
+        <style>
+            .my-hr-line {
+                position: relative;
+                left: -20px;
+                width: calc(100% + 40px);
+                border: 1px solid #ddd;
+            }
+            .hiddeinput {
+                color: grey!important;
+                background: linear-gradient(to right, #808080, #808080) 5px calc(100% - 5px)/calc(100% - 10px) 2px no-repeat;
+                /* <5px calc(100% - 5px)> : position of the gradient [5px from left and 5px from bottom  */
+                /* <calc(100% - 10px) 2px> : size of the gradient [width:100%-10px height:2px] */
+                background-color: #fcfcfc;
+                border: hidden;
+                padding: 3px;
+            }
+            .icon {
+                color: grey!important;
+                padding: 3px;
+            }
+            .hiddeselect {
+                color: #000!important;
+                background: linear-gradient(to right, #000, #000) 5px calc(100% - 5px)/calc(100% - 10px) 2px no-repeat;
+                /* <5px calc(100% - 5px)> : position of the gradient [5px from left and 5px from bottom  */
+                /* <calc(100% - 10px) 2px> : size of the gradient [width:100%-10px height:2px] */
+                background-color: #fcfcfc;
+                border: hidden;
+                padding: 3px;
+            }
+        </style>
+        <div class="clearrfix"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 mx-auto">
+                    <div id="pay-invoice" class="card">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h2 class="pull-left">{{ $project['project_name'] }}</h2>
+                            </div>
+                            <hr>
+                            <div class="clearrfix"></div>
+                            <br/>
 
-          <p>How much (in hours) do you charge per hour?</p>
-          <input type="text" name="cost_per_hour" placeholder="NGN 0.00" />
+                            <hr class="my-hr-line">
+                            <form method="post" action="/guest/save/step2">
+                                @csrf
+
+                                <div class="">
+                                    <label>  <h3>Billing</h3></label>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="cc-exp" class="control-label">How long (in hours) will it take you to complete this project?</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="input-group">
+                                            <input type="number" class="form-control col-md-4 col-sm-10" required name="time" placeholder="Hours" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="cc-exp" class="control-label">How long  do you charge per hour?</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="input-group">
+                                            <input type="number" class="form-control col-md-4 col-sm-10" required name="cost_per_hour" placeholder="NGN 0.00" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="cc-exp" class="control-label">Project starts/ends</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="input-group">
+                                            <i class="icon fa fa-calendar"></i>&nbsp;
+                                            <input class="hiddeinput col-md-4 col-sm-3" type="text" required onfocus="(this.type = 'date'); (this.name = 'start')" name="start" placeholder=" Set start date" />
+                                            <i class="icon fa fa-calendar"></i>
+                                            <input type="text" class="hiddeinput col-md-4 col-sm-3"  required onfocus="(this.type = 'date'); (this.name = 'end')" name="end" placeholder="Set end date" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr class="my-hr-line">
+                                <div class="">
+                                    <label>  <h3>Expenses</h3></label>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="cc-exp" class="control-label"> How much would it cost you to power your devices or equipment for this project?</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="input-group">
+                                            <input type="number" class="form-control col-md-4 col-sm-10" required name="equipment_cost" id="est1" placeholder="NGN 0.00" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="cc-exp" class="control-label">Are you subcontracting to anyone?</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="input-group">
+                                            <input type="text"  class="form-control col-md-6 col-sm-10" required name="sub_contractors" id="est2" placeholder="E.g. Illustrator, Consulting..." />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="cc-exp" class="control-label">How much would they be paid?</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="input-group">
+                                            <input type="number" class="form-control col-md-4 col-sm-10" required name="sub_contractors_cost" id="est3" placeholder="NGN 0.00" />
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="">
+                                    <label>  <h3>Expertise</h3></label>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="cc-exp" class="control-label"> How many similar projects have you done before?</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="input-group">
+                                            <input type="number" class="form-control col-md-4 col-sm-10" required name="similar_projects" id="exp1">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="cc-exp" class="control-label">Out of 5 how would you rate your experience level in executing this project?</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="input-group">
+                                            <input class="form-control col-md-6 col-sm-10" type="number" required name="rating" id="exp2"> /5
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="my-hr-line">
+                                <div class="">
+                                    <label>  <h3>Currency:
+
+                                            <select class="hiddeselect" name="currency_id" required>
+                                                <option value="">Select Currency</option>
+                                                @foreach($currencies as $currency)
+                                                <option value="{{$currency->id}}">{{$currency->code}}</option>
+                                                @endforeach
+                                            </select>
+
+                                        </h3></label>
+                                </div>
+
+
+
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br/>
+                    <div>
+                        <div class="text-center">
+                        <button  type="submit" class="btn" style="border: 1px solid gray;
+                                 background: #0ABAB5 !important; height: 70px; width: 200px;color:#fff!important">NEXT
+
+                        </button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
 
 
-        <div class="hours">
-          <p>Project starts/ends</p>
-          <i class="fa fa-calendar start"><input type="text" onfocus="(this.type='date')" name="start"
-              placeholder=" Set start date" /></i>
-          <i class="fa fa-calendar end"><input type="text" onfocus="(this.type='date')" name="end"
-              placeholder="Set end date" /></i>
+        @endsection
 
-        </div>
+        @section('script')
 
-      </div>
-
-      <hr />
-      <div>
-        <h3>Expenses</h3>
-        <div class="hour">
-          <p id="cost">
-            How much would it cost you to power your devices or equipment for this
-            project?
-          </p>
-          <input type="text"  name="equipment_cost" id="est1" placeholder="NGN 0.00" />
-        </div>
-
-
-        <div class="hour">
-          <p id="sub">Are you subcontracting to anyone?</p>
-          <input type="text" nname="sub_contractors" id="est2" placeholder="E.g. Illustrator, Consulting..." class="sub"/>
-        </div><br />
-
-        <div class="hour">
-          <p id="pay">How much would they be paid?</p>
-          <input type="text" name="sub_contractors_cost" id="est3" placeholder="NGN 0.00" />
-        </div>
-      </div>
-      <br>
-      <div>
-        <h3>Expertise</h3>
-
-        <div class="hour">
-          <p id="proj">How many similar projects have<br>you done before?</p>
-          <input type="text" name="similar_projects" id="exp1">
-
-        </div>
-
-
-        <div class="hour">
-          <p id="rate">Out of 5 how would you rate your<br>experience level in executing this <i class="fa fa-question-circle" aria-hidden="true"></i><br>project?<p>
-              <input type="text" name="rating" id="exp2"> /5
-        </div>
-
-      </div>
-      <hr />
-
-
-      <div id="currency">
-        Currency:<select name="currency_id">
-         <option value="">
-         Select Currency
-         </option>
-          @foreach($currencies as $currency)
-          <option value="{{$currency->id}}">{{$currency->code}}</option>
-          @endforeach
-        </select>
-
-      </div>
-
-
-
-    </div >
-
-    <button class="btn next" type="submit">NEXT</button>
-  </form>
-    </div>
-
-  </div>
-@endsection
+        @endsection
