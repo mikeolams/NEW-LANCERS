@@ -64,7 +64,7 @@
             <p class="text-center">No contracts to show</p>
         @endif
     </div>				
-@endsection
+
 
 @section('script')
 	<script type="text/javascript">
@@ -181,3 +181,4 @@
 	}
 	</style>
 @endpush
+@endsection

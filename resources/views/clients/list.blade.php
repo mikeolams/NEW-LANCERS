@@ -10,14 +10,28 @@
             <h4 class="mt-0 text-primary">Clients</h4>
             <div class="">
                 <div class="">
-                    <form class="form-inline" >
+                    <!-- <form class="form-inline" >
                         <select id="select_status" class="form-control">
                             <option selected>All</option>
                             <option>Pending</option>
                             <option>Active</option>
                             <option>Completed</option>
                         </select>
-                    </form>
+                    </form> -->
+                      <form class="form-inline" method="GET">
+                    <select class="form-control" id="select-filter">
+                        <option value="all" @if (Request()->filter) {{ 'selected' }} @endif >All</option>
+                        <option value="pending" @if (Request()->filter && Request()->filter == 'pending') {{ 'selected' }} @endif>Pending</option>
+                        <option value="active" @if (Request()->filter && Request()->filter == 'active') {{ 'selected' }} @endif>Active</option>
+                        <option value="completed" @if (Request()->filter && Request()->filter == 'completed') {{ 'selected' }} @endif>Completed</option>
+                    </select>
+                </form>
+
+
+
+
+
+
                 </div>
                 <div class="table-responsive">
                     <table class="table project-table table-borderless">
@@ -36,7 +50,7 @@
                             @if(isset($projects) && count($projects) < 1)
                             <tr class="py-2">
 
-                                <td colspan="7">{{$projects}} No project found</td>
+                                <td colspan="7">No project found</td>
                             </tr>
                             @else
                                 @foreach($projects as $project)
@@ -79,7 +93,7 @@
 
 
 @section('others')
-    <button class="btn btn-secondary text-white rounded-circle" id="add-something">
+    <button  onclick="window.location.assign('/clients/add')" class="btn btn-secondary text-white rounded-circle" id="add-something">
         <i class="fas fa-plus"></i>
     </button>
 @endsection
