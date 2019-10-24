@@ -1,184 +1,92 @@
 @extends('layouts.auth')
+@section('style')
+
+@endsection
+
 
 @section('main-content')
-        <div class="content">
-        <!---------Body Content------------>
-        <a href="/add/client" class="createContract">Create contract</a>
-        <h3>CONTRACT</h3>
-        <p class="all">
-            <label for="allContractList"></label>
-            <select name="contractList" class="allContractList" id="contractList" style="border-radius: 5px;">
-                <option value="1">All</option>
-                <option value="2">NULL</option>
-                <option value="3">NULL</option>
-                <option value="4">NULL</option>
-                <option value="5">NULL</option>
-            </select>
-        </p>
-        @if(count($contracts) > 0)
-            <table class="table">
-                <tr align="left" class="thead">
-                    <th>contracts</th>
-                    <th>Client</th>
-                    <th>Project</th>
-                    <th>Issued</th>
-                    <th>Status</th>
-                </tr>
-                    <?php $count = 1 ?>
-                    @foreach($contracts as $key => $contract)
-                        <tr class="border single-contract" style="cursor: pointer;" data-contract="{{$contract->contract->id}}">
-                            <td>
-                                <p>{{$count++}}</p>
-                            </td>
+    <div class="container">
+        <button class='create-Contract' onClick="window.location.href('./contract/create')">Create Contract</button>
+    </div>
+    <section class="">
+        <div class="container-fluid">
+            <h4 class="mt-0 text-primary">Contracts</h4>
+            <div class="">
+                <div class="">
+                    <form class="form-inline">
+                        <select class="form-control" id="select-filter">
+                            <option value="all" @if (Request()->filter) {{ 'selected' }} @endif >All</option>
+                            <option value="completed" @if (Request()->filter && Request()->filter == 'completed') {{ 'selected' }} @endif>Completed</option>
+                            <option value="pending" @if (Request()->filter && Request()->filter == 'pending') {{ 'selected' }} @endif>Pending</option>
+                        </select>
+                    </form>
+                </div>
+                <div class="table-responsive">
+                    <table class="table project-table table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col">Contract</th>
+                                <th scope="col">Client</th>
+                                <th scope="col">Project</th>
+                                <th scope="col">Issued</th>
+                                <th scope="col">Status</th>                             
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(isset($contracts) && count($contracts) < 1)
+                            <tr class="py-2">
+                                <td scope="row" class="rounded-left border border-right-0" colspan="7">No Contract found</td>
+                            </tr>
+                            @else
+                                @php $count = 1; @endphp
+                                @foreach($contracts as $contract)
+                                <tr class="py-2">
+                                    <td class="border-top border-bottom titles"># {{$count}}</td>
+                                    <td class="border-top border-bottom titles">{{$contract->project->client->name}}</td>
+                                    <td class="border-top border-bottom titles">{{$contract->project->title}}</td>
+                                    <td class="border-top border-bottom titles">{{$contract->created_at}}</td>
+                                    <td class="border-top border-bottom">
+                                        <span class="alert alert-primary py-0 px-2 small m-0 pending">{{$contract->status}}</span>
+                                    </td>
 
-                            <td>
-                                <p>{{$contract->client->name}}</p>
-                            </td>
+                                    <td class="rounded-right border border-left-0">
+                                        <div class="dropdown dropleft">
+                                            <a class="btn btn-white btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                <a class="dropdown-item text-success" href="#"><i class="fas fa-binoculars"></i> View</a>
+                                                <a class="dropdown-item text-secondary" href="#"><i class="fas fa-edit"></i> Edit</a>
+                                                <a class="dropdown-item text-danger" href="#"><i class="fas fa-trash-alt"></i> Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @php $count+=1; @endphp
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+@endsection
 
-                            <td>
-                                <p>{{$contract->title}}</p>
-                            </td>
 
-                            <td>
-                                <p>{{$contract->contract->issue_date == null ? dateSlash($contract->contract->created_at) : dateSlash($contract->contract->issue_date)}}</p>
-                            </td>
-
-                            <td>
-                                @if($contract->contract->status == 'complete')
-                                    <p class="statuscomplete">Complete</p>
-                                @else
-                                    <p class="statuspending">Pending</p>
-                                @endif
-                            </td>
-                            
-                            {{--<td>
-                                <a href="">
-                                    <i class="fa fa-ellipsis-v"></i>
-                                </a>
-                            </td> --}}
-                        </tr>
-                    @endforeach
-
-            </table>
-        @else
-            <p class="text-center">No contracts to show</p>
-        @endif
-    </div>				
+@section('others')
+    <button class="btn btn-secondary text-white rounded-circle" id="add-something">
+        <i class="fas fa-plus"></i>
+    </button>
+@endsection
 
 
 @section('script')
-	<script type="text/javascript">
-		$(".single-contract").click(function(e){
-			window.location.href = "/contracts/" + e.currentTarget.dataset.contract
-		});
-	</script>
-@endsection
-
-@push('styles')
-	<style type="text/css">
-
-	/*=========================Content Body Area ==================================*/
-	.content {
-		margin-top: 50px;
-		padding: 10px;
-	}
-
-	.createContract {
-		background: #0ABAB5;
-		border: 1px solid #999999;
-		box-sizing: border-box;
-		font-size: 1.5em;
-		font-weight: bold;
-		font-family: 'Ubuntu', sans-serif;
-		text-decoration: none;
-		padding: 15px 15px;
-		color: white;
-		margin-left: 4%;
-		border-radius: 5px;
-	}
-
-	h3 {
-		font-family: 'Open Sans', sans-serif;
-		font-weight: bold;
-		font-size: 1.2em;
-		margin-left: 4%;
-		margin-top: 40px;
-	}
-
-	.all {
-		margin-top: 30px;
-		margin-bottom: 30px;
-		margin-left: 4%;
-	}
-
-	.all select option {
-		padding-top: 10px;
-		font-size: 14px;
-		line-height: 19px;
-	}
-
-	.allContractList {
-		width: 20%;
-		padding: 10px;
-		border: 1px solid #C4C4C4;
-		font-size: 14px;
-		line-height: 19px;
-	}
-
-	.table {
-		width: 95%;
-		margin-top: ;
-		border-collapse: collapse;
-		margin-left: 4%;
-	}
-
-	.thead {
-		font-weight: bold;
-		font-size: 1.1em;
-		line-height: 25px;
-	}
-
-	tr.border {
-		border: 1px solid #C4C4C4;
-		padding: 5px;
-	}
-
-	tr td:first-child{
-		padding-left: 15px;
-	}
-	tr td:last-child{
-		padding-right: 15px;
-	}
-
-	tr td p{
-		margin-bottom: 0;
-	}
-
-	.border td {
-		padding: 15px 0px;
-		font-size: 14px;
-		line-height: 16px;
-	}
-
-	.statuscomplete {
-		width: 38%;
-		padding: 5px 5px;
-		border-radius: 4px;
-		background-color: rgba(23, 150, 21, 0.1);
-		color: #179615;
-		font-weight: bold;
-		text-align: center;
-	}
-
-	.statuspending {
-		width: 38%;
-		padding: 5px 5px;
-		background: rgba(0, 159, 255, 0.1);
-		border-radius: 4px;
-		color: #091429;
-		font-weight: bold;
-		text-align: center;
-	}
-	</style>
-@endpush
+    <script>
+        let selectStatus = document.querySelector('#select-filter');
+        selectStatus.addEventListener('change', function(){
+            if(selectStatus.value == 'all') window.location.href="/contracts";
+            else window.location.href="/contracts?filter="+selectStatus.value;
+        }, false)
+    </script>
 @endsection

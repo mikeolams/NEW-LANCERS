@@ -145,10 +145,10 @@ class GuestController extends Controller
         ];
            
 
-        $request->session()->put('estmate', $data);
+        $request->session()->put('estimate', $data);
 
             // $ddata = Session::all();
-            //  dd($data);
+             dd($data);
             return redirect('guest/create/step3');
         // }
 
@@ -182,27 +182,41 @@ class GuestController extends Controller
                 }
                 $contacts = json_encode($contacts);
             }
-        $data = [
-                'name' => $request->name,
-                'email' => $request->email,
-                'street' => $request->street,
-                'street_number' => $request->street_number,
-                'city' => $request->city,
-                'country_id' => $request->country_id,
-                'state_id' => $request->state_id,
-                'zipcode' => $request->zipcode,
-               ];
+            $request->session()->put('contacts', $contacts);
+
+            $cdata = [
+                'time' => $request->time,
+                'price_per_hour' => $request->cost_per_hour,
+                'equipment_cost' => $request->equipment_cost,
+                'sub_contractors' => $request->sub_contractors,
+                'sub_contractors_cost' => $request->sub_contractors_cost,
+                'similar_projects' => $request->similar_projects,
+                'rating' => $request->rating,
+                'currency_id' => $request->currency_id,
+                'start' => $request->start,
+                'end' => $request->end
+             ];
+
+        
 
                $project = Session::get('project');
                $estimate = Session::get('estimate');
                // session::put(['estimate' =>  $data]);
                $request->session()->put('estimate', $estimate);
                $request->session()->put('project', $project);
-               $request->session()->put('client', $data);
+               $request->session()->put('client', $cdata);
                $request->session()->put('contacts', $contacts);
     
-           
-               return redirect('register');
+
+               $data = [
+                'estimate' => Session::get('estimate'),
+                'project' =>  Session::get('project'),
+                'clients' =>  Session::get('client'),
+                'contacts' =>  Session::get('contacts'),
+               ];
+               
+               dd($data);
+            //    return redirect('register');
                 
                 
                 
@@ -215,6 +229,7 @@ class GuestController extends Controller
         }
 
         public function savestep4(Request $request){
+            // Get our data from the seeion
             $session_project = $request->session()->get('project');
             $session_client = $request->session()->get('client');
             $session_contacts = $request->session()->get('contacts');
@@ -232,9 +247,31 @@ class GuestController extends Controller
             $user->password = Hash::make($request->password);
 
             if($user->save){
-                $project = new Project;
-                $project->title =  $session_project->title;
-                $project->save();
+                
+            $clientModel = new Client;
+            $clientModel->user_id = $user->id;
+
+            $clientModel->name = session('client')['name'];
+            // $client->email = session('client')['email'];
+            $clientModel->street = session('client')['street'];
+            $clientModel->street_number = session('client')['street_number'];
+            $clientModel->city = session('client')['city'];
+            $clientModel->country_id = session('client')['country_id'];
+            $clientModel->state_id = session('client')['state_id'];
+            $clientModel->zipcode = session('client')['zipcode'];
+            $clientModel->contacts = session('client')['contacts'];
+
+                $project = Project::create([
+                    'title'=>$data['project'],
+                    'user_id' => Auth::user()->id,
+                    'client_id' => $clientModel->id,
+                    'estimate_id' => $estimate->id,
+                    'tracking_code' => random_int(10, 100000),
+                    'progress' => 0,
+                    'collaborators' => session('estimate')['sub_contractors'],
+                    'status' => 'pending'
+        ]);
+        $project->save();
 
                 if($session_contacts){
                     foreach($session_contacts as $contact){

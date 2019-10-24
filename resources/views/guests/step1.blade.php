@@ -490,6 +490,7 @@ button {
             /*changed this from clear to close*/
             div>.close {
                 outline: none;
+                margin-top: 15px;
             }
             .close {
                 color: #C4C4C4;
