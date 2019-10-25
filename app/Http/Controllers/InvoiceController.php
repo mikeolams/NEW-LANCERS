@@ -153,6 +153,7 @@ class InvoiceController extends Controller {
             return back();
         }
 
+        
         return view('invoices.invoicesent');
     }
 
