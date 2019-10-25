@@ -138,15 +138,20 @@ class InvoiceController extends Controller {
 
         $url = "/clients/" . $encoded . "/invoices/" . strtotime($invoice->created_at);
         $name = Auth::user()->name;
-
-        Mail::to($client_email)
-                ->send(new SendInvoice([
-                    'user' => $name,
-                    'name' => $client->name,
-                    'amount' => $invoice->amount,
-                    'invoice_url' => $url,
-                    'project' => $project_name
-        ]));
+        try {
+            Mail::to($client_email)
+                    ->send(new SendInvoice([
+                        'user' => $name,
+                        'name' => $client->name,
+                        'amount' => $invoice->amount,
+                        'invoice_url' => $url,
+                        'project' => $project_name
+            ]));
+        } catch (\Throwable $e) {
+            session()->flash('message.alert', 'danger');
+            session()->flash('message.content', "Error We Are Unable to Send This Invoice Now, Please Try Back Later ");
+            return back();
+        }
 
         return view('invoices.invoicesent');
     }

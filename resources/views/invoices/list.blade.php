@@ -11,6 +11,13 @@
     <section class="">
         <div class="container-fluid">
             <h4 class="mt-0 text-primary">Invoices</h4>
+              @if(session()->has('message.alert'))
+            <div class="text-center">
+                <button class=" alert alert-{{ session('message.alert') }}"> 
+                    {!! session('message.content') !!}
+                </button>
+            </div>
+            @endif
             <div class="">
                 <div class="">
                     <form class="form-inline">
