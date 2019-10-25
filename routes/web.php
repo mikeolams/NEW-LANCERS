@@ -82,6 +82,14 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/project/track', function(){ return view('trackproject'); });
     Route::get('/project/collabrators', function () { return view('project-collabrators'); });
 
+    // Task Routes
+    Route::get('/project/tasks', 'TaskController@getAllTasks');
+    Route::get('/tasks/{id}', 'TaskController@getTask');
+    Route::post('/tasks', 'TaskController@createTask');
+    Route::put('/tasks/{id}', 'TaskController@updateTask');
+    Route::delete('/tasks/{id}', 'TaskController@deleteTask');
+    Route::put('/tasks/{task}/team', 'TaskController@addTeam');
+
     // Client Routes
     Route::get('/clients', 'ClientController@listClients');
     Route::get('/client/add', 'ClientController@show');
@@ -105,25 +113,6 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::put('/estimates/{estimate}', 'EstimateController@update')->middleware('auth');
     Route::get('/estimates/{estimate}', 'EstimateController@show')->middleware('auth');
     Route::delete('/estimates/{estimate}', 'EstimateController@destroy')->middleware('auth');
-    Route::get('/estimates/{estimate}', 'EstimateController@show')->middleware('auth');
-    Route::get('/estimate/create/step1', function(){return view('estimate.step1');})->name('estimate.create.step1');;
-        Route::post('/estimate/create/step1', 'EstimateController@step1');
-    Route::get('/estimate/create/step2', function(){return view('estimate.step2');})->name('estimate.create.step2');
-        Route::post('/estimate/create/step2', 'EstimateController@step2');
-    Route::get('/estimate/create/step3', function(){return view('estimate.step3');})->name('estimate.create.step3');
-        Route::post('/estimate/create/step3', 'EstimateController@step3');
-    Route::get('/estimate/create/step4', function(){return view('estimate.step4');})->name('estimate.create.step4');
-        Route::post('/estimate/create/step4', 'EstimateController@step4');
-    Route::get('/estimate/create/step5', function(){return view('estimate.step5');})->name('estimate.create.step5');
-        Route::post('/estimate/create/step5', 'EstimateController@step5');
-    
-    // Task Routes
-    Route::get('/tasks', 'TaskController@getAllTasks');
-    Route::get('/tasks/{id}', 'TaskController@getTask');
-    Route::post('/tasks', 'TaskController@createTask');
-    Route::put('/tasks/{id}', 'TaskController@updateTask');
-    Route::delete('/tasks/{id}', 'TaskController@deleteTask');
-    Route::put('/tasks/{task}/team', 'TaskController@addTeam');
 
     // Contract Routes
     Route::post('/contracts/{project_id}/{template_id}', 'ContractControler@store')->name('create.contract');

@@ -377,18 +377,18 @@ table.project-table tbody tr td, table.project-table thead tr th {
                         <a href="{{url('project/status')}}" class="pl-4"><i class="fas fa-dot-circle"></i> Status</a>
                     </li>
             
-                    <li>
+                    <!-- <li>
                         <a href="{{url('project/overview')}}" class="pl-4"><i class="fas fa-dot-circle"></i> Overview</a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="{{url('project/collabrators')}}" class="pl-4 "><i class="fas fa-dot-circle"></i> Collabrators</a>
                     </li>
                     <li>
-                        <a href="{{url('project/task')}}" class="pl-4"><i class="fas fa-dot-circle"></i> Task</a>
+                        <a href="{{url('project/tasks')}}" class="pl-4"><i class="fas fa-dot-circle"></i> Task</a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="{{url('project/documents')}}" class="pl-4"><i class="fas fa-dot-circle"></i> Documents</a>
-                    </li>
+                    </li> -->
 
                 </ul>
             </li>
@@ -397,7 +397,7 @@ table.project-table tbody tr td, table.project-table thead tr th {
                     <img src="https://lancer-app.000webhostapp.com/images/svg/approve-invoice.svg" height="20" width="auto"> <span> Invoice</span>
                 </a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="{{url('contracts')}}">
                     <img src="https://lancer-app.000webhostapp.com/images/svg/policy.svg" height="20" width="auto"> <span> Contract</span>
                 </a>
@@ -406,8 +406,8 @@ table.project-table tbody tr td, table.project-table thead tr th {
                 <a href="{{url('proposals')}}">
                     <img src="https://lancer-app.000webhostapp.com/images/svg/approval.svg" height="20" width="auto"> <span> Proposals</span>
                 </a>
-            </li>
-                     <li class="@if(request()->path() == url('/dashboard/profile/settings')) active @endif">
+            </li> -->
+            <li class="@if(request()->path() == url('/dashboard/profile/settings')) active @endif">
                 <a href="{{ url('/dashboard/profile/settings') }}">
                     <img src="https://lancer-app.000webhostapp.com/images/svg/approval.svg" height="20" width="auto"> <span> Settings</span>
                 </a>
