@@ -90,6 +90,13 @@
             </div>
             <div class="col-md-5 offset-md-1 signinform mt-5 pl-5 pr-5 pt-4 pb-4">
                 <h4 class="text-center">Sign up</h4>
+                 @if(session()->has('message.alert'))
+      <div class="text-center">
+            <button class=" alert alert-{{ session('message.alert') }}"> 
+                {!! session('message.content') !!}
+            </button>
+      </div>
+            @endif
                 <form id="loginform" method="POST" action="{{ url('/guest/save/step4') }}">
                 @csrf
                         <div class="form-group">
