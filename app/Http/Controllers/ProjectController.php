@@ -40,7 +40,7 @@ class ProjectController extends Controller
             $projects = Project::whereUser_id(Auth::user()->id)->with('user')->get();
         }
 
-        dd($projects);
+        // dd($projects);
         return view('projects.list')->withProjects($projects);
     }
 

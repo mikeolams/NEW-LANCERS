@@ -293,7 +293,7 @@ a.article:hover {
 /* ---------------------------------------------------
     Table
 ----------------------------------------------------- */
-table.project-table{
+/* table.project-table{
   border-collapse:separate;
   border-spacing: 0 1em;
 }
@@ -315,6 +315,37 @@ table.project-table tbody tr td, table.project-table thead tr th {
 
 .dropleft .dropdown-toggle::before{
   display: none;
+} */
+
+
+/* .table-responsive .dropdown-menu {
+    position: static !important; 
+    white-space: nowrap;
+    overflow: hidden;
+} */
+table.project-table {
+    border-collapse: separate;
+    border-spacing: 0 1em;
+}
+
+table.project-table tbody tr {
+    padding-bottom: 10px !important;
+}
+
+table.project-table tbody tr td span.text-small {
+    font-size: 8px;
+}
+
+table.project-table tbody tr td,
+table.project-table thead tr th {
+    max-width: 200px;
+    /* remove the css property and value you have here before */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dropleft .dropdown-toggle::before {
+    display: none;
 }
 
 /*------------floating button---------*/
@@ -345,7 +376,8 @@ table.project-table tbody tr td, table.project-table thead tr th {
 }
 </style>
 
-@stack('styles')
+<!-- @stack('styles') -->
+@yield('style-ext')
 @endsection
 
 
@@ -381,7 +413,7 @@ table.project-table tbody tr td, table.project-table thead tr th {
                         <a href="{{url('project/overview')}}" class="pl-4"><i class="fas fa-dot-circle"></i> Overview</a>
                     </li> -->
                     <li>
-                        <a href="{{url('project/collabrators')}}" class="pl-4 "><i class="fas fa-dot-circle"></i> Collabrators</a>
+                        <a href="{{url('project/collaborators')}}" class="pl-4 "><i class="fas fa-dot-circle"></i> Collabrators</a>
                     </li>
                     <li>
                         <a href="{{url('project/tasks')}}" class="pl-4"><i class="fas fa-dot-circle"></i> Task</a>
@@ -453,9 +485,17 @@ table.project-table tbody tr td, table.project-table thead tr th {
                             <a class="nav-link border-left p-3" href="/notifications"><img src="https://lancer-app.000webhostapp.com/images/svg/notification.svg" height="25" width="auto"> <span class="d-lg-none d-xl-none"> Notification</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-left p-3" href="/dashboard/profile/settings"><span class="border rounded-circle p-1 font-weight-bold">
+                        <a class="nav-link border-left p-3" href="/dashboard/profile">
+                            @if(Auth::user()->profile_picture !== 'user-default.png')
+                            <img id="image_selecter" src="{{ asset(Auth::user()->profile_picture) }}" style="width: 30px; height: 30px; border-radius: 10%; pointer: finger;" alt="Profile Image">
+                            @endif
+                            @if(Auth::user()->profile_picture == 'user-default.png')
+                            <img id="image_selecter" src="{{ asset('images/user-default.jpg') }}" style="width: 30px; height: 30px; border-radius: 10%; pointer: finger;" alt="Profile Image">
+                            @endif
+                            </a>
+                            <!-- <a class="nav-link border-left p-3" href="/dashboard/profile/settings"><span class="border rounded-circle p-1 font-weight-bold">
                                 {{strtoupper(explode(" ", auth()->user()->name)[0][0])}}
-                            </span> <span class="d-lg-none d-xl-none"> Hello {{explode(" ", auth()->user()->name)[0]}}</span></a>
+                            </span> <span class="d-lg-none d-xl-none"> Hello {{explode(" ", auth()->user()->name)[0]}}</span></a> -->
                         </li>
                         <li class="nav-item">
                             <a class="nav-link p-3" href="{{url('/logout')}}" ><i class="fas fa-sign-out-alt"></i> <span class="d-lg-none d-xl-none"> Logout</span></a>

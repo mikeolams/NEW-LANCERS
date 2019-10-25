@@ -61,8 +61,7 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/dashboard', 'HomeController@index')->name('dashboard');
     Route::get('/dashboard/profile', 'ProfileController@index')->name('dashboard-profile');
     Route::get('/dashboard/profile/view', 'ProfileController@userProfileDetails')->name('user-profile');
-    
-    
+        
     // User Routes
     Route::post('/users/edit/profile', "ProfileController@editProfile")->middleware('auth')->name('edit-profile');
     Route::get('/users/subscriptions', "SubscriptionController@showSubscriptions")->middleware('auth')->name('subscriptions');
@@ -80,10 +79,14 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/projects', 'ProjectController@listProjects');
     Route::get('/project/status', 'ProjectController@listProjects');
     Route::get('/project/track', function(){ return view('trackproject'); });
-    Route::get('/project/collabrators', function () { return view('project-collabrators'); });
-
+    
     // Task Routes
     Route::get('/project/tasks', 'TaskController@getAllTasks');
+    Route::post('/project/task/create', 'TaskController@store');
+
+    Route::get('/project/collaborators', 'CollaboratorController@getAllCollaborators');
+    Route::post('/project/collaborator/create', 'CollaboratorController@store');
+
     Route::get('/tasks/{id}', 'TaskController@getTask');
     Route::post('/tasks', 'TaskController@createTask');
     Route::put('/tasks/{id}', 'TaskController@updateTask');

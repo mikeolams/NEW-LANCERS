@@ -7,6 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Task::class, function (Faker $faker) {
     return [
+        'user_id'=>\App\User::inRandomOrder()->get()->pluck('id')->toArray()[0],
         'title' => $faker->words(2, true),
         'description' => $faker->sentence,
         'status' => $status = $faker->randomElement(['pending', 'in-progress', 'completed']),
