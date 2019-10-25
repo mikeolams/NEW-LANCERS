@@ -369,35 +369,45 @@
 					      <input class="form-control mr-sm-2 col-12" type="search" placeholder="Search" aria-label="Search">
 				    	</form>
 					    <ul class="navbar-nav ml-0 kc-unlist-item">
-						  <li class="nav-item active border-right">
-						        <a class="nav-link mt-2 mr-3" href="#">
-						        	<img src="{{ asset('images/help.svg') }}">
-						        </a>
-						    </li>
-						    <li class="nav-item border-right">
-						        <a class="nav-link mt-2 mx-3" href="#">
-						        	<img src="{{ asset('images/alarm-clock.svg') }}">
-						        </a>
-						    </li>
+                        
+                                <li class="nav-item active border-right">
+                                    <a class="nav-link mt-2 mr-3" href="#">
+                                        <img src="{{ asset('images/help.svg') }}">
+                                    </a>
+                                </li>
+                                <li class="nav-item border-right">
+                                    <a class="nav-link mt-2 mx-3" href="#">
+                                        <img src="{{ asset('images/alarm-clock.svg') }}">
+                                    </a>
+                                </li>
 
-						     <li class="nav-item border-right">
-						         <a class="nav-link mt-2 mx-3" href="#">
-						         	<img src="{{ asset('images/Vector.svg') }}">
-						         </a>
-						    </li>
+                                <li class="nav-item border-right">
+                                    <a class="nav-link mt-2 mx-3" href="#">
+                                        <img src="{{ asset('images/Vector.svg') }}">
+                                    </a>
+                                </li>
 
-						    <li class="nav-item">
-						         <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">
-						         	<div class="kc-a-u d-flex align-items-center justify-content-center">
-						         		<h3 style="color:black;" class="text-center mt-2">AU</h3>
-						         	</div>
-						         </a>
-						    </li>
+
+
+                                <li class="nav-item">
+                                <a class="nav-link border-left p-3" href="/dashboard/profile">
+                                    @if(Auth::user()->profile_picture !== 'user-default.png')
+                                            <img id="" src="{{ asset(Auth::user()->profile_picture) }}" style="width: 30px; height: 30px; border-radius: 60%; pointer: finger;" alt="Profile Image">
+                                            @endif
+                                            @if(Auth::user()->profile_picture == 'user-default.png')
+                                            <img id="" src="{{ asset('images/user-default.jpg') }}" style="width: 30px; height: 30px; border-radius: 60%; pointer: finger;" alt="Profile Image">
+                                        @endif
+                                </a>
+                                </li>
+
+                                <li class="nav-item">
+                                <a class="nav-link p-3 border-left" href="{{url('/logout')}}" ><i class="fas fa-sign-out-alt"></i> <span class="d-lg-none d-xl-none"> Logout</span></a>
+                                </li>
 							</ul>
 							<div class="d-lg-none" style="width:100%">
 								<div class="d-flex flex-column align-items-center	">
-									<a href="settings-profile.html" class="nav-option py-3 active-nav">Profile Settings</a>
-									<a href="settings-email.html" class="nav-option py-3"
+									<a href="/dashboard/profile/settings" class="nav-option py-3 active-nav">Profile Settings</a>
+									<a href="/dashboard/emails/settings" class="nav-option py-3"
 										>Email Notifications</a>
 									<a href="/subscriptions" class="nav-option py-3">Subscription</a>
 								</div>

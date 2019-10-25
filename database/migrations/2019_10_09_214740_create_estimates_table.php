@@ -4,18 +4,18 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEstimatesTable extends Migration
-{
+class CreateEstimatesTable extends Migration {
+
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('estimates', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('project_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('project_id');
             $table->integer('time');
             $table->integer('price_per_hour');
             $table->integer('equipment_cost')->nullable();
@@ -29,6 +29,12 @@ class CreateEstimatesTable extends Migration
             $table->date('start');
             $table->date('end');
             $table->timestamps();
+             $table->foreign('user_id')
+                    ->references('id')->on('users')
+                    ->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('project_id')
+                    ->references('id')->on('projects')
+                    ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -37,8 +43,8 @@ class CreateEstimatesTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('estimates');
     }
+
 }

@@ -1,9 +1,201 @@
-@extends('layouts.app')`
+@extends('layouts.app')
 
+@section('title', 'Client Information')
 
 @section('styles')
+<link rel="shortcut icon" href="https://res.cloudinary.com/ddu0ww15f/image/upload/c_scale,h_16/v1571841777/icons8-home-office-24_veiqea.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <!--<link rel="stylesheet" href="styles/client-information-inactive-2.css">-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-rc1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{asset('css/add_client.css')}}" />
     <style> a:hover{cursor: pointer;}</style>
+    <style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Ubuntu;
+         }
+    
+     .container-fluid {
+         margin: 0;
+         padding: 0;
+     }
+    
+     button:hover{
+         opacity: .5;
+     }
+     .header {
+         width: 100%;
+         padding: 0;
+         margin: 0;
+         border: none;
+         border-bottom: 2px solid #E5E5E5;
+     }
+    
+     .header_content {
+         background-color: white;
+        height: 60px;
+         float: left;
+         padding: 0;
+         font-size: 3.0rem;
+     }
+     .header_content button {
+         width: 100%;
+         height: 100%;
+         background-color: white;
+         border: 1px solid #E5E5E5;
+         font-weight: lighter;
+         color: #E5E5E5;
+     }
+    
+     .header_control button {
+         width: 50%;
+         padding: 0;
+         font-size: .8em;
+     }
+    
+     .client {
+         font-weight: bold;
+         padding-top: 10px;
+         color: black;
+         border: 1px solid #e5e5e5;
+     }
+    
+     .next{
+         color: white !important;
+         background-color: #ebecec !important;
+         width: 100%;
+         font-family: ubuntu;
+         font-size: 2rem;
+     }
+    
+    
+     main {
+         clear: both;
+         width: 80%;
+         margin: 0 auto;
+         padding: 25px 0;
+     }
+    
+     main .content {
+         border: 1px solid #E5E5E5;
+         padding: 20px;
+     }
+    
+     main .content h4 {
+         font-weight: bold;
+     }
+    
+     .content h5 {
+         font-weight: bolder;
+     }
+    
+     .content h2, h4, h5 {
+         margin-bottom: 20px;
+     }
+    
+    .content .form-group {
+         display: grid;
+         grid-template-columns: 1fr 2fr;
+         box-sizing: border-box;
+     }
+    
+     
+     .content .form-group span {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+     }
+    
+     .form-group label {
+         font-weight: lighter;
+     }
+    
+     .form-group span input {
+         width: 80%;
+     }
+    
+     .form-group input {
+         margin-bottom: 15px;
+         width: 90%;
+         height: 40px;
+         padding: 0 10px;
+
+     }
+     .required input{
+        padding-right: 60px;
+     }
+     .required p {
+         font-size: 12px;
+         color: #00F9FF;
+         margin: 0%;
+         padding: 0%;
+         position: relative;
+         top: -50%;
+         left: 75%;
+     }  
+     .country {
+         height: 40px;
+         overflow: hidden;
+         width: 80%;
+     } 
+    
+     main section:last-child{
+         width: 200px;
+         margin: 0 auto;         
+         margin-top: 30px;        
+         font-size: 2rem;
+     }
+    
+    
+     main  section > button {
+         border: none;
+         width: 100%;
+        padding: 10px 20px;
+        margin: 0 auto;
+         background-color: #E5E5E5;
+         color: white;
+     }
+    
+    
+     @media screen and (min-width: 900px){
+    
+         main {
+             width: 60%;
+         }
+        .content .form-group {
+        grid-template-columns: 1fr 3fr;
+        }
+         
+          .country {
+         height: 40px;
+         overflow: hidden;
+         width: 80%;
+      }
+     }
+     
+     @media screen and (max-width: 500px) {
+        .required p {
+         font-size: 8px;
+         position: relative;
+         top: 0%;
+         left: -10%;
+         text-align: right;
+         } 
+         .form-group input{
+             margin: 5px 0px 0px 0px;
+         } 
+         .required input{
+        padding-right: 10px;
+        }
+         .country{
+            margin-top: 5px;
+         }
+     }
+     
+
+   </style>  
 @endsection
 
 
@@ -11,14 +203,14 @@
 <div class="container-fluid">
     <header class="header ">
         <div class="header_content col-xs-2 header_control"> <button class="col-xs-6">&times;</button>
-            <button class="col-xs-6">&lt;</button></div>
+            <button class="col-xs-6" onclick="window.location.assign('/clients')">&lt;</button></div>
         <div class="header_content client col-xs-8"><article class="text-center">Client</article></div>
         <div class="header_content col-xs-2"><button class="next">Add Client</button></div>
     </header>
 
     <main>
         
-        <form method="post" action="/client/add">
+        <form method="post" action="/clients">
             @csrf
             <h2>Client Information</h2><br>
             @if(session('success'))<br> <h6><span class="alert alert-success">{{session('success')}}</span></h6>
