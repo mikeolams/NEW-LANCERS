@@ -226,6 +226,7 @@ class GuestController extends Controller {
                     'password' => $password
         ]);
         Auth::login($user);
+        
 
         $clients = new Client;
         $clients->user_id = $user->id;
