@@ -98,6 +98,7 @@ class ClientController extends Controller {
         return view('clients.list', $data);
     }
 
+    
     public function view($client_id) {
         $client = Client::where(['id' => $client_id, 'user_id' => Auth::user()->id])->first();
         return $client !== null ? $this->SUCCESS('Client retrieved', $client) : $this->SUCCESS('No client found');
