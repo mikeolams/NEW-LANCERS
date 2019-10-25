@@ -18,6 +18,7 @@ class CreateClientsTable extends Migration
             $table->unsignedBigInteger('user_id');
                 $table->foreign('user_id')->references('id')->on('users');
             $table->string('name');
+            $table->enum('status', ['pending', 'in-progress', 'completed']);
             $table->string('email')->nullable();
             $table->string('profile_picture')->nullable();
             $table->text('street')->nullable();

@@ -32,6 +32,11 @@ Route::get('/', function () {
 
 
 Route::get('/pricing', "SubscriptionController@showSubscriptions")->name('subscriptions'); //THIS IS THE CORRECT ROUTE
+
+//Email subscription    
+Route::post('/submailinglist', 'MailSubscriptionController@mailStore');
+
+
 //Guest Routes
 // Guest Onboarding
 // Route::get('guest/create_estimate', 'GuestController@step1')->middleware('guest');
@@ -150,8 +155,12 @@ Route::group(['middleware' => 'auth:web'], function() {
     });
 
     // Client Routes
-    Route::get('/clients', 'ClientController@list');
-    Route::post('/client/add', 'ClientController@store');
+    Route::get('/clients', 'ClientController@listGet');
+    Route::get('/clients/add', 'ClientController@show');
+    Route::get('/client-info', 'ClientController@view');
+    Route::get('/clients/Client_Company_List','ClientController@listGetNew');
+    Route::get('/redirect', 'ClientController@delete');
+    Route::post('/clients', 'ClientController@store');
     Route::get('/client-info', function () {
         return view('client-info');
     });
