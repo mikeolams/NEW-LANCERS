@@ -43,7 +43,9 @@ class MailSubscriptionController extends Controller
             session(['subMessageGood' => 'Suscription to mailing list successful!']);
             
         }
-        return redirect('/pricing');
+        //return redirect('/pricing');
+        return redirect()->back();
+        
     
     }
     

@@ -325,7 +325,6 @@
                 <p class="btn btn-success sub-msg">
                     {{ session('subMessageGood') }}
                     @php
-                        //session(['subMessage' => null]);
                         session()->forget('subMessageGood');
                     @endphp
                 </p>
@@ -334,7 +333,6 @@
                 <p class="btn btn-danger sub-msg">
                     {{ session('subMessageBad') }}
                     @php
-                        //session(['subMessage' => null]);
                         session()->forget('subMessageBad');
                     @endphp
                 </p>
@@ -514,7 +512,7 @@
 								<label for="subEmail" class="sr-only">Email</label>
 								<input type="email" class="form-control" id="subEmail" name="subEmail" placeholder="Email Address" required>
 							</div>
-							<input type="submit" class="btn btn-primary mb-2" name="btn-sub" id="btn-sub" value="Subscribe"/>
+							<input type="submit" class="btn btn-primary mb-2" id="btn-sub" name="btn-sub" value="Subscribe"/>
 						</form>
 					</div>
 				</div>
