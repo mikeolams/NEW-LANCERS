@@ -400,7 +400,13 @@
 
                                 @if(session('success'))<br> <h6><span class="alert alert-success">{{session('success')}}</span></h6>
                                 @elseif(session('error'))<br> <h6><span class="">{{session('error')}}</span></h6> @endif
-
+                                @if(session()->has('message.alert'))
+                                <div class="text-center">
+                                    <button class=" alert alert-{{ session('message.alert') }}"> 
+                                        {!! session('message.content') !!}
+                                    </button>
+                                </div>
+                                @endif
                                 <div class="">
                                     <label>  <h5>Business Information</h5></label>
                                 </div>
@@ -486,9 +492,9 @@
                                 <div class="row">
 
                                     <div class="col-8">
-                                       
-                                            <span id="contacts"></span>
-                                            <h5><a onClick="addContact()">Add other contacts &nbsp; +</a></h5>     
+
+                                        <span id="contacts"></span>
+                                        <h5><a onClick="addContact()">Add other contacts &nbsp; +</a></h5>     
                                     </div>
                                 </div>
 
@@ -510,51 +516,51 @@
             </div>
         </div>
 
-    @endsection
+        @endsection
 
-    @section('script')
+        @section('script')
 
-    @section('script')
-    <script type="text/javascript">
-        let count = 1;
-        function addContact() {
-            let element = document.querySelector('#contacts')
-            let newElement = document.createElement('div');
-            newElement.classList.add('form-group');
-            newElement.innerHTML = `
-                <label for="company_name_${count}">Contact name</label>
-              <input class="form-control col-md-6 col-sm-6" type="text" name="contact[${count}]['name']" id="contact_name${count}" placeholder="e.g Ben Davies">
-                     <div class="clearfix"></div>
-                          <br/>
-                <label for="company_email">Contact email</label>
-                <input class="form-control col-md-6 col-sm-6" type="email" name="contact[${count}]['email']" id="email_${count}" placeholder="e.g email@domain.com">
-                    </div>
-            `;
-            element.appendChild(newElement);
-            count += 1;
-        }
+        @section('script')
+        <script type="text/javascript">
+            let count = 1;
+            function addContact() {
+                let element = document.querySelector('#contacts')
+                let newElement = document.createElement('div');
+                newElement.classList.add('form-group');
+                newElement.innerHTML = `
+                    <label for="company_name_${count}">Contact name</label>
+                  <input class="form-control col-md-6 col-sm-6" type="text" name="contact[${count}]['name']" id="contact_name${count}" placeholder="e.g Ben Davies">
+                         <div class="clearfix"></div>
+                              <br/>
+                    <label for="company_email">Contact email</label>
+                    <input class="form-control col-md-6 col-sm-6" type="email" name="contact[${count}]['email']" id="email_${count}" placeholder="e.g email@domain.com">
+                        </div>
+                `;
+                element.appendChild(newElement);
+                count += 1;
+            }
 
-        $(document).ready(function () {
-            $('select[name="country_id"]').on('change', function () {
-                let countryID = $(this).val();
-                if (countryID) {
-                    $.ajax({
-                        url: '/states/' + encodeURI(countryID),
-                        type: "GET",
-                        dataType: "json"
-                        ,
-                        success: function (data) {
-                            $('select[name="state_id"]').empty();
-                            $('select[name="state_id"]').append('<option selected value="">Select State</option>');
-                            $.each(data.data, function (key, value) {
-                                $('select[name="state_id"]').append('<option value="' + value.id + '">' + value.name + '</option>');
-                            });
-                        }
-                    });
-                } else {
-                    $('select[name="state"]').empty();
-                }
+            $(document).ready(function () {
+                $('select[name="country_id"]').on('change', function () {
+                    let countryID = $(this).val();
+                    if (countryID) {
+                        $.ajax({
+                            url: '/states/' + encodeURI(countryID),
+                            type: "GET",
+                            dataType: "json"
+                            ,
+                            success: function (data) {
+                                $('select[name="state_id"]').empty();
+                                $('select[name="state_id"]').append('<option selected value="">Select State</option>');
+                                $.each(data.data, function (key, value) {
+                                    $('select[name="state_id"]').append('<option value="' + value.id + '">' + value.name + '</option>');
+                                });
+                            }
+                        });
+                    } else {
+                        $('select[name="state"]').empty();
+                    }
+                });
             });
-        });
-    </script>
-    @endsection
+        </script>
+        @endsection

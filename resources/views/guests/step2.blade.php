@@ -341,6 +341,10 @@
 
 </style>
 
+            <input class="next disabled" id="ext" type="button"  value="NEXT" onclick="manage" id="btne" disabled>
+
+        </div>
+</div>
 @endsection
 
 

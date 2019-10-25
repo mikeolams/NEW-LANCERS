@@ -98,6 +98,11 @@ class EstimateController extends Controller {
             }
             $contacts = $contacts;
         }
+        if(empty($contacts[0]['email'])){
+           session()->flash('message.alert', 'danger');
+            session()->flash('message.content', "Client Contact Email Can Not Be Empty.. Please Check Contact Information");
+            return back();
+        }
 
         $client['contacts'] = $contacts;
         session(['client' => $client]);

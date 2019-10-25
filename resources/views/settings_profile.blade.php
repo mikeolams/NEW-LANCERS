@@ -88,6 +88,21 @@
             $contacts = ($data[3]['contacts'] == null ) ? null : $data[3]['contacts'] ;
             $title =  ($data[3]['title'] == null ) ? null : $data[3]['title'] ;
             }
+            else {
+            $company_name = '';
+            $company_email = '' ;
+            $company_address = '' ;
+            $phone = '' ;
+            $street = '' ;
+            $street_number = '' ;
+            $country_id = '' ;
+            $city = '';
+            $zipcode ='';
+            $state_id = '';
+            $timezone = '' ;
+            $contacts = '' ;
+            $title =  '' ;
+            }
             @endphp
             <div class="container profile_form">
                 <form id="profileForm"  method="POST" action="{{route('edit-profile') }}">

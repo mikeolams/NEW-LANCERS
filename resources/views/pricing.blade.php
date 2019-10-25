@@ -2,7 +2,19 @@
 @extends('layouts.app')
 
 @section('styles')
-  <style>
+    <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+        
+    <script src="https://kit.fontawesome.com/d4f2148171.js" crossorigin="anonymous"></script>       
+        
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>..</title>
+        
+    <link rel="shortcut icon" href="https://res.cloudinary.com/ddu0ww15f/image/upload/c_scale,h_16/v1571841777/icons8-home-office-24_veiqea.png" type="image/x-icon">
+
+
+    <style>
             .navbar-brand{
                 font-family: Pacifico;
                 color: white
@@ -71,8 +83,12 @@
 			.navbar-toggler.collapsed .bottom-bar {
 			  transform: rotate(0);
 			}
-
-
+        
+            .sub-msg{
+                text-align: center !important;
+                color: #fff !important;
+            }    
+        
             .pricing-header{
                 background: #091429
             }
@@ -187,7 +203,7 @@
                 padding: 25px;
             }
 
-            footer {
+            footer  {
                 background-color: white;
                 padding: 25px;
             }
@@ -215,7 +231,7 @@
             font-size: 20px;
             }
 
-            #btn-sub {
+            #btn-sub, #btn-up {
                 background: #0ABAB5;
                 border-radius: 4px;
                 border-width: 0px;
@@ -281,45 +297,21 @@
 
 @section('header')
     	<header>
-			<nav class="navbar navbar-expand-lg navbar-main">
-				<div class="container">
-					<a class="navbar-brand" href="#">
-						<img src="{{ asset('images/svg/logo-white.svg') }}" class="img img-responsive" height="30" width="auto">
-					</a>
-					<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="icon-bar top-bar"></span>
-						<span class="icon-bar middle-bar"></span>
-						<span class="icon-bar bottom-bar"></span>
-						<!-- <span class="navbar-toggler-icon"><i class="fa fa-bars fa-lg py-1 text-white"></i></span> -->
-					</button>
-					<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-						<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                          	<li class="nav-item ">
-								<a class="nav-link" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
-							</li>
-                                <li class="nav-item">
-                                    <a class="nav-link " href="{{ url('/guest/create/step1') }}">Create Invoice</a>
-                                </li>
-                            @auth
-                                <li class="nav-item">
-                                    <a class="nav-link " href="{{ url('/') }}">Track a Project</a>
-                                </li>
-                            @endauth
-                            <li class="nav-item active">
-                                <a class="nav-link " href="{{ url('/pricing') }}">Pricing</a>
-                            </li>
-                            @guest
-    						    <li class="nav-item">
-    								<a class="nav-link" href="{{ route('login') }}">Sign in</a>
-    							</li>
-    							<li class="nav-item">
-    								<a class="nav-link" href="{{ route('register') }}">Sign up</a>
-    							</li>
-                            @endauth
-						</ul>
-					</div>
-				</div>
-			</nav>
+			<nav class="pricing-header navbar pl-5 pr-5 navbar-expand-lg ">
+            <a class="navbar-brand" href="{{ url('/')}}"> <h3>Lan<span>c</span>er</h3> </a>
+            <button class="navbar-toggler navbar-light bg-light" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav" >
+                <a class="nav-item nav-link" href="{{ url('/pricing') }}">Pricing<span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="{{ url('/estimates') }}">Generate an Invoice</a>
+                <a class="nav-item nav-link" href="{{ url('/projects') }}">Track a Project</a>
+                <a class="nav-item nav-link" href="{{ route('login') }}">Sign in</a>
+                <a class="nav-item nav-link" href="{{ route('register') }}">Sign up</a>
+                </div>
+            </div>
+        </nav>
 		</header>
 @stop
 
@@ -328,113 +320,149 @@
 @endsection
 
 @section('content')
-<section class="pricing">
+        <div class="sub-msg">
+            @if(session()->has('subMessageGood'))
+                <p class="btn btn-success sub-msg">
+                    {{ session('subMessageGood') }}
+                    @php
+                        session()->forget('subMessageGood');
+                    @endphp
+                </p>
+            @endif
+            @if(session()->has('subMessageBad'))
+                <p class="btn btn-danger sub-msg">
+                    {{ session('subMessageBad') }}
+                    @php
+                        session()->forget('subMessageBad');
+                    @endphp
+                </p>
+            @endif
+        </div>
+        <section class="pricing">
             <div class="container">
                 <div class="title-header">
                     <h4>Choose a plan that works for you</h4>
                 </div>
-                <div class="row mt-5 pt-5">
+                <div class="row mt-5 pt-1">
+                    <div class="card" style="margin-bottom: 10px; float: left;">
+                        <div class="pricecol p-2 pt-4">
+                            <p class="pricetext">Starter</p>
+                            <div class="price">
+                                    <h5 class="pricenumber">0.00<p>/mo</p></h5>
+                                </div>
+                                
+                            <ul class="pricelist pt-3">
+                                    <li><div style="float: left;"><svg width="16" height="16" viewbox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21 10.0857V11.0057C20.9988 13.1621 20.3005 15.2604 19.0093 16.9875C17.7182 18.7147 15.9033 19.9782 13.8354 20.5896C11.7674 21.201 9.55726 21.1276 7.53447 20.3803C5.51168 19.633 3.78465 18.2518 2.61096 16.4428C1.43727 14.6338 0.879791 12.4938 1.02168 10.342C1.16356 8.19029 1.99721 6.14205 3.39828 4.5028C4.79935 2.86354 6.69279 1.72111 8.79619 1.24587C10.8996 0.770634 13.1003 0.988061 15.07 1.86572" stroke="#091429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M21 3.00574L11 13.0157L8 10.0157" stroke="#091429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg></div> <div class="mr-auto ml-4"> Three active projects</div></li>
+                                    <li><div style="float: left;"><svg width="16" height="16" viewbox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21 10.0857V11.0057C20.9988 13.1621 20.3005 15.2604 19.0093 16.9875C17.7182 18.7147 15.9033 19.9782 13.8354 20.5896C11.7674 21.201 9.55726 21.1276 7.53447 20.3803C5.51168 19.633 3.78465 18.2518 2.61096 16.4428C1.43727 14.6338 0.879791 12.4938 1.02168 10.342C1.16356 8.19029 1.99721 6.14205 3.39828 4.5028C4.79935 2.86354 6.69279 1.72111 8.79619 1.24587C10.8996 0.770634 13.1003 0.988061 15.07 1.86572" stroke="#091429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M21 3.00574L11 13.0157L8 10.0157" stroke="#091429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg></div> <div class="mr-auto ml-4"> Two collaborators per project</div></li>
+                                    <li><div style="float: left;"><svg width="16" height="16" viewbox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21 10.0857V11.0057C20.9988 13.1621 20.3005 15.2604 19.0093 16.9875C17.7182 18.7147 15.9033 19.9782 13.8354 20.5896C11.7674 21.201 9.55726 21.1276 7.53447 20.3803C5.51168 19.633 3.78465 18.2518 2.61096 16.4428C1.43727 14.6338 0.879791 12.4938 1.02168 10.342C1.16356 8.19029 1.99721 6.14205 3.39828 4.5028C4.79935 2.86354 6.69279 1.72111 8.79619 1.24587C10.8996 0.770634 13.1003 0.988061 15.07 1.86572" stroke="#091429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M21 3.00574L11 13.0157L8 10.0157" stroke="#091429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg></div> <div class="mr-auto ml-4"> One of each generatable document</div></li>
+                            </ul>
 
-                 @if(isset($plans) && $plans != null)
+                            <div class="price-button p-3">
+                                    <a href="{{ route('register') }}" class="btn btn-primary btn-block">Sign up for free</a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="card" style="margin-left: auto; margin-right: auto; margin-bottom: 10px; float: left;">
+                            <div class="pricecol p-2 pt-4">
+                            <p class="pricetext">Pro</p>
+                            <div class="price">
+                                    <h5 class="pricenumber">24.99<p>/mo</p></h5>
+                                </div>
+                                    
+                            <ul class="pricelist pt-3">
+                                    <p class="m-0" style="font-size: 12px">All Starter features and</p>
+                                    <li><div style="float: left;"><svg width="16" height="16" viewbox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21 10.0857V11.0057C20.9988 13.1621 20.3005 15.2604 19.0093 16.9875C17.7182 18.7147 15.9033 19.9782 13.8354 20.5896C11.7674 21.201 9.55726 21.1276 7.53447 20.3803C5.51168 19.633 3.78465 18.2518 2.61096 16.4428C1.43727 14.6338 0.879791 12.4938 1.02168 10.342C1.16356 8.19029 1.99721 6.14205 3.39828 4.5028C4.79935 2.86354 6.69279 1.72111 8.79619 1.24587C10.8996 0.770634 13.1003 0.988061 15.07 1.86572" stroke="#091429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M21 3.00574L11 13.0157L8 10.0157" stroke="#091429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg></div> <div class="mr-auto ml-4"> Unlimited active projects</div></li>
+                                    <li><div style="float: left;"><svg width="16" height="16" viewbox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21 10.0857V11.0057C20.9988 13.1621 20.3005 15.2604 19.0093 16.9875C17.7182 18.7147 15.9033 19.9782 13.8354 20.5896C11.7674 21.201 9.55726 21.1276 7.53447 20.3803C5.51168 19.633 3.78465 18.2518 2.61096 16.4428C1.43727 14.6338 0.879791 12.4938 1.02168 10.342C1.16356 8.19029 1.99721 6.14205 3.39828 4.5028C4.79935 2.86354 6.69279 1.72111 8.79619 1.24587C10.8996 0.770634 13.1003 0.988061 15.07 1.86572" stroke="#091429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M21 3.00574L11 13.0157L8 10.0157" stroke="#091429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg></div> <div class="mr-auto ml-4"> Five collaborators per project</div></li>
+                                <li><div style="float: left;"><svg width="16" height="16" viewbox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M21 10.0857V11.0057C20.9988 13.1621 20.3005 15.2604 19.0093 16.9875C17.7182 18.7147 15.9033 19.9782 13.8354 20.5896C11.7674 21.201 9.55726 21.1276 7.53447 20.3803C5.51168 19.633 3.78465 18.2518 2.61096 16.4428C1.43727 14.6338 0.879791 12.4938 1.02168 10.342C1.16356 8.19029 1.99721 6.14205 3.39828 4.5028C4.79935 2.86354 6.69279 1.72111 8.79619 1.24587C10.8996 0.770634 13.1003 0.988061 15.07 1.86572" stroke="#091429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M21 3.00574L11 13.0157L8 10.0157" stroke="#091429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg></div> <div class="mr-auto ml-4"> Three of each generatable document</div></li>
+                            </ul>
+            
+                            @if(Auth::user() != null)
+                                <div class="price-button p-3">
+                                    <a href="{{ url('/payment/pro') }}" class="btn btn-primary btn-block">Purchase</a>
+                                </div>
+                            @endif
+                            @if(Auth::user() == null)
+                                <div class="price-button p-3">
+                                    <!--<a href="/register">Sign up</a>-->
+                                    <a href="{{ route('register') }}" class="btn btn-primary btn-block">Sign up for free</a>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
 
-@foreach($plans as $mainPlans)
-
-   <div class="col-lg-4 col-md-6 col-sm-6">
-  <div class="pricecol p-2 pt-4">
-
-
-
-        <p class="pricetext">{{ str_replace("_"," ",ucfirst($mainPlans['name']))}}</p>
-
-        <div class="price">
-        <h5 class="pricenumber">{{ number_format(str_replace("_"," ", ($mainPlans['price'] )), 2 ) }}<p>/mo</p></h5>
-        </div>
-
-            @if($loop->index == 1)
-            <p class="m-0 text-center" style="font-size: 12px">All Starter features and</p>
-            @endif
-
-            @if($loop->index == 2)
-            <p class="m-0 text-center" style="font-size: 12px">All Starter and Pro features and</p>
-            @endif
-
-            @php
-            $url = url("/payment/subscription/".$mainPlans['name']);
-
-            @endphp
-         @foreach($mainPlans as $key => $value)
-
-
-
-                @if(($key != 'id') && ($key != 'created_at') && ($key != 'updated_at'))
-
-                      @if($key == 'features')
-                       <ul class="pricelist pt-3">
-
-                              @php
-
-                               $FeaturesArray = $value;
-                              @endphp
-
-
-                                  @foreach($FeaturesArray as $Featureskey => $Featuresvalue)
-
-                                      @php
-                                      ($Featuresvalue == true) ? $Featuresvalue = "TRUE" : (($Featuresvalue == false) ? $Featuresvalue = "FALSE" : (($Featuresvalue == null) ? $Featuresvalue = "No" : "Null"));
-                                      @endphp
-
-                     <li>
-                      <span><svg width="16" height="16" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M21 10.0857V11.0057C20.9988 13.1621 20.3005 15.2604 19.0093 16.9875C17.7182 18.7147 15.9033 19.9782 13.8354 20.5896C11.7674 21.201 9.55726 21.1276 7.53447 20.3803C5.51168 19.633 3.78465 18.2518 2.61096 16.4428C1.43727 14.6338 0.879791 12.4938 1.02168 10.342C1.16356 8.19029 1.99721 6.14205 3.39828 4.5028C4.79935 2.86354 6.69279 1.72111 8.79619 1.24587C10.8996 0.770634 13.1003 0.988061 15.07 1.86572" stroke="#091429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M21 3.00574L11 13.0157L8 10.0157" stroke="#091429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg></span> {{ str_replace("_"," ",ucfirst($Featureskey)) }}</li>
-
-
-                                  @endforeach
-
-                          @endif
-                     </ul>
-
-
-
-          @endif
-
-                     @if(Auth::user() != null)
-                      <div class="price-button p-3">
-                      <a class="btn btn-primary btn-block" href='{{$url}}'>Purchase</a>
-                      </div>
-                      @endif
-
-                      @if(Auth::user() == null)
-                      <div class="price-button p-3">
-                      <a class="btn btn-primary btn-block" href="/register">Sign up</a>
-                      </div>
-                      @endif
-          @endforeach
-
-            </div>
-          </div>
-
-@endforeach
-
-
-@endif
-
+                    <div class="card" style="margin-bottom: 10px; float: left;">
+                            <div class="pricecol p-2 pt-4">
+                            <p class="pricetext">Pro Plus</p>
+                            <div class="price">
+                                <h5 class="pricenumber">79.99<p>/mo</p></h5>
+                            </div>
+                            
+    
+                            <ul class="pricelist pt-3">
+                                    <p class="m-0" style="font-size: 12px">All Starter and Pro features and</p>
+                                    <li><div style="float: left;"><svg width="16" height="16" viewbox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21 10.0857V11.0057C20.9988 13.1621 20.3005 15.2604 19.0093 16.9875C17.7182 18.7147 15.9033 19.9782 13.8354 20.5896C11.7674 21.201 9.55726 21.1276 7.53447 20.3803C5.51168 19.633 3.78465 18.2518 2.61096 16.4428C1.43727 14.6338 0.879791 12.4938 1.02168 10.342C1.16356 8.19029 1.99721 6.14205 3.39828 4.5028C4.79935 2.86354 6.69279 1.72111 8.79619 1.24587C10.8996 0.770634 13.1003 0.988061 15.07 1.86572" stroke="#091429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M21 3.00574L11 13.0157L8 10.0157" stroke="#091429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg></div> <div class="mr-auto ml-4"> Unlimited collaborators</div></li>
+                                    <li><div style="float: left;"><svg width="16" height="16" viewbox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21 10.0857V11.0057C20.9988 13.1621 20.3005 15.2604 19.0093 16.9875C17.7182 18.7147 15.9033 19.9782 13.8354 20.5896C11.7674 21.201 9.55726 21.1276 7.53447 20.3803C5.51168 19.633 3.78465 18.2518 2.61096 16.4428C1.43727 14.6338 0.879791 12.4938 1.02168 10.342C1.16356 8.19029 1.99721 6.14205 3.39828 4.5028C4.79935 2.86354 6.69279 1.72111 8.79619 1.24587C10.8996 0.770634 13.1003 0.988061 15.07 1.86572" stroke="#091429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M21 3.00574L11 13.0157L8 10.0157" stroke="#091429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg></div> <div class="mr-auto ml-4"> Unlimited document generation</div></li>
+                                <li><div style="float: left;"><svg width="16" height="16" viewbox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M21 10.0857V11.0057C20.9988 13.1621 20.3005 15.2604 19.0093 16.9875C17.7182 18.7147 15.9033 19.9782 13.8354 20.5896C11.7674 21.201 9.55726 21.1276 7.53447 20.3803C5.51168 19.633 3.78465 18.2518 2.61096 16.4428C1.43727 14.6338 0.879791 12.4938 1.02168 10.342C1.16356 8.19029 1.99721 6.14205 3.39828 4.5028C4.79935 2.86354 6.69279 1.72111 8.79619 1.24587C10.8996 0.770634 13.1003 0.988061 15.07 1.86572" stroke="#091429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M21 3.00574L11 13.0157L8 10.0157" stroke="#091429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg></div> <div class="mr-auto ml-4"> Dedicated support</div></li>
+                                    <li><div style="float: left;"><svg width="16" height="16" viewbox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21 10.0857V11.0057C20.9988 13.1621 20.3005 15.2604 19.0093 16.9875C17.7182 18.7147 15.9033 19.9782 13.8354 20.5896C11.7674 21.201 9.55726 21.1276 7.53447 20.3803C5.51168 19.633 3.78465 18.2518 2.61096 16.4428C1.43727 14.6338 0.879791 12.4938 1.02168 10.342C1.16356 8.19029 1.99721 6.14205 3.39828 4.5028C4.79935 2.86354 6.69279 1.72111 8.79619 1.24587C10.8996 0.770634 13.1003 0.988061 15.07 1.86572" stroke="#091429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M21 3.00574L11 13.0157L8 10.0157" stroke="#091429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg></div> <div class="mr-auto ml-4"> Beta access to test new features</div></li>
+                            </ul>
+    
+                            @if(Auth::user() != null)
+                                <div class="price-button p-3">
+                                    <a href="{{ url('/payment/pro_plus') }}" class="btn btn-primary btn-block">Purchase</a>
+                                </div>
+                            @endif
+                            @if(Auth::user() == null)
+                                <div class="price-button p-3">
+                                    <!--<a href="/register">Sign up</a>-->
+                                    <a href="{{ route('register') }}" class="btn btn-primary btn-block">Sign up for free</a>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
         </section>
-<article>
-    <div class="enter-div">
-        <h4 id="enter-line">Enterprise ready tools</h4>
-        <h6>With dedicated support and quick and consistent delivery of new features, you can trust your<br>
-            process in our able hands</h6>
-        <br>
-        <button onclick="window.location.assign('/contact')" type="button" class="btn" >Contact Sales</button>
-    </div>
-</article>
-
-@stop
+    <article>
+            <div class="enter-div">
+                <h4 id="enter-line">Enterprise ready tools</h4>
+                <h6>With dedicated support and quick and consistent delivery of new features, you can trust your process in our able hands</h6>
+                <br>
+                <button type="button" class="btn button" onclick="window.location.assign('/contact')" style="border-width: 2px">Contact Sales</button>
+            </div>
+        </article>
+@endsection
 
 
 @section('footer')
@@ -455,7 +483,12 @@
 							<li><a class="text-dark" href="{{ url('/dashboard') }}">Dashboard</a></li>
 							<li><a class="text-dark" href="{{ url('/projects') }}">Projects</a></li>
 							<li><a class="text-dark" href="{{ url('/invoices') }}">Invoices</a></li>
-							<li><a class="text-dark" href="{{ url('/guest/create_estimate') }}">Create a Project</a></li>
+                            @if(Auth::user() != null)
+                                <li><a class="text-dark" href="{{ url('/estimate/create/step1') }}">Create a Project</a></li>
+                            @endif
+                            @if(Auth::user() == null)
+                                <li><a class="text-dark" href="{{ url('/guest/create/step1') }}">Create a Project</a></li>
+                            @endif
 						</ul>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-4">
@@ -466,19 +499,20 @@
 						<h5 class="">
 							<a href="#" class="text-dark mr-2"><i class="fab fa-facebook-square"></i></a>
 							<a href="#" class="text-dark"><i class="fab fa-twitter-square"></i></a>
-						</h3>
+						</h5>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-4">
 						<h5>Stay up to date</h5>
 						<p class="text-dark small">
 							Get emails about our newest features and events you can visit. We promise not to spam.
 						</p>
-						<form class="form-inline">
+						<form class="form-inline" method="post" action="/submailinglist">
+                            @csrf
 							<div class="form-group mb-2 mr-2">
-								<label for="staticEmail2" class="sr-only">Email</label>
-								<input type="email" class="form-control" id="staticEmail2" value="" placeholder="Email Address" required>
+								<label for="subEmail" class="sr-only">Email</label>
+								<input type="email" class="form-control" id="subEmail" name="subEmail" placeholder="Email Address" required>
 							</div>
-							<button type="submit" class="btn btn-primary mb-2" id="btn-sub">Subscribe</button>
+							<input type="submit" class="btn btn-primary mb-2" id="btn-sub" name="btn-sub" value="Subscribe"/>
 						</form>
 					</div>
 				</div>
@@ -487,10 +521,10 @@
                 <div class="container">
                     <p class="float-right">
                     {{-- <a href="#">Back to top</a> --}}
-                    <a href=""class="btn btn-secondary mb-2" id="btn-sub">
+                    <a href=""class="btn btn-secondary mb-2" id="btn-up">
                         <span>&#8593;</span></a>
                     </p>
                 </div>
 			</div>
 		</footer>
-@stop
+@endsection

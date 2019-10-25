@@ -125,8 +125,8 @@ class GuestController extends Controller {
 
 
         $request->session()->put('guestestmate', $data);
-        
-      
+
+
         // $ddata = Session::all();
         //  dd($data);
         return redirect('guest/create/step3');
@@ -188,7 +188,7 @@ class GuestController extends Controller {
     public function savestep4(Request $request) {
         $data = [];
         $session_project = $request->session()->get('project');
-      
+
         $session_contacts = $request->session()->get('contacts');
         $session_contactsq = json_decode($request->session()->get('contacts'));
         if ($session_contactsq) {
@@ -196,7 +196,11 @@ class GuestController extends Controller {
                 $contacts = $contact;
             }
         }
-
+        if (empty($contacts->email)) {
+            session()->flash('message.alert', 'danger');
+            session()->flash('message.content', "Client Contact Email Can Not Be Empty.. Please Check Contact Information");
+            return back();
+        }
         if (!empty($contacts->email)) {
             $emailcontact = $contacts->email;
         } else {
@@ -236,7 +240,7 @@ class GuestController extends Controller {
         $clients->state_id = session('client')['state_id'];
         $clients->zipcode = session('client')['zipcode'];
         $clients->contacts = $session_contacts;
-         $clients->save();
+        $clients->save();
         $project = Project::create([
                     'title' => $session_project['project_name'],
                     'user_id' => $user->id,

@@ -32,6 +32,11 @@ Route::get('/', function () {
 
 
 Route::get('/pricing', "SubscriptionController@showSubscriptions")->name('subscriptions'); //THIS IS THE CORRECT ROUTE
+
+//Email subscription    
+Route::post('/submailinglist', 'MailSubscriptionController@mailStore');
+
+
 //Guest Routes
 // Guest Onboarding
 // Route::get('guest/create_estimate', 'GuestController@step1')->middleware('guest');
