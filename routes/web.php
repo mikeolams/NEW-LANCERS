@@ -157,10 +157,7 @@ Route::group(['middleware' => 'auth:web'], function() {
     // Client Routes
     Route::get('/clients', 'ClientController@listGet');
     Route::get('/clients/add', 'ClientController@show');
-    Route::get('/client-info', 'ClientController@view');
-    Route::get('/clients/Client_Company_List','ClientController@listGetNew');
-    Route::get('/redirect', 'ClientController@delete');
-    Route::post('/clients', 'ClientController@store');
+    Route::post('/client/add', 'ClientController@store');
     Route::get('/client-info', function () {
         return view('client-info');
     });
@@ -269,11 +266,6 @@ Route::group(['middleware' => 'auth:web'], function() {
     Route::get('/transactions', 'TransactionsController@index');
     Route::get('payment/subscription/{type}', 'PaymentContoller@create');
     Route::get('payment/invoice/{ref}', 'PaymentContoller@invoice'); //ref is the timestamp value of the created_at field
-
-
-
-
-
     //Invoice routes
     Route::resource('invoices', 'InvoiceController');
     // Route::post('invoices/send', 'InvoiceController@sendinvoice');

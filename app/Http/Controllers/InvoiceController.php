@@ -58,21 +58,15 @@ class InvoiceController extends Controller {
             'estimate_id' => 'required|numeric'
         ]);
 
-        $estimate = Estimate::findOrFail($request->estimate_id);
+        $estimate = Estimate::find($request->estimate_id);
 
-        $pre_invoice = Invoice::where('estimate_id', $request->estimate_id)->first();
-
-        if ($pre_invoice !== null) {
-
+        $pre_invoice = Invoice::whereEstimate_id($request->estimate_id)->first();
+        if (is_object($pre_invoice)) {
             $pre_invoice->update(['amount' => $estimate->estimate]);
-
-            $invoice = $pre_invoice;
-        } else {
-
-            $estimate = Estimate::findOrFail($request->estimate_id);
-            $createinvoice = Invoice::create(['user_id' => Auth::user()->id, 'issue_date' => $estimate->start, 'due_date' => $estimate->end, 'estimate_id' => $estimate->id, 'amount' => $estimate->estimate, 'currency_id' => $estimate->currency_id]);
-            $invoice = Invoice::whereId($createinvoice->id)->with('estimate')->first();
         }
+        $createinvoice = Invoice::create(['user_id' => Auth::user()->id, 'issue_date' => $estimate->start, 'due_date' => $estimate->end, 'estimate_id' => $estimate->id, 'amount' => $estimate->estimate, 'currency_id' => $estimate->currency_id]);
+        $invoice = Invoice::whereId($createinvoice->id)->with('estimate')->first();
+
 
         return view('invoices.reviewinvoice')->with('invoice', $invoice);
     }

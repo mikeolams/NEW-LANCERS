@@ -13,13 +13,26 @@ class DatabaseSeeder extends Seeder {
     public function run() {
         // $this->call(UsersTableSeeder::class);
         // $this->call(DocumentsTableSeeder::class);
-        factory(App\User::class, 10)->create()->each(function ($user) {
-            $name = explode(" ", $user->name);
-            $user->profile()->create(['first_name' => $name[0], 'last_name' => $name[1]]);
+        DB::table('subscription_plans')->insert([
+            'name' => 'Starter',
+            'description' => 'Starter plan',
+            'features' => '{"Three active projects": true, "Two collaborators per project": true, "One of each generatable document": true}',
+            'price' => 0.00
+        ]);
 
-            $subscriber = new Subscription;
-            $subscriber->subscribeToPlan(1, $user->id, 12);
-        });
+        DB::table('subscription_plans')->insert([
+            'name' => 'Pro',
+            'description' => 'Pro plan',
+            'features' => '{"Unlimited active projects": true, "Five collaborators per project": true, "Three of each generatable document": true}',
+            'price' => 24.99
+        ]);
+
+        DB::table('subscription_plans')->insert([
+            'name' => 'Pro_plus',
+            'description' => 'Pro Plus plan',
+            'features' => '{"Unlimited collaborators": true, "Unlimited document generation": true, "Dedicated support": true, "Beta access to test new features": true}',
+            'price' => 79.99
+        ]);
 
         DB::table('countries')->insert([
             'name' => 'Nigeria',

@@ -340,8 +340,8 @@
         </div>
         <section class="pricing">
             <div class="container">
-                <div style="margin-left: auto; margin-right: auto;text-align: center; max-width: 465px;">
-                    <h1><span class="avoidwrap">Choose a plan</span> that works for you</h1>
+                <div class="title-header">
+                    <h4>Choose a plan that works for you</h4>
                 </div>
                 <div class="row mt-5 pt-1">
                     <div class="card" style="margin-bottom: 10px; float: left;">
