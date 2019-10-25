@@ -85,11 +85,11 @@ class ClientController extends Controller {
     public function listGet(Request $request) {
         $user = Auth::user()->id;
         if ($request->filter == 'pending') {
-            $data['clients'] = Client::with(["projects" => function($q) {
+            $data['clients'] = Client::whereUser_id($user)->with(["projects" => function($q) {
                             $q->where('projects.status', '=', 'pending');
                         }])->get();
         } elseif ($request->filter == 'completed') {
-            $data['clients'] = Client::with(["projects" => function($q) {
+            $data['clients'] = Client::whereUser_id($user)->with(["projects" => function($q) {
                             $q->where('projects.status', '=', 'completed');
                         }])->get();
         } else {
