@@ -1,224 +1,224 @@
 @extends('layouts.app')
 
 @section('styles')
-		<style>
-			body {
-				font-family: "Open Sans", sans-serif;
-				font-size: 12px;
-			}
-			h3 {
-					font-family: 'Open Sans', sans-serif;
-            font-weight: bold;
-            font-size: 18px;
-        }
-			.head-text {
+	<style>
+				body {
+					font-family: "Open Sans", sans-serif;
+					font-size: 12px;
+				}
+				h3 {
+						font-family: 'Open Sans', sans-serif;
+				font-weight: bold;
 				font-size: 18px;
-				font-weight: bold;
 			}
-			.small-head-text {
-				font-size: 14px;
-				font-weight: bold;
+				.head-text {
+					font-size: 18px;
+					font-weight: bold;
+				}
+				.small-head-text {
+					font-size: 14px;
+					font-weight: bold;
+				}
+				.email-con,
+				.message-con {
+					border: 1px solid #c4c4c4;
+				}
+				textarea {
+					width: 100%;
+					height: 100%;
+				}
+				.green-btn {
+					font-size: 16px;
+					padding: 5px 20px;
+					background-color: #0abab5;
+					color: #ffffff;
+					border: none;
+					border-radius: 6px;
+				}
+				.side-nav {
+					box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+					padding-bottom: 200px;
+				}
+				.logo-con {
+					background-color: #000000;
+				}
+				.logo {
+					font-family: "Pacifico", cursive;
+					color: #ffffff;
+					font-size: 36px;
+				}
+				.logo span {
+					color: #0abab5;
+				}
+				.nav-option {
+					font-family: Open Sans;
+					font-style: normal;
+					font-weight: bold;
+					font-size: 18px;
+					color: #4f4f4f;
+					text-align: left;
+				}
+				.active-nav {
+					color: #0abab5;
+				}
+				a:hover {
+					text-decoration: none;
+					color: #0abab5;
+				}
+
+				.radio {
+			margin: 0.5rem;
 			}
-			.email-con,
-			.message-con {
-				border: 1px solid #c4c4c4;
+			.radio input[type="radio"] {
+			position: absolute;
+			opacity: 0;
 			}
-			textarea {
-				width: 100%;
-				height: 100%;
+			.radio input[type="radio"] + .radio-label:before {
+			content: '';
+			background: #f4f4f4;
+			border-radius: 100%;
+			border: 1px solid #b4b4b4;
+			display: inline-block;
+			width: 1.4em;
+			height: 1.4em;
+			position: relative;
+			top: -0.2em;
+			margin-right: 1em;
+			vertical-align: top;
+			cursor: pointer;
+			text-align: center;
+			transition: all 250ms ease;
 			}
-			.green-btn {
-				font-size: 16px;
-				padding: 5px 20px;
-				background-color: #0abab5;
-				color: #ffffff;
-				border: none;
-				border-radius: 6px;
+			.radio input[type="radio"]:checked + .radio-label:before {
+			background-color: #000000;
+			box-shadow: inset 0 0 0 4px #f4f4f4;
 			}
-			.side-nav {
+			.radio input[type="radio"]:focus + .radio-label:before {
+			outline: none;
+			border-color: #000000;
+			}
+			.radio input[type="radio"]:disabled + .radio-label:before {
+			box-shadow: inset 0 0 0 4px #f4f4f4;
+			border-color: #b4b4b4;
+			background: #b4b4b4;
+			}
+			.radio input[type="radio"] + .radio-label:empty:before {
+			margin-right: 0;
+			}
+
+
+
+
+			.kc-nav-box{
+				height:80px;
 				box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-				padding-bottom: 200px;
 			}
-			.logo-con {
-				background-color: #000000;
-			}
-			.logo {
-				font-family: "Pacifico", cursive;
-				color: #ffffff;
-				font-size: 36px;
-			}
-			.logo span {
-				color: #0abab5;
-			}
-			.nav-option {
-				font-family: Open Sans;
-				font-style: normal;
-				font-weight: bold;
-				font-size: 18px;
-				color: #4f4f4f;
-				text-align: left;
-			}
-			.active-nav {
-				color: #0abab5;
-			}
-			a:hover {
-				text-decoration: none;
-				color: #0abab5;
+			.kc-a-u{
+				height:50px;
+				width:50px;
+				border:1px solid black;
+				border-radius:50%;
 			}
 
-			.radio {
-  margin: 0.5rem;
-}
-.radio input[type="radio"] {
-  position: absolute;
-  opacity: 0;
-}
-.radio input[type="radio"] + .radio-label:before {
-  content: '';
-  background: #f4f4f4;
-  border-radius: 100%;
-  border: 1px solid #b4b4b4;
-  display: inline-block;
-  width: 1.4em;
-  height: 1.4em;
-  position: relative;
-  top: -0.2em;
-  margin-right: 1em;
-  vertical-align: top;
-  cursor: pointer;
-  text-align: center;
-  transition: all 250ms ease;
-}
-.radio input[type="radio"]:checked + .radio-label:before {
-  background-color: #000000;
-  box-shadow: inset 0 0 0 4px #f4f4f4;
-}
-.radio input[type="radio"]:focus + .radio-label:before {
-  outline: none;
-  border-color: #000000;
-}
-.radio input[type="radio"]:disabled + .radio-label:before {
-  box-shadow: inset 0 0 0 4px #f4f4f4;
-  border-color: #b4b4b4;
-  background: #b4b4b4;
-}
-.radio input[type="radio"] + .radio-label:empty:before {
-  margin-right: 0;
-}
 
+			@media only screen and (max-width: 1024px) {
+				.kc-a-u{
+						height:50px;
+				width:50px;
+				border:1px solid black;
+				border-radius:50%;
+				}
 
+			}
+			@media only screen and (max-width: 999px) {
+				.v-nav-index{
+								z-index: 5;
+								border:1px solid #c4c4c4;
+								background-color: #ffffff;
 
+											}
+											.kc-unlist-item{
+							justify-content: center;
+						}
 
-.kc-nav-box{
-	height:80px;
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-.kc-a-u{
-	height:50px;
-	width:50px;
-	border:1px solid black;
-	border-radius:50%;
-}
-
-
-@media only screen and (max-width: 1024px) {
-    .kc-a-u{
-			height:50px;
-	width:50px;
-	border:1px solid black;
-	border-radius:50%;
-    }
-
-}
-@media only screen and (max-width: 999px) {
-	.v-nav-index{
-					z-index: 5;
-					border:1px solid #c4c4c4;
-					background-color: #ffffff;
-
-								}
-								.kc-unlist-item{
-				justify-content: center;
 			}
 
-}
+			@media only screen and (max-width: 768px) {
+				.kc-unlist-item{
+					flex-direction:row;
+							width:90%;
+							margin:0 5%!important;
+				}
 
-@media only screen and (max-width: 768px) {
-    .kc-unlist-item{
-        flex-direction:row;
-				width:90%;
-				margin:0 5%!important;
-    }
+			}
+			@media only screen and (max-width: 768px) {
+				.kc-a-u{
+						height:50px;
+				width:50px;
+				border:1px solid black;
+				border-radius:50%;
+					margin-left:2vh;
+				}
 
-}
-@media only screen and (max-width: 768px) {
-    .kc-a-u{
-			height:50px;
-	width:50px;
-	border:1px solid black;
-	border-radius:50%;
-        margin-left:2vh;
-    }
+			}
 
-}
+			@media only screen and (max-width: 414px) {
+				.kc-a-u{
+						height:50px;
+				width:50px;
+				border:1px solid black;
+				border-radius:50%;
+					margin-left:2vh;
+				}
 
-@media only screen and (max-width: 414px) {
-    .kc-a-u{
-			height:50px;
-	width:50px;
-	border:1px solid black;
-	border-radius:50%;
-        margin-left:2vh;
-    }
+			}
 
-}
+			@media only screen and (max-width: 375px) {
+				.kc-unlist-item{
+					flex-direction:row;
+				}
 
-@media only screen and (max-width: 375px) {
-    .kc-unlist-item{
-        flex-direction:row;
-    }
+			}
+			@media only screen and (max-width: 375px) {
+				.kc-a-u{
+						height:50px;
+				width:50px;
+				border:1px solid black;
+				border-radius:50%;
+					margin-left:2vh;
+				}
 
-}
-@media only screen and (max-width: 375px) {
-    .kc-a-u{
-			height:50px;
-	width:50px;
-	border:1px solid black;
-	border-radius:50%;
-        margin-left:2vh;
-    }
+			}
+			@media only screen and (max-width: 360px) {
+				.kc-unlist-item{
+					flex-direction:row;
+				}
 
-}
-@media only screen and (max-width: 360px) {
-    .kc-unlist-item{
-        flex-direction:row;
-    }
+			}
 
-}
+			@media only screen and (max-width: 360px) {
+				.kc-a-u{
+						height:50px;
+				width:50px;
+				border:1px solid black;
+				border-radius:50%;
+					margin-left:2vh;
+				}
 
-@media only screen and (max-width: 360px) {
-    .kc-a-u{
-			height:50px;
-	width:50px;
-	border:1px solid black;
-	border-radius:50%;
-        margin-left:2vh;
-    }
+			}
+			@media only screen and (max-width: 320px) {
+				.kc-a-u{
+						height:50px;
+				width:50px;
+				border:1px solid black;
+				border-radius:50%;
+					margin-left:2vh;
+				}
 
-}
-@media only screen and (max-width: 320px) {
-    .kc-a-u{
-			height:50px;
-	width:50px;
-	border:1px solid black;
-	border-radius:50%;
-        margin-left:2vh;
-    }
-
-}
+			}
 
 
-</style>
+	</style>
 @endsection
 
 

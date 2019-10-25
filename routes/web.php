@@ -61,7 +61,15 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/dashboard', 'HomeController@index')->name('dashboard');
     Route::get('/dashboard/profile', 'ProfileController@index')->name('dashboard-profile');
     Route::get('/dashboard/profile/view', 'ProfileController@userProfileDetails')->name('user-profile');
-    
+
+    // Moneya Routes for profile
+    Route::get('/profile/settings', 'newProfileController@edit')->middleware('auth');
+    Route::post('/profile/update', 'newProfileController@update')->middleware('auth');
+    Route::post('/profile/clientupdate', 'newProfileController@updatecompany')->middleware('auth');
+
+    // Moneya Routes for email settings
+    Route::get('/user/emailsettings', 'EmailsettingsmoneyaController@index')->middleware('auth');
+    Route::put('/emailsettings/update', 'EmailsettingsmoneyaController@update')->middleware('auth');
     
     // User Routes
     Route::post('/users/edit/profile', "ProfileController@editProfile")->middleware('auth')->name('edit-profile');
