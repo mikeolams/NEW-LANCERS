@@ -124,8 +124,9 @@ class GuestController extends Controller {
         ];
 
 
-        $request->session()->put('estmate', $data);
-
+        $request->session()->put('guestestmate', $data);
+        
+      
         // $ddata = Session::all();
         //  dd($data);
         return redirect('guest/create/step3');
@@ -138,11 +139,11 @@ class GuestController extends Controller {
         $states = State::all('id', 'name');
 
         if ($data) {
-            $estimate = Session::get('estimate');
+            $estimate = Session::get('guestestmate');
             $project = Session::get('project');
             $request->session()->put('project', $project);
-            $request->session()->put('estmate', $estimate);
-            return view('guests/step4')->with(['project' => $project, 'estimate' => $estimate,
+            $request->session()->put('guestestmate', $estimate);
+            return view('guests/step4')->with(['project' => $project, 'guestestmate' => $estimate,
                         'countries' => $countries, 'states' => $states]);
         }
 
@@ -169,13 +170,12 @@ class GuestController extends Controller {
         ];
 
         $project = Session::get('project');
-        $estimate = Session::get('estimate');
+        $estimate = Session::get('guestestmate');
         // session::put(['estimate' =>  $data]);
-        $request->session()->put('estimate', $estimate);
+        $request->session()->put('guestestmate', $estimate);
         $request->session()->put('project', $project);
         $request->session()->put('client', $data);
         $request->session()->put('contacts', $contacts);
-
 
         return redirect('guest/create/step4');
     }
@@ -187,7 +187,6 @@ class GuestController extends Controller {
 
     public function savestep4(Request $request) {
         $data = [];
-
         $session_project = $request->session()->get('project');
       
         $session_contacts = $request->session()->get('contacts');
@@ -203,9 +202,9 @@ class GuestController extends Controller {
         } else {
             $emailcontact = null;
         }
-        $data['workmanship'] = session('estimate')['price_per_hour'] * session('estimate')['time'];
-        $data['equipment_cost'] = session('estimate')['equipment_cost'];
-        $data['sub_contractors_cost'] = session('estimate')['sub_contractors_cost'];
+        $data['workmanship'] = session('guestestmate')['price_per_hour'] * session('guestestmate')['time'];
+        $data['equipment_cost'] = session('guestestmate')['equipment_cost'];
+        $data['sub_contractors_cost'] = session('guestestmate')['sub_contractors_cost'];
         $data['total'] = $data['workmanship'] + $data['equipment_cost'] + $data['sub_contractors_cost'];
         $validator = Validator::make($request->all(), [
                     'name' => ['required', 'string', 'max:255'],
@@ -250,7 +249,7 @@ class GuestController extends Controller {
         $project->save();
 
 
-        $estimate = Estimate::create(array_merge(session('estimate'), ['estimate' => $data['total'], 'project_id' => $project->id, 'user_id' => $user->id]));
+        $estimate = Estimate::create(array_merge(session('guestestmate'), ['estimate' => $data['total'], 'project_id' => $project->id, 'user_id' => $user->id]));
 
         return view('addclients')->with('estimate', $estimate->id);
     }

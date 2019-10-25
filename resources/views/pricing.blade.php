@@ -331,7 +331,7 @@
 <section class="pricing">
             <div class="container">
                 <div class="title-header">
-                    <h1>Choose a plan that works for you</h1>
+                    <h4>Choose a plan that works for you</h4>
                 </div>
                 <div class="row mt-5 pt-5">
 

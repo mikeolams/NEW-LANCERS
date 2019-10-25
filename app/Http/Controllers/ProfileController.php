@@ -200,16 +200,10 @@ class ProfileController extends Controller
      */
     function editProfile(Request $request)
     {
-
       //check user provided input
       $validateAll = $this->validator($request->all());
-      $countryIdVal = $this->validatorId(['id'=> $request->input('country_id')]);
-      $currencyIdVal = $this->validatorId(['id'=> $request->input('currency_id')]);
-      $stateIdVal = $this->validatorId(['id'=> $request->input('state_id')]);
-
-
-
-        if((!$validateAll->fails()) && (!$countryIdVal->fails()) && (!$currencyIdVal->fails()) && (!$stateIdVal->fails()))
+   
+        if((!$validateAll->fails()))
       {
 
                 //check if usr has saved data before
@@ -317,25 +311,12 @@ class ProfileController extends Controller
           },$errorsArray);
 
 
-      if((!$countryIdVal->fails()))
+      if((!$validateAll->fails()))
       {
-        $errorString[] = 'Country not selected';
+          $errorString[] = implode("<br/>", $validateAll->messages()->all());
       }
 
-      if((!$currencyIdVal->fails()))
-      {
-        $errorString[] = 'Currency not selected';
-      }
-
-
-      if((!$stateIdVal->fails()))
-      {
-
-
-       $errorString[] = 'State not selected';
-
-      }
-
+      
 
         return redirect('/dashboard/profile/settings')->with('editErrors',$errorString);
 

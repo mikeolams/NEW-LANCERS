@@ -376,7 +376,7 @@
                     <li>
                         <a href="{{url('project/status')}}" class="pl-4"><i class="fas fa-dot-circle"></i> Status</a>
                     </li>
-
+  {{-- 
                     <li>
                         <a href="{{url('project/overview')}}" class="pl-4"><i class="fas fa-dot-circle"></i> Overview</a>
                     </li>
@@ -389,7 +389,7 @@
                     <li>
                         <a href="{{url('project/documents')}}" class="pl-4"><i class="fas fa-dot-circle"></i> Documents</a>
                     </li>
-
+--}}
                 </ul>
             </li>
             <li class="@if(request()->path() == 'invoices') active @endif">
@@ -397,6 +397,7 @@
                     <img src="https://lancer-app.000webhostapp.com/images/svg/approve-invoice.svg" height="20" width="auto"> <span> Invoice</span>
                 </a>
             </li>
+              {{-- 
             <li>
                 <a href="{{url('contracts')}}">
                     <img src="https://lancer-app.000webhostapp.com/images/svg/policy.svg" height="20" width="auto"> <span> Contract</span>
@@ -407,6 +408,7 @@
                     <img src="https://lancer-app.000webhostapp.com/images/svg/approval.svg" height="20" width="auto"> <span> Proposals</span>
                 </a>
             </li>
+            --}}
                      <li class="@if(request()->path() == url('/dashboard/profile/settings')) active @endif">
                 <a href="{{ url('/dashboard/profile/settings') }}">
                     <img src="https://lancer-app.000webhostapp.com/images/svg/approval.svg" height="20" width="auto"> <span> Settings</span>
