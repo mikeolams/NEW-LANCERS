@@ -156,8 +156,14 @@ class GuestController extends Controller {
             foreach ($request->contact as $contact) {
                 array_push($contacts, ["name" => $contact["'name'"], "email" => $contact["'email'"]]);
             }
-            $contacts = json_encode($contacts);
+            $contacts = $contact;
         }
+        if (empty($contact["'email'"])) {
+            session()->flash('message.alert', 'danger');
+            session()->flash('message.content', "Client Contact Email Can Not Be Empty.. Please Check Contact Information");
+            return back();
+        }
+        
         $data = [
             'name' => $request->name,
             'email' => $request->email,
@@ -176,7 +182,7 @@ class GuestController extends Controller {
         $request->session()->put('project', $project);
         $request->session()->put('client', $data);
         $request->session()->put('contacts', $contacts);
-
+        
         return redirect('guest/create/step4');
     }
 
@@ -190,19 +196,11 @@ class GuestController extends Controller {
         $session_project = $request->session()->get('project');
 
         $session_contacts = $request->session()->get('contacts');
-        $session_contactsq = json_decode($request->session()->get('contacts'));
-        if ($session_contactsq) {
-            foreach ($session_contactsq as $contact) {
-                $contacts = $contact;
-            }
-        }
-        if (empty($contacts->email)) {
-            session()->flash('message.alert', 'danger');
-            session()->flash('message.content', "Client Contact Email Can Not Be Empty.. Please Check Contact Information");
-            return back();
-        }
-        if (!empty($contacts->email)) {
-            $emailcontact = $contacts->email;
+        $session_contactsq = $request->session()->get('contacts');
+       
+      
+        if (!empty($session_contactsq["'email'"])) {
+            $emailcontact = $session_contactsq["'email'"];
         } else {
             $emailcontact = null;
         }
@@ -228,6 +226,7 @@ class GuestController extends Controller {
                     'password' => $password
         ]);
         Auth::login($user);
+        
 
         $clients = new Client;
         $clients->user_id = $user->id;
