@@ -83,8 +83,12 @@
 			.navbar-toggler.collapsed .bottom-bar {
 			  transform: rotate(0);
 			}
-
-
+        
+            .sub-msg{
+                text-align: center !important;
+                color: #fff !important;
+            }    
+        
             .pricing-header{
                 background: #091429
             }
@@ -199,7 +203,7 @@
                 padding: 25px;
             }
 
-            footer {
+            footer  {
                 background-color: white;
                 padding: 25px;
             }
@@ -227,7 +231,7 @@
             font-size: 20px;
             }
 
-            #btn-sub {
+            #btn-sub, #btn-up {
                 background: #0ABAB5;
                 border-radius: 4px;
                 border-width: 0px;
@@ -316,6 +320,24 @@
 @endsection
 
 @section('content')
+        <div class="sub-msg">
+            @if(session()->has('subMessageGood'))
+                <p class="btn btn-success sub-msg">
+                    {{ session('subMessageGood') }}
+                    @php
+                        session()->forget('subMessageGood');
+                    @endphp
+                </p>
+            @endif
+            @if(session()->has('subMessageBad'))
+                <p class="btn btn-danger sub-msg">
+                    {{ session('subMessageBad') }}
+                    @php
+                        session()->forget('subMessageBad');
+                    @endphp
+                </p>
+            @endif
+        </div>
         <section class="pricing">
             <div class="container">
                 <div style="margin-left: auto; margin-right: auto;text-align: center; max-width: 465px;">
@@ -484,12 +506,13 @@
 						<p class="text-dark small">
 							Get emails about our newest features and events you can visit. We promise not to spam.
 						</p>
-						<form class="form-inline">
+						<form class="form-inline" method="post" action="/submailinglist">
+                            @csrf
 							<div class="form-group mb-2 mr-2">
-								<label for="staticEmail2" class="sr-only">Email</label>
-								<input type="email" class="form-control" id="staticEmail2" value="" placeholder="Email Address" required>
+								<label for="subEmail" class="sr-only">Email</label>
+								<input type="email" class="form-control" id="subEmail" name="subEmail" placeholder="Email Address" required>
 							</div>
-							<button type="submit" class="btn btn-primary mb-2" id="btn-sub">Subscribe</button>
+							<input type="submit" class="btn btn-primary mb-2" id="btn-sub" name="btn-sub" value="Subscribe"/>
 						</form>
 					</div>
 				</div>
@@ -498,7 +521,7 @@
                 <div class="container">
                     <p class="float-right">
                     {{-- <a href="#">Back to top</a> --}}
-                    <a href=""class="btn btn-secondary mb-2" id="btn-sub">
+                    <a href=""class="btn btn-secondary mb-2" id="btn-up">
                         <span>&#8593;</span></a>
                     </p>
                 </div>
