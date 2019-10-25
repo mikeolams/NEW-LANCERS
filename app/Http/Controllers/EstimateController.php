@@ -53,9 +53,9 @@ class EstimateController extends Controller {
     }
 
     public function step4(Request $request) {
-        $countries = Country::all('id', 'name');
-        $states = State::all('id', 'name');
-
+      
+        $data['countries'] = Country::all('id', 'name');
+        $data['states'] = State::all();
         $client = Client::whereId($request->client)->first();
         if (is_object($client)) {
             $data['project'] = session('project')['project'];
@@ -84,7 +84,7 @@ class EstimateController extends Controller {
             $estimate = Estimate::create(array_merge(session('estimate'), ['estimate' => $data['total'], 'project_id' => $project->id, 'user_id' => Auth::user()->id]));
             return view('addclients')->with('estimate', $estimate->id);
         }
-        return view('estimate.step4')->withCountries($countries)->withStates($states);
+        return view('estimate.step4',$data);
     }
 
     public function step5(Request $request) {
@@ -97,6 +97,11 @@ class EstimateController extends Controller {
                 array_push($contacts, ["name" => $contact["'name'"], "email" => $contact["'email'"]]);
             }
             $contacts = $contacts;
+        }
+        if(empty($contacts[0]['email'])){
+           session()->flash('message.alert', 'danger');
+            session()->flash('message.content', "Client Contact Email Can Not Be Empty.. Please Check Contact Information");
+            return back();
         }
 
         $client['contacts'] = $contacts;

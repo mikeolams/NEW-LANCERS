@@ -8,6 +8,7 @@
  */
 use App\SubscriptionPlan;
 use Illuminate\Database\Seeder;
+use Faker\Factory;
 
 
 class subscriptionPlanSeeder extends Seeder
