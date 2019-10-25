@@ -62,6 +62,8 @@ class User extends Authenticatable
         return $this->hasMany('App\Client');
     }
     
-    
+    public function trails(){
+        return $this->hasMany('App\Trail');
+    }
 
 }
