@@ -109,19 +109,12 @@ class Subscription extends Model
 
     public static function planData()
     {
-        $userDetails = auth()->user();
-        $user_id = auth()->user()->toArray()['id'];
-        $plan = Subscription::where('user_id',$user_id)->first();
-        if($plan != null)
-        {
-            return $plan;
-         }
-        else {
-            //no plan to show
-            return $plan;
+        $user = auth()->user();
+        $current_plan = $user->subscription->subscriptionPlan;
 
-        }
+        $current_plan['end'] = Carbon::parse($user->subscription->enddate);
+        $current_plan['months'] = Carbon::now()->diffInMonths($current_plan['end']);
 
-
+        return $current_plan;
     }
 }

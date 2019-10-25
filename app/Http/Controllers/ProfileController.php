@@ -77,7 +77,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * show user profile details to form
+     * show user profile details
      */
 
     function userProfileDetails()
@@ -89,8 +89,7 @@ class ProfileController extends Controller
         //check if collection is null similar to mysqli num ros
         if($userProfile != null)
         {
-            // if((sizeof($userProfile->toArray()) > 0) && ($userProfile->toArray()['company'] != null))
-            if((sizeof($userProfile->toArray()) > 0) && ($userProfile->company != null))
+            if((sizeof($userProfile->toArray()) > 0) && ($userProfile->toArray()['company'] != null))
             {
                 $details = $userProfile->toArray();
 
@@ -120,6 +119,12 @@ class ProfileController extends Controller
     }
 
 
+/*$messages = [
+    'required' => 'The :attribute field is required.',
+];
+
+$validator = Validator::make($input, $rules, $messages);
+*/
 
     protected function validatorId(array $data)
     {
@@ -155,23 +160,6 @@ class ProfileController extends Controller
         'first_name.regex' => 'The :attribute and must contain only letters!.',
         'last_name.regex' =>   'The :attribute and must contain only letters!.',
         'title.regex' =>   'The :attribute and must contain only letters!.',
-        'email.regex' =>  'The :attribute and must be a valid email.'
-        ];
-
-        return Validator::make($data,[
-        'first_name' => ['required', 'regex:/^[a-zA-Z]{2,20}$/', 'max:255'],
-        'last_name' => ['required', 'regex:/^[a-zA-Z]{2,20}$/', 'max:255'],
-        'title' => ['required', 'string', 'max:255'],
-        'email' => ['required', 'email:rfc', 'max:255']
-        ],$messages);
-    }
-
-    protected function validatorUserPassword(array $data)
-    {
-        $messages = [
-        'first_name.regex' => 'The :attribute and must contain only letters!.',
-        'last_name.regex' =>   'The :attribute and must contain only letters!.',
-        'title.regex' =>   'The :attribute and must contain only letters!.',
         'email.regex' =>  'The :attribute and must be a valid email.',
         'password.regex' =>   'The :attribute and must contain both letters amd digits!.',
         ];
@@ -186,6 +174,7 @@ class ProfileController extends Controller
         'password_confirmation' => ['required', 'regex:/^(?=[^\s]*?[0-9])(?=[^\s]*?[a-zA-Z])[a-zA-Z0-9]*$/', 'max:255'],
         ],$messages);
     }
+
 
 
 
@@ -361,58 +350,37 @@ class ProfileController extends Controller
     function editProfileUser(Request $request)
     {
 
-      //check user provided password input
-      if( ($request->input('password_confirmation') != null) && ($request->input('password_old') != null) && ($request->input('password') != null ))
-      {
-        $validateAll = $this->validatorUserPassword($request->all());
+      //check user provided input
+      $validateAll = $this->validatorUser($request->all());
 
-      }
-      else{
-        $validateAll = $this->validatorUser($request->all());
-      }
 
 
 
         if(!$validateAll->fails())
       {
-        //get user details
-       $userDetails = auth()->user();
+            //validate password
+            if($request->input('password') != $request->input('password_confirmation'))
+            {
+                $errorString = ['Profile details not saved, passwords do not match'];
 
-        //check if password was also uploaded via form
-        if( ($request->input('password_confirmation') != null) && ($request->input('password_old') != null) && ($request->input('password') != null ))
-      {
-       //validate password
-       if($request->input('password') != $request->input('password_confirmation'))
-       {
-           $errorString = ['Profile details not saved, passwords do not match'];
+                return redirect('/dashboard/profile/settings')->with('editErrors',$errorString);
+            }
 
-           return redirect('/dashboard/profile/settings')->with('editErrors',$errorString);
-       }
+            //get user details
+            $userDetails = auth()->user();
 
+            if (!Hash::check($request->input('password_old'), $userDetails->password))
+            {
+                $errorString = ['Profile details not saved, invalid original password provided'];
 
-
-       if (!Hash::check($request->input('password_old'), $userDetails->password))
-       {
-           $errorString = ['Profile details not saved, invalid original password provided'];
-
-           return redirect('/dashboard/profile/settings')->with('editErrors',$errorString);
-       }
+                return redirect('/dashboard/profile/settings')->with('editErrors',$errorString);
+            }
 
 
-       $userDetails->name = $request->input('first_name').' '.$request->input('last_name');
-       $userDetails->email = $request->input('email');
-       $userDetails->password = Hash::make($request->input('password'));
-       $userDetails->save();
-
-
-      }
-      else{
-
-        $userDetails->name = $request->input('first_name').' '.$request->input('last_name');
-
-        $userDetails->email = $request->input('email');
-        $userDetails->save();
-      }
+            $userDetails->name = $request->input('first_name').' '.$request->input('last_name');
+            $userDetails->email = $request->input('email');
+            $userDetails->password = Hash::make($request->input('password'));
+            $userDetails->save();
 
             $FullNameSave = false;
 

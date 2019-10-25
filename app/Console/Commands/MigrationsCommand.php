@@ -45,5 +45,6 @@ class MigrationsCommand extends Command
         Artisan::call('currencies:table');
 
         Artisan::call('db:seed');
+        // Artisan::call('passport:install');
     }
 }

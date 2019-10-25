@@ -31,7 +31,5 @@ class Client extends Model
     protected $casts = [
         'contacts' => 'array'
     ];
-    
-    
 
 }

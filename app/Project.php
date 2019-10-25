@@ -3,22 +3,23 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Client;
-use App\Invoice;
+
 class Project extends Model
 {
     protected $guarded = ['id'];
 
-    public function user(){
-        return $this->belongsTo(User::class, 'user_id')->with('estimate');
+    public function invoice(){
+        return $this->hasOne('App\Invoice');
     }
     
-   
-     public function client(){
-        return $this->belongsTo(Client::class, 'client_id');
+    public function user(){
+        return $this->belongsTo('App\User');
     }
 
-   
+    public function client()
+    {
+    	return $this->belongsTo('App\Client');
+    }
 
     public function estimate()
     {

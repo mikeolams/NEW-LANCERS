@@ -19,9 +19,3 @@ function getCurrency($id){
 function dateSlash($date){
 	return $date->format('d/m/Y');
 }
-
-
-function prettyDate($date)
-{
-	return $date->format('jS F Y h:i:s A');
-}
