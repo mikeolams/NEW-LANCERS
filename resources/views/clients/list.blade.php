@@ -1,4 +1,8 @@
 @extends('layouts.auth')
+@section('style')
+
+@endsection
+
 
 @section('main-content')
 <section class="">
@@ -93,7 +97,7 @@
 </button>
 @endsection
 
-@section('script')
+@section('scripting')
 <script>
     alert(11);
     let select = document.querySelector('#select_status');
@@ -101,18 +105,6 @@
     select.addEventListener('change', function () {
         this.form.submit();
     }, false);
-
-    let selectClients = document.querySelector('tr');
-    selectClients.addEventListener('change', function () {
-        // console.log('change here')
-        // this.form.action = "/projects?status="+selectStatus.value;
-        // this.form.submit();
-        for(client of selectClients){
-            if (client!=selectClient[0]){
-                window.location.href = "/clients?client=" + client.title;
-            };
-        }
-    }, false)
 </script>
 @endsection
 
