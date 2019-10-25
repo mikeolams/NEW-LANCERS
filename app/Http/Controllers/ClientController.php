@@ -85,11 +85,11 @@ class ClientController extends Controller {
     public function listGet(Request $request) {
         $user = Auth::user()->id;
         if ($request->filter == 'pending') {
-            $data['clients'] = Client::with(["projects" => function($q) {
+            $data['clients'] = Client::whereUser_id($user)->with(["projects" => function($q) {
                             $q->where('projects.status', '=', 'pending');
                         }])->get();
         } elseif ($request->filter == 'completed') {
-            $data['clients'] = Client::with(["projects" => function($q) {
+            $data['clients'] = Client::whereUser_id($user)->with(["projects" => function($q) {
                             $q->where('projects.status', '=', 'completed');
                         }])->get();
         } else {
@@ -118,6 +118,7 @@ public function listGetNew(request $param) {
     return view('clients/Client_Company_List')->with('clients', $Clients);
 }
 
+    
     public function view($client_id) {
         $client = Client::where(['id' => $client_id, 'user_id' => Auth::user()->id])->first();
         return $client !== null ? $this->SUCCESS('Client retrieved', $client) : $this->SUCCESS('No client found');
