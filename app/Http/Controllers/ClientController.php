@@ -97,7 +97,7 @@ class ClientController extends Controller
         } else {
             $Clients = Client::whereUser_id(Auth::user()->id)->with('user')->get();
     }
-        return view('Clients.list')->with('clients', $Clients);
+        return view('clients.list')->with('clients', $Clients);
 }
 
 public function listGetNew(request $param) {
