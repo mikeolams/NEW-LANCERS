@@ -90,6 +90,14 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/project/track', function(){ return view('trackproject'); });
     Route::get('/project/collabrators', function () { return view('project-collabrators'); });
 
+    // Task Routes
+    Route::get('/project/tasks', 'TaskController@getAllTasks');
+    Route::get('/tasks/{id}', 'TaskController@getTask');
+    Route::post('/tasks', 'TaskController@createTask');
+    Route::put('/tasks/{id}', 'TaskController@updateTask');
+    Route::delete('/tasks/{id}', 'TaskController@deleteTask');
+    Route::put('/tasks/{task}/team', 'TaskController@addTeam');
+
     // Client Routes
     Route::get('/clients', 'ClientController@list');
     Route::get('/client/add', 'ClientController@show');
@@ -130,14 +138,6 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/estimates/{estimate}', 'EstimateController@show')->middleware('auth');
     Route::put('/estimates/{estimate}', 'EstimateController@update')->middleware('auth');
     Route::delete('/estimates/{estimate}', 'EstimateController@destroy')->middleware('auth');
-
-    // Task Routes
-    Route::get('/tasks', 'TaskController@getAllTasks');
-    Route::get('/tasks/{id}', 'TaskController@getTask');
-    Route::post('/tasks', 'TaskController@createTask');
-    Route::put('/tasks/{id}', 'TaskController@updateTask');
-    Route::delete('/tasks/{id}', 'TaskController@deleteTask');
-    Route::put('/tasks/{task}/team', 'TaskController@addTeam');
 
     // Contract Routes
     Route::post('/contracts/{project_id}/{template_id}', 'ContractControler@store')->name('create.contract');
