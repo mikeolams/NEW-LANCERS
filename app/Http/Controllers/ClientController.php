@@ -76,7 +76,7 @@ class ClientController extends Controller
         return $this->ERROR('Client creation failed');
     }
 
-    public function list(){
+    public function listClients(){
         $user = Auth::user();
         $clients = $user->clients()->select('id','name','contacts','profile_picture')->with('project:title,status')->get();
         return view('clients.list')->withClients($clients);

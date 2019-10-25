@@ -284,6 +284,12 @@
 					<li class="nav-item">
 						<a class="nav-link" href="{{ url('/pricing') }}">Pricing</a>
 					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ url('/estimate/create') }}">Create Estimate </a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ url('/project/track') }}">Track a Project </a>
+					</li>
 					@guest
 					<li class="nav-item">
 						<a class="nav-link" href="{{ route('login') }}">Sign in</a>

@@ -77,19 +77,19 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::put('/user/notifications/read/all', 'NotificationsController@markAllAsRead');
 
     // Project Routes
-    Route::get('/projects', 'ProjectController@list');
-    Route::get('/project/status', 'ProjectController@list');
+    Route::get('/projects', 'ProjectController@listProjects');
+    Route::get('/project/status', 'ProjectController@listProjects');
     Route::get('/project/track', function(){ return view('trackproject'); });
     Route::get('/project/collabrators', function () { return view('project-collabrators'); });
 
     // Client Routes
-    Route::get('/clients', 'ClientController@list');
+    Route::get('/clients', 'ClientController@listClients');
     Route::get('/client/add', 'ClientController@show');
     Route::post('/client/add', 'ClientController@store');
     Route::get('/client-info', function () { return view('client-info'); });
     
     //Invoice routes
-    Route::get('/invoices', 'InvoiceController@list');
+    Route::get('/invoices', 'InvoiceController@listClients');
     Route::get('/invoice/pay/{txref}', 'InvoiceController@pay');
     Route::get('/invoices/{invoice}/getpdf', 'InvoiceController@getPdf');
     Route::get('/invoice/review', function() { return view('reviewinvoice'); });
@@ -106,12 +106,17 @@ Route::group(['middleware' => 'auth:web'], function(){
     Route::get('/estimates/{estimate}', 'EstimateController@show')->middleware('auth');
     Route::delete('/estimates/{estimate}', 'EstimateController@destroy')->middleware('auth');
     Route::get('/estimates/{estimate}', 'EstimateController@show')->middleware('auth');
-    Route::get('/estimate/create/step1', 'EstimateController@step1');
-    Route::post('/estimate/create/step2', 'EstimateController@step2');
-    Route::post('/estimate/create/step3', 'EstimateController@step3');
-    Route::post('/estimate/create/step4', 'EstimateController@step4');
-    Route::post('/estimate/create/step5', 'EstimateController@step5');
-
+    Route::get('/estimate/create/step1', function(){return view('estimate.step1');})->name('estimate.create.step1');;
+        Route::post('/estimate/create/step1', 'EstimateController@step1');
+    Route::get('/estimate/create/step2', function(){return view('estimate.step2');})->name('estimate.create.step2');
+        Route::post('/estimate/create/step2', 'EstimateController@step2');
+    Route::get('/estimate/create/step3', function(){return view('estimate.step3');})->name('estimate.create.step3');
+        Route::post('/estimate/create/step3', 'EstimateController@step3');
+    Route::get('/estimate/create/step4', function(){return view('estimate.step4');})->name('estimate.create.step4');
+        Route::post('/estimate/create/step4', 'EstimateController@step4');
+    Route::get('/estimate/create/step5', function(){return view('estimate.step5');})->name('estimate.create.step5');
+        Route::post('/estimate/create/step5', 'EstimateController@step5');
+    
     // Task Routes
     Route::get('/tasks', 'TaskController@getAllTasks');
     Route::get('/tasks/{id}', 'TaskController@getTask');

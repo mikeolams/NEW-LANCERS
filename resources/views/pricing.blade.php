@@ -111,11 +111,11 @@
                 text-align: center
             }
 
-            .pricing .title-header h1{ 
+            /* .pricing .title-header h1{ 
                 font-size: 65px;
                 padding-left: 160px;
                 padding-right: 160px;
-            }
+            } */
             .pricecol{
                 padding-left: 20px !important;
                 padding-right: 20px !important;
@@ -293,21 +293,48 @@
 
 @section('header')
     	<header>
-			<nav class="pricing-header navbar pl-5 pr-5 navbar-expand-lg ">
-            <a class="navbar-brand" href="{{ url('/')}}"> <h3>Lan<span>c</span>er</h3> </a>
-            <button class="navbar-toggler navbar-light bg-light" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav" >
-                <a class="nav-item nav-link" href="{{ url('/pricing') }}">Pricing<span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="{{ url('/estimates') }}">Generate an Invoice</a>
-                <a class="nav-item nav-link" href="{{ url('/projects') }}">Track a Project</a>
-                <a class="nav-item nav-link" href="{{ route('login') }}">Sign in</a>
-                <a class="nav-item nav-link" href="{{ route('register') }}">Sign up</a>
+            <nav class="navbar navbar-expand-lg navbar-main">
+                <div class="container">
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        <img src="{{ asset('images/svg/logo-white.svg') }}" class="img img-responsive" height="30" width="auto">
+                    </a>
+                    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="icon-bar top-bar"></span>
+                        <span class="icon-bar middle-bar"></span>
+                        <span class="icon-bar bottom-bar"></span>
+                        <!-- <span class="navbar-toggler-icon"><i class="fa fa-bars fa-lg py-1 text-white"></i></span> -->
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/') }}">Home </a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{{ url('/pricing') }}">Pricing <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/estimate/create') }}">Create Estimate </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/project/track') }}">Track a Project </a>
+                            </li>
+                            @guest
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">Sign in</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">Sign up</a>
+                            </li>
+                            @endauth
+                            @auth
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('logout') }}">Logout</a>
+                            </li>
+                            @endauth
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
 		</header>
 @stop
 
