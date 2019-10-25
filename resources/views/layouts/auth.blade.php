@@ -308,7 +308,7 @@
 
   table.project-table tbody tr td, table.project-table thead tr th {
       max-width: 200px;
-      overflow: hidden;
+      /* overflow: hidden; */
       text-overflow: ellipsis;
       white-space: nowrap;
   }
@@ -343,6 +343,46 @@
       padding-left: 20px;
       margin: 0px;
   }
+  /*------------client page specific---------*/
+  .topControl{
+    display:flex;
+  }
+    .act {
+        margin-left: 5%;
+        width: 10%;
+        padding: 10px 18px;
+        background-color: rgba(23, 150, 21, 0.1);
+        color: #179615;
+        font-weight: bold;
+        text-align: center;
+    }
+    .comp {
+        margin-left: 10%;
+        margin-bottom: 5%;
+        width: 38%;
+        padding: 10px 10px;
+        background: rgba(0, 159, 255, 0.1);
+        color: darkblue;
+        font-weight: bold;
+        text-align: center;
+    }
+    .pend {
+        margin-left: 10%;
+        margin-bottom: 5%;
+        width: 38%;
+        padding: 10px 10px;
+        background: rgb(240, 183, 183);
+        border-radius: 4px;
+        color: #F77A06;
+        font-weight: bold;
+        text-align: center;
+    }
+    #btn {
+        padding: 0.5em;
+        border-radius: 5px;
+        padding-left: 8px;
+        margin-left: 10px;
+    }
   </style>
 
 @stack('styles')
