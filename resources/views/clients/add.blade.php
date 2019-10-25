@@ -1,5 +1,6 @@
 @extends('layouts.auth')
 
+@section('title', 'Client Information')
 
 
 @section('main-content')
@@ -10,7 +11,7 @@
 
     <main>
         
-        <form method="post" action="/client/add">
+        <form method="post" action="/clients">
             @csrf
             <h2>New Client</h2><br>
             @if(session('success'))<br> <h6><span class="alert alert-success">{{session('success')}}</span></h6>

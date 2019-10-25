@@ -49,6 +49,7 @@ class ClientController extends Controller {
             };
             if ($client->save()) {
                 return back()->with('success', 'New client created');
+                // return back('clients.add')->with('success', 'New client created');
                 // return $this->SUCCESS('New client created', $data);
             }
         } catch (\Throwable $e) {
