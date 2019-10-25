@@ -58,7 +58,6 @@ class UserNotification extends Notification
      */
     public function toArray($notifiable)
     {
-        //Save notifications to the database
         return $this->message;
     }
 }

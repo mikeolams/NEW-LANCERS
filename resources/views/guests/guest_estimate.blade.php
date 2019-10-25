@@ -230,8 +230,8 @@
         <header>
             <span class = "c-estimate shift">Estimates</span>
             <ul>
-                <li class="login"><a  href="#">Login</a></li>
-                <li class = "signup" ><a class = "signup" href="">Signup</a></li>
+                <li class="login"><a  href="{{ url('/login') }}">Login</a></li>
+                <li class = "signup" ><a class = "signup" href="{{ url('/register') }}">Signup</a></li>
             </ul>
 
         </header>
@@ -279,6 +279,8 @@
    
    
            <div class="cree">
+           <form method="POST" action="{{ url('/guest/project/create') }}">
+                        @csrf
                    <div class="lists glacier">
                        <div class="box">
                             <h3 class="first-head">A new project</h3>
@@ -287,13 +289,13 @@
                             </p>
                        </div>
                       
-                       <div class="contents project">
-                           <input class="l-proj" type="text" onmouseout="verifyPath()" placeholder= "Project Name" name="" id="createProject">
+                        <div class="contents project">
+                           <input class="l-proj" type="text" onmouseout="verifyPath()" placeholder= "Project Name" name="title" id="createProject">
                            <br>
                            <span class="req">Required</span></div>
        
-                   </div>
-               </div>
+                        </div>
+                    </div>
                <button class="a-next disabled"><a href="#">NEXT</a></button>
        </section>
     </div>

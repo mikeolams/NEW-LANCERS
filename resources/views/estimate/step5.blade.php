@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app')`
 <!-- Preview Invoice -->
 
 @section('styles')
