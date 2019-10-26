@@ -313,7 +313,7 @@
                                 <a class="nav-link" href="{{ url('/pricing') }}">Pricing <span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/estimate/create') }}">Create Estimate </a>
+                                <a class="nav-link" href="{{ url('/estimate/create/step1') }}">Create Estimate </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/project/track') }}">Track a Project </a>

@@ -7,12 +7,10 @@
 @section('main-content')
 <section class="">
     <div class="container-fluid">
-        <br/>
-        <h4 class="mt-0 text-primary">Clients</h4>
-
+        <h1 style="margin-top: 15px; margin-bottom: 15px;">Clients </h1>
         <div class="">
             <div class="">
-                <form class="form-inline" style="display: inline-block">
+                <form class="form-inline" style="display: inline-block; margin-top: 10px;">
                     <select  class="form-control" id="select-filter">
                         
                         <option value="all" @if (Request()->filter) {{ 'selected' }} @endif >All</option>

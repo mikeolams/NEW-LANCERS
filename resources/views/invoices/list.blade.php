@@ -5,12 +5,12 @@
 
 
 @section('main-content')
-    <div class="container">
-        <a href="{{url('estimate/create/step1')}}">    <button class='create-invoice' >Create Invoice</button> </a>
-    </div> 
+
     <section class="">
         <div class="container-fluid">
-            <h4 class="mt-0 text-primary">Invoices</h4>
+            <h1 style="margin-top: 15px;">Invoices </h1>
+            <a href="{{url('estimate/create/step1')}}">    <button class='create-invoice' >Create Invoice</button> </a>
+    
               @if(session()->has('message.alert'))
             <div class="text-center">
                 <button class=" alert alert-{{ session('message.alert') }}"> 
