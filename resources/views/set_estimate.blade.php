@@ -384,7 +384,7 @@
         <input type="text" name="estTime" placeholder="Hours" />
       </div><br />
       <div>
-          <p>How much (in hours) do you charge per hour?</p>
+          <p>How much do you charge per hour?</p>
           <input type="text" name="estPrice" placeholder="NGN 0.00" />
         </div><br />
         <div class="date">
