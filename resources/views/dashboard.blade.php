@@ -15,7 +15,7 @@
             border: none;
             font-size: 20px;
             text-align: center;
-            margin-left: 40px;
+            margin-left: 15px;
             margin-top: 40px;
             margin-bottom: 20px;
         }
@@ -26,7 +26,7 @@
             font-size: 22px;
             line-height: 32px;
             color: #262626;
-            margin-left: 40px;
+            margin-left: 15px;
             margin-bottom: 20px;
         }
         .content p {
@@ -34,7 +34,7 @@
             font-size: 14px;
             line-height: 20px;
             color: #091429;
-            margin-left: 40px;
+            margin-left: 15px;
         }
 
     @media(max-width: 850px) {

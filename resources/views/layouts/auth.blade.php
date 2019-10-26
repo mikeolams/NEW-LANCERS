@@ -455,24 +455,30 @@ table.project-table thead tr th {
         <!-- <Topnav /> -->
         <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
             <div class="container-fluid">
-                <button type="button" id="sidebarCollapse" class="navbar-btn">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-
-                <form class="form-inline my-2 ml-4">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text border-right-0 bg-white" id="basic-addon1"><i class="fas fa-search"></i></span>
-                        </div>
-                        <input class="form-control border border-left-0 searchBox" type="text" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1">
+                <div class="row">
+                    <div class="col-3">
+                        <button type="button"id="sidebarCollapse" class="my-2 navbar-btn">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
                     </div>
-                </form>
-                <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fas fa-align-justify"></i>
-                </button>
-
+                    <div class="col-6">
+                        <form class="form-inline my-2">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text border-right-0 bg-white" id="basic-addon1"><i class="fas fa-search"></i></span>
+                                </div>
+                                <input class="form-control border border-left-0 searchBox" type="text" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-3">
+                        <button class="btn my-2 btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fas fa-align-justify"></i>
+                        </button>
+                    </div>
+                </div>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item active">
