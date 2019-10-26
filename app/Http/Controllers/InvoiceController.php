@@ -58,21 +58,15 @@ class InvoiceController extends Controller {
             'estimate_id' => 'required|numeric'
         ]);
 
-        $estimate = Estimate::findOrFail($request->estimate_id);
+        $estimate = Estimate::find($request->estimate_id);
 
-        $pre_invoice = Invoice::where('estimate_id', $request->estimate_id)->first();
-
-        if ($pre_invoice !== null) {
-
+        $pre_invoice = Invoice::whereEstimate_id($request->estimate_id)->first();
+        if (is_object($pre_invoice)) {
             $pre_invoice->update(['amount' => $estimate->estimate]);
-
-            $invoice = $pre_invoice;
-        } else {
-
-            $estimate = Estimate::findOrFail($request->estimate_id);
-            $createinvoice = Invoice::create(['user_id' => Auth::user()->id, 'issue_date' => $estimate->start, 'due_date' => $estimate->end, 'estimate_id' => $estimate->id, 'amount' => $estimate->estimate, 'currency_id' => $estimate->currency_id]);
-            $invoice = Invoice::whereId($createinvoice->id)->with('estimate')->first();
         }
+        $createinvoice = Invoice::create(['user_id' => Auth::user()->id, 'issue_date' => $estimate->start, 'due_date' => $estimate->end, 'estimate_id' => $estimate->id, 'amount' => $estimate->estimate, 'currency_id' => $estimate->currency_id]);
+        $invoice = Invoice::whereId($createinvoice->id)->with('estimate')->first();
+
 
         return view('invoices.reviewinvoice')->with('invoice', $invoice);
     }
@@ -98,7 +92,7 @@ class InvoiceController extends Controller {
         $project_id = $invoice->project_id;
 
         $invoice = Project::where('id', $project_id)->select('id', 'title', 'estimate_id', 'client_id')->with(['estimate', 'invoice', 'client'])->first();
-
+	
         // return $invoice;
         return view('invoices.viewinvoice')->with('invoice', $invoice);
     }
@@ -111,6 +105,7 @@ class InvoiceController extends Controller {
         } else {
             $data['invoices'] = Invoice::whereUser_id(Auth::user()->id)->with('estimate')->with('currency')->get();
         }
+		//dd($data);
         return view('invoices.list', $data);
     }
 
@@ -144,16 +139,22 @@ class InvoiceController extends Controller {
 
         $url = "/clients/" . $encoded . "/invoices/" . strtotime($invoice->created_at);
         $name = Auth::user()->name;
+        try {
+            Mail::to($client_email)
+                    ->send(new SendInvoice([
+                        'user' => $name,
+                        'name' => $client->name,
+                        'amount' => $invoice->amount,
+                        'invoice_url' => $url,
+                        'project' => $project_name
+            ]));
+        } catch (\Throwable $e) {
+            session()->flash('message.alert', 'danger');
+            session()->flash('message.content', "Error We Are Unable to Send This Invoice Now, Please Try Back Later ");
+            return back();
+        }
 
-        Mail::to($client_email)
-                ->send(new SendInvoice([
-                    'user' => $name,
-                    'name' => $client->name,
-                    'amount' => $invoice->amount,
-                    'invoice_url' => $url,
-                    'project' => $project_name
-        ]));
-
+        
         return view('invoices.invoicesent');
     }
 

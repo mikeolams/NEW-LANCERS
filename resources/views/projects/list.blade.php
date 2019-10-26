@@ -7,7 +7,7 @@
 @section('main-content')
 <section class="">
     <div class="container-fluid">
-        <h4 class="mt-0 text-primary">PROJECTS</h4>
+        <h1 style="margin-top: 15px;">Projects </h1>
         <div class="">
             <div class="">
                 <form class="form-inline" method="GET">
@@ -71,7 +71,7 @@
                             </td>
                             <td class="border-top border-bottom">
                                 <span class="alert alert-primary py-0 px-2 small m-0 pending">
-                                   {{$project->status}}
+                                   {{ucfirst($project->status)}}
                                 </span>
                             </td>
                             <td class="rounded-right border border-left-0">

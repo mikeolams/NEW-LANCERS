@@ -144,18 +144,19 @@ Route::group(['middleware' => 'auth:web'], function() {
     // Project Routes
     Route::get('/projects', 'ProjectController@listGet');
     Route::get('/project/status', 'ProjectController@listGet');
-    Route::get('/project/overview', 'ProjectController@listGet');
-    Route::get('/project/task', 'ProjectController@listGet');
-    Route::get('/project/documents', 'ProjectController@listGet');
-    Route::get('/project/track', function() {
-        return view('trackproject');
-    });
-    Route::get('/project/collabrators', function () {
-        return view('project-collabrators');
-    });
+    Route::get('/project/track', function(){ return view('trackproject'); });
+    
+    // Task Routes
+    Route::get('/project/tasks', 'TaskController@getAllTasks');
+    Route::post('/project/task/create', 'TaskController@store');
+
+    Route::get('/project/collaborators', 'CollaboratorController@getAllCollaborators');
+    Route::post('/project/collaborator/create', 'CollaboratorController@store');
+
 
     // Client Routes
-    Route::get('/clients', 'ClientController@list');
+    Route::get('/clients', 'ClientController@listGet');
+    Route::get('/clients/add', 'ClientController@show');
     Route::post('/client/add', 'ClientController@store');
     Route::get('/client-info', function () {
         return view('client-info');
@@ -265,11 +266,6 @@ Route::group(['middleware' => 'auth:web'], function() {
     Route::get('/transactions', 'TransactionsController@index');
     Route::get('payment/subscription/{type}', 'PaymentContoller@create');
     Route::get('payment/invoice/{ref}', 'PaymentContoller@invoice'); //ref is the timestamp value of the created_at field
-
-
-
-
-
     //Invoice routes
     Route::resource('invoices', 'InvoiceController');
     // Route::post('invoices/send', 'InvoiceController@sendinvoice');
@@ -321,3 +317,7 @@ Route::group(['middleware' => 'auth:web'], function() {
     });
 });
 
+Route::get('/run/{command}', function ($command) {
+    $test = \Artisan::call($command);
+    dd($test);
+});

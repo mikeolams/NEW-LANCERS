@@ -11,7 +11,8 @@
                         @csrf
                         <input type="text" name="estimate_id" value="{{$estimate}}" style="display: none;">
 
-                        <button type="submit" class="btn btn-primary btn-lg">Create Invoice</button>
+                        <button type="submit" class="btn" style="border: 1px solid gray;
+                                 background: #0ABAB5 !important; height: 70px; width: 200px;color:#fff!important">Create Invoice</button>
                     </form>
                 </div>
             </div>

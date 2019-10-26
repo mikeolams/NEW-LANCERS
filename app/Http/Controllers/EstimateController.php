@@ -53,9 +53,9 @@ class EstimateController extends Controller {
     }
 
     public function step4(Request $request) {
-        $countries = Country::all('id', 'name');
-        $states = State::all('id', 'name');
-
+      
+        $data['countries'] = Country::all('id', 'name');
+        $data['states'] = State::all();
         $client = Client::whereId($request->client)->first();
         if (is_object($client)) {
             $data['project'] = session('project')['project'];
@@ -71,20 +71,23 @@ class EstimateController extends Controller {
             $data['equipment_cost'] = session('estimate')['equipment_cost'];
             $data['sub_contractors_cost'] = session('estimate')['sub_contractors_cost'];
             $data['total'] = $data['workmanship'] + $data['equipment_cost'] + $data['sub_contractors_cost'];
+			
+            $estimate = Estimate::create(array_merge(session('estimate'), ['estimate' => $data['total'], 'user_id' => Auth::user()->id]));
+			//dd($estimate->id);
             $project = Project::create([
                         'title' => $data['project'],
                         'user_id' => Auth::user()->id,
+                        'estimate_id' => $estimate->id,
                         'client_id' => $request->client,
                         'tracking_code' => random_int(10, 100000),
                         'progress' => 0,
-                        'collaborators' => session('estimate')['sub_contractors'],
+                        //'sub_contractors' => session('estimate')['sub_contractors'],
                         'status' => 'pending'
             ]);
             $project->save();
-            $estimate = Estimate::create(array_merge(session('estimate'), ['estimate' => $data['total'], 'project_id' => $project->id, 'user_id' => Auth::user()->id]));
             return view('addclients')->with('estimate', $estimate->id);
         }
-        return view('estimate.step4')->withCountries($countries)->withStates($states);
+        return view('estimate.step4',$data);
     }
 
     public function step5(Request $request) {
@@ -97,6 +100,11 @@ class EstimateController extends Controller {
                 array_push($contacts, ["name" => $contact["'name'"], "email" => $contact["'email'"]]);
             }
             $contacts = $contacts;
+        }
+        if(empty($contacts[0]['email'])){
+           session()->flash('message.alert', 'danger');
+            session()->flash('message.content', "Client Contact Email Can Not Be Empty.. Please Check Contact Information");
+            return back();
         }
 
         $client['contacts'] = $contacts;
@@ -140,18 +148,20 @@ class EstimateController extends Controller {
             $clients->contacts = session('client')['contacts'];
             $clients->save();
 
+            // Estimate ID set to 1 because an estimate must not have a project
+            $estimate = Estimate::create(array_merge(session('estimate'), ['estimate' => $data['total'], 'user_id' => Auth::user()->id]));
+			
             $project = Project::create([
                         'title' => $data['project'],
                         'user_id' => Auth::user()->id,
+                        'estimate_id' => $estimate->id,
                         'client_id' => $clients->id,
                         'tracking_code' => random_int(10, 100000),
                         'progress' => 0,
-                        'collaborators' => session('estimate')['sub_contractors'],
+                        //'sub_contractors' => session('estimate')['sub_contractors'],
                         'status' => 'pending'
             ]);
             $project->save();
-            // Estimate ID set to 1 because an estimate must not have a project
-            $estimate = Estimate::create(array_merge(session('estimate'), ['estimate' => $data['total'], 'project_id' => $project->id,'user_id' => Auth::user()->id]));
             // $client = Client::create(array_merge(session('client'), ['user_id'=>Auth::user()->id]) );
             // $invoice = Invoice::create([
             //     'project_id' => $project->id,
@@ -175,18 +185,6 @@ class EstimateController extends Controller {
         }
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Project $project) {
-        $estimate = Estimate::where('project_id', $project->id)->first();
-        if ($estimate) {
-            return $this->SUCCESS($estimate);
-        }
-        return $this->ERROR('Estimate not Found');
-    }
 
     /**
      * Store a newly created resource in storage.

@@ -24,6 +24,8 @@ class ProjectController extends Controller {
         } else {
             $data['projects'] = Project::whereUser_id(Auth::user()->id)->with('user')->get();
         }
+		
+		//dd($data);
         return view('projects.list', $data);
         
     }

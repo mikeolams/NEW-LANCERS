@@ -5,12 +5,19 @@
 
 
 @section('main-content')
-    <div class="container">
-        <a href="{{url('estimate/create/step1')}}">    <button class='create-invoice' >Create Invoice</button> </a>
-    </div> 
+
     <section class="">
         <div class="container-fluid">
-            <h4 class="mt-0 text-primary">Invoices</h4>
+            <h1 style="margin-top: 15px;">Invoices </h1>
+            <a href="{{url('estimate/create/step1')}}">    <button class='create-invoice' >Create Invoice</button> </a>
+    
+              @if(session()->has('message.alert'))
+            <div class="text-center">
+                <button class=" alert alert-{{ session('message.alert') }}"> 
+                    {!! session('message.content') !!}
+                </button>
+            </div>
+            @endif
             <div class="">
                 <div class="">
                     <form class="form-inline">
@@ -51,7 +58,7 @@
                                     <td class="border-top border-bottom titles">{{$invoice->created_at}}</td>
                                     
                                     <td class="border-top border-bottom">
-                                        <span class="alert alert-primary py-0 px-2 small m-0 pending">{{$invoice->status}}</span>
+                                        <span class="alert alert-{{$invoice->status == 'paid' ? 'success' : 'danger'}} py-0 px-2 small m-0 pending">{{ucfirst($invoice->status)}}</span>
                                     </td>
                                      <td class="border-top border-bottom titles">{{$invoice->currency->symbol}}{{$invoice->amount}}</td>
                                     <td class="border-top border-bottom titles">{{$invoice->currency->symbol}}{{$invoice->amount_paid}}</td>

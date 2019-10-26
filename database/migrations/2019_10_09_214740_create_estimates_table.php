@@ -15,26 +15,20 @@ class CreateEstimatesTable extends Migration {
         Schema::create('estimates', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('project_id');
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('time');
-            $table->integer('price_per_hour');
+            $table->unsignedBigInteger('currency_id')->default(1);
+                $table->foreign('currency_id')->references('id')->on('currencies');
+            $table->integer('price_per_hour')->nullable();
             $table->integer('equipment_cost')->nullable();
             $table->text('sub_contractors')->nullable();
-            $table->text('sub_contractors_cost')->nullable();
-            //$table->text('sub_contractors')->nullable();
-            $table->integer('similar_projects');
-            $table->integer('rating');
-            $table->integer('currency_id');
+            $table->integer('sub_contractors_cost')->nullable();
+            $table->integer('similar_projects')->default(0);
+            $table->integer('rating')->default(0);
             $table->float('estimate', 15, 2);
             $table->date('start');
             $table->date('end');
             $table->timestamps();
-             $table->foreign('user_id')
-                    ->references('id')->on('users')
-                    ->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('project_id')
-                    ->references('id')->on('projects')
-                    ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

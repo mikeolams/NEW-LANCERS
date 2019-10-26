@@ -27,68 +27,56 @@ use App\Profile;
 use App\Subscription;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
-
-class GuestController extends Controller
-{
+class GuestController extends Controller {
 
     // public $project;
 
-    public function step1(Request $request)
-    {
+    public function step1(Request $request) {
         $project = $request->session()->get('project');
-        
-        if(!$project)
-        {
-        return view('guests/step1');
+
+        if (!$project) {
+            return view('guests/step1');
         }
 
         // return view('guests/step1',compact('project', $project));
         return view('guests/step1');
-        
-       
     }
 
-    public function createstep1(Request $request)
-    {
-       
+    public function createstep1(Request $request) {
+
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string'
+                    'project_name' => 'required|string|max:255',
+                    'description' => 'nullable|string'
         ]);
 
-       
 
-        
 
-        if ($validator->fails()) 
-        {
-            return back()->withErrors($validator)->withInput();
-        } 
-        else 
-        {
 
-            $data = ["title"=> $request->title,
-            "description"=> $request->description,
-            'tracking_code' => Project::generateTrackingCode()
-        ];
 
-        if(empty($request->session()->get('project'))){
-            $request->session()->put('project',  $data);
-        }else{
-            $project = $request->session()->get('project');
-            $request->session()->put('project',  $data);
+        if ($validator->fails()) {
+            $message = implode("<br/>", $validator->messages()->all());
+            session()->flash('message.alert', 'danger');
+            session()->flash('message.content', $message);
+            return back();
+        } else {
+
+            $data = ["project_name" => $request->project_name,
+                "description" => $request->description,
+                'tracking_code' => Project::generateTrackingCode()
+            ];
+
+            if (empty($request->session()->get('project'))) {
+                $request->session()->put('project', $data);
+            } else {
+                $project = $request->session()->get('project');
+                $request->session()->put('project', $data);
+            }
+
+            return redirect('guest/create/step2/');
         }
-
-        return redirect('guest/create/step2/');
-
-                // dd(session('project'));
-            
-        }
-
     }
 
-    public function createstep2(Request $request)
-    {
+    public function createstep2(Request $request) {
         $data = session('project');
         $currencies = Currency::all('id', 'code');
 
@@ -96,22 +84,16 @@ class GuestController extends Controller
             $project = Session::get('project');
             $request->session()->put('project', $project);
             return view('guests/step2')->with(['project' => $project, 'currencies' => $currencies]);
-           
         }
 
         return redirect('guest/create/step1/')->with("error", "You need to create a project first");
-
-     
     }
 
+    public function savestep2(Request $request) {
 
-
-    public function savestep2(Request $request)
-    {
-
-         $project = Session::get('project');
+        $project = Session::get('project');
         $request->session()->put('project', $project);
-       
+
         // $validator = Validator::make($request->all(), [
         //     // 'project_id' => 'required|numeric',
         //     'time' => 'required|numeric',
@@ -125,189 +107,157 @@ class GuestController extends Controller
         //     'start' => 'required|date',
         //     'end' => 'required|date'
         // ]);
-
-        
-
         // if ($validator->fails()) {
         //     return back()->withErrors($validator)->withInput();
         // } else {
-            $data = [
-                'time' => $request->time,
-                'price_per_hour' => $request->cost_per_hour,
-                'equipment_cost' => $request->equipment_cost,
-                'sub_contractors' => $request->sub_contractors,
-                'sub_contractors_cost' => $request->sub_contractors_cost,
-                'similar_projects' => $request->similar_projects,
-                'rating' => $request->rating,
-                'currency_id' => $request->currency_id,
-                'start' => $request->start,
-                'end' => $request->end
+        $data = [
+            'time' => $request->time,
+            'price_per_hour' => $request->cost_per_hour,
+            'equipment_cost' => $request->equipment_cost,
+            'sub_contractors' => $request->sub_contractors,
+            'sub_contractors_cost' => $request->sub_contractors_cost,
+            'similar_projects' => $request->similar_projects,
+            'rating' => $request->rating,
+            'currency_id' => $request->currency_id,
+            'start' => $request->start,
+            'end' => $request->end
         ];
-           
 
-        $request->session()->put('estimate', $data);
 
-            // $ddata = Session::all();
-             dd($data);
-            return redirect('guest/create/step3');
+        $request->session()->put('guestestmate', $data);
+
+
+        // $ddata = Session::all();
+        //  dd($data);
+        return redirect('guest/create/step3');
         // }
-
     }
 
-    public function createstep3(Request $request)
-    {
+    public function createstep3(Request $request) {
         $data = session('project');
         $countries = Country::all('id', 'name');
         $states = State::all('id', 'name');
 
         if ($data) {
-            $estimate = Session::get('estimate');
+            $estimate = Session::get('guestestmate');
             $project = Session::get('project');
             $request->session()->put('project', $project);
-            $request->session()->put('estmate', $estimate);
-            return view('guests/step4')->with(['project' => $project,'estimate' => $estimate,
-             'countries' => $countries, 'states' => $states]);
-           
+            $request->session()->put('guestestmate', $estimate);
+            return view('guests/step4')->with(['project' => $project, 'guestestmate' => $estimate,
+                        'countries' => $countries, 'states' => $states]);
         }
 
         return redirect('guest/create/step1/')->with("error", "You need to create a project first");
-
     }
 
-        public function savestep3(Request $request){
-            $contacts = [];
-            if($request->contact){
-                foreach($request->contact as $contact){
-                    array_push($contacts, ["name"=>$contact["'name'"], "email"=>$contact["'email'"] ]);
-                }
-                $contacts = json_encode($contacts);
+    public function savestep3(Request $request) {
+        $contacts = [];
+        if ($request->contact) {
+            foreach ($request->contact as $contact) {
+                array_push($contacts, ["name" => $contact["'name'"], "email" => $contact["'email'"]]);
             }
-            $request->session()->put('contacts', $contacts);
+            $contacts = $contact;
+        }
+        if (empty($contact["'email'"])) {
+            session()->flash('message.alert', 'danger');
+            session()->flash('message.content', "Client Contact Email Can Not Be Empty.. Please Check Contact Information");
+            return back();
+        }
+        
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'street' => $request->street,
+            'street_number' => $request->street_number,
+            'city' => $request->city,
+            'country_id' => $request->country_id,
+            'state_id' => $request->state_id,
+            'zipcode' => $request->zipcode,
+        ];
 
-            $cdata = [
-                'time' => $request->time,
-                'price_per_hour' => $request->cost_per_hour,
-                'equipment_cost' => $request->equipment_cost,
-                'sub_contractors' => $request->sub_contractors,
-                'sub_contractors_cost' => $request->sub_contractors_cost,
-                'similar_projects' => $request->similar_projects,
-                'rating' => $request->rating,
-                'currency_id' => $request->currency_id,
-                'start' => $request->start,
-                'end' => $request->end
-             ];
+        $project = Session::get('project');
+        $estimate = Session::get('guestestmate');
+        // session::put(['estimate' =>  $data]);
+        $request->session()->put('guestestmate', $estimate);
+        $request->session()->put('project', $project);
+        $request->session()->put('client', $data);
+        $request->session()->put('contacts', $contacts);
+        
+        return redirect('guest/create/step4');
+    }
 
+    public function createstep4(Request $request) {
+
+        return view('guests/register');
+    }
+
+    public function savestep4(Request $request) {
+        $data = [];
+        $session_project = $request->session()->get('project');
+
+        $session_contacts = $request->session()->get('contacts');
+        $session_contactsq = $request->session()->get('contacts');
+       
+      
+        if (!empty($session_contactsq["'email'"])) {
+            $emailcontact = $session_contactsq["'email'"];
+        } else {
+            $emailcontact = null;
+        }
+        $data['workmanship'] = session('guestestmate')['price_per_hour'] * session('guestestmate')['time'];
+        $data['equipment_cost'] = session('guestestmate')['equipment_cost'];
+        $data['sub_contractors_cost'] = session('guestestmate')['sub_contractors_cost'];
+        $data['total'] = $data['workmanship'] + $data['equipment_cost'] + $data['sub_contractors_cost'];
+        $validator = Validator::make($request->all(), [
+                    'name' => ['required', 'string', 'max:255'],
+                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                    'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        if ($validator->fails()) {
+            $message = implode("<br/>", $validator->messages()->all());
+            session()->flash('message.alert', 'danger');
+            session()->flash('message.content', $message);
+            return back();
+        }
+        $password = Hash::make($request->password);
+        $user = User::create([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => $password
+        ]);
+        Auth::login($user);
         
 
-               $project = Session::get('project');
-               $estimate = Session::get('estimate');
-               // session::put(['estimate' =>  $data]);
-               $request->session()->put('estimate', $estimate);
-               $request->session()->put('project', $project);
-               $request->session()->put('client', $cdata);
-               $request->session()->put('contacts', $contacts);
-    
-
-               $data = [
-                'estimate' => Session::get('estimate'),
-                'project' =>  Session::get('project'),
-                'clients' =>  Session::get('client'),
-                'contacts' =>  Session::get('contacts'),
-               ];
-               
-               dd($data);
-            //    return redirect('register');
-                
-                
-                
-           
-        }
-
-        public function createstep4(Request $request){
-
-           return view('guests/register');
-        }
-
-        public function savestep4(Request $request){
-            // Get our data from the seeion
-            $session_project = $request->session()->get('project');
-            $session_client = $request->session()->get('client');
-            $session_contacts = $request->session()->get('contacts');
-            $session_estimate = $request->session()->get('estimate');
-
-            Validator::make($request->all, [
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password' => ['required', 'string', 'min:8', 'confirmed'],
-            ]);
-
-            $user = new User;
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = Hash::make($request->password);
-
-            if($user->save){
-                
-            $clientModel = new Client;
-            $clientModel->user_id = $user->id;
-
-            $clientModel->name = session('client')['name'];
-            // $client->email = session('client')['email'];
-            $clientModel->street = session('client')['street'];
-            $clientModel->street_number = session('client')['street_number'];
-            $clientModel->city = session('client')['city'];
-            $clientModel->country_id = session('client')['country_id'];
-            $clientModel->state_id = session('client')['state_id'];
-            $clientModel->zipcode = session('client')['zipcode'];
-            $clientModel->contacts = session('client')['contacts'];
-
-                $project = Project::create([
-                    'title'=>$data['project'],
-                    'user_id' => Auth::user()->id,
-                    'client_id' => $clientModel->id,
-                    'estimate_id' => $estimate->id,
+        $clients = new Client;
+        $clients->user_id = $user->id;
+        $clients->name = session('client')['name'];
+        $clients->email = $emailcontact;
+        $clients->street = session('client')['street'];
+        $clients->street_number = session('client')['street_number'];
+        $clients->city = session('client')['city'];
+        $clients->country_id = session('client')['country_id'];
+        $clients->state_id = session('client')['state_id'];
+        $clients->zipcode = session('client')['zipcode'];
+        $clients->contacts = $session_contacts;
+        $clients->save();
+		
+        $estimate = Estimate::create(array_merge(session('guestestmate'), ['estimate' => $data['total'], 'user_id' => $user->id]));
+		
+        $project = Project::create([
+                    'title' => $session_project['project_name'],
+					'estimate_id'=>$estimate->id,
+                    'user_id' => $user->id,
+                    'client_id' => $clients->id,
                     'tracking_code' => random_int(10, 100000),
                     'progress' => 0,
-                    'collaborators' => session('estimate')['sub_contractors'],
+                    //'collaborators' => session('estimate')['sub_contractors'],
                     'status' => 'pending'
         ]);
         $project->save();
 
-                if($session_contacts){
-                    foreach($session_contacts as $contact){
-                        array_push($session_contacts, ["name"=>$contact["'name'"], "email"=>$contact["'email'"] ]);
-                    }
-                    $contacts = json_encode($contacts);
-                }
-                
-                    $client = new Client;
-                    $client->user_id = $user->id;
-                    $client->name = $session_client->name;
-                    $client->email = $session_client->email;
-                    $client->street = $session_client->street;
-                    $client->street_number = $session_client->street_number;
-                    $client->city = $session_client->city;
-                    $client->country_id = $session_client->country_id;
-                    $client->state_id = $session_client->state_id;
-                    $client->zipcode = $session_client->zipcode;
-                    if(gettype($contacts) == 'string'){
-                        $client->contacts = $contacts;
-                    };
 
-                    $invoice = Invoice::create([
-                        'project_id' => $project->id,
-                        'issue_date' => $data['issued_date'],
-                        'due_date' => $data['due'],
-                        'amount' => $data['total'],
-                        'estimate_id' =>  $estimate->id,
-                        'amount_paid' =>  0,
-                        'currency_id' => session('estimate')['currency_id'],
-                        'status' => 'unpaid'
-                    ]);
-            }
-           
-    
-         }
 
-     
+        return view('addclients')->with('estimate', $estimate->id);
+    }
+
 }

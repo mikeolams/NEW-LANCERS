@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title') {{'Master'}} @endsection
 @section('styles')
 <style type="text/css">
 	/*Main page style by message*/
@@ -470,7 +470,9 @@
 	<div class="bg-white text-left py-2 mt-0">
 		<div class="container">
 			<p class="float-right">
-				<a href="#">Back to top</a>
+			{{-- <a href="#">Back to top</a> --}}
+			<a href="javascript:void(0)" onClick="window.scrollTo(0, 0)" class="btn btn-secondary mb-2" id="btn-sub">
+				<span>&#8593;</span></a>
 			</p>
 			<p>&copy; Lancer 2019.</p>
 		</div>
