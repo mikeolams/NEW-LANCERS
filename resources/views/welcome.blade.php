@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title') {{'Master'}} @endsection
 @section('styles')
 <style type="text/css">
 	/*Main page style by message*/
