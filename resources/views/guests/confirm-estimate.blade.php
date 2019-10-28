@@ -286,7 +286,7 @@ input {
         </div>
         <div class="hour">
 
-          <p>How much (in hours) do you charge per hour?</p>
+          <p>How much do you charge per hour?</p>
           <input type="text" name="cost_per_hour" placeholder="NGN 0.00" />
         </div>
 

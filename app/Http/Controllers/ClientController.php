@@ -87,14 +87,15 @@ class ClientController extends Controller {
         if ($request->filter == 'pending') {
             $data['clients'] = Client::whereUser_id($user)->with(["projects" => function($q) {
                             $q->where('projects.status', '=', 'pending');
-                        }])->get();
+                        }])->orderBy('created_at', 'DESC')->get();
         } elseif ($request->filter == 'completed') {
             $data['clients'] = Client::whereUser_id($user)->with(["projects" => function($q) {
                             $q->where('projects.status', '=', 'completed');
-                        }])->get();
+                        }])->orderBy('created_at', 'DESC')->get();
         } else {
-            $data['clients'] = Client::whereUser_id($user)->with('projects')->get();
+            $data['clients'] = Client::whereUser_id($user)->with('projects')->orderBy('created_at', 'DESC')->get();
         }
+		//dd($data);
         return view('clients.list', $data);
     }
         // return view('clients.list')->with('clients', $Clients);

@@ -28,13 +28,13 @@ class Estimate extends Model
     }
      public function project()
     {
-        return $this->belongsTo(Project::class, 'project_id')->with('client');
+        return $this->hasOne(Project::class, 'estimate_id')->with('client');
     }
     
 
     public function invoice()
     {
-        return $this->hasOne('App\Invoice');
+        return $this->hasOne('App\Invoice')->with('currency');
     }
 
 }

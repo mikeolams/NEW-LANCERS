@@ -70,6 +70,9 @@
 @section('script')
 <script type="text/javascript">
     let count = 1;
+	window.addEventListener('load', function() {
+        addContact();
+    })
     function addContact(){
         let element = document.querySelector('#contacts')
         let newElement = document.createElement('div');

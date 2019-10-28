@@ -22,7 +22,7 @@ class Project extends Model
 
     public function estimate()
     {
-        return $this->hasOne('App\Estimate');
+        return $this->belongsTo('App\Estimate');
     }
 
     public function tasks()

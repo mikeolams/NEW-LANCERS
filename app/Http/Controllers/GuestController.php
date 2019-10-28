@@ -240,19 +240,22 @@ class GuestController extends Controller {
         $clients->zipcode = session('client')['zipcode'];
         $clients->contacts = $session_contacts;
         $clients->save();
+		
+        $estimate = Estimate::create(array_merge(session('guestestmate'), ['estimate' => $data['total'], 'user_id' => $user->id]));
+		
         $project = Project::create([
                     'title' => $session_project['project_name'],
+					'estimate_id'=>$estimate->id,
                     'user_id' => $user->id,
                     'client_id' => $clients->id,
                     'tracking_code' => random_int(10, 100000),
                     'progress' => 0,
-                    'collaborators' => session('estimate')['sub_contractors'],
+                    //'collaborators' => session('estimate')['sub_contractors'],
                     'status' => 'pending'
         ]);
         $project->save();
 
 
-        $estimate = Estimate::create(array_merge(session('guestestmate'), ['estimate' => $data['total'], 'project_id' => $project->id, 'user_id' => $user->id]));
 
         return view('addclients')->with('estimate', $estimate->id);
     }

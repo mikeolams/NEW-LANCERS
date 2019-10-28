@@ -92,7 +92,7 @@ class InvoiceController extends Controller {
         $project_id = $invoice->project_id;
 
         $invoice = Project::where('id', $project_id)->select('id', 'title', 'estimate_id', 'client_id')->with(['estimate', 'invoice', 'client'])->first();
-
+	
         // return $invoice;
         return view('invoices.viewinvoice')->with('invoice', $invoice);
     }
@@ -105,6 +105,7 @@ class InvoiceController extends Controller {
         } else {
             $data['invoices'] = Invoice::whereUser_id(Auth::user()->id)->with('estimate')->with('currency')->get();
         }
+		//dd($data);
         return view('invoices.list', $data);
     }
 

@@ -398,8 +398,8 @@
                                 @csrf
 
 
-                                @if(session('success'))<br> <h6><span class="alert alert-success">{{session('success')}}</span></h6>
-                                @elseif(session('error'))<br> <h6><span class="">{{session('error')}}</span></h6> @endif
+                                @if(session('success'))<br> <div class="alert alert-success">{{session('success')}}</div>
+                                @elseif(session('error'))<br> <div class="">{{session('error')}}</div> @endif
                                 @if(session()->has('message.alert'))
                                 <div class="text-center">
                                     <button class=" alert alert-{{ session('message.alert') }}"> 
@@ -523,6 +523,9 @@
         @section('script')
         <script type="text/javascript">
             let count = 1;
+			window.addEventListener('load', function() {
+				addContact();
+			})
             function addContact() {
                 let element = document.querySelector('#contacts')
                 let newElement = document.createElement('div');
