@@ -185,6 +185,8 @@ Route::group(['middleware' => 'auth:web'], function() {
     Route::post('/invoice/send/{id}', 'InvoiceController@send');
     Route::get('/invoice-view', function () {
         return view('invoice-view');
+        // invoice_view.blade
+        // invoice_view_pdf.blade
     });
     Route::get('/client-doc-view', function () {
         return view('client-doc-view');
@@ -282,9 +284,9 @@ Route::group(['middleware' => 'auth:web'], function() {
     Route::get('/invoice_sent', function () {
         return view('invoice_sent');
     });
-    Route::get('/invoice-view', function () {
-        return view('invoice-view');
-    });
+    // Route::get('/invoice-view', function () {
+    //     return view('invoice-view');
+    // });
     Route::get('/client-doc-view', function () {
         return view('client-doc-view');
     });
