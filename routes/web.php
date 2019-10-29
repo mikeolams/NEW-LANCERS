@@ -317,6 +317,14 @@ Route::group(['middleware' => 'auth:web'], function() {
     });
 });
 
+//Invite new user to collaborate
+Route::get('invite', 'ProjectController@invite')->name('invite');
+//Process the form submission
+Route::post('invite', 'InviteController@process')->name('process');
+// Accept the invitation. {token} is a required parameter that will be exposed to us in the controller method
+Route::get('accept/{token}', 'InviteController@accept')->name('accept');
+
+
 Route::get('/run/{command}', function ($command) {
     $test = \Artisan::call($command);
     dd($test);
