@@ -44,7 +44,7 @@ class AddDataToCurrencyTable extends Command
         $currencies =  json_decode($file, true );
 
 
-        echo "🗑 Emptying currencies table >> \n";
+        echo "🗑 Emptying currencies table \n";
         // Currency::truncate();
 
         echo "📁 Inserting currencies  \n";
