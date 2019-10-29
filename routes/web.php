@@ -152,6 +152,11 @@ Route::group(['middleware' => 'auth:web'], function() {
 
     Route::get('/project/collaborators', 'CollaboratorController@getAllCollaborators');
     Route::post('/project/collaborator/create', 'CollaboratorController@store');
+    //Crud for Collaborator
+    Route::get('/project/collaborator/remove/{id}', 'CollaboratorController@delete');
+    Route::get('/project/collaborator/edit/{id}', 'CollaboratorController@edit');
+    Route::post('/project/collaborator/update/{id}', 'CollaboratorController@update');
+    Route::get('/project/collaborator/view/{id}', 'CollaboratorController@view');
 
 
     // Client Routes

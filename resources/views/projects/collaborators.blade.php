@@ -85,15 +85,18 @@
                                             <i class="fas fa-ellipsis-v"></i>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <a class="dropdown-item text-success" href="{{url('#')}}"><i
+                                            {{--  <a class="dropdown-item text-success" href="{{url('#')}}"><i
                                                 class="fas fa-binoculars"></i> View
                                             </a>
-                                            <a class="dropdown-item text-secondary" href="{{url('#')}}"><i
-                                                class="fas fa-edit"></i> Edit
+                                              --}}
+
+                                            <a class="dropdown-item text-secondary" href="{{ url('/')}}/project/collaborator/edit/{{ $collabo->id }}"><i
+                                                class="fas fa-edit"></i> Edit  
                                             </a>
-                                            <a class="dropdown-item text-danger" href="{{url('#')}}"><i
+                                            <a class="dropdown-item text-danger" href="{{ url('/')}}/project/collaborator/remove/{{ $collabo->id }}"><i
                                                 class="fas fa-trash-alt"></i> Delete
                                             </a>
+
                                         </div>
                                     </div>
                                 </td>
@@ -147,7 +150,7 @@
                                 <div class="form-group">
                                     <label for="recipient-name" class="col-form-label">Select Collaborator: </label>
                                     <select required class="form-control" name="user_id" id="selectProject">
-                                        <option> Select Collaborator </option>
+                                        <option> Add Collaborator </option>
                                         @foreach($users as $user)
                                         <option value="{{$user->id}}">{{$user->name}}</option>
                                         @endforeach
