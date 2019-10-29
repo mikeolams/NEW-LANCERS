@@ -1,7 +1,4 @@
 @extends('layouts.auth')
-@section('style')
-
-@endsection
 
 
 @section('main-content')
@@ -51,7 +48,7 @@
                             @else
                                 @php $count = 1; @endphp
                                 @foreach($invoices as $invoice)
-                                <tr class="py-2">
+                                <tr class="py-2 single-invoice" style="cursor: pointer;" data-invoice="{{$invoice->id}}">
                                     <td class="border-top border-bottom titles"># {{$count}}</td>
                                     <td class="border-top border-bottom titles">{{$invoice->estimate->project->client->name}}</td>
                                     <td class="border-top border-bottom titles">{{$invoice->estimate->project->title}}</td>
@@ -69,7 +66,7 @@
                                                 <i class="fas fa-ellipsis-v"></i>
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item text-success" href="#"><i class="fas fa-binoculars"></i> View</a>
+                                                <a class="dropdown-item text-success" href="/invoices/{{$invoice->id}}"><i class="fas fa-binoculars"></i> View</a>
                                                 <a class="dropdown-item text-secondary" href="#"><i class="fas fa-edit"></i> Edit</a>
                                                 <a class="dropdown-item text-danger" href="#"><i class="fas fa-trash-alt"></i> Delete</a>
                                             </div>
@@ -104,5 +101,10 @@
             if(selectStatus.value == 'all') window.location.href="/invoices";
             else window.location.href="/invoices?filter="+selectStatus.value;
         }, false)
+
+        $(".single-invoice").click(function (e) {
+            console.log('here');
+            window.location.href = "/invoices/" + e.currentTarget.dataset.invoice
+        });
     </script>
 @endsection

@@ -45,7 +45,7 @@ class InvoiceController extends Controller {
                 unset($invoices[$key]);
             }
         }
-        // return $invoices;
+
         return view('invoices.invoicelist')->with('invoices', $invoices);
     }
 
@@ -60,13 +60,24 @@ class InvoiceController extends Controller {
 
         $estimate = Estimate::find($request->estimate_id);
 
-        $pre_invoice = Invoice::whereEstimate_id($request->estimate_id)->first();
+        $pre_invoice = Invoice::where('estimate_id', $request->estimate_id)->first();
+
         if (is_object($pre_invoice)) {
             $pre_invoice->update(['amount' => $estimate->estimate]);
-        }
-        $createinvoice = Invoice::create(['user_id' => Auth::user()->id, 'issue_date' => $estimate->start, 'due_date' => $estimate->end, 'estimate_id' => $estimate->id, 'amount' => $estimate->estimate, 'currency_id' => $estimate->currency_id]);
-        $invoice = Invoice::whereId($createinvoice->id)->with('estimate')->first();
+            $invoice = $pre_invoice;
+        }else{
 
+            $createinvoice = Invoice::create(['user_id' => Auth::user()->id, 'issue_date' => $estimate->start, 'due_date' => $estimate->end, 'estimate_id' => $estimate->id, 'amount' => $estimate->estimate, 'currency_id' => $estimate->currency_id]);
+
+            $invoice = $createinvoice;
+
+            // $estimate->update(['invoice_id' => $createinvoice->id]);
+            $estimate->project->update(['invoice_id' => $createinvoice->id]);
+        }
+
+
+        $invoice->estimate;
+        // return $invoice;
 
         return view('invoices.reviewinvoice')->with('invoice', $invoice);
     }
@@ -86,14 +97,12 @@ class InvoiceController extends Controller {
     }
 
     public function show($invoice) {
-        $invoice = Invoice::findOrFail($invoice);
-
+        $pre_invoice = Invoice::findOrFail($invoice);
         // dd($invoice);
-        $project_id = $invoice->project_id;
 
-        $invoice = Project::where('id', $project_id)->select('id', 'title', 'estimate_id', 'client_id')->with(['estimate', 'invoice', 'client'])->first();
+        $invoice = Project::where('invoice_id', $invoice)->select('id', 'title', 'estimate_id', 'client_id', 'invoice_id')->with(['estimate', 'invoice', 'client'])->first();
 	
-        // return $invoice;
+    // return $invoice;
         return view('invoices.viewinvoice')->with('invoice', $invoice);
     }
 
@@ -114,9 +123,7 @@ class InvoiceController extends Controller {
 
         $filename = "invoice#" . strtotime($invoice->created_at) . ".pdf";
 
-        $project_id = $invoice->project_id;
-
-        $invoice = Project::where('id', $project_id)->select('id', 'title', 'estimate_id', 'client_id')->with(['estimate', 'invoice', 'client'])->first();
+        $invoice = Project::where('invoice_id', $invoice->id)->select('id', 'title', 'estimate_id', 'invoice_id','client_id')->with(['estimate', 'invoice', 'client'])->first();
 
         $pdf = PDF::loadView('invoices.pdf', ['invoice' => $invoice]);
 

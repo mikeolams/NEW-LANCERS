@@ -164,9 +164,9 @@ Route::group(['middleware' => 'auth:web'], function() {
 
 
     Route::get('/clients/{client}/invoices/{invoice}', 'InvoiceController@clientInvoice');
-    Route::get('/client/add', function() {
-        return view('addclients');
-    });
+    // Route::get('/client/add', function() {
+    //     return view('addclients');
+    // });
 
 
     //Invoice routes
@@ -278,6 +278,7 @@ Route::group(['middleware' => 'auth:web'], function() {
     Route::get('/invoice/review', function() {
         return view('reviewinvoice');
     });
+<<<<<<< HEAD
     Route::get('/invoice', function () {
         return view('invoice_view');
     });
@@ -290,6 +291,20 @@ Route::group(['middleware' => 'auth:web'], function() {
     Route::get('/client-doc-view', function () {
         return view('client-doc-view');
     });
+=======
+    // Route::get('/invoice', function () {
+    //     return view('invoice_view');
+    // });
+    // Route::get('/invoice_sent', function () {
+    //     return view('invoice_sent');
+    // });
+    // Route::get('/invoice-view', function () {
+    //     return view('invoice-view');
+    // });
+    // Route::get('/client-doc-view', function () {
+    //     return view('client-doc-view');
+    // });
+>>>>>>> 0c8a5a5dc70263c9d06fc702c4ceb212e4589b70
 
 
     //Proposals

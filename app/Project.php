@@ -30,6 +30,11 @@ class Project extends Model
         return $this->hasMany('App\Task');
     }
 
+    public function invoice()
+    {
+        return $this->hasOne('App\Invoice', 'id', 'invoice_id');
+    }
+
     public static function generateTrackingCode()
     {
         return "LNCR_PTRCK_".time(); 

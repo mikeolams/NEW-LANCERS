@@ -114,13 +114,13 @@ class EstimateController extends Controller {
         try {
             // $client = new Client;
             // $estimate = new Estimate;
-    if(!empty($contacts[0]['email'])){
-        $emailcontact = $contacts[0]['email'];
-    }
-    else{
-        $emailcontact = null;
-    }
-    
+        if(!empty($contacts[0]['email'])){
+            $emailcontact = $contacts[0]['email'];
+        }
+        else{
+            $emailcontact = null;
+        }
+        
 
             $data['project'] = session('project')['project'];
             $data['company'] = session('client')['name'];
