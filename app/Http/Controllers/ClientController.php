@@ -92,12 +92,36 @@ class ClientController extends Controller {
             $data['clients'] = Client::whereUser_id($user)->with(["projects" => function($q) {
                             $q->where('projects.status', '=', 'completed');
                         }])->orderBy('created_at', 'DESC')->get();
+        }elseif ($request->filter == 'active') {
+            $data['clients'] = Client::whereUser_id($user)->with(["projects" => function($q) {
+                            $q->where('projects.status', '=', 'active');
+                        }])->orderBy('created_at', 'DESC')->get();
         } else {
             $data['clients'] = Client::whereUser_id($user)->with('projects')->orderBy('created_at', 'DESC')->get();
         }
 		//dd($data);
         return view('clients.list', $data);
     }
+        // return view('clients.list')->with('clients', $Clients);
+// }
+
+public function listGetNew(request $param) {
+    $filter = Request()->get('filter');
+    // dd($filter);
+    $data = array();
+    if ($filter == 'pending') {
+        $Clients =Client::whereUser_id(Auth::user()->id)->whereStatus('pending')->with('user')->get();
+    } elseif ($filter == 'active') {
+        $Clients = Client::whereUser_id(Auth::user()->id)->whereStatus('active')->with('user')->get();
+    } elseif ($filter == 'completed') {
+        $Clients = Client::whereUser_id(Auth::user()->id)->whereStatus('completed')->with('user')->get();
+        // dd($Clients);
+    } else {
+        $Clients = Client::whereUser_id(Auth::user()->id)->with('user')->get();
+}
+// dd($Clients);
+    return view('clients/Client_Company_List')->with('clients', $Clients);
+}
 
     
     public function view($client_id) {

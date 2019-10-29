@@ -15,6 +15,7 @@
                         
                         <option value="all" @if (Request()->filter) {{ 'selected' }} @endif >All</option>
                         <option value="pending" @if (Request()->filter && Request()->filter == 'pending') {{ 'selected' }} @endif>Pending</option>
+                        <option value="active" @if (Request()->filter && Request()->filter == 'active') {{ 'selected' }} @endif>Active</option>
                         <option value="completed" @if (Request()->filter && Request()->filter == 'completed') {{ 'selected' }} @endif>Completed</option>
                     </select>
                 </form>
