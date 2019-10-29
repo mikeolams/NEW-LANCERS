@@ -131,11 +131,9 @@
 @section('content')
 <div id="container">
     <div>
-    <a href="{{url('invoices')}}">
-     <button class="close navM"><span>
+        <button class="close navM"><span>
                 <i class="fa fa-times"></i>
             </span></button>
-    </a>
     </div>
     <div>
         <p class="nav cEstimate" id="cre">Create Estimate</p>
