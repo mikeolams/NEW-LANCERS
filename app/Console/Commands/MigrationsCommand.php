@@ -12,7 +12,7 @@ class MigrationsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'run:migrations';
+    protected $signature = 'run:migrations {--seed}';
 
     /**
      * The console command description.
@@ -44,6 +44,10 @@ class MigrationsCommand extends Command
         Artisan::call('countriesandstates:table');
         Artisan::call('currencies:table');
 
-        //Artisan::call('db:seed');
+        if($this->option('seed')){
+            echo "Seeding the database.. \n";
+            Artisan::call('db:seed');
+            echo "✓ Database seeded sucessfully \n";
+        }
     }
 }

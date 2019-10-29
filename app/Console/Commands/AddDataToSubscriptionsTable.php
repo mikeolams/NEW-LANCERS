@@ -53,6 +53,6 @@ class AddDataToSubscriptionsTable extends Command
             SubscriptionPlan::updateOrCreate($plan);
         }
 
-        echo "done ✓";
+        echo "✓ Added subscription plans sucessfully \n";
     }
 }
