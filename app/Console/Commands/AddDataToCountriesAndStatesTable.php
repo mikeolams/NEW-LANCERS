@@ -82,6 +82,6 @@ class AddDataToCountriesAndStatesTable extends Command
         // Country::insert($c);
         // State::insert($s);
 
-        echo "done ✓";
+        echo "✓ Added countries and states successfully \n";
     }
 }

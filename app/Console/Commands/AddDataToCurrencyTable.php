@@ -51,6 +51,6 @@ class AddDataToCurrencyTable extends Command
             Currency::updateOrCreate($currency);
         }
 
-        echo "done ✓";
+        echo "✓ Added currencies successfully \n";
     }
 }
