@@ -92,6 +92,10 @@ class ClientController extends Controller {
             $data['clients'] = Client::whereUser_id($user)->with(["projects" => function($q) {
                             $q->where('projects.status', '=', 'completed');
                         }])->orderBy('created_at', 'DESC')->get();
+        }elseif ($request->filter == 'active') {
+            $data['clients'] = Client::whereUser_id($user)->with(["projects" => function($q) {
+                            $q->where('projects.status', '=', 'active');
+                        }])->orderBy('created_at', 'DESC')->get();
         } else {
             $data['clients'] = Client::whereUser_id($user)->with('projects')->orderBy('created_at', 'DESC')->get();
         }
