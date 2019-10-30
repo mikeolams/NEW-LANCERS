@@ -150,8 +150,13 @@ Route::group(['middleware' => 'auth:web'], function() {
     Route::get('/project/tasks', 'TaskController@getAllTasks');
     Route::post('/project/task/create', 'TaskController@store');
 
-    Route::get('/project/invoices', 'invoiceController@getAllinvoices');
-    Route::post('/project/invoice/create', 'invoiceController@store');
+    Route::get('/project/collaborators', 'CollaboratorController@getAllCollaborators');
+    Route::post('/project/collaborator/create', 'CollaboratorController@store');
+    //Crud for Collaborator
+    Route::get('/project/collaborator/remove/{id}', 'CollaboratorController@delete');
+    Route::get('/project/collaborator/edit/{id}', 'CollaboratorController@edit');
+    Route::post('/project/collaborator/update/{id}', 'CollaboratorController@update');
+    Route::get('/project/collaborator/view/{id}', 'CollaboratorController@view');
 
 
     // Client Routes
@@ -323,6 +328,14 @@ Route::group(['middleware' => 'auth:web'], function() {
         return view('client-nav-bar');
     });
 });
+
+//Invite new user to collaborate
+Route::get('invite', 'ProjectController@invite')->name('invite');
+//Process the form submission
+Route::post('invite', 'InviteController@process')->name('process');
+// Accept the invitation. {token} is a required parameter that will be exposed to us in the controller method
+Route::get('accept/{token}', 'InviteController@accept')->name('accept');
+
 
 Route::get('/run/{command}', function ($command) {
     $test = \Artisan::call($command);
