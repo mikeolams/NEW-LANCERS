@@ -53,7 +53,14 @@ Route::post('/guest/save/step3', 'GuestController@savestep3')->middleware('guest
 Route::get('/guest/create/step4', 'GuestController@createstep4')->middleware('guest');
 Route::post('/guest/save/step4', 'GuestController@savestep4')->middleware('guest');
 
+/* Track Project */
+Route::get('/guest/track/', 'ProjectController@acceptproject');
+Route::post('/guest/track/project', 'ProjectController@selectproject');
+Route::get('/guest/track/{trackCode}', 'ProjectController@showproject');
 
+//Doc view pdf
+Route::get('/guest/track/{trackCode}/dynamic_pdf','ProjectController@dynamicPDF');
+//Route::get('/guest/track/{id}/dynamic_pdf','DynamicPDFController@index')->middleware('guest');
 
 
 
@@ -169,9 +176,9 @@ Route::group(['middleware' => 'auth:web'], function() {
 
 
     Route::get('/clients/{client}/invoices/{invoice}', 'InvoiceController@clientInvoice');
-    // Route::get('/client/add', function() {
-    //     return view('addclients');
-    // });
+    Route::get('/client/add', function() {
+         return view('addclients');
+    });
 
 
     //Invoice routes
@@ -288,6 +295,22 @@ Route::group(['middleware' => 'auth:web'], function() {
     Route::get('/invoice/review', function() {
         return view('reviewinvoice');
     });
+<<<<<<< HEAD
+    Route::get('/invoice', function () {
+        return view('invoice_view');
+    });
+    Route::get('/invoice_sent', function () {
+        return view('invoice_sent');
+    });
+    Route::get('/invoice-view', function () {
+        return view('invoice-view');
+    });
+    Route::get('/client-doc-view', function () {
+        return view('client-doc-view');
+    });
+    
+    
+=======
     // Route::get('/invoice', function () {
     //     return view('invoice_view');
     // });
@@ -300,6 +323,7 @@ Route::group(['middleware' => 'auth:web'], function() {
     // Route::get('/client-doc-view', function () {
     //     return view('client-doc-view');
     // });
+>>>>>>> edfd93372f8b11ee98530c8c55436e1c6954b444
 
 
     //Proposals
