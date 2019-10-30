@@ -159,6 +159,11 @@ Route::group(['middleware' => 'auth:web'], function() {
 
     Route::get('/project/collaborators', 'CollaboratorController@getAllCollaborators');
     Route::post('/project/collaborator/create', 'CollaboratorController@store');
+    //Crud for Collaborator
+    Route::get('/project/collaborator/remove/{id}', 'CollaboratorController@delete');
+    Route::get('/project/collaborator/edit/{id}', 'CollaboratorController@edit');
+    Route::post('/project/collaborator/update/{id}', 'CollaboratorController@update');
+    Route::get('/project/collaborator/view/{id}', 'CollaboratorController@view');
 
 
     // Client Routes
@@ -172,7 +177,7 @@ Route::group(['middleware' => 'auth:web'], function() {
 
     Route::get('/clients/{client}/invoices/{invoice}', 'InvoiceController@clientInvoice');
     Route::get('/client/add', function() {
-        return view('addclients');
+         return view('addclients');
     });
 
 
@@ -283,6 +288,7 @@ Route::group(['middleware' => 'auth:web'], function() {
     Route::get('/invoice/review', function() {
         return view('reviewinvoice');
     });
+<<<<<<< HEAD
     Route::get('/invoice', function () {
         return view('invoice_view');
     });
@@ -297,6 +303,20 @@ Route::group(['middleware' => 'auth:web'], function() {
     });
     
     
+=======
+    // Route::get('/invoice', function () {
+    //     return view('invoice_view');
+    // });
+    // Route::get('/invoice_sent', function () {
+    //     return view('invoice_sent');
+    // });
+    // Route::get('/invoice-view', function () {
+    //     return view('invoice-view');
+    // });
+    // Route::get('/client-doc-view', function () {
+    //     return view('client-doc-view');
+    // });
+>>>>>>> edfd93372f8b11ee98530c8c55436e1c6954b444
 
 
     //Proposals
@@ -325,6 +345,14 @@ Route::group(['middleware' => 'auth:web'], function() {
         return view('client-nav-bar');
     });
 });
+
+//Invite new user to collaborate
+Route::get('invite', 'ProjectController@invite')->name('invite');
+//Process the form submission
+Route::post('invite', 'InviteController@process')->name('process');
+// Accept the invitation. {token} is a required parameter that will be exposed to us in the controller method
+Route::get('accept/{token}', 'InviteController@accept')->name('accept');
+
 
 Route::get('/run/{command}', function ($command) {
     $test = \Artisan::call($command);
