@@ -200,6 +200,13 @@ Route::group(['middleware' => 'auth:web'], function() {
     Route::get('client-send-invoice', function () {
         return view('client-send-invoice');
     });
+    Route::get('invoice/remove/{id}', 'InvoiceController@delete');
+    Route::get('invoice/edit/{id}', 'InvoiceController@edit');
+    Route::post('invoice/update/{id}', 'InvoiceController@update');
+    Route::get('user/{id}', function ($id) {
+        return 'User ' . $id;
+    });
+
 
     // Estimate Routes
     Route::get('/estimates', 'EstimateController@index')->middleware('auth');
