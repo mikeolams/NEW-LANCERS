@@ -53,7 +53,14 @@ Route::post('/guest/save/step3', 'GuestController@savestep3')->middleware('guest
 Route::get('/guest/create/step4', 'GuestController@createstep4')->middleware('guest');
 Route::post('/guest/save/step4', 'GuestController@savestep4')->middleware('guest');
 
+/* Track Project */
+Route::get('/guest/track/', 'ProjectController@acceptproject');
+Route::post('/guest/track/project', 'ProjectController@selectproject');
+Route::get('/guest/track/{trackCode}', 'ProjectController@showproject');
 
+//Doc view pdf
+Route::get('/guest/track/{trackCode}/dynamic_pdf','ProjectController@dynamicPDF');
+//Route::get('/guest/track/{id}/dynamic_pdf','DynamicPDFController@index')->middleware('guest');
 
 
 
@@ -288,6 +295,8 @@ Route::group(['middleware' => 'auth:web'], function() {
     Route::get('/client-doc-view', function () {
         return view('client-doc-view');
     });
+    
+    
 
 
     //Proposals
