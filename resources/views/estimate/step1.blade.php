@@ -131,9 +131,9 @@
 @section('content')
 <div id="container">
     <div>
-        <button class="close navM"><span>
+        <a href="{{url('/dashboard')}}"><button class="close navM"><span>
                 <i class="fa fa-times"></i>
-            </span></button>
+            </span></button></a>
     </div>
     <div>
         <p class="nav cEstimate" id="cre">Create Estimate</p>
@@ -210,31 +210,41 @@
 
 @endsection
 
-@section('script')
+@section('scripting')
     
 <script>
         function verifyPath() {
-        let a_next =  document.querySelector('.a-next');
+        let a_next =  document.querySelectorAll('#ext');
+        let newProjectName = document.querySelectorAll('.form-control')[1].value;
+        let oldProjectName = document.querySelectorAll('.form-control')[0].value;
         let next = document.querySelector('.next');
         let bt = document.getElementById('btne');
 
-
+        console.log('here:' + newProjectName);
         
-        if (createProject.value !== "" && createProject.value.length >= 4 ) {
-             a_next.style.background = '#0ABAB5';
+        if (newProjectName !== "" && newProjectName.length >= 4 ) {
+            console.log('here:' + newProjectName);
+            //  a_next.style.background = '#0ABAB5';
              next.style.background = '#0ABAB5';
               bt.disabled = false;
 
 
-            document.querySelector('.a-next').classList.remove('disabled');
+            document.querySelectorAll('#ext')[0].style.background = '#0ABAB5';
+            // document.querySelectorAll('#ext')[0].classList.add('enabled');
+            document.querySelectorAll('#ext')[1]..style.background = '#0ABAB5';
             document.querySelector('.next').classList.remove('disabled');
         } else {
 
             //console.log('here works');
+            document.querySelectorAll('#ext')[0].style.background = '';
+            document.querySelectorAll('#ext')[1]..style.background = '';
+
+
+
             document.querySelector('.next').style.background = 'rgba(207, 204, 204, 0.4)';
             document.querySelector('.next').classList.add('disabled');
-            document.querySelector('.a-next').style.background = 'rgba(207, 204, 204, 0.4)';
-            document.querySelector('.a-next').classList.add('disabled');
+            document.querySelectorAll('#ext').style.background = 'rgba(207, 204, 204, 0.4)';
+            document.querySelectorAll('#ext').classList.add('disabled');
              bt.disabled = true;
               bt.preventDefault();
             
@@ -243,9 +253,19 @@
         }
     }
     
-    let createProject = document.getElementById('createProject');
+    // let createProject = document.getElementById('createProject');
+    let buttonOne = document.querySelectorAll('.form-control')[0];
+    let buttonTwo = document.querySelectorAll('.form-control')[1];
+    document.querySelectorAll('.form-control')[1].addEventListener('click', function(){
+        console.log('yuyu');
+    });
+    
+    
     window.onload=function(){
-         createProject.addEventListener('keyup', verifyPath);
+        console.log('ok');
+        //  createProject.addEventListener('keyup', verifyPath);
+        buttonOne.addEventListener('keyup', verifyPath);
+         buttonTwo.addEventListener('keyup', verifyPath);
     }
    
 
