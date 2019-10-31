@@ -138,8 +138,9 @@
     <div>
         <p class="nav cEstimate" id="cre">Create Estimate</p>
     </div>
+    
     <div>
-        <input class="disabled" id="ext" type="button" value="NEXT">
+        <input class="disabled" id="ext" type="submit" value="NEXT">
     </div>    
 </div>
 
