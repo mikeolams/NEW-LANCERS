@@ -15,20 +15,20 @@
                         {{session('ImageUploadMessage')}}
                         @endif
 
-                        @if(Auth::user()->profile_picture == 'user-default.png')
-                        <form style="margin:0px!important;display: inline!important;min-height: 0px!important" action="{{ route('Profile-Image') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <input id="picture" name="profileimage" type="file" style=""  onchange="image1(this);" />
-                            <div class="clearfix"></div>
-                            <br/>
-                            <div class="d-flex justify-content-center mb-3">
-                                <button  id="picture_upload" type="submit" class="green-btn">Upload Image</button>
-                            </div>
-                        </form>
-
-                        @else
-                        <img id="image_selecter" src="{{ asset(Auth::user()->profile_picture) }}" style="width: 100px; height: 100px; border-radius: 10%; pointer: finger;" alt="Profile Image">
-                        @endif
+                        @if(Auth::user()->profile_picture !== 'user-default.png')
+                    <img id="image_selecter" src="{{ asset(Auth::user()->profile_picture) }}" style="width: 100px; height: 100px; border-radius: 10%; pointer: finger;" alt="Profile Image">
+                    @endif
+                    @if(Auth::user()->profile_picture == 'user-default.png')
+                    <img id="image_selecter" src="{{ asset('images/user-default.jpg') }}" style="width: 100px; height: 100px; border-radius: 10%; pointer: finger;" alt="Profile Image">
+                    @endif
+						<form style="margin:0px!important;display: inline!important;min-height: 0px!important" action="{{ route('Profile-Image') }}"" method="POST" enctype="multipart/form-data">
+							@csrf
+							<input id="picture" name="profileimage" type="file" style="visibility: hidden;"  onchange="image1(this);" />
+							<br>
+							<div class="d-flex justify-content-center mb-3">
+								<button style="display: none;" id="picture_upload" type="submit" class="green-btn">Upload Image</button>
+							</div>
+						</form>
 
                         <div class="d-flex flex-column align-items-center">
                             <div class="d-flex flex-column">
@@ -53,11 +53,11 @@
             @if(session('editErrors'))
             @if(sizeof(session('editErrors')) > 1)
             @foreach(session('editErrors') as $errors)
-            <p style="color:red;">{{$errors}}<p/>
+            <p style="color:red;">{{$errors}}</p>
             @endforeach
             @endif
             @if(sizeof(session('editErrors'))  <= 1)
-            <p style="color:red;">{{session('editErrors')[0]}}<p/>
+            <p style="color:red;">{{session('editErrors')[0]}}</p>
             @endif
             @endif
             @php
@@ -156,10 +156,10 @@
                                 </div>
                             </div>
                         </div>
-                        </br>
-                        </br>
-                        </br>
-                        </br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
 
                         <p style="text-align: center;">
                             <button  type="submit" class="green-btn">Update</button>
@@ -246,7 +246,7 @@
                                     <option value="">Select a country</option>
                                     @if($data != null)
                                     @foreach($data[0] as $dataCountry)
-                                    <option value={{ $dataCountry['id'] }}>{{ $dataCountry['name'] }}</option>
+                                    <option value={{ $dataCountry[id] }}>{{ $dataCountry['name'] }}</option>
                                     @endforeach
                                     @endif
                                 </select>
@@ -257,7 +257,7 @@
                                     <option value="">Select State</option>
                                     @if($data != null)
                                     @foreach($data[2] as $dataState)
-                                    <option value={{ $dataState['id'] }}>{{ $dataState['name'] }}</option>
+                                    <option value={{ $dataState[id] }}>{{ $dataState['name'] }}</option>
                                     @endforeach
                                     @endif
                                 </select>

@@ -441,7 +441,7 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="cc-exp" class="control-label">How long  do you charge per hour?</label>
+                                            <label for="cc-exp" class="control-label">How much  do you charge per hour?</label>
                                         </div>
                                     </div>
                                     <div class="col-6">
